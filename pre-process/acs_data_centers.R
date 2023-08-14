@@ -448,98 +448,30 @@ county <- left_join(county, totals, by=c("geography", "year", "concept")) %>%
 
 rm(totals)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-county <- get_acs_recs(geography="county", table.names = "B19001", years = c(pre_api_years, api_years), acs.type = 'acs5') %>%
-  mutate(label = str_remove_all(label, "Estimate!!Total!!")) %>%
-  mutate(label = str_remove_all(label, ":")) %>%
-  mutate(label = str_replace_all(label, "!!", " ")) %>%
-  mutate(label = str_remove_all(label, "Estimate ")) %>%
-  mutate(label = str_trim(label, "both")) %>%
-  select(-"state") %>%
-  mutate(concept = str_to_title(concept))
-
-county <- left_join(county, income_lookup, by=c("variable")) %>%
-  filter(!(is.na(grouping))) %>%
-  group_by(name, year, grouping) %>%
-  summarise(estimate = sum(estimate),  moe = round(moe_sum(moe, estimate), 0)) %>%
-  as_tibble() %>%
-  mutate(metric = "Household Income", geography_type = "County")
-
-totals <- county %>%
-  select("name", "grouping", "year", total="estimate") %>%
-  filter(grouping == "Total") %>%
-  select(-"grouping")
-
-county_income <- left_join(county, totals, by=c("name", "year")) %>%
-  mutate(share = estimate / total) %>%
-  select("name", geography="geography_type", "grouping", "year", "estimate", "moe", "share")
-
-county_income <- county_income %>%
-  select(-"share") %>%
-  rename(`Estimate:`="estimate", `MoE:`="moe") %>%
-  pivot_wider(names_from = "grouping", values_from = c("Estimate:", "MoE:"), names_sep = " ")
-
-rm(totals, county)
-
 # Blockgroup 2013 onward
-income_post_2013 <- get_acs_recs(geography="block group", table.names = "B19001", years = api_years, acs.type = 'acs5') %>%
-  mutate(label = str_remove_all(label, "Estimate!!Total!!")) %>%
-  mutate(label = str_remove_all(label, ":")) %>%
-  mutate(label = str_replace_all(label, "!!", " ")) %>%
-  mutate(label = str_remove_all(label, "Estimate ")) %>%
-  mutate(label = str_trim(label, "both")) %>%
-  select(-"state") %>%
-  mutate(concept = str_to_title(concept))
+bg_post_2013 <- get_acs_recs(geography="block group", table.names = income_table, years = api_years, acs.type = 'acs5') 
 
-income_post_2013 <- left_join(income_post_2013, income_lookup, by=c("variable")) %>%
+bg_post_2013 <- left_join(bg_post_2013, income_lookup, by=c("variable")) %>%
   filter(!(is.na(grouping))) %>%
-  group_by(GEOID, year, grouping) %>%
-  summarise(estimate = sum(estimate),  moe = round(moe_sum(moe, estimate), 0)) %>%
+  select(geography="GEOID", "estimate", "year", "grouping") %>%
+  group_by(geography, year, grouping) %>%
+  summarise(estimate = sum(estimate)) %>%
   as_tibble() %>%
-  rename(geoid="GEOID") %>%
-  pivot_wider(names_from = "grouping", values_from = c("estimate", "moe"))
+  mutate(concept = "Households by Income") %>%
+  mutate(geography_type = "Blockgroup") %>%
+  mutate(grouping = str_wrap(grouping, width=11)) %>%
+  mutate(grouping = factor(grouping, levels = income_order)) %>%
+  mutate(year = as.character(year)) %>%
+  arrange(geography, grouping, year)
 
 # Blockgroup pre 2013
-est_pre_2013 <- readxl::read_excel(income_2010, sheet="ACS_20105_B19001_150", skip=7) %>%
+bg_pre_2013 <- readxl::read_excel(income_bg, sheet=paste0("ACS_",pre_api_year,"5_", income_table, "_150"), skip=7) %>%
   mutate(geoid = as.character(str_remove_all(`Geographic Identifier`, "15000US"))) %>%
   select(-"Geographic Identifier",-"Table ID", -"Title", -"Universe", -"Summary Level Type", -"Summary Level", -"Area Name", -"ACS Dataset") %>%
   pivot_longer(!geoid, names_to = "label", values_to = "estimate") %>%
   filter(!(str_detect(label, "Margin of Error"))) %>%
   mutate(label = str_remove_all(label, "\\[Estimate\\] ")) %>%
   mutate(label = str_remove_all(label, "\\...[0-9][0-9]")) %>%
-  mutate(ID = row_number())
-
-moe_pre_2013 <- readxl::read_excel(income_2010, sheet="ACS_20105_B19001_150", skip=7) %>%
-  mutate(geoid = as.character(str_remove_all(`Geographic Identifier`, "15000US"))) %>%
-  select(-"Geographic Identifier",-"Table ID", -"Title", -"Universe", -"Summary Level Type", -"Summary Level", -"Area Name", -"ACS Dataset") %>%
-  pivot_longer(!geoid, names_to = "label", values_to = "moe") %>%
-  filter((str_detect(label, "Margin of Error"))) %>%
-  mutate(label = str_remove_all(label, "\\[Margin of Error\\] ")) %>%
-  mutate(label = str_remove_all(label, "\\...[0-9][0-9][0-9]")) %>%
-  mutate(label = str_remove_all(label, "\\...[0-9][0-9]")) %>%
-  mutate(ID = row_number())
-
-income_pre_2013 <- left_join(est_pre_2013, moe_pre_2013, by=c("ID", "geoid", "label")) %>%
-  select(-"ID") %>%
   mutate(grouping = case_when(
     # Total Population
     str_detect(label,"Total") ~ "Total",
@@ -567,66 +499,53 @@ income_pre_2013 <- left_join(est_pre_2013, moe_pre_2013, by=c("ID", "geoid", "la
     str_detect(label,"\\$150,000 To \\$199,999") ~ "$150,000 to $200,000",
     # $200k or more
     str_detect(label,"\\$200,000 Or More") ~ "$200,000 or more"
-    )) %>%
-  drop_na() %>% 
-  select(-label) %>%
+  )) %>%
   mutate(county = substring(geoid, 1, 5)) %>%
   filter(county %in% c("53033", "53035", "53053", "53061")) %>%
   group_by(geoid, grouping) %>%
-  summarise(estimate = sum(estimate), moe = round(moe_sum(moe, estimate), 0)) %>%
+  summarise(estimate = sum(estimate)) %>%
   as_tibble() %>%
-  pivot_wider(names_from = "grouping", values_from = c("estimate", "moe")) %>%
-  mutate(year = 2010)
+  rename(geography="geoid") %>%
+  mutate(concept = "Households by Income") %>%
+  mutate(geography_type = "Blockgroup") %>%
+  mutate(grouping = str_wrap(grouping, width=11)) %>%
+  mutate(grouping = factor(grouping, levels = income_order)) %>%
+  mutate(year = as.character(pre_api_year)) %>%
+  arrange(geography, grouping, year)
 
-# Join Age Data with BLockgroups by MIC with Shares
-bg_income <- bind_rows(income_pre_2013, income_post_2013)
-mic_income <- left_join(mic_splits, bg_income, by=c("geoid", "year"))  
-rm(bg_income, income_pre_2013, income_post_2013, est_pre_2013, moe_pre_2013)
+# Combine Blockgroup Data
+blockgroups <- bind_rows(bg_pre_2013, bg_post_2013) %>% arrange(geography, grouping, year)
+rm(bg_pre_2013, bg_post_2013)
 
-# Summarize Population by Age for MIC's nd MIC buffers
-mic_income <- mic_income %>%
-  mutate(`Estimate: Less than $20,000` = round(`estimate_Less than $20,000` * hh_share, 0)) %>%
-  mutate(`Estimate: $20,000 to $35,000` = round(`estimate_$20,000 to $35,000` * hh_share, 0)) %>%
-  mutate(`Estimate: $35,000 to $50,000` = round(`estimate_$35,000 to $50,000` * hh_share, 0)) %>%
-  mutate(`Estimate: $50,000 to $75,000` = round(`estimate_$50,000 to $75,000` * hh_share, 0)) %>%
-  mutate(`Estimate: $75,000 to $100,000` = round(`estimate_$75,000 to $100,000` * hh_share, 0)) %>%
-  mutate(`Estimate: $100,000 to $150,000` = round(`estimate_$100,000 to $150,000` * hh_share, 0)) %>%
-  mutate(`Estimate: $150,000 to $200,000` = round(`estimate_$150,000 to $200,000` * hh_share, 0)) %>%
-  mutate(`Estimate: $200,000 or more` = round(`estimate_$200,000 or more` * hh_share, 0)) %>%
-  mutate(`Estimate: Total` = round(`estimate_Total` * hh_share, 0)) %>%
-  mutate(`MoE: Less than $20,000` = round(`moe_Less than $20,000` * hh_share, 0)) %>%
-  mutate(`MoE: $20,000 to $35,000` = round(`moe_$20,000 to $35,000` * hh_share, 0)) %>%
-  mutate(`MoE: $35,000 to $50,000` = round(`moe_$35,000 to $50,000` * hh_share, 0)) %>%
-  mutate(`MoE: $50,000 to $75,000` = round(`moe_$50,000 to $75,000` * hh_share, 0)) %>%
-  mutate(`MoE: $75,000 to $100,000` = round(`moe_$75,000 to $100,000` * hh_share, 0)) %>%
-  mutate(`MoE: $100,000 to $150,000` = round(`moe_$100,000 to $150,000` * hh_share, 0)) %>%
-  mutate(`MoE: $150,000 to $200,000` = round(`moe_$150,000 to $200,000` * hh_share, 0)) %>%
-  mutate(`MoE: $200,000 or more` = round(`moe_$200,000 or more` * hh_share, 0)) %>%
-  mutate(`MoE: Total` = round(`moe_Total` * hh_share, 0)) %>%
-  group_by(year, name, geography) %>%
-  summarise(`Estimate: Less than $20,000` = sum(`Estimate: Less than $20,000`), 
-            `Estimate: $20,000 to $35,000` = sum(`Estimate: $20,000 to $35,000`), 
-            `Estimate: $35,000 to $50,000` = sum(`Estimate: $35,000 to $50,000`), 
-            `Estimate: $50,000 to $75,000` = sum(`Estimate: $50,000 to $75,000`),
-            `Estimate: $75,000 to $100,000` = sum(`Estimate: $75,000 to $100,000`), 
-            `Estimate: $100,000 to $150,000` = sum(`Estimate: $100,000 to $150,000`), 
-            `Estimate: $150,000 to $200,000` = sum(`Estimate: $150,000 to $200,000`), 
-            `Estimate: $200,000 or more` = sum(`Estimate: $200,000 or more`), 
-            `Estimate: Total` = sum(`Estimate: Total`),
-            `MoE: Less than $20,000` = round(moe_sum(`MoE: Less than $20,000`, `Estimate: Less than $20,000`), 0), 
-            `MoE: $20,000 to $35,000` = round(moe_sum(`MoE: $20,000 to $35,000`, `Estimate: $20,000 to $35,000`), 0), 
-            `MoE: $35,000 to $50,000` = round(moe_sum(`MoE: $35,000 to $50,000`, `Estimate: $35,000 to $50,000`), 0), 
-            `MoE: $50,000 to $75,000` = round(moe_sum(`MoE: $50,000 to $75,000`, `Estimate: $50,000 to $75,000`), 0),
-            `MoE: $75,000 to $100,000` = round(moe_sum(`MoE: $75,000 to $100,000`, `Estimate: $75,000 to $100,000`), 0), 
-            `MoE: $100,000 to $150,000` = round(moe_sum(`MoE: $100,000 to $150,000`, `Estimate: $100,000 to $150,000`), 0),
-            `MoE: $150,000 to $200,000` = round(moe_sum(`MoE: $150,000 to $200,000`, `Estimate: $150,000 to $200,000`), 0),
-            `MoE: $200,000 or more` = round(moe_sum(`MoE: $200,000 or more`, `Estimate: $200,000 or more`), 0),
-            `MoE: Total` = round(moe_sum(`MoE: Total`, `Estimate: Total`), 0)) %>%
-  as_tibble()
+# Regional Growth Centers
+centers <- NULL
+for(center in rgc_names) {
+  
+  df <- centers_estimate_from_bg(center_type = "Regional Growth Center (6/22/2023)", split_type = "percent_of_occupied_housing_units")
+  ifelse(is.null(centers), centers <- df, centers <- bind_rows(centers, df))
+  rm(df)
+  
+}
 
-mic_income <- bind_rows(mic_income, county_income)
-write_csv(mic_income, "output/mic_income_groups.csv")
-rm(county_income)
+# Manufacturing and Industrial Centers
+for(center in mic_names) {
+  
+  df <- centers_estimate_from_bg(center_type = "MIC (2022 RTP)", split_type = "percent_of_occupied_housing_units")
+  ifelse(is.null(centers), centers <- df, centers <- bind_rows(centers, df))
+  rm(df)
+  
+}
+
+households_by_income <- bind_rows(county, centers)
+rm(income_lookup, centers, blockgroups, county)
+saveRDS(households_by_income, "data/households_by_income.rds")
+
+
+
+
+
+
+
 
 # Housing Tenure ----------------------------------------------------------
 tenure_lookup <- data.frame(variable = c("B25003_001",

@@ -35,6 +35,7 @@ mic_title <- "MIC (2022 RTP)"
 
 age_data <- readRDS("data/population_by_age.rds") %>% mutate(data_year = factor(year, levels=year_ord))
 race_data <- readRDS("data/population_by_race.rds") %>% mutate(data_year = factor(year, levels=year_ord))
+income_data <- readRDS("data/households_by_income.rds") %>% mutate(data_year = factor(year, levels=year_ord))
 
 rgc_names <- age_data %>% filter(geography_type== rgc_title) %>% select("geography") %>% arrange(geography) %>% distinct() %>% pull()
 mic_names <- age_data %>% filter(geography_type== mic_title) %>% select("geography") %>% arrange(geography) %>% distinct() %>% pull()

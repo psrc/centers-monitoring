@@ -59,8 +59,12 @@ shinyUI(
                                                   fluidRow(column(12,echarts4rOutput("rgc_race_chart", height=500))),
                                                   tags$div(class="chart_source","Source: US Census Bureau American Community Survey (ACS) 5yr Data Table B03002"),
                                                   hr(),
-                                                  
-                                                  ), # end of TabPanel for RGC Population
+                                                  h1("Household Income"),
+                                                  strong(tags$div(class="chart_title","Total Household Income")),
+                                                  fluidRow(column(12,echarts4rOutput("rgc_income_chart", height=500))),
+                                                  tags$div(class="chart_source","Source: US Census Bureau American Community Survey (ACS) 5yr Data Table B19001"),
+                                                  hr(),
+                                                  ), # end of TabPanel for RGC Demographics
                                          tabPanel("Jobs", "Test"),
                                          tabPanel("Other", "Test")
                                          )
