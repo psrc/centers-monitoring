@@ -124,6 +124,14 @@ shinyServer(function(input, output, session) {
                   fillOpacity = 0.0)
   })
   
+  output$rgc_pop_hh_hu_chart <- renderEcharts4r({
+    
+    echart_column_chart(df = pop_hh_hu_data %>% filter(geography_type == rgc_title, geography == input$RGC & grouping != "Total"),
+                        x = "data_year", y = "estimate", tog = "grouping", title = "Estimate",
+                        dec = 0, esttype = "number", color = "jewel")
+    
+  })
+  
   output$rgc_age_chart <- renderEcharts4r({
     
     echart_column_chart(df = age_data %>% filter(geography_type == rgc_title, geography == input$RGC & grouping != "Total"),

@@ -20,6 +20,7 @@ race_order <- c("American Indian\nand Alaska\nNative", "Asian",
 income_order <- c("Less than\n$20,000", "$20,000 to\n$35,000", "$35,000 to\n$50,000",
                   "$50,000 to\n$75,000", "$75,000 to\n$100,000", "$100,000 to\n$150,000",
                   "$150,000 to\n$200,000", "$200,000 or\nmore", "Total")
+pop_hh_hu_order <- c("Population", "Households", "Housing Units")
 
 # Census Tables
 age_table <- "B01001"
@@ -123,6 +124,67 @@ mic_names <- st_read("https://services6.arcgis.com/GWxg6t7KXELn1thE/arcgis/rest/
   mutate(mic = gsub("Cascade", "Cascade Industrial Center - Arlington/Marysville", mic)) %>%
   pull() %>%
   unique()
+
+# Total Population from Parcelization -------------------------------------
+parcel_facts <- get_table(schema='ofm', tbl_name='parcelized_saep_facts')
+parcel_dims <- get_table(schema = 'small_areas', tbl_name = 'parcel_dim')
+
+parcel_geo <- parcel_dims %>% 
+  select("parcel_dim_id", "parcel_id", parcel_year="base_year", County="county_name", rgc="regional_growth_center_2023_06_22", mic="manufacturing_industrial_center_2022") %>%
+  mutate(rgc = str_replace_all(rgc, "N/A", "Not in Center"), mic = str_replace_all(mic, "N/A","Not in Center")) %>%
+  mutate(`Center Name` = case_when(
+    rgc != "Not in Center" ~ rgc,
+    mic != "Not in Center" ~ mic,
+    rgc == "Not in Center" & mic == "Not in Center" ~ "Not in Center")) %>%
+  mutate(`Center Type` = case_when(
+    rgc != "Not in Center" ~ "Regional Growth Center",
+    mic != "Not in Center" ~ "Manufacturing & Industrial Center",
+    rgc == "Not in Center" & mic == "Not in Center" ~ ""))
+
+ofm_years <- c(pre_api_year, api_years, 2022)
+parcels <- left_join(parcel_facts, parcel_geo, by=c("parcel_dim_id")) %>%
+  filter(estimate_year %in% ofm_years) 
+
+rgc_data <- parcels %>%
+  select(year="estimate_year", geography="rgc", "total_pop", "housing_units", "occupied_housing_units") %>%
+  group_by(year, geography) %>%
+  summarise(population=sum(total_pop), housing_units=sum(housing_units), households=sum(occupied_housing_units)) %>%
+  as_tibble() %>%
+  filter(geography != "Not in Center") %>%
+  mutate(geography_type = "Regional Growth Center (6/22/2023)") %>%
+  pivot_longer(cols = c(population, households, housing_units), names_to = "grouping", values_to = "estimate") %>%
+  mutate(estimate = round(estimate,0), concept = "Center Overview", share=1) %>%
+  mutate(geography = gsub("Redmond-Overlake", "Redmond Overlake", geography)) %>%
+  mutate(geography = gsub("Bellevue", "Bellevue Downtown", geography)) %>%
+  mutate(grouping = gsub("households", "Households", grouping)) %>%
+  mutate(grouping = gsub("housing_units", "Housing Units", grouping)) %>%
+  mutate(grouping = gsub("population", "Population", grouping)) %>%
+  mutate(grouping = factor(grouping, levels = pop_hh_hu_order)) %>%
+  arrange(geography, grouping, year)
+
+mic_data <- parcels %>%
+  select(year="estimate_year", geography="mic", "total_pop", "housing_units", "occupied_housing_units") %>%
+  group_by(year, geography) %>%
+  summarise(population=sum(total_pop), housing_units=sum(housing_units), households=sum(occupied_housing_units)) %>%
+  as_tibble() %>%
+  filter(geography != "Not in Center") %>%
+  mutate(geography_type = "MIC (2022 RTP)") %>%
+  pivot_longer(cols = c(population, households, housing_units), names_to = "grouping", values_to = "estimate") %>%
+  mutate(estimate = round(estimate,0), concept = "Center Overview", share=1) %>%
+  mutate(geography = gsub("Kent MIC", "Kent", geography)) %>%
+  mutate(geography = gsub("Paine Field / Boeing Everett", "Paine Field/Boeing Everett", geography)) %>%
+  mutate(geography = gsub("Sumner Pacific", "Sumner-Pacific", geography)) %>%
+  mutate(geography = gsub("Puget Sound Industrial Center- Bremerton", "Puget Sound Industrial Center - Bremerton", geography)) %>%
+  mutate(geography = gsub("Cascade", "Cascade Industrial Center - Arlington/Marysville", geography)) %>%
+  mutate(grouping = gsub("households", "Households", grouping)) %>%
+  mutate(grouping = gsub("housing_units", "Housing Units", grouping)) %>%
+  mutate(grouping = gsub("population", "Population", grouping)) %>%
+  mutate(grouping = factor(grouping, levels = pop_hh_hu_order)) %>%
+  arrange(geography, grouping, year)
+
+center_pop_hh_hu <- bind_rows(rgc_data, mic_data)
+rm(rgc_data, mic_data, parcels, parcel_geo)
+saveRDS(center_pop_hh_hu, "data/center_pop_hh_hu.rds")
 
 # Age Distribution --------------------------------------------------------
 age_lookup <- data.frame(variable = c("B01001_002",
