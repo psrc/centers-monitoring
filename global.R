@@ -20,6 +20,9 @@ library(DT)
 library(sf)
 library(leaflet)
 
+wgs84 <- 4326
+spn <- 32148
+
 current_census_yr <- (lubridate::year(Sys.Date())-2)
 census_years <- c(current_census_yr-10, current_census_yr-5, current_census_yr)
 year_ord <- c("2022","2021", "2020", "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010")
@@ -37,20 +40,20 @@ pop_hh_hu_data <- readRDS("data/center_pop_hh_hu.rds") %>% mutate(data_year = fa
 age_data <- readRDS("data/population_by_age.rds") %>% mutate(data_year = factor(year, levels=year_ord))
 race_data <- readRDS("data/population_by_race.rds") %>% mutate(data_year = factor(year, levels=year_ord))
 income_data <- readRDS("data/households_by_income.rds") %>% mutate(data_year = factor(year, levels=year_ord))
+employment_data <- readRDS("data/centers_employment.rds") %>% mutate(data_year = factor(year, levels=year_ord))
 
 rgc_names <- age_data %>% filter(geography_type== rgc_title) %>% select("geography") %>% arrange(geography) %>% distinct() %>% pull()
 mic_names <- age_data %>% filter(geography_type== mic_title) %>% select("geography") %>% arrange(geography) %>% distinct() %>% pull()
 
 centers_info <- read_csv("data/centers_information.csv", show_col_types = FALSE)
 
-#data <- read_csv("data/population_by_geography.csv", show_col_types = FALSE) %>% 
-#  filter(geography %in% c("Regional Growth Center", "Manufacturing & Industrial Center") & year %in% census_years) %>%
-#  mutate(data_year = as.character(year)) %>%
-#  mutate(name = gsub("Bellevue", "Bellevue Downtown", name))
-
 # Shapefiles --------------------------------------------------------------
 rgc_shape <- st_read("https://services6.arcgis.com/GWxg6t7KXELn1thE/arcgis/rest/services/Regional_Growth_Centers/FeatureServer/0/query?where=0=0&outFields=*&f=pgeojson") %>%
   mutate(name = gsub("Bellevue", "Bellevue Downtown", name)) %>%
   mutate(name = gsub("Redmond-Overlake", "Redmond Overlake", name)) %>%
-  select("name")
+  select("name", "acres")
+
+
+
+
 

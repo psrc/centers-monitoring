@@ -30,16 +30,21 @@ shinyUI(
                       
                       column(8,
                              selectInput("RGC","Select Regional Growth Center:",rgc_names),
+                             
+                             # Section on page for Map and Summary Table
                              fluidRow(column(6, leafletOutput("rgc_map")),
-                                      column(6,  strong("Description:"),
+                                      column(6, strong("Center Summary:"),
                                              br(),
-                                             textOutput("RGCDescription"),
+                                             dataTableOutput("summary_table"),
                                              br(),
-                                             strong("Designation Year: "), 
-                                             textOutput("RGCDesignationYear"),
+                                             tags$div(class="chart_source","* Employment data is suppressed")
+                                             )),
+                             br(),
+                             
+                             # Section on page for Text Description
+                             fluidRow(column(12, strong("Description:"),
                                              br(),
-                                             strong("Center Type: "),
-                                             textOutput("RGCType"))),
+                                             textOutput("RGCDescription"))),
                              br(),
                              tabsetPanel(type = "tabs",
                                          tabPanel("Demographics", 

@@ -156,7 +156,9 @@ shinyServer(function(input, output, session) {
     
   })
   
-  
-  
+  output$summary_table <- DT::renderDataTable({create_rgc_summary_table(center_name = input$RGC, yr = 2021)
+  })
+    
+
 })    
 

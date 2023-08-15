@@ -297,3 +297,101 @@ echart_bar_chart <- function(df, x, y, tog, title, dec, esttype, color) {
   return(c)
   
 }
+
+create_rgc_summary_table <- function(center_name, yr) {
+  
+  # Area
+  r1 <- rgc_shape %>%
+    st_drop_geometry() %>%
+    filter(name == center_name) %>% 
+    select("name", "acres") %>% 
+    mutate(grouping="Land Area (acres)") %>% 
+    mutate(estimate=as.character(round(acres,0))) %>%
+    select(-"acres")
+  
+  # Designation Year
+  r2 <- centers_info %>% 
+    filter(name == center_name & rgc_mic == "Regional Growth Center") %>% 
+    select("name", "designation_year") %>% 
+    mutate(grouping="Designation Year") %>% 
+    mutate(estimate=as.character(designation_year)) %>%
+    select(-"designation_year")
+  
+  # Center Type
+  r3 <- centers_info %>% 
+    filter(name == center_name & rgc_mic == "Regional Growth Center") %>% 
+    select("name", "center_type") %>% 
+    mutate(grouping="Center Type") %>% 
+    mutate(estimate=as.character(center_type)) %>%
+    select(-"center_type")
+  
+  # Population, Households and Housing Units
+  r4 <- pop_hh_hu_data %>% 
+    filter(year == yr & geography == center_name & geography_type == rgc_title) %>% 
+    select(name="geography", "grouping", "estimate") %>%
+    mutate(estimate = as.character(estimate))
+  
+  # Jobs
+  r5 <- employment_data %>% 
+    filter(year == yr & geography == center_name & geography_type == rgc_title & grouping == "Total") %>% 
+    mutate(grouping="Total Employment") %>% 
+    select(name="geography", "grouping", "estimate") %>%
+    mutate(estimate = as.character(estimate))
+  
+  # Activity Units per Acre
+  acres <- r1 %>% select("estimate") %>% pull() %>% as.integer()
+  pop <- r4 %>% filter(grouping %in% c("Population")) %>% select("estimate") %>% pull() %>% as.integer()
+  
+  if (r5 %>% select("estimate") %>% pull() == "*") {
+    
+    jobs <-"*"
+    
+  } else {
+    
+    jobs <- r5 %>% select("estimate") %>% pull() %>% as.integer()
+    
+  }
+  
+  if (jobs == "*") {
+    
+    au <- "*"
+    
+  } else {
+    
+    au <- round((pop+jobs)/acres,1)
+    
+  }
+  
+  r6 <- r5 %>% mutate(estimate = as.character(au), grouping = "Activity Units per Acre")
+  
+  t <- bind_rows(r1, r2, r3, r4, r5, r6) %>% select(-"name")
+  
+  headerCallbackRemoveHeaderFooter <- c(
+    "function(thead, data, start, end, display){",
+    "  $('th', thead).css('display', 'none');",
+    "}"
+  )
+  
+  summary_tbl <- datatable(t,
+                           options = list(paging = FALSE,    ## paginate the output
+                                          pageLength = 15,
+                                          searching = FALSE,
+                                          #scrollX = TRUE,   ## enable scrolling on X axis
+                                          #scrollY = TRUE,   ## enable scrolling on Y axis
+                                          #autoWidth = TRUE, ## use smart column width handling
+                                          #server = FALSE,   ## use client-side processing
+                                          dom = 't',
+                                          headerCallback = JS(headerCallbackRemoveHeaderFooter)
+                           ),
+                           selection = 'none',
+                           callback = JS(
+                             "$('table.dataTable.no-footer').css('border-bottom', 'none');"
+                           ),
+                           class = 'row-border',
+                           filter = 'none',              
+                           rownames = FALSE               
+  )
+  
+  return(summary_tbl)
+  
+}
