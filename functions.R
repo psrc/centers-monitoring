@@ -329,51 +329,79 @@ create_rgc_summary_table <- function(center_name, yr) {
   r4 <- pop_hh_hu_data %>% 
     filter(year == yr & geography == center_name & geography_type == rgc_title) %>% 
     select(name="geography", "grouping", "estimate") %>%
-    mutate(estimate = as.character(estimate))
+    mutate(estimate = format(round(estimate, -1), big.mark = ","))
   
   # Jobs
-  r5 <- employment_data %>% 
+  j <- employment_data %>% 
     filter(year == yr & geography == center_name & geography_type == rgc_title & grouping == "Total") %>% 
     mutate(grouping="Total Employment") %>% 
-    select(name="geography", "grouping", "estimate") %>%
-    mutate(estimate = as.character(estimate))
+    select(name="geography", "grouping", "estimate") %>% 
+    select("estimate") %>% 
+    pull()
+  
+  if (j == "*") {
+    
+    r5 <- r3 %>% mutate(estimate = "*", grouping = "Total Employment")
+    
+  } else {
+    
+    r5 <- employment_data %>% 
+      filter(year == yr & geography == center_name & geography_type == rgc_title & grouping == "Total") %>% 
+      mutate(grouping="Total Employment") %>% 
+      select(name="geography", "grouping", "estimate") %>%
+      mutate(estimate = format(round(as.integer(estimate), -1), big.mark = ","))
+    
+  }
   
   # Activity Units per Acre
   acres <- r1 %>% select("estimate") %>% pull() %>% as.integer()
-  pop <- r4 %>% filter(grouping %in% c("Population")) %>% select("estimate") %>% pull() %>% as.integer()
   
-  if (r5 %>% select("estimate") %>% pull() == "*") {
+  pop <- pop_hh_hu_data %>% 
+    filter(year == yr & geography == center_name & geography_type == rgc_title) %>% 
+    select(name="geography", "grouping", "estimate") %>%
+    filter(grouping %in% c("Population")) %>% 
+    select("estimate") %>% 
+    pull() %>% 
+    as.integer()
+  
+  j <- employment_data %>% 
+    filter(year == yr & geography == center_name & geography_type == rgc_title & grouping == "Total") %>% 
+    mutate(grouping="Total Employment") %>% 
+    select(name="geography", "grouping", "estimate") %>% 
+    select("estimate") %>% 
+    pull()
+  
+  if (j == "*") {
     
     jobs <-"*"
     
   } else {
     
-    jobs <- r5 %>% select("estimate") %>% pull() %>% as.integer()
+    jobs <- as.integer(j)
     
   }
   
-  if (jobs == "*") {
+  if (j == "*") {
     
     au <- "*"
     
   } else {
     
-    au <- round((pop+jobs)/acres,1)
+    au <- round((pop+jobs)/acres,0)
     
   }
   
   r6 <- r5 %>% mutate(estimate = as.character(au), grouping = "Activity Units per Acre")
   
   # Jobs / Pop Balance
-  pop <- r4 %>% filter(grouping %in% c("Population")) %>% select("estimate") %>% pull() %>% as.integer()
   
-  if (r5 %>% select("estimate") %>% pull() == "*") {
+  if (j == "*") {
     
     jobs <-"*"
     
   } else {
     
-    jobs <- r5 %>% select("estimate") %>% pull() %>% as.integer()
+    jobs <- as.integer(j)
     
   }
   
