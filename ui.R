@@ -91,6 +91,11 @@ shinyUI(
                                                   fluidRow(column(12,echarts4rOutput("rgc_type_chart"))),
                                                   tags$div(class="chart_source","Source: US Census Bureau American Community Survey (ACS) 5yr Data Table B25024"),
                                                   hr(),
+                                                  h1("Cost Burden"),
+                                                  strong(tags$div(class="chart_title","Cost Burden by Tenure")),
+                                                  fluidRow(column(12,echarts4rOutput("rgc_burden_chart"))),
+                                                  tags$div(class="chart_source","Source: US Census Bureau American Community Survey (ACS) 5yr Data Table B25070 & B25091"),
+                                                  hr(),
                                          ), # end of TabPanel for RGC Housing
                                          
                                          tabPanel("Other", "Test")

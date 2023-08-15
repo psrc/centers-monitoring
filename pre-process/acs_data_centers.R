@@ -24,13 +24,16 @@ pop_hh_hu_order <- c("Population", "Households", "Housing Units")
 tenure_order <- c("Renter", "Owner", "Total")
 structure_order <- c("SF detached", "Moderate-low\ndensity", "Moderate-high\ndensity",
                      "High density", "Other", "Total")
-
+burden_order <- c("Not cost\nburdened (<30%)", "Cost burdened\n(30-49.9%)",
+                  "Severely cost\nburdened (50+%)", "Not computed", "Total")
 # Census Tables
 age_table <- "B01001"
 race_table <- "B03002"
 income_table <- "B19001"
 tenure_table <- "B25003"
 structure_table <- "B25024"
+renter_burden_table <- "B25070"
+owner_burden_table <- "B25091"
 
 # Employment Data
 rgc_emp_file <- "data/rgc_covered_emp_2010_2021_revised_20230705.csv"
@@ -42,7 +45,11 @@ race_bg <- file.path(acs_pre2013_bg_dir, paste0("acs_",pre_api_year,"5_", race_t
 income_bg <- file.path(acs_pre2013_bg_dir, paste0("acs_",pre_api_year,"5_", income_table, "_150.xlsx"))
 tenure_bg <- file.path(acs_pre2013_bg_dir, paste0("acs_",pre_api_year,"5_", tenure_table, "_150.xlsx"))
 structure_bg <- file.path(acs_pre2013_bg_dir, paste0("acs_",pre_api_year,"5_", structure_table, "_150.xlsx"))
+renter_burden_bg <- file.path(acs_pre2013_bg_dir, paste0("acs_",pre_api_year,"5_", renter_burden_table, "_150.xlsx"))
+owner_burden_bg <- file.path(acs_pre2013_bg_dir, paste0("acs_",pre_api_year,"5_", owner_burden_table, "_150_v2.xlsx"))
+
 education_bg <- file.path(acs_pre2013_bg_dir, paste0("acs_",pre_api_year,"5_B15002_150.xlsx"))
+
 
 # Functions ---------------------------------------------------------------
 centers_estimate_from_bg <- function(split_df=blockgroup_splits, estimate_df=blockgroups, center_type, split_type) {
@@ -868,7 +875,245 @@ housing_units_by_type <- bind_rows(county, centers)
 rm(structure_lookup, centers, blockgroups, county)
 saveRDS(housing_units_by_type, "data/housing_units_by_type.rds")
 
+# Renter Cost Burden ----------------------------------------------------------
+renter_burden_lookup <- data.frame(variable = c("B25070_001",
+                                                "B25070_002", "B25070_003", "B25070_004", "B25070_005", "B25070_006",
+                                                "B25070_007", "B25070_008", "B25070_009",
+                                                "B25070_010", 
+                                                "B25070_011"),
+                                   grouping = c("Total",
+                                                "Not cost burdened (<30%)", "Not cost burdened (<30%)", "Not cost burdened (<30%)", "Not cost burdened (<30%)", "Not cost burdened (<30%)",
+                                                "Cost burdened (30-49.9%)", "Cost burdened (30-49.9%)", "Cost burdened (30-49.9%)",
+                                                "Severely cost burdened (50+%)",
+                                                "Not computed"))
 
+county <- get_acs_recs(geography="county", table.names = renter_burden_table, years = c(pre_api_year, api_years), acs.type = 'acs5') 
+
+county <- left_join(county, renter_burden_lookup, by=c("variable")) %>%
+  filter(!(is.na(grouping))) %>%
+  select(geography="name", "estimate", "year", "grouping") %>%
+  group_by(geography, year, grouping) %>%
+  summarise(estimate = sum(estimate)) %>%
+  as_tibble() %>%
+  mutate(concept = "Renter Cost Burden")
+
+totals <- county %>%
+  filter(grouping == "Total") %>%
+  select("geography", "year", "concept", total="estimate")
+
+county <- left_join(county, totals, by=c("geography", "year", "concept")) %>%
+  mutate(share = estimate / total) %>%
+  select(-"total") %>%
+  mutate(geography_type = "County") %>%
+  mutate(grouping = str_wrap(grouping, width=15)) %>%
+  mutate(geography = factor(geography, levels = county_order)) %>%
+  mutate(grouping = factor(grouping, levels = burden_order)) %>%
+  mutate(year = as.character(year)) %>%
+  arrange(geography, grouping, year)
+
+rm(totals)
+
+# Blockgroup 2013 onward
+bg_post_2013 <- get_acs_recs(geography="block group", table.names = renter_burden_table, years = api_years, acs.type = 'acs5') 
+
+bg_post_2013 <- left_join(bg_post_2013, renter_burden_lookup, by=c("variable")) %>%
+  filter(!(is.na(grouping))) %>%
+  select(geography="GEOID", "estimate", "year", "grouping") %>%
+  group_by(geography, year, grouping) %>%
+  summarise(estimate = sum(estimate)) %>%
+  as_tibble() %>%
+  mutate(concept = "Renter Cost Burden") %>%
+  mutate(geography_type = "Blockgroup") %>%
+  mutate(grouping = str_wrap(grouping, width=15)) %>%
+  mutate(grouping = factor(grouping, levels = burden_order)) %>%
+  mutate(year = as.character(year)) %>%
+  arrange(geography, grouping, year)
+
+# Blockgroup pre 2013
+bg_pre_2013 <- readxl::read_excel(renter_burden_bg, sheet=paste0("ACS_",pre_api_year,"5_", renter_burden_table, "_150"), skip=7) %>%
+  mutate(geoid = as.character(str_remove_all(`Geographic Identifier`, "15000US"))) %>%
+  select(-"Geographic Identifier",-"Table ID", -"Title", -"Universe", -"Summary Level Type", -"Summary Level", -"Area Name", -"ACS Dataset") %>%
+  pivot_longer(!geoid, names_to = "label", values_to = "estimate") %>%
+  filter(!(str_detect(label, "Margin of Error"))) %>%
+  mutate(label = str_remove_all(label, "\\[Estimate\\] ")) %>%
+  mutate(label = str_remove_all(label, "\\...[0-9][0-9]")) %>%
+  mutate(grouping = case_when(
+    # Total
+    str_detect(label,"Total") ~ "Total",
+    # Not Burdened
+    str_detect(label,"Less Than 10.0 Percent") ~ "Not cost burdened (<30%)",
+    str_detect(label,"10.0 To 14.9 Percent") ~ "Not cost burdened (<30%)",
+    str_detect(label,"15.0 To 19.9 Percent") ~ "Not cost burdened (<30%)",
+    str_detect(label,"20.0 To 24.9 Percent") ~ "Not cost burdened (<30%)",
+    str_detect(label,"25.0 To 29.9 Percent") ~ "Not cost burdened (<30%)",
+    # Cost Burdened
+    str_detect(label,"30.0 To 34.9 Percent") ~ "Cost burdened (30-49.9%)",
+    str_detect(label,"35.0 To 39.9 Percent") ~ "Cost burdened (30-49.9%)",
+    str_detect(label,"40.0 To 49.9 Percent") ~ "Cost burdened (30-49.9%)",
+    # Severely cost burdened
+    str_detect(label,"50.0 Percent Or More") ~ "Severely cost burdened (50+%)",
+    # Not computed
+    str_detect(label,"Not Computed") ~ "Not computed")) %>%
+  mutate(county = substring(geoid, 1, 5)) %>%
+  filter(county %in% c("53033", "53035", "53053", "53061")) %>%
+  group_by(geoid, grouping) %>%
+  summarise(estimate = sum(estimate)) %>%
+  as_tibble() %>%
+  rename(geography="geoid") %>%
+  mutate(concept = "Renter Cost Burden") %>%
+  mutate(geography_type = "Blockgroup") %>%
+  mutate(grouping = str_wrap(grouping, width=15)) %>%
+  mutate(grouping = factor(grouping, levels = burden_order)) %>%
+  mutate(year = as.character(pre_api_year)) %>%
+  arrange(geography, grouping, year)
+
+# Combine Blockgroup Data
+blockgroups <- bind_rows(bg_pre_2013, bg_post_2013) %>% arrange(geography, grouping, year)
+rm(bg_pre_2013, bg_post_2013)
+
+# Regional Growth Centers
+centers <- NULL
+for(center in rgc_names) {
+  
+  df <- centers_estimate_from_bg(center_type = "Regional Growth Center (6/22/2023)", split_type = "percent_of_occupied_housing_units")
+  ifelse(is.null(centers), centers <- df, centers <- bind_rows(centers, df))
+  rm(df)
+  
+}
+
+# Manufacturing and Industrial Centers
+for(center in mic_names) {
+  
+  df <- centers_estimate_from_bg(center_type = "MIC (2022 RTP)", split_type = "percent_of_occupied_housing_units")
+  ifelse(is.null(centers), centers <- df, centers <- bind_rows(centers, df))
+  rm(df)
+  
+}
+
+renter_cost_burden <- bind_rows(county, centers) %>% mutate(share = replace_na(share, 0))
+rm(renter_burden_lookup, centers, blockgroups, county)
+
+# Owner Cost Burden ----------------------------------------------------------
+owner_burden_lookup <- data.frame(variable = c("B25091_002",
+                                               "B25091_003", "B25091_004", "B25091_005", "B25091_006", "B25091_007",
+                                               "B25091_008", "B25091_009", "B25091_010",
+                                               "B25091_011",
+                                               "B25091_012"),
+                                  grouping = c("Total",
+                                               "Not cost burdened (<30%)", "Not cost burdened (<30%)", "Not cost burdened (<30%)", "Not cost burdened (<30%)", "Not cost burdened (<30%)",
+                                               "Cost burdened (30-49.9%)", "Cost burdened (30-49.9%)", "Cost burdened (30-49.9%)",
+                                               "Severely cost burdened (50+%)",
+                                               "Not computed"))
+
+county <- get_acs_recs(geography="county", table.names = owner_burden_table, years = c(pre_api_year, api_years), acs.type = 'acs5') 
+
+county <- left_join(county, owner_burden_lookup, by=c("variable")) %>%
+  filter(!(is.na(grouping))) %>%
+  select(geography="name", "estimate", "year", "grouping") %>%
+  group_by(geography, year, grouping) %>%
+  summarise(estimate = sum(estimate)) %>%
+  as_tibble() %>%
+  mutate(concept = "Owner Cost Burden")
+
+totals <- county %>%
+  filter(grouping == "Total") %>%
+  select("geography", "year", "concept", total="estimate")
+
+county <- left_join(county, totals, by=c("geography", "year", "concept")) %>%
+  mutate(share = estimate / total) %>%
+  select(-"total") %>%
+  mutate(geography_type = "County") %>%
+  mutate(grouping = str_wrap(grouping, width=15)) %>%
+  mutate(geography = factor(geography, levels = county_order)) %>%
+  mutate(grouping = factor(grouping, levels = burden_order)) %>%
+  mutate(year = as.character(year)) %>%
+  arrange(geography, grouping, year)
+
+rm(totals)
+
+# Blockgroup 2013 onward
+bg_post_2013 <- get_acs_recs(geography="block group", table.names = owner_burden_table, years = api_years, acs.type = 'acs5') 
+
+bg_post_2013 <- left_join(bg_post_2013, owner_burden_lookup, by=c("variable")) %>%
+  filter(!(is.na(grouping))) %>%
+  select(geography="GEOID", "estimate", "year", "grouping") %>%
+  group_by(geography, year, grouping) %>%
+  summarise(estimate = sum(estimate)) %>%
+  as_tibble() %>%
+  mutate(concept = "Owner Cost Burden") %>%
+  mutate(geography_type = "Blockgroup") %>%
+  mutate(grouping = str_wrap(grouping, width=15)) %>%
+  mutate(grouping = factor(grouping, levels = burden_order)) %>%
+  mutate(year = as.character(year)) %>%
+  arrange(geography, grouping, year)
+
+# Blockgroup pre 2013
+bg_pre_2013 <- readxl::read_excel(owner_burden_bg, sheet=paste0("ACS_",pre_api_year,"5_", owner_burden_table, "_150"), skip=7) %>%
+  mutate(geoid = as.character(str_remove_all(`Geographic Identifier`, "15000US"))) %>%
+  select(-"Geographic Identifier",-"Table ID", -"Title", -"Universe", -"Summary Level Type", -"Summary Level", -"Area Name", -"ACS Dataset") %>%
+  pivot_longer(!geoid, names_to = "label", values_to = "estimate") %>%
+  filter(!(str_detect(label, "Margin of Error"))) %>%
+  mutate(label = str_remove_all(label, "\\[Estimate\\] ")) %>%
+  mutate(label = str_remove_all(label, "\\...[0-9][0-9]")) %>%
+  mutate(grouping = case_when(
+    # Total
+    str_detect(label,"Housing Units With A Mortgage") ~ "Total",
+    # Not Burdened
+    str_detect(label,"Less Than 10.0 Percent") ~ "Not cost burdened (<30%)",
+    str_detect(label,"10.0 To 14.9 Percent") ~ "Not cost burdened (<30%)",
+    str_detect(label,"15.0 To 19.9 Percent") ~ "Not cost burdened (<30%)",
+    str_detect(label,"20.0 To 24.9 Percent") ~ "Not cost burdened (<30%)",
+    str_detect(label,"25.0 To 29.9 Percent") ~ "Not cost burdened (<30%)",
+    # Cost Burdened
+    str_detect(label,"30.0 To 34.9 Percent") ~ "Cost burdened (30-49.9%)",
+    str_detect(label,"35.0 To 39.9 Percent") ~ "Cost burdened (30-49.9%)",
+    str_detect(label,"40.0 To 49.9 Percent") ~ "Cost burdened (30-49.9%)",
+    # Severely cost burdened
+    str_detect(label,"50.0 Percent Or More") ~ "Severely cost burdened (50+%)",
+    # Not computed
+    str_detect(label,"Not Computed") ~ "Not computed")) %>%
+  drop_na() %>% 
+  mutate(county = substring(geoid, 1, 5)) %>%
+  filter(county %in% c("53033", "53035", "53053", "53061")) %>%
+  group_by(geoid, grouping) %>%
+  summarise(estimate = sum(estimate)) %>%
+  as_tibble() %>%
+  rename(geography="geoid") %>%
+  mutate(concept = "Owner Cost Burden") %>%
+  mutate(geography_type = "Blockgroup") %>%
+  mutate(grouping = str_wrap(grouping, width=15)) %>%
+  mutate(grouping = factor(grouping, levels = burden_order)) %>%
+  mutate(year = as.character(pre_api_year)) %>%
+  arrange(geography, grouping, year)
+
+# Combine Blockgroup Data
+blockgroups <- bind_rows(bg_pre_2013, bg_post_2013) %>% arrange(geography, grouping, year)
+rm(bg_pre_2013, bg_post_2013)
+
+# Regional Growth Centers
+centers <- NULL
+for(center in rgc_names) {
+  
+  df <- centers_estimate_from_bg(center_type = "Regional Growth Center (6/22/2023)", split_type = "percent_of_occupied_housing_units")
+  ifelse(is.null(centers), centers <- df, centers <- bind_rows(centers, df))
+  rm(df)
+  
+}
+
+# Manufacturing and Industrial Centers
+for(center in mic_names) {
+  
+  df <- centers_estimate_from_bg(center_type = "MIC (2022 RTP)", split_type = "percent_of_occupied_housing_units")
+  ifelse(is.null(centers), centers <- df, centers <- bind_rows(centers, df))
+  rm(df)
+  
+}
+
+owner_cost_burden <- bind_rows(county, centers) %>% mutate(share = replace_na(share, 0))
+rm(owner_burden_lookup, centers, blockgroups, county)
+
+cost_burden <- bind_rows(owner_cost_burden, renter_cost_burden)
+saveRDS(cost_burden, "data/cost_burden.rds")
 
 
 

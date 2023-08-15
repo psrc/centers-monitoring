@@ -175,6 +175,13 @@ shinyServer(function(input, output, session) {
     
   })
   
+  output$rgc_burden_chart <- renderEcharts4r({
+    
+    echart_multi_column_chart(df = burden_data %>% filter(geography_type == rgc_title, geography == input$RGC & grouping != "Total"),
+                              x = "grouping", y = "share", fill="concept", tog = "data_year", title = "Cost Burden",
+                              dec = 0, esttype = "percent", color = "purples")
+    
+  })
 
 })    
 
