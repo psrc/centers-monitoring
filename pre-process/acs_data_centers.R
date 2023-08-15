@@ -21,11 +21,13 @@ income_order <- c("Less than\n$20,000", "$20,000 to\n$35,000", "$35,000 to\n$50,
                   "$50,000 to\n$75,000", "$75,000 to\n$100,000", "$100,000 to\n$150,000",
                   "$150,000 to\n$200,000", "$200,000 or\nmore", "Total")
 pop_hh_hu_order <- c("Population", "Households", "Housing Units")
+tenure_order <- c("Renter", "Owner", "Total")
 
 # Census Tables
 age_table <- "B01001"
 race_table <- "B03002"
 income_table <- "B19001"
+tenure_table <- "B25003"
 
 # Employment Data
 rgc_emp_file <- "data/rgc_covered_emp_2010_2021_revised_20230705.csv"
@@ -35,9 +37,9 @@ mic_emp_file <- "data/mic_covered_emp_2010_2021.csv"
 age_bg <- file.path(acs_pre2013_bg_dir, paste0("acs_",pre_api_year,"5_", age_table, "_150.xlsx"))
 race_bg <- file.path(acs_pre2013_bg_dir, paste0("acs_",pre_api_year,"5_", race_table, "_150.xlsx"))
 income_bg <- file.path(acs_pre2013_bg_dir, paste0("acs_",pre_api_year,"5_", income_table, "_150.xlsx"))
-tenure_bg <- file.path(acs_pre2013_bg_dir, paste0("acs_",pre_api_year,"5_B25003_150.xlsx"))
-education_bg <- file.path(acs_pre2013_bg_dir, paste0("acs_",pre_api_year,"5_B15002_150.xlsx"))
+tenure_bg <- file.path(acs_pre2013_bg_dir, paste0("acs_",pre_api_year,"5_", tenure_table, "_150.xlsx"))
 structures_bg <- file.path(acs_pre2013_bg_dir, paste0("acs_",pre_api_year,"5_B25024_150.xlsx"))
+education_bg <- file.path(acs_pre2013_bg_dir, paste0("acs_",pre_api_year,"5_B15002_150.xlsx"))
 
 # Functions ---------------------------------------------------------------
 centers_estimate_from_bg <- function(split_df=blockgroup_splits, estimate_df=blockgroups, center_type, split_type) {
@@ -636,13 +638,6 @@ households_by_income <- bind_rows(county, centers)
 rm(income_lookup, centers, blockgroups, county)
 saveRDS(households_by_income, "data/households_by_income.rds")
 
-
-
-
-
-
-
-
 # Housing Tenure ----------------------------------------------------------
 tenure_lookup <- data.frame(variable = c("B25003_001",
                                          "B25003_002", 
@@ -651,78 +646,56 @@ tenure_lookup <- data.frame(variable = c("B25003_001",
                                          "Owner", 
                                          "Renter"))
 
-county <- get_acs_recs(geography="county", table.names = "B25003", years = c(pre_api_years, api_years), acs.type = 'acs5') %>%
-  mutate(label = str_remove_all(label, "Estimate!!Total!!")) %>%
-  mutate(label = str_remove_all(label, ":")) %>%
-  mutate(label = str_replace_all(label, "!!", " ")) %>%
-  mutate(label = str_remove_all(label, "Estimate ")) %>%
-  mutate(label = str_trim(label, "both")) %>%
-  select(-"state") %>%
-  mutate(concept = str_to_title(concept))
+county <- get_acs_recs(geography="county", table.names = tenure_table, years = c(pre_api_year, api_years), acs.type = 'acs5') 
 
 county <- left_join(county, tenure_lookup, by=c("variable")) %>%
   filter(!(is.na(grouping))) %>%
-  group_by(name, year, grouping) %>%
-  summarise(estimate = sum(estimate),  moe = round(moe_sum(moe, estimate), 0)) %>%
+  select(geography="name", "estimate", "year", "grouping") %>%
+  group_by(geography, year, grouping) %>%
+  summarise(estimate = sum(estimate)) %>%
   as_tibble() %>%
-  mutate(metric = "Housing Tenure", geography_type = "County")
+  mutate(concept = "Household Tenure")
 
 totals <- county %>%
-  select("name", "grouping", "year", total="estimate") %>%
   filter(grouping == "Total") %>%
-  select(-"grouping")
+  select("geography", "year", "concept", total="estimate")
 
-county_tenure <- left_join(county, totals, by=c("name", "year")) %>%
+county <- left_join(county, totals, by=c("geography", "year", "concept")) %>%
   mutate(share = estimate / total) %>%
-  select("name", geography="geography_type", "grouping", "year", "estimate", "moe", "share")
+  select(-"total") %>%
+  mutate(geography_type = "County") %>%
+  mutate(grouping = str_wrap(grouping, width=11)) %>%
+  mutate(geography = factor(geography, levels = county_order)) %>%
+  mutate(grouping = factor(grouping, levels = tenure_order)) %>%
+  mutate(year = as.character(year)) %>%
+  arrange(geography, grouping, year)
 
-county_tenure <- county_tenure %>%
-  select(-"share") %>%
-  rename(`Estimate:`="estimate", `MoE:`="moe") %>%
-  pivot_wider(names_from = "grouping", values_from = c("Estimate:", "MoE:"), names_sep = " ")
-
-rm(totals, county)
+rm(totals)
 
 # Blockgroup 2013 onward
-tenure_post_2013 <- get_acs_recs(geography="block group", table.names = "B25003", years = api_years, acs.type = 'acs5') %>%
-  mutate(label = str_remove_all(label, "Estimate!!Total!!")) %>%
-  mutate(label = str_remove_all(label, ":")) %>%
-  mutate(label = str_replace_all(label, "!!", " ")) %>%
-  mutate(label = str_remove_all(label, "Estimate ")) %>%
-  mutate(label = str_trim(label, "both")) %>%
-  select(-"state") %>%
-  mutate(concept = str_to_title(concept))
+bg_post_2013 <- get_acs_recs(geography="block group", table.names = tenure_table, years = api_years, acs.type = 'acs5') 
 
-tenure_post_2013 <- left_join(tenure_post_2013, tenure_lookup, by=c("variable")) %>%
+bg_post_2013 <- left_join(bg_post_2013, tenure_lookup, by=c("variable")) %>%
   filter(!(is.na(grouping))) %>%
-  group_by(GEOID, year, grouping) %>%
-  summarise(estimate = sum(estimate),  moe = round(moe_sum(moe, estimate), 0)) %>%
+  select(geography="GEOID", "estimate", "year", "grouping") %>%
+  group_by(geography, year, grouping) %>%
+  summarise(estimate = sum(estimate)) %>%
   as_tibble() %>%
-  rename(geoid="GEOID") %>%
-  pivot_wider(names_from = "grouping", values_from = c("estimate", "moe"))
+  mutate(concept = "Household Tenure") %>%
+  mutate(geography_type = "Blockgroup") %>%
+  mutate(grouping = str_wrap(grouping, width=11)) %>%
+  mutate(grouping = factor(grouping, levels = tenure_order)) %>%
+  mutate(year = as.character(year)) %>%
+  arrange(geography, grouping, year)
 
 # Blockgroup pre 2013
-est_pre_2013 <- readxl::read_excel(tenure_2010, sheet="ACS_20105_B25003_150", skip=7) %>%
+bg_pre_2013 <- readxl::read_excel(tenure_bg, sheet=paste0("ACS_",pre_api_year,"5_", tenure_table, "_150"), skip=7) %>%
   mutate(geoid = as.character(str_remove_all(`Geographic Identifier`, "15000US"))) %>%
   select(-"Geographic Identifier",-"Table ID", -"Title", -"Universe", -"Summary Level Type", -"Summary Level", -"Area Name", -"ACS Dataset") %>%
   pivot_longer(!geoid, names_to = "label", values_to = "estimate") %>%
   filter(!(str_detect(label, "Margin of Error"))) %>%
   mutate(label = str_remove_all(label, "\\[Estimate\\] ")) %>%
   mutate(label = str_remove_all(label, "\\...[0-9][0-9]")) %>%
-  mutate(ID = row_number())
-
-moe_pre_2013 <- readxl::read_excel(tenure_2010, sheet="ACS_20105_B25003_150", skip=7) %>%
-  mutate(geoid = as.character(str_remove_all(`Geographic Identifier`, "15000US"))) %>%
-  select(-"Geographic Identifier",-"Table ID", -"Title", -"Universe", -"Summary Level Type", -"Summary Level", -"Area Name", -"ACS Dataset") %>%
-  pivot_longer(!geoid, names_to = "label", values_to = "moe") %>%
-  filter((str_detect(label, "Margin of Error"))) %>%
-  mutate(label = str_remove_all(label, "\\[Margin of Error\\] ")) %>%
-  mutate(label = str_remove_all(label, "\\...[0-9][0-9][0-9]")) %>%
-  mutate(label = str_remove_all(label, "\\...[0-9][0-9]")) %>%
-  mutate(ID = row_number())
-
-tenure_pre_2013 <- left_join(est_pre_2013, moe_pre_2013, by=c("ID", "geoid", "label")) %>%
-  select(-"ID") %>%
   mutate(grouping = case_when(
     # Total Population
     str_detect(label,"Total") ~ "Total",
@@ -730,41 +703,59 @@ tenure_pre_2013 <- left_join(est_pre_2013, moe_pre_2013, by=c("ID", "geoid", "la
     str_detect(label,"Owner") ~ "Owner",
     # Renter
     str_detect(label,"Renter") ~ "Renter")) %>%
-  drop_na() %>% 
-  select(-label) %>%
   mutate(county = substring(geoid, 1, 5)) %>%
   filter(county %in% c("53033", "53035", "53053", "53061")) %>%
   group_by(geoid, grouping) %>%
-  summarise(estimate = sum(estimate), moe = round(moe_sum(moe, estimate), 0)) %>%
+  summarise(estimate = sum(estimate)) %>%
   as_tibble() %>%
-  pivot_wider(names_from = "grouping", values_from = c("estimate", "moe")) %>%
-  mutate(year = 2010)
+  rename(geography="geoid") %>%
+  mutate(concept = "Household Tenure") %>%
+  mutate(geography_type = "Blockgroup") %>%
+  mutate(grouping = str_wrap(grouping, width=11)) %>%
+  mutate(grouping = factor(grouping, levels = tenure_order)) %>%
+  mutate(year = as.character(pre_api_year)) %>%
+  arrange(geography, grouping, year)
 
-# Join Age Data with Blockgroups by MIC with Shares
-bg_tenure <- bind_rows(tenure_pre_2013, tenure_post_2013)
-mic_tenure <- left_join(mic_splits, bg_tenure, by=c("geoid", "year"))  
-rm(bg_tenure, tenure_pre_2013, tenure_post_2013, est_pre_2013, moe_pre_2013)
+# Combine Blockgroup Data
+blockgroups <- bind_rows(bg_pre_2013, bg_post_2013) %>% arrange(geography, grouping, year)
+rm(bg_pre_2013, bg_post_2013)
 
-# Summarize Population by Age for MIC's nd MIC buffers
-mic_tenure <- mic_tenure %>%
-  mutate(`Estimate: Owner` = round(`estimate_Owner` * hh_share, 0)) %>%
-  mutate(`Estimate: Renter` = round(`estimate_Renter` * hh_share, 0)) %>%
-  mutate(`Estimate: Total` = round(`estimate_Total` * hh_share, 0)) %>%
-  mutate(`MoE: Owner` = round(`moe_Owner` * hh_share, 0)) %>%
-  mutate(`MoE: Renter` = round(`moe_Renter` * hh_share, 0)) %>%
-  mutate(`MoE: Total` = round(`moe_Total` * hh_share, 0)) %>%
-  group_by(year, name, geography) %>%
-  summarise(`Estimate: Owner` = sum(`Estimate: Owner`), 
-            `Estimate: Renter` = sum(`Estimate: Renter`), 
-            `Estimate: Total` = sum(`Estimate: Total`),
-            `MoE: Owner` = round(moe_sum(`MoE: Owner`, `Estimate: Owner`), 0), 
-            `MoE: Renter` = round(moe_sum(`MoE: Renter`, `Estimate: Renter`), 0), 
-            `MoE: Total` = round(moe_sum(`MoE: Total`, `Estimate: Total`), 0)) %>%
-  as_tibble()
+# Regional Growth Centers
+centers <- NULL
+for(center in rgc_names) {
+  
+  df <- centers_estimate_from_bg(center_type = "Regional Growth Center (6/22/2023)", split_type = "percent_of_occupied_housing_units")
+  ifelse(is.null(centers), centers <- df, centers <- bind_rows(centers, df))
+  rm(df)
+  
+}
 
-mic_tenure <- bind_rows(mic_tenure, county_tenure)
-write_csv(mic_tenure, "output/mic_tenure_groups.csv")
-rm(county_tenure)
+# Manufacturing and Industrial Centers
+for(center in mic_names) {
+  
+  df <- centers_estimate_from_bg(center_type = "MIC (2022 RTP)", split_type = "percent_of_occupied_housing_units")
+  ifelse(is.null(centers), centers <- df, centers <- bind_rows(centers, df))
+  rm(df)
+  
+}
+
+households_by_tenure <- bind_rows(county, centers)
+rm(tenure_lookup, centers, blockgroups, county)
+saveRDS(households_by_tenure, "data/households_by_tenure.rds")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # Educational Attainment --------------------------------------------------
 education_lookup <- data.frame(variable = c("B15002_001",

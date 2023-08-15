@@ -158,7 +158,15 @@ shinyServer(function(input, output, session) {
   
   output$summary_table <- DT::renderDataTable({create_rgc_summary_table(center_name = input$RGC, yr = 2021)
   })
+  
+  output$rgc_tenure_chart <- renderEcharts4r({
     
+    echart_column_chart(df = tenure_data %>% filter(geography_type == rgc_title, geography == input$RGC & grouping != "Total"),
+                        x = "grouping", y = "share", tog = "data_year", title = "Housing Tenure",
+                        dec = 0, esttype = "percent", color = "jewel")
+    
+  })
+  
 
 })    
 

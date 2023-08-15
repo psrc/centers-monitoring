@@ -70,7 +70,24 @@ shinyUI(
                                                   tags$div(class="chart_source","Source: US Census Bureau American Community Survey (ACS) 5yr Data Table B19001"),
                                                   hr(),
                                                   ), # end of TabPanel for RGC Demographics
-                                         tabPanel("Jobs", "Test"),
+                                         tabPanel("Housing", 
+                                                  h1("Total Units"),
+                                                  strong(tags$div(class="chart_title","Total Housing Units")),
+                                                  #fluidRow(column(12,echarts4rOutput("rgc_pop_hh_hu_chart"))),
+                                                  tags$div(class="chart_source","Source: Office of Financial Managment SAEP Program & PSRC Parcelization"),
+                                                  hr(),
+                                                  h1("New Housing Units"),
+                                                  strong(tags$div(class="chart_title","New Housing Units by Year")),
+                                                  #fluidRow(column(12,echarts4rOutput("rgc_pop_hh_hu_chart"))),
+                                                  tags$div(class="chart_source","Source: Office of Financial Managment SAEP Program & PSRC Parcelization"),
+                                                  hr(),
+                                                  h1("Housing Tenure"),
+                                                  strong(tags$div(class="chart_title","Housing Tenure")),
+                                                  fluidRow(column(12,echarts4rOutput("rgc_tenure_chart"))),
+                                                  tags$div(class="chart_source","Source: US Census Bureau American Community Survey (ACS) 5yr Data Table B25003"),
+                                                  hr(),
+                                         ), # end of TabPanel for RGC Housing
+                                         
                                          tabPanel("Other", "Test")
                                          )
                       ),

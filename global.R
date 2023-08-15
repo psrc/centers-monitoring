@@ -36,11 +36,15 @@ source("functions.R")
 rgc_title <- "Regional Growth Center (6/22/2023)"
 mic_title <- "MIC (2022 RTP)"
 
+# Demographic Metrics
 pop_hh_hu_data <- readRDS("data/center_pop_hh_hu.rds") %>% mutate(data_year = factor(year, levels=year_ord))
 age_data <- readRDS("data/population_by_age.rds") %>% mutate(data_year = factor(year, levels=year_ord))
 race_data <- readRDS("data/population_by_race.rds") %>% mutate(data_year = factor(year, levels=year_ord))
 income_data <- readRDS("data/households_by_income.rds") %>% mutate(data_year = factor(year, levels=year_ord))
 employment_data <- readRDS("data/centers_employment.rds") %>% mutate(data_year = factor(year, levels=year_ord))
+
+# Housing Data Metrics
+tenure_data <- readRDS("data/households_by_tenure.rds") %>% mutate(data_year = factor(year, levels=year_ord))
 
 rgc_names <- age_data %>% filter(geography_type== rgc_title) %>% select("geography") %>% arrange(geography) %>% distinct() %>% pull()
 mic_names <- age_data %>% filter(geography_type== mic_title) %>% select("geography") %>% arrange(geography) %>% distinct() %>% pull()
