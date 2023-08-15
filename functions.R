@@ -426,16 +426,12 @@ create_rgc_summary_table <- function(center_name, yr) {
   )
   
   summary_tbl <- datatable(t,
-                           options = list(paging = FALSE,    ## paginate the output
+                           options = list(paging = FALSE,
                                           pageLength = 15,
                                           searching = FALSE,
-                                          #scrollX = TRUE,   ## enable scrolling on X axis
-                                          #scrollY = TRUE,   ## enable scrolling on Y axis
-                                          #autoWidth = TRUE, ## use smart column width handling
-                                          #server = FALSE,   ## use client-side processing
                                           dom = 't',
-                                          headerCallback = JS(headerCallbackRemoveHeaderFooter)
-                           ),
+                                          headerCallback = JS(headerCallbackRemoveHeaderFooter),
+                                          columnDefs = list(list(targets = c(1), className = 'dt-right'))),
                            selection = 'none',
                            callback = JS(
                              "$('table.dataTable.no-footer').css('border-bottom', 'none');"
