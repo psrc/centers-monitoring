@@ -364,7 +364,32 @@ create_rgc_summary_table <- function(center_name, yr) {
   
   r6 <- r5 %>% mutate(estimate = as.character(au), grouping = "Activity Units per Acre")
   
-  t <- bind_rows(r1, r2, r3, r4, r5, r6) %>% select(-"name")
+  # Jobs / Pop Balance
+  pop <- r4 %>% filter(grouping %in% c("Population")) %>% select("estimate") %>% pull() %>% as.integer()
+  
+  if (r5 %>% select("estimate") %>% pull() == "*") {
+    
+    jobs <-"*"
+    
+  } else {
+    
+    jobs <- r5 %>% select("estimate") %>% pull() %>% as.integer()
+    
+  }
+  
+  if (jobs == "*") {
+    
+    jpr <- "*"
+    
+  } else {
+    
+    jpr <- round((jobs)/pop,1)
+    
+  }
+  
+  r7 <- r5 %>% mutate(estimate = as.character(jpr), grouping = "Jobs per Person")
+  
+  t <- bind_rows(r1, r2, r3, r4, r5, r6, r7) %>% select(-"name")
   
   headerCallbackRemoveHeaderFooter <- c(
     "function(thead, data, start, end, display){",
