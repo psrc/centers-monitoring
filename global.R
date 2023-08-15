@@ -45,6 +45,7 @@ employment_data <- readRDS("data/centers_employment.rds") %>% mutate(data_year =
 
 # Housing Data Metrics
 tenure_data <- readRDS("data/households_by_tenure.rds") %>% mutate(data_year = factor(year, levels=year_ord))
+type_data <- readRDS("data/housing_units_by_type.rds") %>% mutate(data_year = factor(year, levels=year_ord))
 
 rgc_names <- age_data %>% filter(geography_type== rgc_title) %>% select("geography") %>% arrange(geography) %>% distinct() %>% pull()
 mic_names <- age_data %>% filter(geography_type== mic_title) %>% select("geography") %>% arrange(geography) %>% distinct() %>% pull()
@@ -56,8 +57,3 @@ rgc_shape <- st_read("https://services6.arcgis.com/GWxg6t7KXELn1thE/arcgis/rest/
   mutate(name = gsub("Bellevue", "Bellevue Downtown", name)) %>%
   mutate(name = gsub("Redmond-Overlake", "Redmond Overlake", name)) %>%
   select("name", "acres")
-
-
-
-
-

@@ -167,6 +167,14 @@ shinyServer(function(input, output, session) {
     
   })
   
+  output$rgc_type_chart <- renderEcharts4r({
+    
+    echart_bar_chart(df = type_data %>% filter(geography_type == rgc_title, geography == input$RGC & grouping != "Total"),
+                        x = "grouping", y = "share", tog = "data_year", title = "Unit Type",
+                        dec = 0, esttype = "percent", color = "jewel")
+    
+  })
+  
 
 })    
 

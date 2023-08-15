@@ -22,12 +22,15 @@ income_order <- c("Less than\n$20,000", "$20,000 to\n$35,000", "$35,000 to\n$50,
                   "$150,000 to\n$200,000", "$200,000 or\nmore", "Total")
 pop_hh_hu_order <- c("Population", "Households", "Housing Units")
 tenure_order <- c("Renter", "Owner", "Total")
+structure_order <- c("SF detached", "Moderate-low\ndensity", "Moderate-high\ndensity",
+                     "High density", "Other", "Total")
 
 # Census Tables
 age_table <- "B01001"
 race_table <- "B03002"
 income_table <- "B19001"
 tenure_table <- "B25003"
+structure_table <- "B25024"
 
 # Employment Data
 rgc_emp_file <- "data/rgc_covered_emp_2010_2021_revised_20230705.csv"
@@ -38,7 +41,7 @@ age_bg <- file.path(acs_pre2013_bg_dir, paste0("acs_",pre_api_year,"5_", age_tab
 race_bg <- file.path(acs_pre2013_bg_dir, paste0("acs_",pre_api_year,"5_", race_table, "_150.xlsx"))
 income_bg <- file.path(acs_pre2013_bg_dir, paste0("acs_",pre_api_year,"5_", income_table, "_150.xlsx"))
 tenure_bg <- file.path(acs_pre2013_bg_dir, paste0("acs_",pre_api_year,"5_", tenure_table, "_150.xlsx"))
-structures_bg <- file.path(acs_pre2013_bg_dir, paste0("acs_",pre_api_year,"5_B25024_150.xlsx"))
+structure_bg <- file.path(acs_pre2013_bg_dir, paste0("acs_",pre_api_year,"5_", structure_table, "_150.xlsx"))
 education_bg <- file.path(acs_pre2013_bg_dir, paste0("acs_",pre_api_year,"5_B15002_150.xlsx"))
 
 # Functions ---------------------------------------------------------------
@@ -743,10 +746,127 @@ households_by_tenure <- bind_rows(county, centers)
 rm(tenure_lookup, centers, blockgroups, county)
 saveRDS(households_by_tenure, "data/households_by_tenure.rds")
 
+# Structure Type ----------------------------------------------------------
+structure_lookup <- data.frame(variable = c("B25024_001",
+                                            "B25024_002",
+                                            "B25024_003", "B25024_004", "B25024_005", "B25024_006",
+                                            "B25024_007",
+                                            "B25024_008", "B25024_009",
+                                            "B25024_010", "B25024_011"),
+                               grouping = c("Total",
+                                            "SF detached",
+                                            "Moderate-low density", "Moderate-low density", "Moderate-low density", "Moderate-low density",
+                                            "Moderate-high density",
+                                            "High density", "High density",
+                                            "Other", "Other"))
 
+county <- get_acs_recs(geography="county", table.names = structure_table, years = c(pre_api_year, api_years), acs.type = 'acs5') 
 
+county <- left_join(county, structure_lookup, by=c("variable")) %>%
+  filter(!(is.na(grouping))) %>%
+  select(geography="name", "estimate", "year", "grouping") %>%
+  group_by(geography, year, grouping) %>%
+  summarise(estimate = sum(estimate)) %>%
+  as_tibble() %>%
+  mutate(concept = "Housing Unit Type")
 
+totals <- county %>%
+  filter(grouping == "Total") %>%
+  select("geography", "year", "concept", total="estimate")
 
+county <- left_join(county, totals, by=c("geography", "year", "concept")) %>%
+  mutate(share = estimate / total) %>%
+  select(-"total") %>%
+  mutate(geography_type = "County") %>%
+  mutate(grouping = str_wrap(grouping, width=15)) %>%
+  mutate(geography = factor(geography, levels = county_order)) %>%
+  mutate(grouping = factor(grouping, levels = structure_order)) %>%
+  mutate(year = as.character(year)) %>%
+  arrange(geography, grouping, year)
+
+rm(totals)
+
+# Blockgroup 2013 onward
+bg_post_2013 <- get_acs_recs(geography="block group", table.names = structure_table, years = api_years, acs.type = 'acs5') 
+
+bg_post_2013 <- left_join(bg_post_2013, structure_lookup, by=c("variable")) %>%
+  filter(!(is.na(grouping))) %>%
+  select(geography="GEOID", "estimate", "year", "grouping") %>%
+  group_by(geography, year, grouping) %>%
+  summarise(estimate = sum(estimate)) %>%
+  as_tibble() %>%
+  mutate(concept = "Housing Unit Type") %>%
+  mutate(geography_type = "Blockgroup") %>%
+  mutate(grouping = str_wrap(grouping, width=15)) %>%
+  mutate(grouping = factor(grouping, levels = structure_order)) %>%
+  mutate(year = as.character(year)) %>%
+  arrange(geography, grouping, year)
+
+# Blockgroup pre 2013
+bg_pre_2013 <- readxl::read_excel(structure_bg, sheet=paste0("ACS_",pre_api_year,"5_", structure_table, "_150"), skip=7) %>%
+  mutate(geoid = as.character(str_remove_all(`Geographic Identifier`, "15000US"))) %>%
+  select(-"Geographic Identifier",-"Table ID", -"Title", -"Universe", -"Summary Level Type", -"Summary Level", -"Area Name", -"ACS Dataset") %>%
+  pivot_longer(!geoid, names_to = "label", values_to = "estimate") %>%
+  filter(!(str_detect(label, "Margin of Error"))) %>%
+  mutate(label = str_remove_all(label, "\\[Estimate\\] ")) %>%
+  mutate(label = str_remove_all(label, "\\...[0-9][0-9]")) %>%
+  mutate(grouping = case_when(
+    # Total
+    str_detect(label,"Total") ~ "Total",
+    # High Density
+    str_detect(label,"20 To 49") ~ "High density",
+    str_detect(label,"50 Or More") ~ "High density",
+    # Low Density
+    str_detect(label,"1, Detached") ~ "SF detached",
+    # Moderate Low
+    str_detect(label,"1, Attached") ~ "Moderate-low density",
+    str_detect(label,"2") ~ "Moderate-low density",
+    str_detect(label,"3 Or 4") ~ "Moderate-low density",
+    str_detect(label,"5 To 9") ~ "Moderate-low density",
+    # Moderate High
+    str_detect(label,"10 To 19") ~ "Moderate-high density",
+    # Other
+    str_detect(label,"Mobile Home") ~ "Other",
+    str_detect(label,"Boat, Rv, Van, Etc.") ~ "Other")) %>%
+  mutate(county = substring(geoid, 1, 5)) %>%
+  filter(county %in% c("53033", "53035", "53053", "53061")) %>%
+  group_by(geoid, grouping) %>%
+  summarise(estimate = sum(estimate)) %>%
+  as_tibble() %>%
+  rename(geography="geoid") %>%
+  mutate(concept = "Housing Unit Type") %>%
+  mutate(geography_type = "Blockgroup") %>%
+  mutate(grouping = str_wrap(grouping, width=15)) %>%
+  mutate(grouping = factor(grouping, levels = structure_order)) %>%
+  mutate(year = as.character(pre_api_year)) %>%
+  arrange(geography, grouping, year)
+
+# Combine Blockgroup Data
+blockgroups <- bind_rows(bg_pre_2013, bg_post_2013) %>% arrange(geography, grouping, year)
+rm(bg_pre_2013, bg_post_2013)
+
+# Regional Growth Centers
+centers <- NULL
+for(center in rgc_names) {
+  
+  df <- centers_estimate_from_bg(center_type = "Regional Growth Center (6/22/2023)", split_type = "percent_of_housing_units")
+  ifelse(is.null(centers), centers <- df, centers <- bind_rows(centers, df))
+  rm(df)
+  
+}
+
+# Manufacturing and Industrial Centers
+for(center in mic_names) {
+  
+  df <- centers_estimate_from_bg(center_type = "MIC (2022 RTP)", split_type = "percent_of_housing_units")
+  ifelse(is.null(centers), centers <- df, centers <- bind_rows(centers, df))
+  rm(df)
+  
+}
+
+housing_units_by_type <- bind_rows(county, centers)
+rm(structure_lookup, centers, blockgroups, county)
+saveRDS(housing_units_by_type, "data/housing_units_by_type.rds")
 
 
 
@@ -938,160 +1058,6 @@ mic_edu <- bind_rows(mic_edu, county_edu)
 write_csv(mic_edu, "output/mic_edu_groups.csv")
 rm(county_edu)
 
-# Structure Type ----------------------------------------------------------
-structure_lookup <- data.frame(variable = c("B25024_001",
-                                            "B25024_002",
-                                            "B25024_003", "B25024_004", "B25024_005", "B25024_006",
-                                            "B25024_007",
-                                            "B25024_008", "B25024_009",
-                                            "B25024_010", "B25024_011"),
-                               grouping = c("Total",
-                                            "SF detached",
-                                            "Moderate-low density", "Moderate-low density", "Moderate-low density", "Moderate-low density",
-                                            "Moderate-high density",
-                                            "High density", "High density",
-                                            "Other", "Other"))
-
-# County
-county <- get_acs_recs(geography="county", table.names = "B25024", years = c(pre_api_years, api_years), acs.type = 'acs5') %>%
-  mutate(label = str_remove_all(label, "Estimate!!Total!!")) %>%
-  mutate(label = str_remove_all(label, ":")) %>%
-  mutate(label = str_replace_all(label, "!!", " ")) %>%
-  mutate(label = str_remove_all(label, "Estimate ")) %>%
-  mutate(label = str_trim(label, "both")) %>%
-  select(-"state") %>%
-  mutate(label = str_remove_all(label, "Total ")) %>%
-  mutate(concept = str_to_title(concept))
-
-county <- left_join(county, structure_lookup, by=c("variable")) %>%
-  filter(!(is.na(grouping))) %>%
-  group_by(name, year, grouping) %>%
-  summarise(estimate = sum(estimate),  moe = round(moe_sum(moe, estimate), 0)) %>%
-  as_tibble() %>%
-  mutate(metric = "Housing Structure Type", geography_type = "County")
-
-totals <- county %>%
-  select("name", "grouping", "year", total="estimate") %>%
-  filter(grouping == "Total") %>%
-  select(-"grouping")
-
-county_structures <- left_join(county, totals, by=c("name", "year")) %>%
-  mutate(share = estimate / total) %>%
-  select("name", geography="geography_type", "grouping", "year", "estimate", "moe", "share")
-
-county_structures <- county_structures %>%
-  select(-"share") %>%
-  rename(`Estimate:`="estimate", `MoE:`="moe") %>%
-  pivot_wider(names_from = "grouping", values_from = c("Estimate:", "MoE:"), names_sep = " ")
-
-rm(totals, county)
-
-# Blockgroup 2013 onward
-structures_post_2013 <- get_acs_recs(geography="block group", table.names = "B25024", years = api_years, acs.type = 'acs5') %>%
-  mutate(label = str_remove_all(label, "Estimate!!Total!!")) %>%
-  mutate(label = str_remove_all(label, ":")) %>%
-  mutate(label = str_replace_all(label, "!!", " ")) %>%
-  mutate(label = str_remove_all(label, "Estimate ")) %>%
-  mutate(label = str_trim(label, "both")) %>%
-  select(-"state") %>%
-  mutate(label = str_remove_all(label, "Total ")) %>%
-  mutate(concept = str_to_title(concept))
-
-structures_post_2013 <- left_join(structures_post_2013, structure_lookup, by=c("variable")) %>%
-  filter(!(is.na(grouping))) %>%
-  group_by(GEOID, year, grouping) %>%
-  summarise(estimate = sum(estimate),  moe = round(moe_sum(moe, estimate), 0)) %>%
-  as_tibble() %>%
-  rename(geoid="GEOID") %>%
-  pivot_wider(names_from = "grouping", values_from = c("estimate", "moe"))
-
-# Blockgroup pre 2013
-est_pre_2013 <- readxl::read_excel(structures_2010, sheet="ACS_20105_B25024_150", skip=7) %>%
-  mutate(geoid = as.character(str_remove_all(`Geographic Identifier`, "15000US"))) %>%
-  select(-"Geographic Identifier",-"Table ID", -"Title", -"Universe", -"Summary Level Type", -"Summary Level", -"Area Name", -"ACS Dataset") %>%
-  pivot_longer(!geoid, names_to = "label", values_to = "estimate") %>%
-  filter(!(str_detect(label, "Margin of Error"))) %>%
-  mutate(label = str_remove_all(label, "\\[Estimate\\] ")) %>%
-  mutate(label = str_remove_all(label, "\\...[0-9][0-9]")) %>%
-  mutate(ID = row_number())
-
-moe_pre_2013 <- readxl::read_excel(structures_2010, sheet="ACS_20105_B25024_150", skip=7) %>%
-  mutate(geoid = as.character(str_remove_all(`Geographic Identifier`, "15000US"))) %>%
-  select(-"Geographic Identifier",-"Table ID", -"Title", -"Universe", -"Summary Level Type", -"Summary Level", -"Area Name", -"ACS Dataset") %>%
-  pivot_longer(!geoid, names_to = "label", values_to = "moe") %>%
-  filter((str_detect(label, "Margin of Error"))) %>%
-  mutate(label = str_remove_all(label, "\\[Margin of Error\\] ")) %>%
-  mutate(label = str_remove_all(label, "\\...[0-9][0-9][0-9]")) %>%
-  mutate(label = str_remove_all(label, "\\...[0-9][0-9]")) %>%
-  mutate(ID = row_number())
-
-structures_pre_2013 <- left_join(est_pre_2013, moe_pre_2013, by=c("ID", "geoid", "label")) %>%
-  select(-"ID") %>%
-  mutate(grouping = case_when(
-    # Total
-    str_detect(label,"Total") ~ "Total",
-    # High Density
-    str_detect(label,"20 To 49") ~ "High density",
-    str_detect(label,"50 Or More") ~ "High density",
-    # Low Density
-    str_detect(label,"1, Detached") ~ "SF detached",
-    # Moderate Low
-    str_detect(label,"1, Attached") ~ "Moderate-low density",
-    str_detect(label,"2") ~ "Moderate-low density",
-    str_detect(label,"3 Or 4") ~ "Moderate-low density",
-    str_detect(label,"5 To 9") ~ "Moderate-low density",
-    # Moderate High
-    str_detect(label,"10 To 19") ~ "Moderate-high density",
-    # Other
-    str_detect(label,"Mobile Home") ~ "Other",
-    str_detect(label,"Boat, Rv, Van, Etc.") ~ "Other")) %>%
-  drop_na() %>% 
-  select(-label) %>%
-  mutate(county = substring(geoid, 1, 5)) %>%
-  filter(county %in% c("53033", "53035", "53053", "53061")) %>%
-  group_by(geoid, grouping) %>%
-  summarise(estimate = sum(estimate), moe = round(moe_sum(moe, estimate), 0)) %>%
-  as_tibble() %>%
-  pivot_wider(names_from = "grouping", values_from = c("estimate", "moe")) %>%
-  mutate(year = 2010)
-
-# Join Data with BLockgroups by MIC with Shares
-bg_structures <- bind_rows(structures_pre_2013, structures_post_2013)
-mic_structures <- left_join(mic_splits, bg_structures, by=c("geoid", "year"))  
-rm(bg_structures, structures_pre_2013, structures_post_2013, est_pre_2013, moe_pre_2013)
-
-# Summarize Population by Education for MIC's and MIC buffers
-mic_structures <- mic_structures %>%
-  mutate(`Estimate: SF detached` = round(`estimate_SF detached` * hu_share, 0)) %>%
-  mutate(`Estimate: Moderate-low density` = round(`estimate_Moderate-low density` * hu_share, 0)) %>%
-  mutate(`Estimate: Moderate-high density` = round(`estimate_Moderate-high density` * hu_share, 0)) %>%
-  mutate(`Estimate: High density` = round(`estimate_High density` * hu_share, 0)) %>%
-  mutate(`Estimate: Other` = round(`estimate_Other` * hu_share, 0)) %>%
-  mutate(`Estimate: Total` = round(`estimate_Total` * hu_share, 0)) %>%
-  mutate(`MoE: SF detached` = round(`moe_SF detached` * hu_share, 0)) %>%
-  mutate(`MoE: Moderate-low density` = round(`moe_Moderate-low density` * hu_share, 0)) %>%
-  mutate(`MoE: Moderate-high density` = round(`moe_Moderate-high density` * hu_share, 0)) %>%
-  mutate(`MoE: High density` = round(`moe_High density` * hu_share, 0)) %>%
-  mutate(`MoE: Other` = round(`moe_Other` * hu_share, 0)) %>%
-  mutate(`MoE: Total` = round(`moe_Total` * hu_share, 0)) %>%
-  group_by(year, name, geography) %>%
-  summarise(`Estimate: SF detached` = sum(`Estimate: SF detached`), 
-            `Estimate: Moderate-low density` = sum(`Estimate: Moderate-low density`), 
-            `Estimate: Moderate-high density` = sum(`Estimate: Moderate-high density`), 
-            `Estimate: High density` = sum(`Estimate: High density`),
-            `Estimate: Other` = sum(`Estimate: Other`), 
-            `Estimate: Total` = sum(`Estimate: Total`),
-            `MoE: SF detached` = round(moe_sum(`MoE: SF detached`, `Estimate: SF detached`), 0), 
-            `MoE: Moderate-low density` = round(moe_sum(`MoE: Moderate-low density`, `Estimate: Moderate-low density`), 0), 
-            `MoE: Moderate-high density` = round(moe_sum(`MoE: Moderate-high density`, `Estimate: Moderate-high density`), 0), 
-            `MoE: High density` = round(moe_sum(`MoE: High density`, `Estimate: High density`), 0),
-            `MoE: Other` = round(moe_sum(`MoE: Other`, `Estimate: Other`), 0), 
-            `MoE: Total` = round(moe_sum(`MoE: Total`, `Estimate: Total`), 0)) %>%
-  as_tibble()
-
-mic_structures <- bind_rows(mic_structures, county_structures)
-write_csv(mic_structures, "output/mic_structures_groups.csv")
-rm(county_structures)
 
 
 

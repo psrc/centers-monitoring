@@ -86,6 +86,11 @@ shinyUI(
                                                   fluidRow(column(12,echarts4rOutput("rgc_tenure_chart"))),
                                                   tags$div(class="chart_source","Source: US Census Bureau American Community Survey (ACS) 5yr Data Table B25003"),
                                                   hr(),
+                                                  h1("Type of Housing Units"),
+                                                  strong(tags$div(class="chart_title","Housing Unit Type")),
+                                                  fluidRow(column(12,echarts4rOutput("rgc_type_chart"))),
+                                                  tags$div(class="chart_source","Source: US Census Bureau American Community Survey (ACS) 5yr Data Table B25024"),
+                                                  hr(),
                                          ), # end of TabPanel for RGC Housing
                                          
                                          tabPanel("Other", "Test")
