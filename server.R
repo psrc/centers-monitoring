@@ -124,11 +124,11 @@ shinyServer(function(input, output, session) {
                   fillOpacity = 0.0)
   })
   
-  output$rgc_pop_hh_hu_chart <- renderEcharts4r({
+  output$rgc_pop_chart <- renderEcharts4r({
     
-    echart_column_chart(df = pop_hh_hu_data %>% filter(geography_type == rgc_title, geography == input$RGC & grouping != "Total"),
-                        x = "data_year", y = "estimate", tog = "grouping", title = "Estimate",
-                        dec = 0, esttype = "number", color = "jewel")
+    echart_column_chart(df = pop_hh_hu_data %>% filter(geography_type == rgc_title, geography == input$RGC & grouping == "Population"),
+                        x = "data_year", y = "estimate", tog = "grouping", title = "Total Housing Units",
+                        dec = 0, esttype = "number", color = "oranges")
     
   })
   
@@ -180,6 +180,14 @@ shinyServer(function(input, output, session) {
     echart_multi_column_chart(df = burden_data %>% filter(geography_type == rgc_title, geography == input$RGC & grouping != "Total"),
                               x = "grouping", y = "share", fill="concept", tog = "data_year", title = "Cost Burden",
                               dec = 0, esttype = "percent", color = "purples")
+    
+  })
+  
+  output$rgc_hu_chart <- renderEcharts4r({
+    
+    echart_column_chart(df = pop_hh_hu_data %>% filter(geography_type == rgc_title, geography == input$RGC & grouping == "Housing Units"),
+                        x = "data_year", y = "estimate", tog = "grouping", title = "Total Housing Units",
+                        dec = 0, esttype = "number", color = "blues")
     
   })
 

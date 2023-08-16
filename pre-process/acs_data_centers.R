@@ -1115,13 +1115,6 @@ rm(owner_burden_lookup, centers, blockgroups, county)
 cost_burden <- bind_rows(owner_cost_burden, renter_cost_burden)
 saveRDS(cost_burden, "data/cost_burden.rds")
 
-
-
-
-
-
-
-
 # Educational Attainment --------------------------------------------------
 education_lookup <- data.frame(variable = c("B15002_001",
                                             "B15002_003", "B15002_004","B15002_005","B15002_006", "B15002_007", "B15002_008", "B15002_009", "B15002_010",
