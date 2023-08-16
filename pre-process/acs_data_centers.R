@@ -229,8 +229,53 @@ mic_data <- parcels %>%
   arrange(geography, grouping, year)
 
 center_pop_hh_hu <- bind_rows(rgc_data, mic_data)
-rm(rgc_data, mic_data, parcels, parcel_geo)
+rm(rgc_data, mic_data, parcels)
 saveRDS(center_pop_hh_hu, "data/center_pop_hh_hu.rds")
+
+# Housing Units -----------------------------------------------------------
+parcels <- left_join(parcel_facts, parcel_geo, by=c("parcel_dim_id")) 
+
+rgc_data <- parcels %>%
+  select(year="estimate_year", geography="rgc", "housing_units") %>%
+  group_by(year, geography) %>%
+  summarise(housing_units=sum(housing_units)) %>%
+  as_tibble() %>%
+  filter(geography != "Not in Center") %>%
+  mutate(geography_type = "Regional Growth Center (6/22/2023)") %>%
+  pivot_longer(cols = c(housing_units), names_to = "grouping", values_to = "estimate") %>%
+  mutate(estimate = round(estimate,0), concept = "Total Housing Units", share=1) %>%
+  mutate(geography = gsub("Redmond-Overlake", "Redmond Overlake", geography)) %>%
+  mutate(geography = gsub("Bellevue", "Bellevue Downtown", geography)) %>%
+  mutate(grouping = gsub("housing_units", "Housing Units", grouping)) %>%
+  arrange(geography, grouping, year)
+
+mic_data <- parcels %>%
+  select(year="estimate_year", geography="mic", "housing_units") %>%
+  group_by(year, geography) %>%
+  summarise(housing_units=sum(housing_units)) %>%
+  as_tibble() %>%
+  filter(geography != "Not in Center") %>%
+  mutate(geography_type = "MIC (2022 RTP)") %>%
+  pivot_longer(cols = c(housing_units), names_to = "grouping", values_to = "estimate") %>%
+  mutate(estimate = round(estimate,0), concept = "Total Housing Units", share=1) %>%
+  mutate(geography = gsub("Kent MIC", "Kent", geography)) %>%
+  mutate(geography = gsub("Paine Field / Boeing Everett", "Paine Field/Boeing Everett", geography)) %>%
+  mutate(geography = gsub("Sumner Pacific", "Sumner-Pacific", geography)) %>%
+  mutate(geography = gsub("Puget Sound Industrial Center- Bremerton", "Puget Sound Industrial Center - Bremerton", geography)) %>%
+  mutate(geography = gsub("Cascade", "Cascade Industrial Center - Arlington/Marysville", geography)) %>%
+  mutate(grouping = gsub("housing_units", "Housing Units", grouping)) %>%
+  arrange(geography, grouping, year)
+
+center_hu <- bind_rows(rgc_data, mic_data)
+
+center_hu <- center_hu %>%
+  group_by(geography) %>%
+  mutate(delta = estimate - lag(estimate)) %>%
+  as_tibble() %>%
+  drop_na()
+
+rm(rgc_data, mic_data, parcels)
+saveRDS(center_hu, "data/center_hu.rds")
 
 # Age Distribution --------------------------------------------------------
 age_lookup <- data.frame(variable = c("B01001_002",

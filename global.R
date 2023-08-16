@@ -47,6 +47,7 @@ employment_data <- readRDS("data/centers_employment.rds") %>% mutate(data_year =
 tenure_data <- readRDS("data/households_by_tenure.rds") %>% mutate(data_year = factor(year, levels=year_ord))
 type_data <- readRDS("data/housing_units_by_type.rds") %>% mutate(data_year = factor(year, levels=year_ord))
 burden_data <- readRDS("data/cost_burden.rds") %>% mutate(data_year = factor(year, levels=year_ord))
+unit_data <- readRDS("data/center_hu.rds") %>% mutate(data_year = factor(year, levels=year_ord))
 
 # Centers Information
 centers_info <- read_csv("data/centers_information.csv", show_col_types = FALSE)
@@ -61,3 +62,4 @@ rgc_shape <- st_read("https://services6.arcgis.com/GWxg6t7KXELn1thE/arcgis/rest/
 
 rgc_names <- rgc_shape %>% st_drop_geometry() %>% select("name") %>% arrange(name) %>% distinct() %>% pull()
 random_rgc <- rgc_names[[sample(1:length(rgc_names), 1)]]
+
