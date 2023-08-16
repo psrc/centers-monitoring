@@ -29,7 +29,7 @@ shinyUI(
                              leftpanel_ui('rgcleftpanel')),
                       
                       column(8,
-                             selectInput("RGC","Select Regional Growth Center:",rgc_names),
+                             selectInput("RGC","Select Regional Growth Center:",rgc_names, selected = random_rgc),
                              
                              # Section on page for Map and Summary Table
                              fluidRow(column(6, leafletOutput("rgc_map")),
