@@ -445,12 +445,25 @@ create_rgc_summary_table <- function(center_name, yr) {
   
 }
 
-echart_multi_column_chart <- function(df, x, y, fill, tog, title, dec, esttype, color) {
+echart_multi_bar_chart <- function(df, x, y, fill, tog, dec, esttype, color) {
+ 
+  c <- echart_multi_column_chart(df=df, x=x, y=y, fill=fill, tog=tog, dec=dec, esttype=esttype, color=color) 
   
-  if (color == "blues") {color <- psrcplot::psrc_colors$blues_inc}
-  if (color == "greens") {color <- psrcplot::psrc_colors$greens_inc}
-  if (color == "oranges") {color <- psrcplot::psrc_colors$oranges_inc}
-  if (color == "purples") {color <- psrcplot::psrc_colors$purples_inc}
+  c <- c %>%
+    e_flip_coords()
+  
+  return(c)
+  
+}
+
+
+echart_multi_column_chart <- function(df, x, y, fill, tog, dec, esttype, color) {
+  
+  if (color == "blues") {chart_color <- psrcplot::psrc_colors$blues_inc}
+  if (color == "greens") {chart_color <- psrcplot::psrc_colors$greens_inc}
+  if (color == "oranges") {chart_color <- psrcplot::psrc_colors$oranges_inc}
+  if (color == "purples") {chart_color <- psrcplot::psrc_colors$purples_inc}
+  if (color == "jewel") {chart_color <- psrcplot::psrc_colors$pognbgy_5}
   
   # If the value is a percentage, round differently
   ifelse(esttype == "percent", num_dec <- 4, num_dec <- dec)
@@ -487,7 +500,7 @@ echart_multi_column_chart <- function(df, x, y, fill, tog, title, dec, esttype, 
   }
   
   c <- c %>% 
-    echarts4r::e_color(color) %>%
+    echarts4r::e_color(chart_color) %>%
     echarts4r::e_grid(left = '15%', top = top_padding, bottom = bottom_padding) %>%
     echarts4r::e_x_axis(axisTick=list(show = FALSE)) %>%
     echarts4r::e_show_loading() %>%

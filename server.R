@@ -69,6 +69,13 @@ shinyServer(function(input, output, session) {
       pull()
   })
   
+  rgc_county <- reactive({
+    centers_info %>%
+      filter(rgc_mic=="Regional Growth Center" & name == input$RGC) %>%
+      select("county") %>%
+      pull()
+  })
+  
   output$rgc_population_chart <- renderEcharts4r({
     rgc_filter() %>%
       e_charts(year) %>%
@@ -134,26 +141,28 @@ shinyServer(function(input, output, session) {
   
   output$rgc_age_chart <- renderEcharts4r({
     
-    echart_column_chart(df = age_data %>% filter(geography_type == rgc_title, geography == input$RGC & grouping != "Total"),
-                        x = "grouping", y = "share", tog = "data_year", title = "Age Group",
-                        dec = 0, esttype = "percent", color = "jewel")
+      echart_multi_column_chart(df = age_data %>% filter(geography_type %in% c(rgc_title, "County") & geography %in% c(input$RGC, "Region", rgc_county()) & grouping != "Total"),
+                              x = "grouping", y = "share", fill="geography", tog = "data_year", 
+                              dec = 0, esttype = "percent", color = "jewel")
     
   })
   
   output$rgc_race_chart <- renderEcharts4r({
     
-    echart_bar_chart(df = race_data %>% filter(geography_type == rgc_title, geography == input$RGC & grouping != "Total"),
-                     x = "grouping", y = "share", tog = "data_year", title = "Race & Ethnicity",
-                     dec = 0, esttype = "percent", color = "jewel")
+    echart_multi_bar_chart(df = race_data %>% 
+                             filter(geography_type %in% c(rgc_title, "County") & geography %in% c(input$RGC, "Region", rgc_county()) & grouping != "Total") %>%
+                             arrange(desc(grouping)),
+                           x = "grouping", y = "share", fill="geography", tog = "data_year",
+                           dec = 0, esttype = "percent", color = "jewel")
+    
     
   })
   
   output$rgc_income_chart <- renderEcharts4r({
     
-    echart_bar_chart(df = income_data %>% filter(geography_type == rgc_title, geography == input$RGC & grouping != "Total"),
-                     x = "grouping", y = "share", tog = "data_year", title = "Household Income",
-                     dec = 0, esttype = "percent", color = "jewel")
-    
+    echart_multi_column_chart(df = income_data %>% filter(geography_type %in% c(rgc_title, "County") & geography %in% c(input$RGC, "Region", rgc_county()) & grouping != "Total"),
+                              x = "grouping", y = "share", fill="geography", tog = "data_year", 
+                              dec = 0, esttype = "percent", color = "jewel")
   })
   
   output$summary_table <- DT::renderDataTable({create_rgc_summary_table(center_name = input$RGC, yr = 2021)
@@ -178,7 +187,7 @@ shinyServer(function(input, output, session) {
   output$rgc_burden_chart <- renderEcharts4r({
     
     echart_multi_column_chart(df = burden_data %>% filter(geography_type == rgc_title, geography == input$RGC & grouping != "Total"),
-                              x = "grouping", y = "share", fill="concept", tog = "data_year", title = "Cost Burden",
+                              x = "grouping", y = "share", fill="concept", tog = "data_year", 
                               dec = 0, esttype = "percent", color = "purples")
     
   })
