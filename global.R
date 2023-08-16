@@ -48,10 +48,10 @@ tenure_data <- readRDS("data/households_by_tenure.rds") %>% mutate(data_year = f
 type_data <- readRDS("data/housing_units_by_type.rds") %>% mutate(data_year = factor(year, levels=year_ord))
 burden_data <- readRDS("data/cost_burden.rds") %>% mutate(data_year = factor(year, levels=year_ord))
 
+# Centers Information
+centers_info <- read_csv("data/centers_information.csv", show_col_types = FALSE)
 
 mic_names <- age_data %>% filter(geography_type== mic_title) %>% select("geography") %>% arrange(geography) %>% distinct() %>% pull()
-
-centers_info <- read_csv("data/centers_information.csv", show_col_types = FALSE)
 
 # Shapefiles --------------------------------------------------------------
 rgc_shape <- st_read("https://services6.arcgis.com/GWxg6t7KXELn1thE/arcgis/rest/services/Regional_Growth_Centers/FeatureServer/0/query?where=0=0&outFields=*&f=pgeojson") %>%
