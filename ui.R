@@ -80,8 +80,8 @@ shinyUI(
                                                   tags$div(class="chart_source","Source: Office of Financial Managment SAEP Program & PSRC Parcelization"),
                                                   hr(),
 
-                                                  strong(tags$div(class="chart_title","New Housing Units by Year")),
-                                                  #fluidRow(column(12,echarts4rOutput("rgc_pop_hh_hu_chart"))),
+                                                  strong(tags$div(class="chart_title","Change in Housing Units by Year")),
+                                                  fluidRow(column(12,echarts4rOutput("rgc_hu_change_chart"))),
                                                   tags$div(class="chart_source","Source: Office of Financial Managment SAEP Program & PSRC Parcelization"),
                                                   hr(),
 

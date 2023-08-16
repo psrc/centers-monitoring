@@ -176,6 +176,14 @@ shinyServer(function(input, output, session) {
     
   })
   
+  output$rgc_hu_change_chart <- renderEcharts4r({
+    
+    echart_line_chart(df = unit_data %>% filter(geography_type %in% c(rgc_title, "County") & geography %in% c(input$RGC, "Region", rgc_county())) %>% mutate(concept="Housing Unit Change"),
+                      x = "data_year", y = "delta", fill = "concept", tog = "geography",
+                      dec = 0, esttype = "number", color = "jewel")
+    
+  })
+  
   output$rgc_tenure_chart <- renderEcharts4r({
     
     echart_multi_column_chart(df = tenure_data %>% filter(geography_type %in% c(rgc_title, "County") & geography %in% c(input$RGC, "Region", rgc_county()) & grouping != "Total"),

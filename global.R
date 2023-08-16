@@ -62,4 +62,3 @@ rgc_shape <- st_read("https://services6.arcgis.com/GWxg6t7KXELn1thE/arcgis/rest/
 
 rgc_names <- rgc_shape %>% st_drop_geometry() %>% select("name") %>% arrange(name) %>% distinct() %>% pull()
 random_rgc <- rgc_names[[sample(1:length(rgc_names), 1)]]
-
