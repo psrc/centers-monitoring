@@ -307,6 +307,7 @@ create_rgc_summary_table <- function(center_name, yr) {
     select("name", "acres") %>% 
     mutate(grouping="Land Area (acres)") %>% 
     mutate(estimate=as.character(round(acres,0))) %>%
+    mutate(pic = as.character(icon("layer-group", lib = "font-awesome"))) %>%
     select(-"acres")
   
   # Designation Year
@@ -315,6 +316,7 @@ create_rgc_summary_table <- function(center_name, yr) {
     select("name", "designation_year") %>% 
     mutate(grouping="Designation Year") %>% 
     mutate(estimate=as.character(designation_year)) %>%
+    mutate(pic = as.character(icon("calendar-check", lib = "font-awesome"))) %>%
     select(-"designation_year")
   
   # Center Type
@@ -323,13 +325,22 @@ create_rgc_summary_table <- function(center_name, yr) {
     select("name", "center_type") %>% 
     mutate(grouping="Center Type") %>% 
     mutate(estimate=as.character(center_type)) %>%
+    mutate(pic = as.character(icon("city", lib = "font-awesome"))) %>%
     select(-"center_type")
   
-  # Population, Households and Housing Units
+  # Population
   r4 <- pop_hh_hu_data %>% 
-    filter(year == yr & geography == center_name & geography_type == rgc_title) %>% 
+    filter(year == yr & geography == center_name & geography_type == rgc_title & grouping == "Population") %>% 
     select(name="geography", "grouping", "estimate") %>%
-    mutate(estimate = format(round(estimate, -1), big.mark = ","))
+    mutate(estimate = format(round(estimate, -1), big.mark = ",")) %>%
+    mutate(pic = as.character(icon("users", lib = "font-awesome")))
+  
+  # Housing Units
+  r5 <- pop_hh_hu_data %>% 
+    filter(year == yr & geography == center_name & geography_type == rgc_title & grouping == "Housing Units") %>% 
+    select(name="geography", "grouping", "estimate") %>%
+    mutate(estimate = format(round(estimate, -1), big.mark = ",")) %>%
+    mutate(pic = as.character(icon("building", lib = "font-awesome")))
   
   # Jobs
   j <- employment_data %>% 
@@ -341,15 +352,16 @@ create_rgc_summary_table <- function(center_name, yr) {
   
   if (j == "*") {
     
-    r5 <- r3 %>% mutate(estimate = "*", grouping = "Total Employment")
+    r6 <- r3 %>% mutate(estimate = "*", grouping = "Total Employment", pic = as.character(icon("briefcase", lib = "font-awesome")))
     
   } else {
     
-    r5 <- employment_data %>% 
+    r6 <- employment_data %>% 
       filter(year == yr & geography == center_name & geography_type == rgc_title & grouping == "Total") %>% 
       mutate(grouping="Total Employment") %>% 
       select(name="geography", "grouping", "estimate") %>%
-      mutate(estimate = format(round(as.integer(estimate), -1), big.mark = ","))
+      mutate(estimate = format(round(as.integer(estimate), -1), big.mark = ",")) %>%
+      mutate(pic = as.character(icon("briefcase", lib = "font-awesome")))
     
   }
   
@@ -391,7 +403,7 @@ create_rgc_summary_table <- function(center_name, yr) {
     
   }
   
-  r6 <- r5 %>% mutate(estimate = as.character(au), grouping = "Activity Units per Acre")
+  r7 <- r6 %>% mutate(estimate = as.character(au), grouping = "Activity Units per Acre", pic = as.character(icon("people-group", lib = "font-awesome")))
   
   # Jobs / Pop Balance
   
@@ -415,9 +427,9 @@ create_rgc_summary_table <- function(center_name, yr) {
     
   }
   
-  r7 <- r5 %>% mutate(estimate = as.character(jpr), grouping = "Jobs per Person")
+  r8 <- r7 %>% mutate(estimate = as.character(jpr), grouping = "Jobs per Person", pic = as.character(icon("person-shelter", lib = "font-awesome")))
   
-  t <- bind_rows(r1, r2, r3, r4, r5, r6, r7) %>% select(-"name")
+  t <- bind_rows(r1, r2, r3, r4, r5, r6, r7, r8) %>% select("pic", "grouping", "estimate")
   
   headerCallbackRemoveHeaderFooter <- c(
     "function(thead, data, start, end, display){",
@@ -431,15 +443,26 @@ create_rgc_summary_table <- function(center_name, yr) {
                                           searching = FALSE,
                                           dom = 't',
                                           headerCallback = JS(headerCallbackRemoveHeaderFooter),
-                                          columnDefs = list(list(targets = c(1), className = 'dt-right'))),
+                                          columnDefs = list(list(targets = c(2), className = 'dt-right'),
+                                                            list(targets = c(0), className = 'dt-center'))),
                            selection = 'none',
                            callback = JS(
                              "$('table.dataTable.no-footer').css('border-bottom', 'none');"
                            ),
                            class = 'row-border',
                            filter = 'none',              
-                           rownames = FALSE               
-  )
+                           rownames = FALSE,
+                           escape = FALSE
+  ) 
+  
+  # Add Section Breaks
+  summary_tbl <- summary_tbl %>%
+    formatStyle(0:ncol(t), valueColumns = "grouping",
+                `border-bottom` = styleEqual(c("Center Type", "Total Employment", "Jobs per Person"), "solid 2px"))
+  
+  summary_tbl <- summary_tbl %>%
+    formatStyle(0:ncol(t), valueColumns = "grouping",
+                `border-top` = styleEqual(c("Land Area (acres)"), "solid 2px"))
   
   return(summary_tbl)
   
