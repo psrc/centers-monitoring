@@ -4,17 +4,17 @@ shinyServer(function(input, output, session) {
   footer_server('psrcfooter')
   
   leftpanel_server('rgcleftpanel',
-                   contact_name = "Liz Underwood-Bultmann, AICP",
-                   contact_phone = "206-464-6174",
-                   contact_email = "lunderwood-bultmann@psrc.org",
-                   contact_title = "Principal Planner",
+                   contact_name = "Maggie Moore",
+                   contact_phone = "206-464-6171",
+                   contact_email = "mmoore@psrc.org",
+                   contact_title = "Senior Planner",
                    photo_filename = "redmondconnector.jpeg")
 
   leftpanel_server('micleftpanel',
-                   contact_name = "Liz Underwood-Bultmann, AICP",
-                   contact_phone = "206-464-6174",
-                   contact_email = "lunderwood-bultmann@psrc.org",
-                   contact_title = "Principal Planner",
+                   contact_name = "Maggie Moore",
+                   contact_phone = "206-464-6171",
+                   contact_email = "mmoore@psrc.org",
+                   contact_title = "Senior Planner",
                    photo_filename = "portoftacomaindustrialland.jpg")
     
   leftpanel_server('overviewleftpanel',
@@ -134,7 +134,7 @@ shinyServer(function(input, output, session) {
   output$rgc_pop_chart <- renderEcharts4r({
     
     echart_column_chart(df = pop_hh_hu_data %>% filter(geography_type == rgc_title, geography == input$RGC & grouping == "Population"),
-                        x = "data_year", y = "estimate", tog = "grouping", title = "Total Housing Units",
+                        x = "data_year", y = "estimate", tog = "grouping", title = "Total Population",
                         dec = 0, esttype = "number", color = "oranges")
     
   })

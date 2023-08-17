@@ -35,10 +35,10 @@ leftpanel_server <- function(id, contact_name, contact_title, contact_phone, con
         tags$div(class="sidebar_notes",contact_title),
         br(),
         icon("envelope"), 
-        tags$a(class = "source_url", href=paste0("mailto:",contact_email,"?"), "Email"),
+        tags$a(class = "sidebar_email", href=paste0("mailto:",contact_email,"?"), "Email"),
         br(), br(),
          
-        tags$div(icon("phone-volume"), class="source_url", contact_phone),
+        tags$div(icon("phone-volume"), class="sidebar_phone", contact_phone),
         hr(style = "border-top: 1px solid #000000;"),
         
         status = "primary",

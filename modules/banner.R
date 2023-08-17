@@ -18,7 +18,7 @@ banner_server <- function(id, photo_filename = NULL, banner_title, banner_subtit
       
       if (is.null(photo_filename)) {
         
-        fluidRow(column(12, style='padding-left:50px; padding-right:50px;',
+        fluidRow(column(12, style='padding-left:10px; padding-right:10px;',
                         bs4Jumbotron(
                           title = strong(tags$div(class="mainpage_title", banner_title)),
                           status = "success",

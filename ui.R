@@ -25,10 +25,10 @@ shinyUI(
              value="RGC",
              banner_ui('rgcBanner'),
              
-             fluidRow(column(4, style='padding-left:50px; padding-right:50px;',
+             fluidRow(column(3, style='padding-left:10px; padding-right:5px;',
                              leftpanel_ui('rgcleftpanel')),
                       
-                      column(8,
+                      column(9, style='padding-left:10px; padding-right:10px;',
                              selectInput("RGC","Select Regional Growth Center:",rgc_names, selected = random_rgc),
                              
                              # Section on page for Map and Summary Table

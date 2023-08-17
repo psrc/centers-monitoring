@@ -97,6 +97,18 @@ i {
   font-size: 12pt;
 }
 
+.sidebar_phone {
+  color: #00716C;
+  font-family: "Poppins";
+  font-size: 10pt;
+}
+
+.sidebar_email {
+  color: #00716C;
+  font-family: "Poppins";
+  font-size: 10pt;
+}
+
 .logo_url {
   color: #00716C;
   font-family: "Poppins";
@@ -159,11 +171,6 @@ i {
 .sidebar_label {
   font-size: 12pt;
   color: #8CC63E;
-}
-
-.sidebar_phone {
-  font-size: 10pt;
-  color: #76787A;
 }
 
 .datatables {
