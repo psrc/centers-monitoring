@@ -65,11 +65,15 @@ shinyUI(
 
                                                   strong(tags$div(class="chart_title","Total Population by Race & Ethnicity")),
                                                   fluidRow(column(12,echarts4rOutput("rgc_race_chart", height=500))),
+                                                  br(),
+                                                  fluidRow(column(12, dataTableOutput("rgc_race_table"))),
                                                   tags$div(class="chart_source","Source: US Census Bureau American Community Survey (ACS) 5yr Data Table B03002"),
                                                   hr(style = "border-top: 1px solid #000000;"),
 
                                                   strong(tags$div(class="chart_title","Total Household Income")),
                                                   fluidRow(column(12,echarts4rOutput("rgc_income_chart", height=500))),
+                                                  br(),
+                                                  fluidRow(column(12, dataTableOutput("rgc_income_table"))),
                                                   tags$div(class="chart_source","Source: US Census Bureau American Community Survey (ACS) 5yr Data Table B19001"),
                                                   hr(style = "border-top: 1px solid #000000;"),
                                                   
