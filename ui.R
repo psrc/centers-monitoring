@@ -25,15 +25,15 @@ shinyUI(
              value="RGC",
              banner_ui('rgcBanner'),
              
-             fluidRow(column(3, style='padding-left:10px; padding-right:5px;',
+             fluidRow(column(4, style='padding-left:10px; padding-right:0px;',
                              leftpanel_ui('rgcleftpanel')),
                       
-                      column(9, style='padding-left:50px; padding-right:25px;',
+                      column(8, style='padding-left:25px; padding-right:25px;',
                              selectInput("RGC","Select Regional Growth Center:",rgc_names, selected = random_rgc),
                              
                              # Section on page for Map and Summary Table
                              fluidRow(column(6, leafletOutput("rgc_map")),
-                                      column(6, strong("Center Summary:"),
+                                      column(6, strong("Summary Statistics"),
                                              br(),
                                              dataTableOutput("summary_table"),
                                              br(),
@@ -54,22 +54,25 @@ shinyUI(
                                                   strong(tags$div(class="chart_title","Total Population")),
                                                   fluidRow(column(12,echarts4rOutput("rgc_pop_chart"))),
                                                   tags$div(class="chart_source","Source: Office of Financial Managment SAEP Program & PSRC Parcelization"),
-                                                  hr(),
+                                                  hr(style = "border-top: 1px solid #000000;"),
 
                                                   strong(tags$div(class="chart_title","Total Population by Age Group")),
-                                                  fluidRow(column(12,echarts4rOutput("rgc_age_chart"))),
+                                                  fluidRow(column(12, echarts4rOutput("rgc_age_chart"))),
+                                                  br(),
+                                                  fluidRow(column(12, dataTableOutput("rgc_age_table"))),
                                                   tags$div(class="chart_source","Source: US Census Bureau American Community Survey (ACS) 5yr Data Table B01001"),
-                                                  hr(),
+                                                  hr(style = "border-top: 1px solid #000000;"),
 
                                                   strong(tags$div(class="chart_title","Total Population by Race & Ethnicity")),
                                                   fluidRow(column(12,echarts4rOutput("rgc_race_chart", height=500))),
                                                   tags$div(class="chart_source","Source: US Census Bureau American Community Survey (ACS) 5yr Data Table B03002"),
-                                                  hr(),
+                                                  hr(style = "border-top: 1px solid #000000;"),
 
                                                   strong(tags$div(class="chart_title","Total Household Income")),
                                                   fluidRow(column(12,echarts4rOutput("rgc_income_chart", height=500))),
                                                   tags$div(class="chart_source","Source: US Census Bureau American Community Survey (ACS) 5yr Data Table B19001"),
-                                                  hr(),
+                                                  hr(style = "border-top: 1px solid #000000;"),
+                                                  
                                                   ), # end of TabPanel for RGC Demographics
                                          tabPanel("Housing", 
                                                   

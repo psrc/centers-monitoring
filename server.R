@@ -147,6 +147,8 @@ shinyServer(function(input, output, session) {
     
   })
   
+  output$rgc_age_table <- DT::renderDataTable({create_multi_group_table(df = age_data, rgc_name = input$RGC, data_yrs = as.character(census_years), dec = 0)})
+  
   output$rgc_race_chart <- renderEcharts4r({
     
     echart_multi_bar_chart(df = race_data %>% 

@@ -727,4 +727,49 @@ echart_line_chart <- function(df, x, y, fill, tog, dec, esttype, color) {
   
 }
 
+create_multi_group_table <- function(df, rgc_name, data_yrs, dec=0) {
+  
+  summary_container = htmltools::withTags(table(
+    class = 'display',
+    thead(
+      tr(
+        th(rowspan = 2, 'Group'),
+        th(colspan = 2, data_yrs[[1]]),
+        th(colspan = 2, data_yrs[[2]]),
+        th(colspan = 2, data_yrs[[3]])
+      ),
+      tr(
+        lapply(rep(c('Estimate', 'Share'), 3), th)
+      )
+    )
+  ))
+  
+  tbl <- df %>% 
+    filter(geography_type %in% c(rgc_title) & geography %in% c(rgc_name)) %>%
+    select("grouping", "estimate", "share", "year") %>%
+    pivot_longer(cols = !c(grouping, year)) %>%
+    pivot_wider(names_from = c(year, name), values_from = "value")
+  
+  final_tbl <- datatable(tbl,
+                         container = summary_container,
+                         colnames = c('Group', 'Estimate', 'Share', 'Estimate', 'Share', 'Estimate', 'Share'),
+                         options = list(paging = TRUE,    ## paginate the output
+                                        pageLength = 15,  ## number of rows to output for each page
+                                        scrollX = TRUE,   ## enable scrolling on X axis
+                                        scrollY = TRUE,   ## enable scrolling on Y axis
+                                        autoWidth = TRUE, ## use smart column width handling
+                                        server = FALSE,   ## use client-side processing
+                                        dom = 'rtB',
+                                        buttons = c('csv', 'excel'),
+                                        columnDefs = list(list(targets = '_all', className = 'dt-center'))
+                         ),
+                         extensions = 'Buttons',
+                         filter = 'none',
+                         rownames = FALSE) %>%
+    formatPercentage(paste0(data_yrs,"_share"), dec) %>%
+    formatCurrency(paste0(data_yrs,"_estimate"), "", digits = 0)
+  
+  return(final_tbl)
+  
+}
 
