@@ -732,20 +732,100 @@ create_multi_group_table <- function(df, rgc_name, data_yrs, dec=0) {
   num_years <- length(data_yrs)
   
   # Define the Container for the Summary Data by Years
-  summary_container = htmltools::withTags(table(
-    class = 'display',
-    thead(
-      tr(
-        th(rowspan = 2, 'Group'),
-        th(class = 'dt-center', colspan = 2, data_yrs[[1]]),
-        th(class = 'dt-center', colspan = 2, data_yrs[[2]]),
-        th(class = 'dt-center', colspan = 2, data_yrs[[3]])
-      ),
-      tr(
-        lapply(rep(c('Estimate', 'Share'), num_years), th)
+  if (num_years == 1) {
+    
+    summary_container = htmltools::withTags(table(
+      class = 'display',
+      thead(
+        tr(
+          th(rowspan = 2, 'Group'),
+          th(class = 'dt-center', colspan = 2, data_yrs[[1]])
+        ),
+        tr(
+          lapply(rep(c('Estimate', 'Share'), num_years), th)
+        )
       )
-    )
-  ))
+    ))
+    
+  }
+  
+  if (num_years == 2) {
+    
+    summary_container = htmltools::withTags(table(
+      class = 'display',
+      thead(
+        tr(
+          th(rowspan = 2, 'Group'),
+          th(class = 'dt-center', colspan = 2, data_yrs[[1]]),
+          th(class = 'dt-center', colspan = 2, data_yrs[[2]])
+        ),
+        tr(
+          lapply(rep(c('Estimate', 'Share'), num_years), th)
+        )
+      )
+    ))
+    
+  }
+  
+  if (num_years == 3) {
+    
+    summary_container = htmltools::withTags(table(
+      class = 'display',
+      thead(
+        tr(
+          th(rowspan = 2, 'Group'),
+          th(class = 'dt-center', colspan = 2, data_yrs[[1]]),
+          th(class = 'dt-center', colspan = 2, data_yrs[[2]]),
+          th(class = 'dt-center', colspan = 2, data_yrs[[3]])
+        ),
+        tr(
+          lapply(rep(c('Estimate', 'Share'), num_years), th)
+        )
+      )
+    ))
+    
+  }
+
+  if (num_years == 4) {
+    
+    summary_container = htmltools::withTags(table(
+      class = 'display',
+      thead(
+        tr(
+          th(rowspan = 2, 'Group'),
+          th(class = 'dt-center', colspan = 2, data_yrs[[1]]),
+          th(class = 'dt-center', colspan = 2, data_yrs[[2]]),
+          th(class = 'dt-center', colspan = 2, data_yrs[[3]]),
+          th(class = 'dt-center', colspan = 2, data_yrs[[4]])
+        ),
+        tr(
+          lapply(rep(c('Estimate', 'Share'), num_years), th)
+        )
+      )
+    ))
+    
+  }
+
+  if (num_years == 5) {
+    
+    summary_container = htmltools::withTags(table(
+      class = 'display',
+      thead(
+        tr(
+          th(rowspan = 2, 'Group'),
+          th(class = 'dt-center', colspan = 2, data_yrs[[1]]),
+          th(class = 'dt-center', colspan = 2, data_yrs[[2]]),
+          th(class = 'dt-center', colspan = 2, data_yrs[[3]]),
+          th(class = 'dt-center', colspan = 2, data_yrs[[4]]),
+          th(class = 'dt-center', colspan = 2, data_yrs[[5]])
+        ),
+        tr(
+          lapply(rep(c('Estimate', 'Share'), num_years), th)
+        )
+      )
+    ))
+    
+  }  
   
   # Get All possible categories
   cat <- df %>% select("grouping") %>% distinct() %>% pull()
@@ -757,7 +837,7 @@ create_multi_group_table <- function(df, rgc_name, data_yrs, dec=0) {
     
   }
   
-  # Filter Actual Dataframe
+  # Filter Data
   tbl <- df %>% 
     filter(geography_type %in% c(rgc_title) & geography %in% c(rgc_name)) %>%
     select("grouping", "estimate", "share", "year") 
@@ -769,20 +849,21 @@ create_multi_group_table <- function(df, rgc_name, data_yrs, dec=0) {
   
   final_tbl <- datatable(tbl_full,
                          container = summary_container,
-                         colnames = c('Group', 'Estimate', 'Share', 'Estimate', 'Share', 'Estimate', 'Share'),
+                         colnames = c('Group', rep(c('Estimate', 'Share'), num_years)),
                          options = list(pageLength = 15,
                                         dom = 'rtB',
                                         buttons = c('csv', 'excel'),
-                                        columnDefs = list(list(className = 'dt-center', targets=1:6))
+                                        columnDefs = list(list(className = 'dt-center', targets=1:(num_years*2)))
                          ),
                          extensions = 'Buttons',
                          filter = 'none',
                          rownames = FALSE) %>%
     formatPercentage(paste0(data_yrs,"_share"), dec) %>%
-    formatCurrency(paste0(data_yrs,"_estimate"), "", digits = 0) %>%
-    formatStyle(c(0), 'vertical-align'='bottom')
+    formatCurrency(paste0(data_yrs,"_estimate"), "", digits = 0)
   
   return(final_tbl)
   
 }
+
+
 
