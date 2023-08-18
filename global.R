@@ -25,6 +25,7 @@ spn <- 32148
 
 current_census_yr <- (lubridate::year(Sys.Date())-2)
 census_years <- c(current_census_yr-10, current_census_yr-5, current_census_yr)
+ofm_years <- c(2011, 2016, 2021, 2022)
 year_ord <- c("2022","2021", "2020", "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010")
 
 # Run Modules files -------------------------------------------------------
@@ -48,6 +49,9 @@ tenure_data <- readRDS("data/households_by_tenure.rds") %>% mutate(data_year = f
 type_data <- readRDS("data/housing_units_by_type.rds") %>% mutate(data_year = factor(year, levels=year_ord))
 burden_data <- readRDS("data/cost_burden.rds") %>% mutate(data_year = factor(year, levels=year_ord))
 unit_data <- readRDS("data/center_hu.rds") %>% mutate(data_year = factor(year, levels=year_ord))
+
+renter_burden_data <- burden_data %>% filter(concept == "Renter Cost Burden")
+owner_burden_data <- burden_data %>% filter(concept == "Owner Cost Burden")
 
 # Centers Information
 centers_info <- read_csv("data/centers_information.csv", show_col_types = FALSE)

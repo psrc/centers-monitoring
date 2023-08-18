@@ -865,5 +865,40 @@ create_multi_group_table <- function(df, rgc_name, data_yrs, dec=0) {
   
 }
 
+create_single_group_table <- function(df, rgc_name, data_yrs, group, dec=0) {
+  
+  df <- df %>% filter(geography_type == rgc_title, geography == rgc_name & grouping == group & year %in% data_yrs)
+  
+  # Get All possible categories
+  tbl_full <- NULL
+  for (y in data_yrs) {
+    
+    d <- data.frame(year = y)
+    ifelse(is.null(tbl_full), tbl_full<-d, tbl_full<-bind_rows(tbl_full,d))
+    
+  }
+  
+  # Filter Data
+  tbl <- df %>% 
+    select("year", "estimate") 
+  
+  tbl_full <- left_join(tbl_full, tbl, by=c("year")) %>%
+    mutate(estimate = replace_na(estimate, 0))
+  
+  final_tbl <- datatable(tbl_full,
+                         colnames = c('Year', group),
+                         options = list(pageLength = length(data_yrs),
+                                        dom = 'rtB',
+                                        buttons = c('csv', 'excel'),
+                                        columnDefs = list(list(className = 'dt-center', targets=0:1))
+                         ),
+                         extensions = 'Buttons',
+                         filter = 'none',
+                         rownames = FALSE) %>%
+    formatCurrency("estimate", "", digits = 0)
+  
+  return(final_tbl)
+  
+}
 
 

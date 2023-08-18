@@ -52,7 +52,8 @@ shinyUI(
                                                   hr(),
                                                   
                                                   strong(tags$div(class="chart_title","Total Population")),
-                                                  fluidRow(column(12,echarts4rOutput("rgc_pop_chart"))),
+                                                  fluidRow(column(6,br(), br(), br(), br(), dataTableOutput("rgc_pop_table")),
+                                                           column(6,echarts4rOutput("rgc_pop_chart"))),
                                                   tags$div(class="chart_source","Source: Office of Financial Managment SAEP Program & PSRC Parcelization"),
                                                   hr(style = "border-top: 1px solid #000000;"),
 
@@ -75,7 +76,7 @@ shinyUI(
                                                   br(),
                                                   fluidRow(column(12, dataTableOutput("rgc_income_table"))),
                                                   tags$div(class="chart_source","Source: US Census Bureau American Community Survey (ACS) 5yr Data Table B19001"),
-                                                  hr(style = "border-top: 1px solid #000000;"),
+                                                  hr(style = "border-top: 1px solid #000000;")
                                                   
                                                   ), # end of TabPanel for RGC Demographics
                                          tabPanel("Housing", 
@@ -83,34 +84,46 @@ shinyUI(
                                                   hr(),
 
                                                   strong(tags$div(class="chart_title","Total Housing Units")),
-                                                  fluidRow(column(12,echarts4rOutput("rgc_hu_chart"))),
+                                                  fluidRow(column(6,br(), br(), br(), br(), dataTableOutput("rgc_hu_table")),
+                                                           column(6,echarts4rOutput("rgc_hu_chart"))),
                                                   tags$div(class="chart_source","Source: Office of Financial Managment SAEP Program & PSRC Parcelization"),
-                                                  hr(),
+                                                  hr(style = "border-top: 1px solid #000000;"),
 
                                                   strong(tags$div(class="chart_title","Change in Housing Units by Year")),
                                                   fluidRow(column(12,echarts4rOutput("rgc_hu_change_chart"))),
+                                                  br(),
+                                                  #fluidRow(column(12, dataTableOutput("rgc_hu_change_table"))),
                                                   tags$div(class="chart_source","Source: Office of Financial Managment SAEP Program & PSRC Parcelization"),
-                                                  hr(),
+                                                  hr(style = "border-top: 1px solid #000000;"),
 
                                                   strong(tags$div(class="chart_title","Housing Tenure")),
                                                   fluidRow(column(12,echarts4rOutput("rgc_tenure_chart"))),
+                                                  br(),
+                                                  fluidRow(column(12, dataTableOutput("rgc_tenure_table"))),
                                                   tags$div(class="chart_source","Source: US Census Bureau American Community Survey (ACS) 5yr Data Table B25003"),
-                                                  hr(),
+                                                  hr(style = "border-top: 1px solid #000000;"),
 
                                                   strong(tags$div(class="chart_title","Housing Unit Type")),
                                                   fluidRow(column(12,echarts4rOutput("rgc_type_chart"))),
+                                                  br(),
+                                                  fluidRow(column(12, dataTableOutput("rgc_type_table"))),
                                                   tags$div(class="chart_source","Source: US Census Bureau American Community Survey (ACS) 5yr Data Table B25024"),
-                                                  hr(),
+                                                  hr(style = "border-top: 1px solid #000000;"),
 
                                                   strong(tags$div(class="chart_title","Cost Burden: Renters")),
                                                   fluidRow(column(12,echarts4rOutput("rgc_renter_burden_chart"))),
+                                                  br(),
+                                                  fluidRow(column(12, dataTableOutput("rgc_renter_burden_table"))),
                                                   tags$div(class="chart_source","Source: US Census Bureau American Community Survey (ACS) 5yr Data Table B25070"),
-                                                  hr(),
+                                                  hr(style = "border-top: 1px solid #000000;"),
                                                   
                                                   strong(tags$div(class="chart_title","Cost Burden: Owners")),
                                                   fluidRow(column(12,echarts4rOutput("rgc_owner_burden_chart"))),
+                                                  br(),
+                                                  fluidRow(column(12, dataTableOutput("rgc_owner_burden_table"))),
                                                   tags$div(class="chart_source","Source: US Census Bureau American Community Survey (ACS) 5yr Data Table B25091"),
-                                                  hr(),
+                                                  hr(style = "border-top: 1px solid #000000;")
+                                                  
                                          ), # end of TabPanel for RGC Housing
                                          
                                          tabPanel("Other", "Test")
