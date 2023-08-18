@@ -901,4 +901,24 @@ create_single_group_table <- function(df, rgc_name, data_yrs, group, dec=0) {
   
 }
 
+create_change_table <- function(df, yr, val, nm) {
+  
+  # Filter Data
+  data_yrs <- df %>% select(all_of(yr)) %>% pull() %>% length
+  tbl <- df %>% select(all_of(yr), all_of(val)) 
+
+  final_tbl <- datatable(tbl,
+                         colnames = c('Year', nm),
+                         options = list(dom = 'rtB',
+                                        buttons = c('csv', 'excel'),
+                                        columnDefs = list(list(className = 'dt-center', targets=0:1))
+                         ),
+                         extensions = 'Buttons',
+                         filter = 'none',
+                         rownames = FALSE) %>%
+    formatCurrency(val, "", digits = 0)
+  
+  return(final_tbl)
+  
+}
 

@@ -89,10 +89,9 @@ shinyUI(
                                                   tags$div(class="chart_source","Source: Office of Financial Managment SAEP Program & PSRC Parcelization"),
                                                   hr(style = "border-top: 1px solid #000000;"),
 
-                                                  strong(tags$div(class="chart_title","Change in Housing Units by Year")),
-                                                  fluidRow(column(12,echarts4rOutput("rgc_hu_change_chart"))),
-                                                  br(),
-                                                  #fluidRow(column(12, dataTableOutput("rgc_hu_change_table"))),
+                                                  strong(tags$div(class="chart_title","New Net Housing Units")),
+                                                  fluidRow(column(6,br(), br(), br(), br(), dataTableOutput("rgc_hu_change_table")),
+                                                           column(6,echarts4rOutput("rgc_hu_change_chart"))),
                                                   tags$div(class="chart_source","Source: Office of Financial Managment SAEP Program & PSRC Parcelization"),
                                                   hr(style = "border-top: 1px solid #000000;"),
 

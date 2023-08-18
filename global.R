@@ -49,7 +49,6 @@ tenure_data <- readRDS("data/households_by_tenure.rds") %>% mutate(data_year = f
 type_data <- readRDS("data/housing_units_by_type.rds") %>% mutate(data_year = factor(year, levels=year_ord))
 burden_data <- readRDS("data/cost_burden.rds") %>% mutate(data_year = factor(year, levels=year_ord))
 unit_data <- readRDS("data/center_hu.rds") %>% mutate(data_year = factor(year, levels=year_ord))
-
 renter_burden_data <- burden_data %>% filter(concept == "Renter Cost Burden")
 owner_burden_data <- burden_data %>% filter(concept == "Owner Cost Burden")
 

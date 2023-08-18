@@ -188,11 +188,21 @@ shinyServer(function(input, output, session) {
   
   output$rgc_hu_change_chart <- renderEcharts4r({
     
-    echart_line_chart(df = unit_data %>% filter(geography_type %in% c(rgc_title, "County") & geography %in% c(input$RGC, "Region", rgc_county())) %>% mutate(concept="Housing Unit Change"),
-                      x = "data_year", y = "delta", fill = "concept", tog = "geography",
-                      dec = 0, esttype = "number", color = "jewel")
+    echart_column_chart(df = unit_data %>% 
+                          filter(geography_type %in% c(rgc_title) & geography %in% c(input$RGC) & year %in% ofm_years) %>% 
+                          mutate(concept="New Net Housing Units") %>% 
+                          mutate(delta = estimate-lag(estimate), data_year = paste0(lag(data_year),"-",data_year)) %>%
+                          drop_na(),
+                        x = "data_year", y = "delta", tog = "concept", title = "New Net Housing Units",
+                        dec = 0, esttype = "number", color = "purples")
     
   })
+  
+  output$rgc_hu_change_table <- DT::renderDataTable({create_change_table(df = unit_data %>% 
+                                                                           filter(geography_type %in% c(rgc_title) & geography %in% c(input$RGC) & year %in% ofm_years) %>% 
+                                                                           mutate(delta = estimate-lag(estimate), data_year = paste0(lag(data_year),"-",data_year)) %>%
+                                                                           drop_na(), 
+                                                                         yr = "data_year",val="delta", nm="New Net Housing Units")})
   
   output$rgc_tenure_chart <- renderEcharts4r({
     
