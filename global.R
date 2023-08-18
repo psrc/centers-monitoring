@@ -42,6 +42,7 @@ pop_hh_hu_data <- readRDS("data/center_pop_hh_hu.rds") %>% mutate(data_year = fa
 age_data <- readRDS("data/population_by_age.rds") %>% mutate(data_year = factor(year, levels=year_ord)) %>% mutate(geography = gsub("Greater Downtown Kirkland", "Kirkland Greater Downtown", geography))
 race_data <- readRDS("data/population_by_race.rds") %>% mutate(data_year = factor(year, levels=year_ord)) %>% mutate(geography = gsub("Greater Downtown Kirkland", "Kirkland Greater Downtown", geography))
 income_data <- readRDS("data/households_by_income.rds") %>% mutate(data_year = factor(year, levels=year_ord)) %>% mutate(geography = gsub("Greater Downtown Kirkland", "Kirkland Greater Downtown", geography))
+education_data <- readRDS("data/educational_attainment.rds") %>% mutate(data_year = factor(year, levels=year_ord)) %>% mutate(geography = gsub("Greater Downtown Kirkland", "Kirkland Greater Downtown", geography))
 employment_data <- readRDS("data/centers_employment.rds") %>% mutate(data_year = factor(year, levels=year_ord)) %>% mutate(geography = gsub("Greater Downtown Kirkland", "Kirkland Greater Downtown", geography))
 
 # Housing Data Metrics

@@ -187,6 +187,16 @@ shinyServer(function(input, output, session) {
   
   output$rgc_income_table <- DT::renderDataTable({create_multi_group_table(df = income_data, rgc_name = input$RGC, data_yrs = as.character(census_years), dec = 1)})
   
+  output$rgc_education_chart <- renderEcharts4r({
+    
+    echart_multi_bar_chart(df = education_data %>% filter(geography_type %in% c(rgc_title, "County") & geography %in% c(input$RGC, "Region", rgc_county()) & grouping != "Total"),
+                              x = "grouping", y = "share", fill="geography", tog = "data_year", 
+                              dec = 0, esttype = "percent", color = "jewel")
+    
+  })
+  
+  output$rgc_education_table <- DT::renderDataTable({create_multi_group_table(df = education_data, rgc_name = input$RGC, data_yrs = as.character(census_years), dec = 1)})
+  
   output$summary_table <- DT::renderDataTable({create_rgc_summary_table(center_name = input$RGC, yr = 2021)})
   
   output$urban_form_table <- DT::renderDataTable({create_rgc_urban_form_table(center_name = input$RGC)})

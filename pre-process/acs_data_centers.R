@@ -26,6 +26,9 @@ structure_order <- c("SF detached", "Moderate-low\ndensity", "Moderate-high\nden
                      "High density", "Other", "Total")
 burden_order <- c("Not cost\nburdened (<30%)", "Cost burdened\n(30-49.9%)",
                   "Severely cost\nburdened (50+%)", "Not computed", "Total")
+education_order <- c("No high school\ndiploma", "High school", "Some college",
+                     "Bachelor’s\ndegree","Graduate degree", "Total")
+
 # Census Tables
 age_table <- "B01001"
 race_table <- "B03002"
@@ -34,6 +37,7 @@ tenure_table <- "B25003"
 structure_table <- "B25024"
 renter_burden_table <- "B25070"
 owner_burden_table <- "B25091"
+education_table <- "B15002"
 
 # Employment Data
 rgc_emp_file <- "data/rgc_covered_emp_2010_2021_revised_20230705.csv"
@@ -47,9 +51,7 @@ tenure_bg <- file.path(acs_pre2013_bg_dir, paste0("acs_",pre_api_year,"5_", tenu
 structure_bg <- file.path(acs_pre2013_bg_dir, paste0("acs_",pre_api_year,"5_", structure_table, "_150.xlsx"))
 renter_burden_bg <- file.path(acs_pre2013_bg_dir, paste0("acs_",pre_api_year,"5_", renter_burden_table, "_150.xlsx"))
 owner_burden_bg <- file.path(acs_pre2013_bg_dir, paste0("acs_",pre_api_year,"5_", owner_burden_table, "_150_v2.xlsx"))
-
-education_bg <- file.path(acs_pre2013_bg_dir, paste0("acs_",pre_api_year,"5_B15002_150.xlsx"))
-
+education_bg <- file.path(acs_pre2013_bg_dir, paste0("acs_",pre_api_year,"5_", education_table, "_150.xlsx"))
 
 # Functions ---------------------------------------------------------------
 centers_estimate_from_bg <- function(split_df=blockgroup_splits, estimate_df=blockgroups, center_type, split_type) {
@@ -1184,91 +1186,56 @@ education_lookup <- data.frame(variable = c("B15002_001",
                                       "Bachelor’s degree",
                                       "Graduate degree", "Graduate degree", "Graduate degree"))
 
-# County
-county <- get_acs_recs(geography="county", table.names = "B15002", years = c(pre_api_years, api_years), acs.type = 'acs5') %>%
-  mutate(label = str_remove_all(label, "Estimate!!Total!!")) %>%
-  mutate(label = str_remove_all(label, ":")) %>%
-  mutate(label = str_replace_all(label, "!!", " ")) %>%
-  mutate(label = str_remove_all(label, "Male ")) %>%
-  mutate(label = str_remove_all(label, "Female ")) %>%
-  mutate(label = str_remove_all(label, "Estimate ")) %>%
-  mutate(label = str_trim(label, "both")) %>%
-  select(-"state") %>%
-  mutate(label = str_remove_all(label, "Total ")) %>%
-  mutate(concept = str_to_title(concept)) %>%
-  filter(label !="Female") %>%
-  filter(label !="Male")
+county <- get_acs_recs(geography="county", table.names = education_table, years = c(pre_api_year, api_years), acs.type = 'acs5') 
 
 county <- left_join(county, education_lookup, by=c("variable")) %>%
   filter(!(is.na(grouping))) %>%
-  group_by(name, year, grouping) %>%
-  summarise(estimate = sum(estimate),  moe = round(moe_sum(moe, estimate), 0)) %>%
+  select(geography="name", "estimate", "year", "grouping") %>%
+  group_by(geography, year, grouping) %>%
+  summarise(estimate = sum(estimate)) %>%
   as_tibble() %>%
-  mutate(metric = "Educational Attainment", geography_type = "County")
+  mutate(concept = "Educational Attainment")
 
 totals <- county %>%
-  select("name", "grouping", "year", total="estimate") %>%
   filter(grouping == "Total") %>%
-  select(-"grouping")
+  select("geography", "year", "concept", total="estimate")
 
-county_edu <- left_join(county, totals, by=c("name", "year")) %>%
+county <- left_join(county, totals, by=c("geography", "year", "concept")) %>%
   mutate(share = estimate / total) %>%
-  select("name", geography="geography_type", "grouping", "year", "estimate", "moe", "share")
+  select(-"total") %>%
+  mutate(geography_type = "County") %>%
+  mutate(grouping = str_wrap(grouping, width=15)) %>%
+  mutate(geography = factor(geography, levels = county_order)) %>%
+  mutate(grouping = factor(grouping, levels = education_order)) %>%
+  mutate(year = as.character(year)) %>%
+  arrange(geography, grouping, year)
 
-county_edu <- county_edu %>%
-  select(-"share") %>%
-  rename(`Estimate:`="estimate", `MoE:`="moe") %>%
-  pivot_wider(names_from = "grouping", values_from = c("Estimate:", "MoE:"), names_sep = " ")
-
-rm(totals, county)
+rm(totals)
 
 # Blockgroup 2013 onward
-edu_post_2013 <- get_acs_recs(geography="block group", table.names = "B15002", years = api_years, acs.type = 'acs5') %>%
-  mutate(label = str_remove_all(label, "Estimate!!Total!!")) %>%
-  mutate(label = str_remove_all(label, ":")) %>%
-  mutate(label = str_replace_all(label, "!!", " ")) %>%
-  mutate(label = str_remove_all(label, "Male ")) %>%
-  mutate(label = str_remove_all(label, "Female ")) %>%
-  mutate(label = str_remove_all(label, "Estimate ")) %>%
-  mutate(label = str_trim(label, "both")) %>%
-  select(-"state") %>%
-  mutate(label = str_remove_all(label, "Total ")) %>%
-  mutate(concept = str_to_title(concept)) %>%
-  filter(label !="Female") %>%
-  filter(label !="Male")
+bg_post_2013 <- get_acs_recs(geography="block group", table.names = education_table, years = api_years, acs.type = 'acs5') 
 
-edu_post_2013 <- left_join(edu_post_2013, education_lookup, by=c("variable")) %>%
+bg_post_2013 <- left_join(bg_post_2013, education_lookup, by=c("variable")) %>%
   filter(!(is.na(grouping))) %>%
-  group_by(GEOID, year, grouping) %>%
-  summarise(estimate = sum(estimate),  moe = round(moe_sum(moe, estimate), 0)) %>%
+  select(geography="GEOID", "estimate", "year", "grouping") %>%
+  group_by(geography, year, grouping) %>%
+  summarise(estimate = sum(estimate)) %>%
   as_tibble() %>%
-  rename(geoid="GEOID") %>%
-  pivot_wider(names_from = "grouping", values_from = c("estimate", "moe"))
+  mutate(concept = "Educational Attainment") %>%
+  mutate(geography_type = "Blockgroup") %>%
+  mutate(grouping = str_wrap(grouping, width=15)) %>%
+  mutate(grouping = factor(grouping, levels = education_order)) %>%
+  mutate(year = as.character(year)) %>%
+  arrange(geography, grouping, year)
 
 # Blockgroup pre 2013
-est_pre_2013 <- readxl::read_excel(education_2010, sheet="ACS_20105_B15002_150", skip=7) %>%
+bg_pre_2013 <- readxl::read_excel(education_bg, sheet=paste0("ACS_",pre_api_year,"5_", education_table, "_150"), skip=7) %>%
   mutate(geoid = as.character(str_remove_all(`Geographic Identifier`, "15000US"))) %>%
   select(-"Geographic Identifier",-"Table ID", -"Title", -"Universe", -"Summary Level Type", -"Summary Level", -"Area Name", -"ACS Dataset") %>%
   pivot_longer(!geoid, names_to = "label", values_to = "estimate") %>%
   filter(!(str_detect(label, "Margin of Error"))) %>%
   mutate(label = str_remove_all(label, "\\[Estimate\\] ")) %>%
   mutate(label = str_remove_all(label, "\\...[0-9][0-9]")) %>%
-  mutate(ID = row_number())
-
-moe_pre_2013 <- readxl::read_excel(education_2010, sheet="ACS_20105_B15002_150", skip=7) %>%
-  mutate(geoid = as.character(str_remove_all(`Geographic Identifier`, "15000US"))) %>%
-  select(-"Geographic Identifier",-"Table ID", -"Title", -"Universe", -"Summary Level Type", -"Summary Level", -"Area Name", -"ACS Dataset") %>%
-  pivot_longer(!geoid, names_to = "label", values_to = "moe") %>%
-  filter((str_detect(label, "Margin of Error"))) %>%
-  mutate(label = str_remove_all(label, "\\[Margin of Error\\] ")) %>%
-  mutate(label = str_remove_all(label, "\\...[0-9][0-9][0-9]")) %>%
-  mutate(label = str_remove_all(label, "\\...[0-9][0-9]")) %>%
-  mutate(ID = row_number())
-
-edu_pre_2013 <- left_join(est_pre_2013, moe_pre_2013, by=c("ID", "geoid", "label")) %>%
-  select(-"ID") %>%
-  filter(label !="Female:") %>%
-  filter(label !="Male:") %>%
   mutate(grouping = case_when(
     # Total Population
     str_detect(label,"Total") ~ "Total",
@@ -1294,57 +1261,42 @@ edu_pre_2013 <- left_join(est_pre_2013, moe_pre_2013, by=c("ID", "geoid", "label
     str_detect(label,"Professional School Degree") ~ "Graduate degree",
     str_detect(label,"Doctorate Degree") ~ "Graduate degree")) %>%
   drop_na() %>% 
-  select(-label) %>%
   mutate(county = substring(geoid, 1, 5)) %>%
   filter(county %in% c("53033", "53035", "53053", "53061")) %>%
   group_by(geoid, grouping) %>%
-  summarise(estimate = sum(estimate), moe = round(moe_sum(moe, estimate), 0)) %>%
+  summarise(estimate = sum(estimate)) %>%
   as_tibble() %>%
-  pivot_wider(names_from = "grouping", values_from = c("estimate", "moe")) %>%
-  mutate(year = 2010)
+  rename(geography="geoid") %>%
+  mutate(concept = "Educational Attainment") %>%
+  mutate(geography_type = "Blockgroup") %>%
+  mutate(grouping = str_wrap(grouping, width=15)) %>%
+  mutate(grouping = factor(grouping, levels = education_order)) %>%
+  mutate(year = as.character(pre_api_year)) %>%
+  arrange(geography, grouping, year)
 
-# Join Data with BLockgroups by MIC with Shares
-bg_edu <- bind_rows(edu_pre_2013, edu_post_2013)
-mic_edu <- left_join(mic_splits, bg_edu, by=c("geoid", "year"))  
-rm(bg_edu, edu_pre_2013, edu_post_2013, est_pre_2013, moe_pre_2013)
+# Combine Blockgroup Data
+blockgroups <- bind_rows(bg_pre_2013, bg_post_2013) %>% arrange(geography, grouping, year)
+rm(bg_pre_2013, bg_post_2013)
 
-# Summarize Population by Education for MIC's and MIC buffers
-mic_edu <- mic_edu %>%
-  mutate(`Estimate: No high school diploma` = round(`estimate_No high school diploma` * pop_share, 0)) %>%
-  mutate(`Estimate: High school` = round(`estimate_High school` * pop_share, 0)) %>%
-  mutate(`Estimate: Some college` = round(`estimate_Some college` * pop_share, 0)) %>%
-  mutate(`Estimate: Bachelor’s degree` = round(`estimate_Bachelor’s degree` * pop_share, 0)) %>%
-  mutate(`Estimate: Graduate degree` = round(`estimate_Graduate degree` * pop_share, 0)) %>%
-  mutate(`Estimate: Total` = round(`estimate_Total` * pop_share, 0)) %>%
-  mutate(`MoE: No high school diploma` = round(`moe_No high school diploma` * pop_share, 0)) %>%
-  mutate(`MoE: High school` = round(`moe_High school` * pop_share, 0)) %>%
-  mutate(`MoE: Some college` = round(`moe_Some college` * pop_share, 0)) %>%
-  mutate(`MoE: Bachelor’s degree` = round(`moe_Bachelor’s degree` * pop_share, 0)) %>%
-  mutate(`MoE: Graduate degree` = round(`moe_Graduate degree` * pop_share, 0)) %>%
-  mutate(`MoE: Total` = round(`moe_Total` * pop_share, 0)) %>%
-  group_by(year, name, geography) %>%
-  summarise(`Estimate: No high school diploma` = sum(`Estimate: No high school diploma`), 
-            `Estimate: High school` = sum(`Estimate: High school`), 
-            `Estimate: Some college` = sum(`Estimate: Some college`), 
-            `Estimate: Bachelor’s degree` = sum(`Estimate: Bachelor’s degree`),
-            `Estimate: Graduate degree` = sum(`Estimate: Graduate degree`), 
-            `Estimate: Total` = sum(`Estimate: Total`),
-            `MoE: No high school diploma` = round(moe_sum(`MoE: No high school diploma`, `Estimate: No high school diploma`), 0), 
-            `MoE: High school` = round(moe_sum(`MoE: High school`, `Estimate: High school`), 0), 
-            `MoE: Some college` = round(moe_sum(`MoE: Some college`, `Estimate: Some college`), 0), 
-            `MoE: Bachelor’s degree` = round(moe_sum(`MoE: Bachelor’s degree`, `Estimate: Bachelor’s degree`), 0),
-            `MoE: Graduate degree` = round(moe_sum(`MoE: Graduate degree`, `Estimate: Graduate degree`), 0), 
-            `MoE: Total` = round(moe_sum(`MoE: Total`, `Estimate: Total`), 0)) %>%
-  as_tibble()
+# Regional Growth Centers
+centers <- NULL
+for(center in rgc_names) {
+  
+  df <- centers_estimate_from_bg(center_type = "Regional Growth Center (6/22/2023)", split_type = "percent_of_occupied_housing_units")
+  ifelse(is.null(centers), centers <- df, centers <- bind_rows(centers, df))
+  rm(df)
+  
+}
 
-mic_edu <- bind_rows(mic_edu, county_edu)
-write_csv(mic_edu, "output/mic_edu_groups.csv")
-rm(county_edu)
+# Manufacturing and Industrial Centers
+for(center in mic_names) {
+  
+  df <- centers_estimate_from_bg(center_type = "MIC (2022 RTP)", split_type = "percent_of_occupied_housing_units")
+  ifelse(is.null(centers), centers <- df, centers <- bind_rows(centers, df))
+  rm(df)
+  
+}
 
-
-
-
-# Final Organization and Output -------------------------------------------
-#temp <- mic_tenure
-#write_csv(mic_tenure, "output/mic_tenure_groups.csv")
-
+educational_attainment <- bind_rows(county, centers) %>% mutate(share = replace_na(share, 0))
+rm(education_lookup, centers, blockgroups, county)
+saveRDS(educational_attainment, "data/educational_attainment.rds")
