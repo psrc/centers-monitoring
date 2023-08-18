@@ -76,6 +76,20 @@ shinyServer(function(input, output, session) {
       pull()
   })
   
+  output$lu_map <- renderImage({
+    
+    ifelse(input$RGC == "Seattle First Hill/Capitol Hill", imgfn <- "Seattle First Hill Capitol Hill.jpg", imgfn <- paste0(input$RGC, '.jpg'))
+    
+    filename <- normalizePath(file.path('./www', imgfn))
+    
+    # Return a list containing the filename and alt text
+    list(src = filename,
+         width = 400,
+         height = 400,
+         alt = paste("Land use map for", input$RGC))
+    
+  }, deleteFile = FALSE)
+  
   output$rgc_population_chart <- renderEcharts4r({
     rgc_filter() %>%
       e_charts(year) %>%
@@ -173,8 +187,9 @@ shinyServer(function(input, output, session) {
   
   output$rgc_income_table <- DT::renderDataTable({create_multi_group_table(df = income_data, rgc_name = input$RGC, data_yrs = as.character(census_years), dec = 1)})
   
-  output$summary_table <- DT::renderDataTable({create_rgc_summary_table(center_name = input$RGC, yr = 2021)
-  })
+  output$summary_table <- DT::renderDataTable({create_rgc_summary_table(center_name = input$RGC, yr = 2021)})
+  
+  output$urban_form_table <- DT::renderDataTable({create_rgc_urban_form_table(center_name = input$RGC)})
   
   output$rgc_hu_chart <- renderEcharts4r({
     

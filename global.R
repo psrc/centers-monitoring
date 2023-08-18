@@ -38,22 +38,23 @@ rgc_title <- "Regional Growth Center (6/22/2023)"
 mic_title <- "MIC (2022 RTP)"
 
 # Demographic Metrics
-pop_hh_hu_data <- readRDS("data/center_pop_hh_hu.rds") %>% mutate(data_year = factor(year, levels=year_ord))
-age_data <- readRDS("data/population_by_age.rds") %>% mutate(data_year = factor(year, levels=year_ord))
-race_data <- readRDS("data/population_by_race.rds") %>% mutate(data_year = factor(year, levels=year_ord))
-income_data <- readRDS("data/households_by_income.rds") %>% mutate(data_year = factor(year, levels=year_ord))
-employment_data <- readRDS("data/centers_employment.rds") %>% mutate(data_year = factor(year, levels=year_ord))
+pop_hh_hu_data <- readRDS("data/center_pop_hh_hu.rds") %>% mutate(data_year = factor(year, levels=year_ord)) %>% mutate(geography = gsub("Greater Downtown Kirkland", "Kirkland Greater Downtown", geography))
+age_data <- readRDS("data/population_by_age.rds") %>% mutate(data_year = factor(year, levels=year_ord)) %>% mutate(geography = gsub("Greater Downtown Kirkland", "Kirkland Greater Downtown", geography))
+race_data <- readRDS("data/population_by_race.rds") %>% mutate(data_year = factor(year, levels=year_ord)) %>% mutate(geography = gsub("Greater Downtown Kirkland", "Kirkland Greater Downtown", geography))
+income_data <- readRDS("data/households_by_income.rds") %>% mutate(data_year = factor(year, levels=year_ord)) %>% mutate(geography = gsub("Greater Downtown Kirkland", "Kirkland Greater Downtown", geography))
+employment_data <- readRDS("data/centers_employment.rds") %>% mutate(data_year = factor(year, levels=year_ord)) %>% mutate(geography = gsub("Greater Downtown Kirkland", "Kirkland Greater Downtown", geography))
 
 # Housing Data Metrics
-tenure_data <- readRDS("data/households_by_tenure.rds") %>% mutate(data_year = factor(year, levels=year_ord))
-type_data <- readRDS("data/housing_units_by_type.rds") %>% mutate(data_year = factor(year, levels=year_ord))
-burden_data <- readRDS("data/cost_burden.rds") %>% mutate(data_year = factor(year, levels=year_ord))
-unit_data <- readRDS("data/center_hu.rds") %>% mutate(data_year = factor(year, levels=year_ord))
+tenure_data <- readRDS("data/households_by_tenure.rds") %>% mutate(data_year = factor(year, levels=year_ord)) %>% mutate(geography = gsub("Greater Downtown Kirkland", "Kirkland Greater Downtown", geography))
+type_data <- readRDS("data/housing_units_by_type.rds") %>% mutate(data_year = factor(year, levels=year_ord)) %>% mutate(geography = gsub("Greater Downtown Kirkland", "Kirkland Greater Downtown", geography))
+burden_data <- readRDS("data/cost_burden.rds") %>% mutate(data_year = factor(year, levels=year_ord)) %>% mutate(geography = gsub("Greater Downtown Kirkland", "Kirkland Greater Downtown", geography))
+unit_data <- readRDS("data/center_hu.rds") %>% mutate(data_year = factor(year, levels=year_ord)) %>% mutate(geography = gsub("Greater Downtown Kirkland", "Kirkland Greater Downtown", geography))
 renter_burden_data <- burden_data %>% filter(concept == "Renter Cost Burden")
 owner_burden_data <- burden_data %>% filter(concept == "Owner Cost Burden")
 
 # Centers Information
 centers_info <- read_csv("data/centers_information.csv", show_col_types = FALSE)
+intersection_density <- read_csv("data/center_intersection_density.csv", show_col_types = FALSE)
 
 mic_names <- age_data %>% filter(geography_type== mic_title) %>% select("geography") %>% arrange(geography) %>% distinct() %>% pull()
 
@@ -61,7 +62,9 @@ mic_names <- age_data %>% filter(geography_type== mic_title) %>% select("geograp
 rgc_shape <- st_read("https://services6.arcgis.com/GWxg6t7KXELn1thE/arcgis/rest/services/Regional_Growth_Centers/FeatureServer/0/query?where=0=0&outFields=*&f=pgeojson") %>%
   mutate(name = gsub("Bellevue", "Bellevue Downtown", name)) %>%
   mutate(name = gsub("Redmond-Overlake", "Redmond Overlake", name)) %>%
+  mutate(name = gsub("Greater Downtown Kirkland", "Kirkland Greater Downtown", name)) %>%
   select("name", "acres")
 
 rgc_names <- rgc_shape %>% st_drop_geometry() %>% select("name") %>% arrange(name) %>% distinct() %>% pull()
 random_rgc <- rgc_names[[sample(1:length(rgc_names), 1)]]
+

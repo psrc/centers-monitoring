@@ -922,3 +922,56 @@ create_change_table <- function(df, yr, val, nm) {
   
 }
 
+create_rgc_urban_form_table <- function(center_name) {
+  
+  # Intersections
+  r1 <- intersection_density %>% 
+    filter(name == center_name) %>% 
+    select("name", estimate="intersection_count") %>% 
+    mutate(grouping="# of Intersections")
+  
+  # Intersection Density
+  r2 <- intersection_density %>% 
+    filter(name == center_name) %>% 
+    select("name", estimate="intersection_density") %>% 
+    mutate(grouping="Intersection Density (per acre)")
+  
+  t <- bind_rows(r1, r2) %>% select("grouping", "estimate")
+  
+  headerCallbackRemoveHeaderFooter <- c(
+    "function(thead, data, start, end, display){",
+    "  $('th', thead).css('display', 'none');",
+    "}"
+  )
+  
+  summary_tbl <- datatable(t,
+                           options = list(paging = FALSE,
+                                          pageLength = 15,
+                                          searching = FALSE,
+                                          dom = 't',
+                                          headerCallback = JS(headerCallbackRemoveHeaderFooter),
+                                          columnDefs = list(list(targets = c(1), className = 'dt-right'),
+                                                            list(targets = c(0), className = 'dt-left'))),
+                           selection = 'none',
+                           callback = JS(
+                             "$('table.dataTable.no-footer').css('border-bottom', 'none');"
+                           ),
+                           class = 'row-border',
+                           filter = 'none',              
+                           rownames = FALSE,
+                           escape = FALSE
+  ) 
+  
+  # Add Section Breaks
+  summary_tbl <- summary_tbl %>%
+    formatStyle(0:ncol(t), valueColumns = "grouping",
+                `border-bottom` = styleEqual(c("Intersection Density (per acre)"), "solid 2px"))
+  
+  summary_tbl <- summary_tbl %>%
+    formatStyle(0:ncol(t), valueColumns = "grouping",
+                `border-top` = styleEqual(c("# of Intersections"), "solid 2px"))
+  
+  return(summary_tbl)
+  
+}
+

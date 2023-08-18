@@ -125,7 +125,19 @@ shinyUI(
                                                   
                                          ), # end of TabPanel for RGC Housing
                                          
-                                         tabPanel("Other", "Test")
+                                         tabPanel("Urban Form", 
+                                                  
+                                                  
+                                                  hr(),
+                                                  
+                                                  strong(tags$div(class="chart_title","Zoning Map")),
+                                                  fluidRow(column(7,imageOutput("lu_map")),
+                                                           column(5, dataTableOutput("urban_form_table"), br(), 
+                                                                  div(img(src="lu-legend.png", width = "75%", style = "padding-left: 0px;")))),
+                                                  hr(style = "border-top: 1px solid #000000;")
+                                                  
+                                                  
+                                                  )
                                          )
                       ),
              ) # End of Main Panel Fluid Row for RGC Tab 
