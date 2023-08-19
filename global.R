@@ -53,6 +53,9 @@ unit_data <- readRDS("data/center_hu.rds") %>% mutate(data_year = factor(year, l
 renter_burden_data <- burden_data %>% filter(concept == "Renter Cost Burden")
 owner_burden_data <- burden_data %>% filter(concept == "Owner Cost Burden")
 
+# Transportation Metrics
+mode_data <- readRDS("data/mode_to_work.rds") %>% mutate(data_year = factor(year, levels=year_ord)) %>% mutate(geography = gsub("Greater Downtown Kirkland", "Kirkland Greater Downtown", geography))
+
 # Centers Information
 centers_info <- read_csv("data/centers_information.csv", show_col_types = FALSE)
 intersection_density <- read_csv("data/center_intersection_density.csv", show_col_types = FALSE)

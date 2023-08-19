@@ -85,7 +85,6 @@ shinyUI(
                                                   tags$div(class="chart_source","Source: US Census Bureau American Community Survey (ACS) 5yr Data Table B15002"),
                                                   hr(style = "border-top: 1px solid #000000;")
                                                   
-                                                  
                                                   ), # end of TabPanel for RGC Demographics
                                          tabPanel("Housing", 
                                                   
@@ -132,6 +131,20 @@ shinyUI(
                                                   hr(style = "border-top: 1px solid #000000;")
                                                   
                                          ), # end of TabPanel for RGC Housing
+                                         
+                                         tabPanel("Transportation", 
+                                                  
+                                                  hr(),
+                                                  
+                                                  strong(tags$div(class="chart_title","Mode to Work for Residents")),
+                                                  fluidRow(column(12,echarts4rOutput("rgc_resident_mode_chart"))),
+                                                  br(),
+                                                  fluidRow(column(12, dataTableOutput("rgc_resident_mode_table"))),
+                                                  tags$div(class="chart_source","Source: US Census Bureau American Community Survey (ACS) 5yr Data Table B08301"),
+                                                  hr(style = "border-top: 1px solid #000000;")
+                                          
+                                                  
+                                         ), # end of TabPanel for RGC Transportation
                                          
                                          tabPanel("Urban Form", 
                                                   

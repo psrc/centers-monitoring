@@ -28,6 +28,7 @@ burden_order <- c("Not cost\nburdened (<30%)", "Cost burdened\n(30-49.9%)",
                   "Severely cost\nburdened (50+%)", "Not computed", "Total")
 education_order <- c("No high school\ndiploma", "High school", "Some college",
                      "Bachelor’s\ndegree","Graduate degree", "Total")
+mode_order <- c("Drove\nAlone", "Carpooled", "Transit", "Bike", "Walk","Work from\nHome", "Other", "Total")
 
 # Census Tables
 age_table <- "B01001"
@@ -38,6 +39,7 @@ structure_table <- "B25024"
 renter_burden_table <- "B25070"
 owner_burden_table <- "B25091"
 education_table <- "B15002"
+mode_table <- "B08301"
 
 # Employment Data
 rgc_emp_file <- "data/rgc_covered_emp_2010_2021_revised_20230705.csv"
@@ -52,6 +54,7 @@ structure_bg <- file.path(acs_pre2013_bg_dir, paste0("acs_",pre_api_year,"5_", s
 renter_burden_bg <- file.path(acs_pre2013_bg_dir, paste0("acs_",pre_api_year,"5_", renter_burden_table, "_150.xlsx"))
 owner_burden_bg <- file.path(acs_pre2013_bg_dir, paste0("acs_",pre_api_year,"5_", owner_burden_table, "_150_v2.xlsx"))
 education_bg <- file.path(acs_pre2013_bg_dir, paste0("acs_",pre_api_year,"5_", education_table, "_150.xlsx"))
+mode_bg <- file.path(acs_pre2013_bg_dir, paste0("acs_",pre_api_year,"5_", mode_table, "_150.xlsx"))
 
 # Functions ---------------------------------------------------------------
 centers_estimate_from_bg <- function(split_df=blockgroup_splits, estimate_df=blockgroups, center_type, split_type) {
@@ -1300,3 +1303,131 @@ for(center in mic_names) {
 educational_attainment <- bind_rows(county, centers) %>% mutate(share = replace_na(share, 0))
 rm(education_lookup, centers, blockgroups, county)
 saveRDS(educational_attainment, "data/educational_attainment.rds")
+
+# Mode Share to Work ------------------------------------------------------
+mode_lookup <- data.frame(variable = c("B08301_001",
+                                       "B08301_003", 
+                                       "B08301_004",
+                                       "B08301_010",
+                                       "B08301_016", "B08301_017", "B08301_020",
+                                       "B08301_018", 
+                                       "B08301_019",
+                                       "B08301_021"),
+                          grouping = c("Total",
+                                       "Drove Alone",
+                                       "Carpooled",
+                                       "Transit",
+                                       "Other", "Other", "Other",
+                                       "Bike",
+                                       "Walk",
+                                       "Work from Home"))
+
+county <- get_acs_recs(geography="county", table.names = mode_table, years = c(pre_api_year, api_years), acs.type = 'acs5') 
+
+county <- left_join(county, mode_lookup, by=c("variable")) %>%
+  filter(!(is.na(grouping))) %>%
+  select(geography="name", "estimate", "year", "grouping") %>%
+  group_by(geography, year, grouping) %>%
+  summarise(estimate = sum(estimate)) %>%
+  as_tibble() %>%
+  mutate(concept = "Mode to Work")
+
+totals <- county %>%
+  filter(grouping == "Total") %>%
+  select("geography", "year", "concept", total="estimate")
+
+county <- left_join(county, totals, by=c("geography", "year", "concept")) %>%
+  mutate(share = estimate / total) %>%
+  select(-"total") %>%
+  mutate(geography_type = "County") %>%
+  mutate(grouping = str_wrap(grouping, width=10)) %>%
+  mutate(geography = factor(geography, levels = county_order)) %>%
+  mutate(grouping = factor(grouping, levels = mode_order)) %>%
+  mutate(year = as.character(year)) %>%
+  arrange(geography, grouping, year)
+
+rm(totals)
+
+# Blockgroup 2013 onward
+bg_post_2013 <- get_acs_recs(geography="block group", table.names = mode_table, years = api_years, acs.type = 'acs5') 
+
+bg_post_2013 <- left_join(bg_post_2013, mode_lookup, by=c("variable")) %>%
+  filter(!(is.na(grouping))) %>%
+  select(geography="GEOID", "estimate", "year", "grouping") %>%
+  group_by(geography, year, grouping) %>%
+  summarise(estimate = sum(estimate)) %>%
+  as_tibble() %>%
+  mutate(concept = "Mode to Work") %>%
+  mutate(geography_type = "Blockgroup") %>%
+  mutate(grouping = str_wrap(grouping, width=10)) %>%
+  mutate(grouping = factor(grouping, levels = mode_order)) %>%
+  mutate(year = as.character(year)) %>%
+  arrange(geography, grouping, year)
+
+# Blockgroup pre 2013
+bg_pre_2013 <- readxl::read_excel(mode_bg, sheet=paste0("ACS_",pre_api_year,"5_", mode_table, "_150"), skip=7) %>%
+  mutate(geoid = as.character(str_remove_all(`Geographic Identifier`, "15000US"))) %>%
+  select(-"Geographic Identifier",-"Table ID", -"Title", -"Universe", -"Summary Level Type", -"Summary Level", -"Area Name", -"ACS Dataset") %>%
+  pivot_longer(!geoid, names_to = "label", values_to = "estimate") %>%
+  filter(!(str_detect(label, "Margin of Error"))) %>%
+  mutate(label = str_remove_all(label, "\\[Estimate\\] ")) %>%
+  mutate(label = str_remove_all(label, "\\...[0-9][0-9]")) %>%
+  mutate(grouping = case_when(
+    # Total Population
+    str_detect(label,"Total") ~ "Total",
+    # Drove Alone
+    str_detect(label,"Drove Alone") ~ "Drove Alone",
+    # Carpool
+    str_detect(label,"Carpooled") ~ "Carpooled",
+    # Transit
+    str_detect(label,"Public Transportation \\(Excluding Taxicab\\)") ~ "Transit",
+    # Bike
+    str_detect(label,"Bicycle") ~ "Bike",
+    # Walk
+    str_detect(label,"Walked") ~ "Walk",
+    # Work from Home
+    str_detect(label,"Worked At Home") ~ "Work from Home",
+    # Other
+    str_detect(label,"Taxicab") ~ "Other",
+    str_detect(label,"Motorcycle") ~ "Other",
+    str_detect(label,"Other Means") ~ "Other")) %>%
+  drop_na() %>% 
+  mutate(county = substring(geoid, 1, 5)) %>%
+  filter(county %in% c("53033", "53035", "53053", "53061")) %>%
+  group_by(geoid, grouping) %>%
+  summarise(estimate = sum(estimate)) %>%
+  as_tibble() %>%
+  rename(geography="geoid") %>%
+  mutate(concept = "Mode to Work") %>%
+  mutate(geography_type = "Blockgroup") %>%
+  mutate(grouping = str_wrap(grouping, width=10)) %>%
+  mutate(grouping = factor(grouping, levels = mode_order)) %>%
+  mutate(year = as.character(pre_api_year)) %>%
+  arrange(geography, grouping, year)
+
+# Combine Blockgroup Data
+blockgroups <- bind_rows(bg_pre_2013, bg_post_2013) %>% arrange(geography, grouping, year)
+rm(bg_pre_2013, bg_post_2013)
+
+# Regional Growth Centers
+centers <- NULL
+for(center in rgc_names) {
+  
+  df <- centers_estimate_from_bg(center_type = "Regional Growth Center (6/22/2023)", split_type = "percent_of_occupied_housing_units")
+  ifelse(is.null(centers), centers <- df, centers <- bind_rows(centers, df))
+  rm(df)
+  
+}
+
+# Manufacturing and Industrial Centers
+for(center in mic_names) {
+  
+  df <- centers_estimate_from_bg(center_type = "MIC (2022 RTP)", split_type = "percent_of_occupied_housing_units")
+  ifelse(is.null(centers), centers <- df, centers <- bind_rows(centers, df))
+  rm(df)
+  
+}
+
+mode_to_work <- bind_rows(county, centers) %>% mutate(share = replace_na(share, 0))
+rm(mode_lookup, centers, blockgroups, county)
+saveRDS(mode_to_work, "data/mode_to_work.rds")
