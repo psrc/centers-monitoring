@@ -9,6 +9,10 @@ library(sf)
 pre_api_year <- 2011
 api_years <- c(2016, 2021)
 acs_pre2013_bg_dir <- "C:/coding/acs_blockgroups_pre2013"
+base_model_yr <- 2018
+
+rgc_title <- "Regional Growth Center (6/22/2023)"
+mic_title <- "MIC (2022 RTP)"
 
 # Factor Levels
 county_order <- c("Region", "King County", "Kitsap County", "Pierce County", "Snohomish County")
@@ -44,6 +48,9 @@ mode_table <- "B08301"
 # Employment Data
 rgc_emp_file <- "data/rgc_covered_emp_2010_2021_revised_20230705.csv"
 mic_emp_file <- "data/mic_covered_emp_2010_2021.csv"
+
+# RGS Mode Destination Mode Share
+rgc_dest_mod_file <- "data/mode_share_rgc.csv"
 
 # Pre-2013 ACS Blockgroup Files -------------------------------------------
 age_bg <- file.path(acs_pre2013_bg_dir, paste0("acs_",pre_api_year,"5_", age_table, "_150.xlsx"))
@@ -1431,3 +1438,127 @@ for(center in mic_names) {
 mode_to_work <- bind_rows(county, centers) %>% mutate(share = replace_na(share, 0))
 rm(mode_lookup, centers, blockgroups, county)
 saveRDS(mode_to_work, "data/mode_to_work.rds")
+
+# Destination Mode Share --------------------------------------------------
+dest_mode_order <- c("Drove\nAlone", "Carpooled", "Transit", "Bike", "Walk", "TNC")
+
+rgcs <- st_read("https://services6.arcgis.com/GWxg6t7KXELn1thE/arcgis/rest/services/Regional_Growth_Centers/FeatureServer/0/query?where=0=0&outFields=*&f=pgeojson") %>%
+  select("name") %>%
+  st_drop_geometry() %>%
+  pull() %>%
+  unique()
+
+mics <- st_read("https://services6.arcgis.com/GWxg6t7KXELn1thE/arcgis/rest/services/Manufacturing_Industrial_Centers/FeatureServer/0/query?where=0=0&outFields=*&f=pgeojson") %>%
+  select("mic") %>%
+  st_drop_geometry() %>%
+  pull() %>%
+  unique()
+
+rgc_modes <- read_csv(rgc_dest_mod_file) %>% 
+  drop_na %>%
+  mutate(concept = case_when(
+    dpurp == "Work" ~ "Work",
+    TRUE ~ "Non-Work")) %>%
+  mutate(grouping = case_when(
+    mode == "SOV" ~ "Drove Alone",
+    mode %in% c("HOV2", "HOV3+") ~ "Carpooled",
+    mode == "Bike" ~ "Bike",
+    mode %in% c("School Bus", "Transit") ~ "Transit",
+    mode == "TNC" ~ "TNC",
+    mode == "Walk" ~ "Walk")) %>%
+  mutate(year = as.character(base_model_yr)) %>% 
+  select(geography="hh_rgc", "year", "grouping", estimate="trexpfac", "concept") %>%
+  group_by(geography, year, grouping, concept) %>%
+  summarise(estimate = sum(estimate)) %>%
+  as_tibble() %>%
+  mutate(geography_type = case_when(
+    geography %in% mics ~ mic_title,
+    geography %in% rgcs ~ rgc_title,
+    TRUE ~ "Not in a Center")) %>%
+  mutate(geography = gsub("Redmond-Overlake", "Redmond Overlake", geography)) %>%
+  mutate(geography = gsub("Bellevue", "Bellevue Downtown", geography)) %>%
+  mutate(geography = gsub("Kent MIC", "Kent", geography)) %>%
+  mutate(geography = gsub("Paine Field / Boeing Everett", "Paine Field/Boeing Everett", geography)) %>%
+  mutate(geography = gsub("Sumner Pacific", "Sumner-Pacific", geography)) %>%
+  mutate(geography = gsub("Puget Sound Industrial Center- Bremerton", "Puget Sound Industrial Center - Bremerton", geography)) %>%
+  mutate(geography = gsub("Cascade", "Cascade Industrial Center - Arlington/Marysville", geography)) %>%
+  mutate(grouping = str_wrap(grouping, width=10)) %>%
+  mutate(grouping = factor(grouping, levels = dest_mode_order)) %>%
+  arrange(geography, grouping, year)
+
+# RGC and MIC's
+centers <- rgc_modes %>%
+  filter(geography != "Not in RGC")
+
+totals <- centers %>%
+  group_by(geography, year, concept, geography_type) %>%
+  summarise(total = sum(estimate)) %>%
+  as_tibble()
+
+centers <- left_join(centers, totals,  by=c("geography", "year", "concept", "geography_type")) %>%
+  mutate(share = estimate / total) %>%
+  select(-"total")
+
+rm(totals)
+
+# Region
+region <- rgc_modes %>%
+  group_by(year, grouping, concept) %>%
+  summarise(estimate = sum(estimate)) %>%
+  as_tibble() %>% 
+  mutate(geography = "Region", geography_type = "Region")
+
+totals <- region %>%
+  group_by(year, concept) %>%
+  summarise(total = sum(estimate)) %>%
+  as_tibble()
+
+region <- left_join(region, totals,  by=c("year", "concept")) %>%
+  mutate(share = estimate / total) %>%
+  select(-"total")
+
+rm(totals)
+
+# All RGCs
+all_rgcs <- rgc_modes %>%
+  filter(geography_type == rgc_title & geography != "Not in RGC") %>%
+  group_by(year, grouping, concept) %>%
+  summarise(estimate = sum(estimate)) %>%
+  as_tibble() %>% 
+  mutate(geography = "All Centers", geography_type = rgc_title)
+
+totals <- all_rgcs %>%
+  group_by(year, concept) %>%
+  summarise(total = sum(estimate)) %>%
+  as_tibble()
+
+all_rgcs <- left_join(all_rgcs, totals,  by=c("year", "concept")) %>%
+  mutate(share = estimate / total) %>%
+  select(-"total")
+
+rm(totals)
+
+# All MICs
+all_mics <- rgc_modes %>%
+  filter(geography_type == mic_title & geography != "Not in RGC") %>%
+  group_by(year, grouping, concept) %>%
+  summarise(estimate = sum(estimate)) %>%
+  as_tibble() %>% 
+  mutate(geography = "All Centers", geography_type = mic_title)
+
+totals <- all_mics %>%
+  group_by(year, concept) %>%
+  summarise(total = sum(estimate)) %>%
+  as_tibble()
+
+all_mics <- left_join(all_mics, totals,  by=c("year", "concept")) %>%
+  mutate(share = estimate / total) %>%
+  select(-"total")
+
+rm(totals)
+
+destination_mode_share <- bind_rows(centers, region, all_rgcs, all_mics)
+ord <- unique(c("Region", "All Centers", rgc_names, mic_names))
+destination_mode_share <- destination_mode_share %>% mutate(geography = factor(geography, levels = ord)) %>% arrange(geography, grouping, year)
+rm(dest_mode_order, centers, region, all_rgcs, all_mics, rgc_modes)
+saveRDS(destination_mode_share, "data/destination_mode_share.rds")

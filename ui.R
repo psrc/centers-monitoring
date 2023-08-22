@@ -141,9 +141,15 @@ shinyUI(
                                                   br(),
                                                   fluidRow(column(12, dataTableOutput("rgc_resident_mode_table"))),
                                                   tags$div(class="chart_source","Source: US Census Bureau American Community Survey (ACS) 5yr Data Table B08301"),
-                                                  hr(style = "border-top: 1px solid #000000;")
-                                          
+                                                  hr(style = "border-top: 1px solid #000000;"),
                                                   
+                                                  strong(tags$div(class="chart_title","Destination Mode Share")),
+                                                  fluidRow(column(12,echarts4rOutput("rgc_destination_mode_chart"))),
+                                                  br(),
+                                                  #fluidRow(column(12, dataTableOutput("rgc_destination_mode_table"))),
+                                                  tags$div(class="chart_source","Source: 2018 PSRC SoundCast Activity Based Model"),
+                                                  hr(style = "border-top: 1px solid #000000;")
+                                              
                                          ), # end of TabPanel for RGC Transportation
                                          
                                          tabPanel("Urban Form", 

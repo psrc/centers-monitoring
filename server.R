@@ -280,7 +280,17 @@ shinyServer(function(input, output, session) {
   
   output$rgc_resident_mode_table <- DT::renderDataTable({create_multi_group_table(df = mode_data, rgc_name = input$RGC, data_yrs = as.character(census_years), dec = 1)})
   
+  output$rgc_destination_mode_chart <- renderEcharts4r({
+    
+    echart_multi_column_chart(df = destination_mode_data %>% 
+                                filter(geography_type %in% c(rgc_title, "Region") & geography %in% c(input$RGC, "Region", "All Centers") & grouping != "Total"),
+                              x = "grouping", y = "share", fill="geography", tog = "concept", 
+                              dec = 0, esttype = "percent", color = "jewel")
+  })
   
+  #output$rgc_resident_mode_table <- DT::renderDataTable({create_multi_group_table(df = mode_data, rgc_name = input$RGC, data_yrs = as.character(census_years), dec = 1)})
+  
+    
 })    
 
 
