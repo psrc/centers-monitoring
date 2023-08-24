@@ -936,7 +936,12 @@ create_rgc_urban_form_table <- function(center_name) {
     select("name", estimate="intersection_density") %>% 
     mutate(grouping="Intersection Density (per acre)")
   
-  t <- bind_rows(r1, r2) %>% select("grouping", "estimate")
+  r3 <- intersection_density %>% 
+    filter(name == "All Centers") %>% 
+    select("name", estimate="intersection_density") %>% 
+    mutate(grouping="Intersection Density (per acre) - All Centers")
+  
+  t <- bind_rows(r1, r2, r3) %>% select("grouping", "estimate")
   
   headerCallbackRemoveHeaderFooter <- c(
     "function(thead, data, start, end, display){",
@@ -965,7 +970,7 @@ create_rgc_urban_form_table <- function(center_name) {
   # Add Section Breaks
   summary_tbl <- summary_tbl %>%
     formatStyle(0:ncol(t), valueColumns = "grouping",
-                `border-bottom` = styleEqual(c("Intersection Density (per acre)"), "solid 2px"))
+                `border-bottom` = styleEqual(c("Intersection Density (per acre) - All Centers"), "solid 2px"))
   
   summary_tbl <- summary_tbl %>%
     formatStyle(0:ncol(t), valueColumns = "grouping",
