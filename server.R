@@ -292,9 +292,20 @@ shinyServer(function(input, output, session) {
   
   output$rgc_stop_table <- DT::renderDataTable({create_rgc_transit_stop_table(center_name = input$RGC)})
   
-  output$rgc_stop_map <- renderLeaflet({
-    create_rgc_transit_map(center_name = input$RGC)
+  output$rgc_stop_map <- renderLeaflet({create_rgc_transit_map(center_name = input$RGC)})
+  
+  output$rgc_jobs_chart <- renderEcharts4r({
+    
+    echart_column_chart(df = employment_data |> 
+                          filter(geography_type == rgc_title, geography == input$RGC & grouping == "Total") |>
+                          mutate(estimate = as.integer(estimate)) |>
+                          filter(data_year %in% ofm_years),
+                        x = "data_year", y = "estimate", tog = "grouping", title = "Total Employment",
+                        dec = 0, esttype = "number", color = "purples")
+    
   })
+  
+  output$rgc_job_sectors_table <- DT::renderDataTable({create_rgc_jobs_by_sector_table(center_name = input$RGC)})
   
     
 })    

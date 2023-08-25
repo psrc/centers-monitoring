@@ -86,6 +86,24 @@ shinyUI(
                                                   hr(style = "border-top: 1px solid #000000;")
                                                   
                                                   ), # end of TabPanel for RGC Demographics
+                                         
+                                         tabPanel("Jobs", 
+                                                  
+                                                  hr(),
+                                                  
+                                                  # Section on page for Map and Summary Table
+                                                  fluidRow(column(6, echarts4rOutput("rgc_jobs_chart")),
+                                                           column(6, strong("Jobs by Sector"),
+                                                                  br(),
+                                                                  dataTableOutput("rgc_job_sectors_table"),
+                                                                  br(),
+                                                                  tags$div(class="chart_source","* Employment data is suppressed")
+                                                           )),
+                                                  
+                                                  hr(style = "border-top: 1px solid #000000;")
+                                                  
+                                         ), # end of TabPanel for RGC Jobs
+                                         
                                          tabPanel("Housing", 
                                                   
                                                   hr(),
@@ -177,6 +195,7 @@ shinyUI(
                                                   hr(style = "border-top: 1px solid #000000;")
                                                   
                                         ) # end of TabPanel for RGC Urban Form
+                                        
                               ) # end of RGC Tabsets
                       ),
              ) # End of Main Panel Fluid Row for RGC Tab 
