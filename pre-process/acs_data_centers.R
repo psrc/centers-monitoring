@@ -6,10 +6,29 @@ library(tidycensus)
 library(sf)
 
 # Inputs ------------------------------------------------------------------
+wgs84 <- 4326
+spn <- 32148
+
 pre_api_year <- 2011
 api_years <- c(2016, 2021)
 acs_pre2013_bg_dir <- "C:/coding/acs_blockgroups_pre2013"
 base_model_yr <- 2018
+
+srt_ids <- c('kcm_100340', 'kcm_102638')
+lrt_ids <- c('kcm_100479', 'st_100479', 'st_TLINK')
+crt_ids <- c('st_SNDR_EV','st_SNDR_TL','st_AMTK', 'st_SNDR_S', 'st_SNDR_N')
+brt_ids <- c('ct_701','ct_702','kcm_100512', 'kcm_102548', 'kcm_102576', 'kcm_102581', 'kcm_102615', 'kcm_102619', 'KC_102736')
+pof_ids <- c('kcm_100336', 'kcm_100337','kt_Ferry', 'kt_Annapolis', 'kt_Kitsap Fast Ferry')
+fry_ids <- c('wsf_128', 'wsf_145', 'wsf_1621', 'wsf_2022', 'wsf_209', 'wsf_37','wsf_47', 'wsf_229',
+             'wsf_2116', 'wsf_2220','wsf_514', 'wsf_73', 'wsf_74', 'wsf_812', 'wsf_920', 'wsf_922')
+hct_ids <- c(srt_ids, lrt_ids, crt_ids, brt_ids, pof_ids, fry_ids)
+
+st_express <- c("510","511","512","513","522","532","535","540","541","542","544","545",
+                "550","554","555","556","560","566","567","574","577", "578", "580","586", 
+                "590","592","594","595","596")
+
+brt_routes <- c("701","702", "Swift", "Swift Blue", "Swift Green",
+                "A Line", "B Line", "C Line", "D Line", "E Line", "F Line", "G Line", "H Line")
 
 rgc_title <- "Regional Growth Center (6/22/2023)"
 mic_title <- "MIC (2022 RTP)"
@@ -1590,3 +1609,99 @@ ord <- unique(c("Region", "All Centers", rgc_names, mic_names))
 destination_mode_share <- destination_mode_share %>% mutate(geography = factor(geography, levels = ord)) %>% arrange(geography, grouping, year)
 rm(dest_mode_order, centers, region, all_rgcs, all_mics, rgc_modes)
 saveRDS(destination_mode_share, "data/destination_mode_share.rds")
+
+# Transit Service ---------------------------------------------------------
+stops <- read_csv("data/stops.txt") |> 
+  select(stop_id,stop_lat,stop_lon)
+
+stops_layer <- st_as_sf(stops, coords = c("stop_lon","stop_lat"), crs = wgs84) |>
+  st_transform(spn)
+
+rgc <- st_read("https://services6.arcgis.com/GWxg6t7KXELn1thE/arcgis/rest/services/Regional_Growth_Centers/FeatureServer/0/query?where=0=0&outFields=*&f=pgeojson") |>
+  select(rgc="name") |>
+  mutate(rgc = gsub("Redmond-Overlake", "Redmond Overlake", rgc)) |>
+  mutate(rgc = gsub("Bellevue", "Bellevue Downtown", rgc)) |>
+  st_transform(spn)
+
+mic <- st_read("https://services6.arcgis.com/GWxg6t7KXELn1thE/arcgis/rest/services/Manufacturing_Industrial_Centers/FeatureServer/0/query?where=0=0&outFields=*&f=pgeojson") |>
+  select("mic") %>%
+  mutate(mic = gsub("Kent MIC", "Kent", mic)) |>
+  mutate(mic = gsub("Paine Field / Boeing Everett", "Paine Field/Boeing Everett", mic)) |>
+  mutate(mic = gsub("Sumner Pacific", "Sumner-Pacific", mic)) |>
+  mutate(mic = gsub("Puget Sound Industrial Center- Bremerton", "Puget Sound Industrial Center - Bremerton", mic)) |>
+  mutate(mic = gsub("Cascade", "Cascade Industrial Center - Arlington/Marysville", mic)) |>
+  st_transform(spn)
+
+r <- st_intersection(stops_layer, rgc) |> st_drop_geometry()
+m <- st_intersection(stops_layer, mic) |> st_drop_geometry()
+
+stops <- left_join(stops, r, by=c("stop_id"))
+stops <- left_join(stops, m, by=c("stop_id"))
+stops <- stops |> mutate(rgc = replace_na(rgc, "Not in Center")) |> mutate(mic = replace_na(mic, "Not in Center"))
+rm(stops_layer, rgc, mic, r, m)
+
+# Clean Up Routes
+routes <- read_csv("data/routes.txt") |>
+  mutate(route_short_name=as.character(route_short_name)) |>
+  mutate(route_short_name=str_replace_all(route_short_name, "\\.0","")) |>
+  # Cleanup Agency Names for ST Express Routes
+  mutate(agency_name=case_when(
+    route_short_name %in% st_express ~ "Sound Transit",
+    !(route_short_name %in% st_express) ~ agency_id)) |>
+  # Set Agency Names
+  mutate(agency_name=case_when(
+    agency_name %in% c("29") ~ "Community Transit",
+    agency_name %in% c("3") ~ "Pierce Transit",
+    agency_name %in% c("97") ~ "Everett Transit",
+    agency_name %in% c("EOS","23") ~ "City of Seattle",
+    agency_name %in% c("KCM","1") ~ "King County Metro",
+    agency_name %in% c("KMD") ~ "King County Marine Division",
+    agency_name %in% c("kt") ~ "Kitsap Transit",
+    agency_name %in% c("Sound Transit","","40","ST") ~ "Sound Transit",
+    agency_name %in% c("95","WSF") ~ "Washington State Ferries")) |>
+  # Get Route Description and Long Names Consistent
+  mutate(route_long_name=case_when(
+    is.na(route_long_name) ~ route_desc,
+    !(is.na(route_long_name)) ~ route_long_name)) |>
+  # Flag BRT Routes
+  mutate(transit_type=case_when(
+    route_short_name %in% brt_routes ~ "BRT",
+    !(route_short_name %in% brt_routes) ~ "0")) |>
+  mutate(transit_type=case_when(
+    transit_type == "BRT" ~ "BRT",
+    route_type == 0 ~ "Light Rail or Streetcar",
+    route_type == 2 ~ "Commuter Rail",
+    route_type == 3 ~ "Bus",
+    route_type == 4 ~ "Ferry")) %>%
+  # Remove Extra Attributes
+  select("route_id", "route_short_name", "route_long_name", "agency_name", "transit_type")
+
+# Add transit modes served to each stop: BRT, LRT, CRT, Ferry, and Bus
+stoptimes <- read_csv("data/stop_times.txt") |> select("trip_id", "stop_id")
+trips <- read_csv("data/trips.txt") |> select("trip_id", "route_id")
+trips <- left_join(trips, routes, by=c("route_id"))
+trip_stops <- left_join(stoptimes, trips, by=c("trip_id")) |> select("stop_id", "transit_type") |> distinct()
+
+# BRT
+s <- trip_stops |> filter(transit_type == "BRT") |> rename(brt="transit_type")
+stops <- left_join(stops, s , by="stop_id") 
+
+# Bus
+s <- trip_stops |> filter(transit_type == "Bus") |> rename(bus="transit_type")
+stops <- left_join(stops, s , by="stop_id") 
+
+# Commuter Rail
+s <- trip_stops |> filter(transit_type == "Commuter Rail") |> rename(crt="transit_type")
+stops <- left_join(stops, s , by="stop_id") 
+
+# Ferry
+s <- trip_stops |> filter(transit_type == "Ferry") |> rename(ferry="transit_type")
+stops <- left_join(stops, s , by="stop_id") 
+
+# Light Rail or Streetcar
+s <- trip_stops |> filter(transit_type == "Light Rail or Streetcar") |> rename(lrt="transit_type")
+stops <- left_join(stops, s , by="stop_id") 
+
+stops_layer <- st_as_sf(stops, coords = c("stop_lon","stop_lat"), crs = wgs84)
+rm(s, routes, stoptimes, trip_stops, trips, stops)
+saveRDS(stops_layer, "data/stops_layer.rds")

@@ -136,6 +136,17 @@ shinyUI(
                                                   
                                                   hr(),
                                                   
+                                                  # Section on page for Map and Summary Table
+                                                  fluidRow(column(6, leafletOutput("rgc_stop_map")),
+                                                           column(6, strong("Transit Service"),
+                                                                  br(),
+                                                                  dataTableOutput("rgc_stop_table"),
+                                                                  br(),
+                                                                  tags$div(class="chart_source","Source: Spring GTFS Service")
+                                                           )),
+                                                  fluidRow(column(12, div(img(src="transit-legend.png", width = "75%", style = "padding-left: 0px;")))),
+                                                  br(),
+                                                  
                                                   strong(tags$div(class="chart_title","Mode to Work for Residents")),
                                                   fluidRow(column(12,echarts4rOutput("rgc_resident_mode_chart"))),
                                                   br(),
@@ -146,7 +157,7 @@ shinyUI(
                                                   strong(tags$div(class="chart_title","Destination Mode Share")),
                                                   fluidRow(column(12,echarts4rOutput("rgc_destination_mode_chart"))),
                                                   br(),
-                                                  #fluidRow(column(12, dataTableOutput("rgc_destination_mode_table"))),
+                                                  fluidRow(column(12, dataTableOutput("rgc_destination_mode_table"))),
                                                   tags$div(class="chart_source","Source: 2018 PSRC SoundCast Activity Based Model"),
                                                   hr(style = "border-top: 1px solid #000000;")
                                               

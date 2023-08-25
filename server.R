@@ -163,7 +163,7 @@ shinyServer(function(input, output, session) {
     
   })
   
-  output$rgc_age_table <- DT::renderDataTable({create_multi_group_table(df = age_data, rgc_name = input$RGC, data_yrs = as.character(census_years), dec = 1)})
+  output$rgc_age_table <- DT::renderDataTable({create_multi_year_table(df = age_data, rgc_name = input$RGC, data_yrs = as.character(census_years), dec = 1)})
   
   output$rgc_race_chart <- renderEcharts4r({
     
@@ -176,7 +176,7 @@ shinyServer(function(input, output, session) {
     
   })
   
-  output$rgc_race_table <- DT::renderDataTable({create_multi_group_table(df = race_data, rgc_name = input$RGC, data_yrs = as.character(census_years), dec = 1)})
+  output$rgc_race_table <- DT::renderDataTable({create_multi_year_table(df = race_data, rgc_name = input$RGC, data_yrs = as.character(census_years), dec = 1)})
   
   output$rgc_income_chart <- renderEcharts4r({
     
@@ -185,7 +185,7 @@ shinyServer(function(input, output, session) {
                               dec = 0, esttype = "percent", color = "jewel")
   })
   
-  output$rgc_income_table <- DT::renderDataTable({create_multi_group_table(df = income_data, rgc_name = input$RGC, data_yrs = as.character(census_years), dec = 1)})
+  output$rgc_income_table <- DT::renderDataTable({create_multi_year_table(df = income_data, rgc_name = input$RGC, data_yrs = as.character(census_years), dec = 1)})
   
   output$rgc_education_chart <- renderEcharts4r({
     
@@ -195,7 +195,7 @@ shinyServer(function(input, output, session) {
     
   })
   
-  output$rgc_education_table <- DT::renderDataTable({create_multi_group_table(df = education_data, rgc_name = input$RGC, data_yrs = as.character(census_years), dec = 1)})
+  output$rgc_education_table <- DT::renderDataTable({create_multi_year_table(df = education_data, rgc_name = input$RGC, data_yrs = as.character(census_years), dec = 1)})
   
   output$summary_table <- DT::renderDataTable({create_rgc_summary_table(center_name = input$RGC, yr = 2021)})
   
@@ -236,7 +236,7 @@ shinyServer(function(input, output, session) {
                               dec = 0, esttype = "percent", color = "jewel")
   })
   
-  output$rgc_tenure_table <- DT::renderDataTable({create_multi_group_table(df = tenure_data, rgc_name = input$RGC, data_yrs = as.character(census_years), dec = 1)})
+  output$rgc_tenure_table <- DT::renderDataTable({create_multi_year_table(df = tenure_data, rgc_name = input$RGC, data_yrs = as.character(census_years), dec = 1)})
   
   output$rgc_type_chart <- renderEcharts4r({
     
@@ -247,7 +247,7 @@ shinyServer(function(input, output, session) {
                            dec = 0, esttype = "percent", color = "jewel")
   })
   
-  output$rgc_type_table <- DT::renderDataTable({create_multi_group_table(df = type_data, rgc_name = input$RGC, data_yrs = as.character(census_years), dec = 1)})
+  output$rgc_type_table <- DT::renderDataTable({create_multi_year_table(df = type_data, rgc_name = input$RGC, data_yrs = as.character(census_years), dec = 1)})
   
   output$rgc_renter_burden_chart <- renderEcharts4r({
     
@@ -257,7 +257,7 @@ shinyServer(function(input, output, session) {
                               dec = 0, esttype = "percent", color = "jewel")
   })
   
-  output$rgc_renter_burden_table <- DT::renderDataTable({create_multi_group_table(df = renter_burden_data, rgc_name = input$RGC, data_yrs = as.character(census_years), dec = 1)})
+  output$rgc_renter_burden_table <- DT::renderDataTable({create_multi_year_table(df = renter_burden_data, rgc_name = input$RGC, data_yrs = as.character(census_years), dec = 1)})
   
   output$rgc_owner_burden_chart <- renderEcharts4r({
     
@@ -268,7 +268,7 @@ shinyServer(function(input, output, session) {
     
   })
   
-  output$rgc_owner_burden_table <- DT::renderDataTable({create_multi_group_table(df = owner_burden_data, rgc_name = input$RGC, data_yrs = as.character(census_years), dec = 1)})
+  output$rgc_owner_burden_table <- DT::renderDataTable({create_multi_year_table(df = owner_burden_data, rgc_name = input$RGC, data_yrs = as.character(census_years), dec = 1)})
   
   output$rgc_resident_mode_chart <- renderEcharts4r({
     
@@ -278,7 +278,7 @@ shinyServer(function(input, output, session) {
                               dec = 0, esttype = "percent", color = "jewel")
   })
   
-  output$rgc_resident_mode_table <- DT::renderDataTable({create_multi_group_table(df = mode_data, rgc_name = input$RGC, data_yrs = as.character(census_years), dec = 1)})
+  output$rgc_resident_mode_table <- DT::renderDataTable({create_multi_year_table(df = mode_data, rgc_name = input$RGC, data_yrs = as.character(census_years), dec = 1)})
   
   output$rgc_destination_mode_chart <- renderEcharts4r({
     
@@ -288,7 +288,13 @@ shinyServer(function(input, output, session) {
                               dec = 0, esttype = "percent", color = "jewel")
   })
   
-  #output$rgc_resident_mode_table <- DT::renderDataTable({create_multi_group_table(df = mode_data, rgc_name = input$RGC, data_yrs = as.character(census_years), dec = 1)})
+  output$rgc_destination_mode_table <- DT::renderDataTable({create_multi_group_table(df = destination_mode_data, rgc_name = input$RGC, grp = "concept", dec = 1)})
+  
+  output$rgc_stop_table <- DT::renderDataTable({create_rgc_transit_stop_table(center_name = input$RGC)})
+  
+  output$rgc_stop_map <- renderLeaflet({
+    create_rgc_transit_map(center_name = input$RGC)
+  })
   
     
 })    
