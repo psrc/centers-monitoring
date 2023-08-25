@@ -64,11 +64,23 @@ education_bg <- file.path(acs_pre2013_bg_dir, paste0("acs_",pre_api_year,"5_", e
 mode_bg <- file.path(acs_pre2013_bg_dir, paste0("acs_",pre_api_year,"5_", mode_table, "_150.xlsx"))
 
 # Functions ---------------------------------------------------------------
-centers_estimate_from_bg <- function(split_df=blockgroup_splits, estimate_df=blockgroups, center_type, split_type) {
+centers_estimate_from_bg <- function(split_df=blockgroup_splits, estimate_df=blockgroups, center_type, split_type, center_name) {
+  
+  if (center_name == "All Centers" & center_type == "Regional Growth Center (6/22/2023)") {cn <- "not in regional growth center"}
+  if (center_name == "All Centers" & center_type == "MIC (2022 RTP)") {cn <- "not in mic"}
+
+  if (center_name == "All Centers") {
+    
+    t <- split_df %>% filter(planning_geog_type == center_type & planning_geog != cn) %>% mutate(planning_geog = "All Centers")
+    
+  } else {
+    
+    t <- split_df %>% filter(planning_geog_type == center_type & planning_geog == center_name)
+    
+  }
   
   # Filter Blockgroup Splits to Center
-  t <- split_df %>%
-    filter(planning_geog_type == center_type & planning_geog == center) %>%
+  t <- t %>%
     select(year = "ofm_estimate_year", geography = "data_geog", name = "planning_geog", share = all_of(split_type)) %>%
     mutate(year = as.character(year))
   
@@ -426,18 +438,18 @@ rm(bg_pre_2013, bg_post_2013)
 
 # Regional Growth Centers
 centers <- NULL
-for(center in rgc_names) {
+for(center in c(rgc_names, "All Centers")) {
   
-  df <- centers_estimate_from_bg(center_type = "Regional Growth Center (6/22/2023)", split_type = "percent_of_total_pop")
+  df <- centers_estimate_from_bg(center_type = "Regional Growth Center (6/22/2023)", split_type = "percent_of_total_pop", center_name=center)
   ifelse(is.null(centers), centers <- df, centers <- bind_rows(centers, df))
   rm(df)
   
 }
 
 # Manufacturing and Industrial Centers
-for(center in mic_names) {
+for(center in c(mic_names, "All Centers")) {
   
-  df <- centers_estimate_from_bg(center_type = "MIC (2022 RTP)", split_type = "percent_of_total_pop")
+  df <- centers_estimate_from_bg(center_type = "MIC (2022 RTP)", split_type = "percent_of_total_pop", center_name=center)
   ifelse(is.null(centers), centers <- df, centers <- bind_rows(centers, df))
   rm(df)
   
@@ -445,6 +457,8 @@ for(center in mic_names) {
 
 population_by_age <- bind_rows(county, centers)
 rm(age_lookup, centers, blockgroups, county)
+ord <- unique(c("Region", "All Centers", rgc_names, mic_names))
+population_by_age <- population_by_age %>% mutate(geography = factor(geography, levels = ord)) %>% arrange(geography, grouping, year)
 saveRDS(population_by_age, "data/population_by_age.rds")
 
 # Race & Ethnicty ---------------------------------------------------------
@@ -546,18 +560,18 @@ rm(bg_pre_2013, bg_post_2013)
 
 # Regional Growth Centers
 centers <- NULL
-for(center in rgc_names) {
+for(center in c(rgc_names, "All Centers")) {
   
-  df <- centers_estimate_from_bg(center_type = "Regional Growth Center (6/22/2023)", split_type = "percent_of_total_pop")
+  df <- centers_estimate_from_bg(center_type = "Regional Growth Center (6/22/2023)", split_type = "percent_of_total_pop", center_name=center)
   ifelse(is.null(centers), centers <- df, centers <- bind_rows(centers, df))
   rm(df)
   
 }
 
 # Manufacturing and Industrial Centers
-for(center in mic_names) {
+for(center in c(mic_names, "All Centers")) {
   
-  df <- centers_estimate_from_bg(center_type = "MIC (2022 RTP)", split_type = "percent_of_total_pop")
+  df <- centers_estimate_from_bg(center_type = "MIC (2022 RTP)", split_type = "percent_of_total_pop", center_name=center)
   ifelse(is.null(centers), centers <- df, centers <- bind_rows(centers, df))
   rm(df)
   
@@ -565,6 +579,8 @@ for(center in mic_names) {
 
 population_by_race <- bind_rows(county, centers)
 rm(race_lookup, centers, blockgroups, county)
+ord <- unique(c("Region", "All Centers", rgc_names, mic_names))
+population_by_race <- population_by_race %>% mutate(geography = factor(geography, levels = ord)) %>% arrange(geography, grouping, year)
 saveRDS(population_by_race, "data/population_by_race.rds")
 
 # Income ------------------------------------------------------------------
@@ -684,18 +700,18 @@ rm(bg_pre_2013, bg_post_2013)
 
 # Regional Growth Centers
 centers <- NULL
-for(center in rgc_names) {
+for(center in c(rgc_names, "All Centers")) {
   
-  df <- centers_estimate_from_bg(center_type = "Regional Growth Center (6/22/2023)", split_type = "percent_of_occupied_housing_units")
+  df <- centers_estimate_from_bg(center_type = "Regional Growth Center (6/22/2023)", split_type = "percent_of_occupied_housing_units", center_name=center)
   ifelse(is.null(centers), centers <- df, centers <- bind_rows(centers, df))
   rm(df)
   
 }
 
 # Manufacturing and Industrial Centers
-for(center in mic_names) {
+for(center in c(mic_names, "All Centers")) {
   
-  df <- centers_estimate_from_bg(center_type = "MIC (2022 RTP)", split_type = "percent_of_occupied_housing_units")
+  df <- centers_estimate_from_bg(center_type = "MIC (2022 RTP)", split_type = "percent_of_occupied_housing_units", center_name=center)
   ifelse(is.null(centers), centers <- df, centers <- bind_rows(centers, df))
   rm(df)
   
@@ -703,6 +719,8 @@ for(center in mic_names) {
 
 households_by_income <- bind_rows(county, centers)
 rm(income_lookup, centers, blockgroups, county)
+ord <- unique(c("Region", "All Centers", rgc_names, mic_names))
+households_by_income <- households_by_income %>% mutate(geography = factor(geography, levels = ord)) %>% arrange(geography, grouping, year)
 saveRDS(households_by_income, "data/households_by_income.rds")
 
 # Housing Tenure ----------------------------------------------------------
@@ -789,18 +807,18 @@ rm(bg_pre_2013, bg_post_2013)
 
 # Regional Growth Centers
 centers <- NULL
-for(center in rgc_names) {
+for(center in c(rgc_names, "All Centers")) {
   
-  df <- centers_estimate_from_bg(center_type = "Regional Growth Center (6/22/2023)", split_type = "percent_of_occupied_housing_units")
+  df <- centers_estimate_from_bg(center_type = "Regional Growth Center (6/22/2023)", split_type = "percent_of_occupied_housing_units", center_name=center)
   ifelse(is.null(centers), centers <- df, centers <- bind_rows(centers, df))
   rm(df)
   
 }
 
 # Manufacturing and Industrial Centers
-for(center in mic_names) {
+for(center in c(mic_names, "All Centers")) {
   
-  df <- centers_estimate_from_bg(center_type = "MIC (2022 RTP)", split_type = "percent_of_occupied_housing_units")
+  df <- centers_estimate_from_bg(center_type = "MIC (2022 RTP)", split_type = "percent_of_occupied_housing_units", center_name=center)
   ifelse(is.null(centers), centers <- df, centers <- bind_rows(centers, df))
   rm(df)
   
@@ -808,6 +826,8 @@ for(center in mic_names) {
 
 households_by_tenure <- bind_rows(county, centers)
 rm(tenure_lookup, centers, blockgroups, county)
+ord <- unique(c("Region", "All Centers", rgc_names, mic_names))
+households_by_tenure <- households_by_tenure %>% mutate(geography = factor(geography, levels = ord)) %>% arrange(geography, grouping, year)
 saveRDS(households_by_tenure, "data/households_by_tenure.rds")
 
 # Structure Type ----------------------------------------------------------
@@ -911,18 +931,18 @@ rm(bg_pre_2013, bg_post_2013)
 
 # Regional Growth Centers
 centers <- NULL
-for(center in rgc_names) {
+for(center in c(rgc_names, "All Centers")) {
   
-  df <- centers_estimate_from_bg(center_type = "Regional Growth Center (6/22/2023)", split_type = "percent_of_housing_units")
+  df <- centers_estimate_from_bg(center_type = "Regional Growth Center (6/22/2023)", split_type = "percent_of_housing_units", center_name=center)
   ifelse(is.null(centers), centers <- df, centers <- bind_rows(centers, df))
   rm(df)
   
 }
 
 # Manufacturing and Industrial Centers
-for(center in mic_names) {
+for(center in c(mic_names, "All Centers")) {
   
-  df <- centers_estimate_from_bg(center_type = "MIC (2022 RTP)", split_type = "percent_of_housing_units")
+  df <- centers_estimate_from_bg(center_type = "MIC (2022 RTP)", split_type = "percent_of_housing_units", center_name=center)
   ifelse(is.null(centers), centers <- df, centers <- bind_rows(centers, df))
   rm(df)
   
@@ -930,6 +950,8 @@ for(center in mic_names) {
 
 housing_units_by_type <- bind_rows(county, centers)
 rm(structure_lookup, centers, blockgroups, county)
+ord <- unique(c("Region", "All Centers", rgc_names, mic_names))
+housing_units_by_type <- housing_units_by_type %>% mutate(geography = factor(geography, levels = ord)) %>% arrange(geography, grouping, year)
 saveRDS(housing_units_by_type, "data/housing_units_by_type.rds")
 
 # Renter Cost Burden ----------------------------------------------------------
@@ -1030,18 +1052,18 @@ rm(bg_pre_2013, bg_post_2013)
 
 # Regional Growth Centers
 centers <- NULL
-for(center in rgc_names) {
+for(center in c(rgc_names, "All Centers")) {
   
-  df <- centers_estimate_from_bg(center_type = "Regional Growth Center (6/22/2023)", split_type = "percent_of_occupied_housing_units")
+  df <- centers_estimate_from_bg(center_type = "Regional Growth Center (6/22/2023)", split_type = "percent_of_occupied_housing_units", center_name=center)
   ifelse(is.null(centers), centers <- df, centers <- bind_rows(centers, df))
   rm(df)
   
 }
 
 # Manufacturing and Industrial Centers
-for(center in mic_names) {
+for(center in c(mic_names, "All Centers")) {
   
-  df <- centers_estimate_from_bg(center_type = "MIC (2022 RTP)", split_type = "percent_of_occupied_housing_units")
+  df <- centers_estimate_from_bg(center_type = "MIC (2022 RTP)", split_type = "percent_of_occupied_housing_units", center_name=center)
   ifelse(is.null(centers), centers <- df, centers <- bind_rows(centers, df))
   rm(df)
   
@@ -1149,18 +1171,18 @@ rm(bg_pre_2013, bg_post_2013)
 
 # Regional Growth Centers
 centers <- NULL
-for(center in rgc_names) {
+for(center in c(rgc_names, "All Centers")) {
   
-  df <- centers_estimate_from_bg(center_type = "Regional Growth Center (6/22/2023)", split_type = "percent_of_occupied_housing_units")
+  df <- centers_estimate_from_bg(center_type = "Regional Growth Center (6/22/2023)", split_type = "percent_of_occupied_housing_units", center_name=center)
   ifelse(is.null(centers), centers <- df, centers <- bind_rows(centers, df))
   rm(df)
   
 }
 
 # Manufacturing and Industrial Centers
-for(center in mic_names) {
+for(center in c(mic_names, "All Centers")) {
   
-  df <- centers_estimate_from_bg(center_type = "MIC (2022 RTP)", split_type = "percent_of_occupied_housing_units")
+  df <- centers_estimate_from_bg(center_type = "MIC (2022 RTP)", split_type = "percent_of_occupied_housing_units", center_name=center)
   ifelse(is.null(centers), centers <- df, centers <- bind_rows(centers, df))
   rm(df)
   
@@ -1170,6 +1192,8 @@ owner_cost_burden <- bind_rows(county, centers) %>% mutate(share = replace_na(sh
 rm(owner_burden_lookup, centers, blockgroups, county)
 
 cost_burden <- bind_rows(owner_cost_burden, renter_cost_burden)
+ord <- unique(c("Region", "All Centers", rgc_names, mic_names))
+cost_burden <- cost_burden %>% mutate(geography = factor(geography, levels = ord)) %>% arrange(geography, grouping, year)
 saveRDS(cost_burden, "data/cost_burden.rds")
 
 # Educational Attainment --------------------------------------------------
@@ -1290,18 +1314,18 @@ rm(bg_pre_2013, bg_post_2013)
 
 # Regional Growth Centers
 centers <- NULL
-for(center in rgc_names) {
+for(center in c(rgc_names, "All Centers")) {
   
-  df <- centers_estimate_from_bg(center_type = "Regional Growth Center (6/22/2023)", split_type = "percent_of_occupied_housing_units")
+  df <- centers_estimate_from_bg(center_type = "Regional Growth Center (6/22/2023)", split_type = "percent_of_occupied_housing_units", center_name=center)
   ifelse(is.null(centers), centers <- df, centers <- bind_rows(centers, df))
   rm(df)
   
 }
 
 # Manufacturing and Industrial Centers
-for(center in mic_names) {
+for(center in c(mic_names, "All Centers")) {
   
-  df <- centers_estimate_from_bg(center_type = "MIC (2022 RTP)", split_type = "percent_of_occupied_housing_units")
+  df <- centers_estimate_from_bg(center_type = "MIC (2022 RTP)", split_type = "percent_of_occupied_housing_units", center_name=center)
   ifelse(is.null(centers), centers <- df, centers <- bind_rows(centers, df))
   rm(df)
   
@@ -1309,6 +1333,8 @@ for(center in mic_names) {
 
 educational_attainment <- bind_rows(county, centers) %>% mutate(share = replace_na(share, 0))
 rm(education_lookup, centers, blockgroups, county)
+ord <- unique(c("Region", "All Centers", rgc_names, mic_names))
+educational_attainment <- educational_attainment %>% mutate(geography = factor(geography, levels = ord)) %>% arrange(geography, grouping, year)
 saveRDS(educational_attainment, "data/educational_attainment.rds")
 
 # Mode Share to Work ------------------------------------------------------
@@ -1418,18 +1444,18 @@ rm(bg_pre_2013, bg_post_2013)
 
 # Regional Growth Centers
 centers <- NULL
-for(center in rgc_names) {
+for(center in c(rgc_names, "All Centers")) {
   
-  df <- centers_estimate_from_bg(center_type = "Regional Growth Center (6/22/2023)", split_type = "percent_of_occupied_housing_units")
+  df <- centers_estimate_from_bg(center_type = "Regional Growth Center (6/22/2023)", split_type = "percent_of_occupied_housing_units", center_name=center)
   ifelse(is.null(centers), centers <- df, centers <- bind_rows(centers, df))
   rm(df)
   
 }
 
 # Manufacturing and Industrial Centers
-for(center in mic_names) {
+for(center in c(mic_names, "All Centers")) {
   
-  df <- centers_estimate_from_bg(center_type = "MIC (2022 RTP)", split_type = "percent_of_occupied_housing_units")
+  df <- centers_estimate_from_bg(center_type = "MIC (2022 RTP)", split_type = "percent_of_occupied_housing_units", center_name=center)
   ifelse(is.null(centers), centers <- df, centers <- bind_rows(centers, df))
   rm(df)
   
@@ -1437,6 +1463,8 @@ for(center in mic_names) {
 
 mode_to_work <- bind_rows(county, centers) %>% mutate(share = replace_na(share, 0))
 rm(mode_lookup, centers, blockgroups, county)
+ord <- unique(c("Region", "All Centers", rgc_names, mic_names))
+mode_to_work <- mode_to_work %>% mutate(geography = factor(geography, levels = ord)) %>% arrange(geography, grouping, year)
 saveRDS(mode_to_work, "data/mode_to_work.rds")
 
 # Destination Mode Share --------------------------------------------------

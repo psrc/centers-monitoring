@@ -157,7 +157,7 @@ shinyServer(function(input, output, session) {
   
   output$rgc_age_chart <- renderEcharts4r({
     
-      echart_multi_column_chart(df = age_data %>% filter(geography_type %in% c(rgc_title, "County") & geography %in% c(input$RGC, "Region", rgc_county()) & grouping != "Total"),
+      echart_multi_column_chart(df = age_data %>% filter(geography_type %in% c(rgc_title, "County") & geography %in% c(input$RGC, "Region", "All Centers") & grouping != "Total"),
                               x = "grouping", y = "share", fill="geography", tog = "data_year", 
                               dec = 0, esttype = "percent", color = "jewel")
     
@@ -168,7 +168,7 @@ shinyServer(function(input, output, session) {
   output$rgc_race_chart <- renderEcharts4r({
     
     echart_multi_bar_chart(df = race_data %>% 
-                             filter(geography_type %in% c(rgc_title, "County") & geography %in% c(input$RGC, "Region", rgc_county()) & grouping != "Total") %>%
+                             filter(geography_type %in% c(rgc_title, "County") & geography %in% c(input$RGC, "Region", "All Centers") & grouping != "Total") %>%
                              arrange(desc(grouping)),
                            x = "grouping", y = "share", fill="geography", tog = "data_year",
                            dec = 0, esttype = "percent", color = "jewel")
@@ -180,7 +180,7 @@ shinyServer(function(input, output, session) {
   
   output$rgc_income_chart <- renderEcharts4r({
     
-    echart_multi_column_chart(df = income_data %>% filter(geography_type %in% c(rgc_title, "County") & geography %in% c(input$RGC, "Region", rgc_county()) & grouping != "Total"),
+    echart_multi_column_chart(df = income_data %>% filter(geography_type %in% c(rgc_title, "County") & geography %in% c(input$RGC, "Region", "All Centers") & grouping != "Total"),
                               x = "grouping", y = "share", fill="geography", tog = "data_year", 
                               dec = 0, esttype = "percent", color = "jewel")
   })
@@ -189,7 +189,7 @@ shinyServer(function(input, output, session) {
   
   output$rgc_education_chart <- renderEcharts4r({
     
-    echart_multi_bar_chart(df = education_data %>% filter(geography_type %in% c(rgc_title, "County") & geography %in% c(input$RGC, "Region", rgc_county()) & grouping != "Total"),
+    echart_multi_bar_chart(df = education_data %>% filter(geography_type %in% c(rgc_title, "County") & geography %in% c(input$RGC, "Region", "All Centers") & grouping != "Total"),
                               x = "grouping", y = "share", fill="geography", tog = "data_year", 
                               dec = 0, esttype = "percent", color = "jewel")
     
@@ -231,7 +231,7 @@ shinyServer(function(input, output, session) {
   
   output$rgc_tenure_chart <- renderEcharts4r({
     
-    echart_multi_column_chart(df = tenure_data %>% filter(geography_type %in% c(rgc_title, "County") & geography %in% c(input$RGC, "Region", rgc_county()) & grouping != "Total"),
+    echart_multi_column_chart(df = tenure_data %>% filter(geography_type %in% c(rgc_title, "County") & geography %in% c(input$RGC, "Region", "All Centers") & grouping != "Total"),
                               x = "grouping", y = "share", fill="geography", tog = "data_year", 
                               dec = 0, esttype = "percent", color = "jewel")
   })
@@ -241,7 +241,7 @@ shinyServer(function(input, output, session) {
   output$rgc_type_chart <- renderEcharts4r({
     
     echart_multi_bar_chart(df = type_data %>% 
-                             filter(geography_type %in% c(rgc_title, "County") & geography %in% c(input$RGC, "Region", rgc_county()) & grouping != "Total") %>%
+                             filter(geography_type %in% c(rgc_title, "County") & geography %in% c(input$RGC, "Region", "All Centers") & grouping != "Total") %>%
                              arrange(desc(grouping)),
                            x = "grouping", y = "share", fill="geography", tog = "data_year", 
                            dec = 0, esttype = "percent", color = "jewel")
@@ -252,7 +252,7 @@ shinyServer(function(input, output, session) {
   output$rgc_renter_burden_chart <- renderEcharts4r({
     
     echart_multi_column_chart(df = burden_data %>% 
-                                filter(geography_type %in% c(rgc_title, "County") & geography %in% c(input$RGC, "Region", rgc_county()) & grouping != "Total" & concept == "Renter Cost Burden"),
+                                filter(geography_type %in% c(rgc_title, "County") & geography %in% c(input$RGC, "Region", "All Centers") & grouping != "Total" & concept == "Renter Cost Burden"),
                               x = "grouping", y = "share", fill="geography", tog = "data_year", 
                               dec = 0, esttype = "percent", color = "jewel")
   })
@@ -262,7 +262,7 @@ shinyServer(function(input, output, session) {
   output$rgc_owner_burden_chart <- renderEcharts4r({
     
     echart_multi_column_chart(df = burden_data %>% 
-                                filter(geography_type %in% c(rgc_title, "County") & geography %in% c(input$RGC, "Region", rgc_county()) & grouping != "Total" & concept == "Owner Cost Burden"),
+                                filter(geography_type %in% c(rgc_title, "County") & geography %in% c(input$RGC, "Region", "All Centers") & grouping != "Total" & concept == "Owner Cost Burden"),
                               x = "grouping", y = "share", fill="geography", tog = "data_year", 
                               dec = 0, esttype = "percent", color = "jewel")
     
@@ -273,7 +273,7 @@ shinyServer(function(input, output, session) {
   output$rgc_resident_mode_chart <- renderEcharts4r({
     
     echart_multi_column_chart(df = mode_data %>% 
-                                filter(geography_type %in% c(rgc_title, "County") & geography %in% c(input$RGC, "Region", rgc_county()) & grouping != "Total"),
+                                filter(geography_type %in% c(rgc_title, "County") & geography %in% c(input$RGC, "Region", "All Centers") & grouping != "Total"),
                               x = "grouping", y = "share", fill="geography", tog = "data_year", 
                               dec = 0, esttype = "percent", color = "jewel")
   })
