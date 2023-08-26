@@ -39,6 +39,7 @@ shinyUI(
                                              br(),
                                              tags$div(class="chart_source","* Employment data is suppressed")
                                              )),
+                             fluidRow(column(12, downloadLink('downloadData', label = "Download Center Data in Excel Format"))),
                              br(),
                              
                              # Section on page for Text Description

@@ -20,6 +20,9 @@ library(DT)
 library(sf)
 library(leaflet)
 
+# Packaage for Excel Data Creation
+library(openxlsx)
+
 wgs84 <- 4326
 spn <- 32148
 
@@ -73,4 +76,13 @@ rgc_shape <- st_read("https://services6.arcgis.com/GWxg6t7KXELn1thE/arcgis/rest/
 
 rgc_names <- rgc_shape %>% st_drop_geometry() %>% select("name") %>% arrange(name) %>% distinct() %>% pull()
 random_rgc <- rgc_names[[sample(1:length(rgc_names), 1)]]
+
+
+
+#summary_data <- create_public_spreadsheet(table_list = dashboard_tables, output_path = "data/summary_centers_data.xlsx")
+
+
+
+
+
 

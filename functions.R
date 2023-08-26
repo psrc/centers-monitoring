@@ -1366,3 +1366,42 @@ create_rgc_jobs_by_sector_table <- function(center_name, center_type="Regional G
   
 }
 
+create_public_spreadsheet <- function(table_list) {
+  
+  hs <- createStyle(
+    fontColour = "black",
+    border = "bottom",
+    fgFill = "#00a7a0",
+    halign = "center",
+    valign = "center",
+    textDecoration = "bold"
+  )
+  
+  table_idx <- 1
+  sheet_idx <- 2
+  
+  wb <- loadWorkbook("data/metadata.xlsx")
+  
+  for (i in table_list) {
+    for (j in names(table_list)) {
+      if (names(table_list)[table_idx] == j) {
+        
+        addWorksheet(wb, sheetName = j)
+        writeDataTable(wb, sheet = sheet_idx, x = i, tableStyle = "none", headerStyle = hs, withFilter = FALSE)
+        setColWidths(wb, sheet = sheet_idx, cols = 1:length(i), widths = "auto")
+        freezePane(wb, sheet = sheet_idx, firstRow = TRUE)
+        
+      } else {next}
+    }
+    if (table_idx < length(table_list)) {
+      
+      table_idx <- table_idx + 1
+      sheet_idx <- sheet_idx + 1
+      
+    } else {break}
+  }
+  
+  return(wb)
+}
+
+

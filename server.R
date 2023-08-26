@@ -112,6 +112,21 @@ shinyServer(function(input, output, session) {
       mutate(year = as.character(year), `Total Population` = round(total_population,0))
   })
   
+  rgc_summary_data <- reactive({
+    
+    create_public_spreadsheet(table_list = list("Pop, HH, HU" = pop_hh_hu_data %>% filter(geography==input$RGC & geography_type == rgc_title), 
+                                                "Pop by Age" = age_data %>% filter(geography==input$RGC & geography_type == rgc_title),
+                                                "Cost Burden" = burden_data %>% filter(geography==input$RGC & geography_type == rgc_title), 
+                                                "Educational Attainment" = education_data %>% filter(geography==input$RGC & geography_type == rgc_title)))
+  })
+  
+  output$downloadData <- downloadHandler(
+    filename = function() {
+      paste0(input$RGC,"_summary_data.xlsx")},
+    content <- function(file) {
+      saveWorkbook(rgc_summary_data(), file = file)},
+    contentType = "application/Excel"
+  )
   
   output$mic_population_chart <- renderEcharts4r({
     mic_filter() %>%
