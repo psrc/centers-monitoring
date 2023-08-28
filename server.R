@@ -125,7 +125,11 @@ shinyServer(function(input, output, session) {
                                                 "Housing Tenure" = tenure_data |> select(-"year") |> filter(geography %in% c(input$RGC) & geography_type %in% c(rgc_title)),
                                                 "Housing Type" = type_data |> select(-"year") |> filter(geography %in% c(input$RGC) & geography_type %in% c(rgc_title)),
                                                 "Renter Cost Burden" = burden_data |> select(-"year") |> filter(concept == "Renter Cost Burden" & geography %in% c(input$RGC) & geography_type %in% c(rgc_title)),
-                                                "Owner Cost Burden" = burden_data |> select(-"year") |> filter(concept == "Owner Cost Burden" & geography %in% c(input$RGC) & geography_type %in% c(rgc_title))
+                                                "Owner Cost Burden" = burden_data |> select(-"year") |> filter(concept == "Owner Cost Burden" & geography %in% c(input$RGC) & geography_type %in% c(rgc_title)),
+                                                "Transit Stops" = transit_stop_data |> st_drop_geometry() |> filter(rgc %in% c(input$RGC)) |> select(-"mic"),
+                                                "Resident Mode Share" = mode_data |> select(-"year") |> filter(geography %in% c(input$RGC) & geography_type %in% c(rgc_title)),
+                                                "Destination Mode Share" = destination_mode_data |> select(-"year") |> filter(geography %in% c(input$RGC) & geography_type %in% c(rgc_title)),
+                                                "Intersection Density" = intersection_density |> filter(name %in% c(input$RGC))
                                                 ), place_name = input$RGC)
   })
   
