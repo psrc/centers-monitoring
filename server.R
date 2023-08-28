@@ -117,7 +117,8 @@ shinyServer(function(input, output, session) {
     create_public_spreadsheet(table_list = list("Pop, HH, HU" = pop_hh_hu_data %>% filter(geography==input$RGC & geography_type == rgc_title), 
                                                 "Pop by Age" = age_data %>% filter(geography==input$RGC & geography_type == rgc_title),
                                                 "Cost Burden" = burden_data %>% filter(geography==input$RGC & geography_type == rgc_title), 
-                                                "Educational Attainment" = education_data %>% filter(geography==input$RGC & geography_type == rgc_title)))
+                                                "Educational Attainment" = education_data %>% filter(geography==input$RGC & geography_type == rgc_title)),
+                              place_name = input$RGC)
   })
   
   output$downloadData <- downloadHandler(

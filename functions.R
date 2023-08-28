@@ -1366,7 +1366,7 @@ create_rgc_jobs_by_sector_table <- function(center_name, center_type="Regional G
   
 }
 
-create_public_spreadsheet <- function(table_list) {
+create_public_spreadsheet <- function(table_list, place_name) {
   
   hs <- createStyle(
     fontColour = "black",
@@ -1377,10 +1377,33 @@ create_public_spreadsheet <- function(table_list) {
     textDecoration = "bold"
   )
   
+  ns <- createStyle(
+    fontName = "Poppins",
+    fontColour = "black",
+    fontSize = 11,
+    halign = "left",
+    valign = "center",
+  )
+  
   table_idx <- 1
   sheet_idx <- 2
   
   wb <- loadWorkbook("data/metadata.xlsx")
+  
+  # Set Font Style
+  addStyle(wb = wb, sheet = "Data Notes", style = ns, rows = 1:2, cols = 2)
+  
+  writeData(
+    wb = wb,
+    sheet = "Data Notes",
+    x = place_name,
+    xy = c(2,1))
+  
+  writeData(
+    wb = wb,
+    sheet = "Data Notes",
+    x = Sys.Date(),
+    xy = c(2,2))
   
   for (i in table_list) {
     for (j in names(table_list)) {
