@@ -114,11 +114,19 @@ shinyServer(function(input, output, session) {
   
   rgc_summary_data <- reactive({
     
-    create_public_spreadsheet(table_list = list("Pop, HH, HU" = pop_hh_hu_data %>% filter(geography==input$RGC & geography_type == rgc_title), 
-                                                "Pop by Age" = age_data %>% filter(geography==input$RGC & geography_type == rgc_title),
-                                                "Cost Burden" = burden_data %>% filter(geography==input$RGC & geography_type == rgc_title), 
-                                                "Educational Attainment" = education_data %>% filter(geography==input$RGC & geography_type == rgc_title)),
-                              place_name = input$RGC)
+    create_public_spreadsheet(table_list = list("Population" = pop_hh_hu_data |> select(-"year") |> filter(geography %in% c(input$RGC) & geography_type %in% c(rgc_title) & grouping == "Population"), 
+                                                "Age" = age_data |> select(-"year") |> filter(geography %in% c(input$RGC) & geography_type %in% c(rgc_title)),
+                                                "Race" = race_data |> select(-"year") |> filter(geography %in% c(input$RGC) & geography_type %in% c(rgc_title)),
+                                                "Household Income" = income_data |> select(-"year") |> filter(geography %in% c(input$RGC) & geography_type %in% c(rgc_title)),
+                                                "Educational Attainment" = education_data |> select(-"year") |> filter(geography %in% c(input$RGC) & geography_type %in% c(rgc_title)),
+                                                "Jobs" = employment_data|> select(-"year") |> filter(geography %in% c(input$RGC) & geography_type %in% c(rgc_title)),
+                                                "Housing Units" = pop_hh_hu_data |> select(-"year") |> filter(geography %in% c(input$RGC) & geography_type %in% c(rgc_title) & grouping == "Housing Units"),
+                                                "Net Housing Units" = unit_data |> select(-"year") |> filter(geography %in% c(input$RGC) & geography_type %in% c(rgc_title)),
+                                                "Housing Tenure" = tenure_data |> select(-"year") |> filter(geography %in% c(input$RGC) & geography_type %in% c(rgc_title)),
+                                                "Housing Type" = type_data |> select(-"year") |> filter(geography %in% c(input$RGC) & geography_type %in% c(rgc_title)),
+                                                "Renter Cost Burden" = burden_data |> select(-"year") |> filter(concept == "Renter Cost Burden" & geography %in% c(input$RGC) & geography_type %in% c(rgc_title)),
+                                                "Owner Cost Burden" = burden_data |> select(-"year") |> filter(concept == "Owner Cost Burden" & geography %in% c(input$RGC) & geography_type %in% c(rgc_title))
+                                                ), place_name = input$RGC)
   })
   
   output$downloadData <- downloadHandler(
