@@ -29,7 +29,12 @@ shinyUI(
                              leftpanel_ui('rgcleftpanel')),
                       
                       column(8, style='padding-left:25px; padding-right:25px;',
-                             selectInput("RGC","Select Regional Growth Center:",rgc_names, selected = random_rgc),
+                             
+                             
+                             fluidRow(
+                               column(6, selectInput("RGC","Select Regional Growth Center:",rgc_names, selected = random_rgc)),
+                               column(6, br(), downloadLink('downloadData', label = "Download Center Data in Excel Format"))
+                             ),
                              
                              # Section on page for Map and Summary Table
                              fluidRow(column(6, leafletOutput("rgc_map")),
@@ -39,7 +44,6 @@ shinyUI(
                                              br(),
                                              tags$div(class="chart_source","* Employment data is suppressed")
                                              )),
-                             fluidRow(column(12, downloadLink('downloadData', label = "Download Center Data in Excel Format"))),
                              br(),
                              
                              # Section on page for Text Description
