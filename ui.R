@@ -32,7 +32,7 @@ shinyUI(
                              
                              
                              fluidRow(
-                               column(6, selectInput("RGC","Select Regional Growth Center:",rgc_names, selected = random_rgc)),
+                               column(6, selectInput("RGC","Select Center:",rgc_names, selected = random_rgc)),
                                column(6, br(), downloadLink('downloadData', label = "Download Center Data in Excel Format"))
                              ),
                              
@@ -40,7 +40,7 @@ shinyUI(
                              fluidRow(column(6, leafletOutput("rgc_map")),
                                       column(6, strong("Summary Statistics"),
                                              br(),
-                                             dataTableOutput("summary_table"),
+                                             dataTableOutput("rgc_summary_table"),
                                              br(),
                                              tags$div(class="chart_source","* Employment data is suppressed")
                                              )),
@@ -211,25 +211,84 @@ shinyUI(
              value="MIC",
              banner_ui('micBanner'),
              
-             fluidRow(column(4, style='padding-left:50px; padding-right:50px;',
+             fluidRow(column(4, style='padding-left:10px; padding-right:0px;',
                              leftpanel_ui('micleftpanel')),
                       
-                      column(8,
-                             selectInput("MIC","Select MIC:",mic_names),
-                             "Map of Center",
-                             br(),br(),br(),
+                      column(8, style='padding-left:25px; padding-right:25px;',
+                             
+                             
+                             fluidRow(
+                               column(6, selectInput("MIC","Select Center:",mic_names, selected = random_mic)),
+                               column(6, br(), downloadLink('downloadmicData', label = "Download Center Data in Excel Format"))
+                             ),
+                             
+                             # Section on page for Map and Summary Table
+                             fluidRow(column(6, leafletOutput("mic_map")),
+                                      column(6, strong("Summary Statistics"),
+                                             br(),
+                                             dataTableOutput("mic_summary_table"),
+                                             br(),
+                                             tags$div(class="chart_source","* Employment data is suppressed")
+                                      )),
+                             br(),
+                             
+                             # Section on page for Text Description
+                             fluidRow(column(12, strong("Description:"),
+                                             br(),
+                                             textOutput("MICDescription"))),
+                             br(),
                              tabsetPanel(type = "tabs",
-                                         tabPanel("People", 
-                                                  h1("Total Population"),
-                                                  hr(),
-                                                  fluidRow(column(12,echarts4rOutput("mic_population_chart"))),
-                                                  tags$div(class="chart_source","Source: Office of Financial Managment SAEP Program & PSRC Parcelization"),
+                                         tabPanel("Demographics", 
+                                                  
+                                                  "test"
+                                                  
+                                         ), # end of TabPanel for MIC Demographics
+                                         
+                                         tabPanel("Jobs", 
+                                                  
+                                                  "test"
+                                                  
+                                         ), # end of TabPanel for MIC Jobs
+                                         
+                                         tabPanel("Housing", 
+                                                  
+                                                  "test"
+                                                  
+                                         ), # end of TabPanel for MIC Housing
+                                         
+                                         tabPanel("Transportation", 
+                                                  
+                                                  
                                                   hr(),
                                                   
-                                         ), # end of TabPanel for RGC Population
-                                         tabPanel("Jobs", "Test"),
-                                         tabPanel("Other", "Test")
-                             )
+                                                  # Section on page for Map and Summary Table
+                                                  fluidRow(column(6, leafletOutput("mic_stop_map")),
+                                                           column(6, strong("Transit Service"),
+                                                                  br(),
+                                                                  dataTableOutput("mic_stop_table"),
+                                                                  br(),
+                                                                  tags$div(class="chart_source","Source: Spring GTFS Service")
+                                                           )),
+                                                  fluidRow(column(12, div(img(src="transit-legend.png", width = "75%", style = "padding-left: 0px;")))),
+                                                  br(),
+                                                  
+                                                  strong(tags$div(class="chart_title","Destination Mode Share")),
+                                                  fluidRow(column(12,echarts4rOutput("mic_destination_mode_chart"))),
+                                                  br(),
+                                                  fluidRow(column(12, dataTableOutput("mic_destination_mode_table"))),
+                                                  tags$div(class="chart_source","Source: 2018 PSRC SoundCast Activity Based Model"),
+                                                  hr(style = "border-top: 1px solid #000000;")
+                                                  
+                                         ), # end of TabPanel for MIC Transportation
+                                         
+                                         tabPanel("Urban Form", 
+                                                  
+                                                  
+                                                  "test"
+                                                  
+                                         ) # end of TabPanel for MIC Urban Form
+                                         
+                             ) # end of MIC Tabsets
                       ),
              ) # End of Main Panel Fluid Row for MIC Tab 
     ), # end Tabpanel for MIC

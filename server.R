@@ -17,18 +17,6 @@ shinyServer(function(input, output, session) {
                    contact_title = "Senior Planner",
                    photo_filename = "portoftacomaindustrialland.jpg")
     
-  leftpanel_server('overviewleftpanel',
-                   contact_name = "Craig Helmann",
-                   contact_phone = "206-389-2889",
-                   contact_email = "chelmann@psrc.org",
-                   contact_title = "Director of Data",
-                   photo_filename = "20210617_psrc_1576.png")
-  
-  banner_server('overviewBanner', 
-                banner_title = "Centers Monitoring", 
-                banner_subtitle = "VISION 2050",
-                banner_url = "https://www.psrc.org/planning-2050/vision-2050")
-  
   banner_server('rgcBanner', 
                 banner_title = "Regional Growth Centers", 
                 banner_subtitle = "Centers",
@@ -39,15 +27,32 @@ shinyServer(function(input, output, session) {
                 banner_subtitle = "Centers",
                 banner_url = "https://www.psrc.org/our-work/centers")
   
-
-# Fatal Collisions by Geography -------------------------------------------
-
-  rgc_filter <- reactive({
-    data %>% 
-      filter(geography=="Regional Growth Center" & name == input$RGC) %>%
-      mutate(year = as.character(year), `Total Population` = round(total_population,0))
+# Center Maps -------------------------------------------
+  output$rgc_map <- renderLeaflet({
+    leaflet(options = leafletOptions(zoomControl=FALSE)) %>%
+      addProviderTiles(providers$Esri.NatGeoWorldMap) %>%
+      addPolygons(data = rgc_shape %>% filter(name %in% input$RGC),
+                  fillColor = "76787A",
+                  weight = 4,
+                  opacity = 1.0,
+                  color = "#91268F",
+                  dashArray = "4",
+                  fillOpacity = 0.0)
   })
   
+  output$mic_map <- renderLeaflet({
+    leaflet(options = leafletOptions(zoomControl=FALSE)) %>%
+      addProviderTiles(providers$Esri.NatGeoWorldMap) %>%
+      addPolygons(data = mic_shape %>% filter(name %in% input$MIC),
+                  fillColor = "76787A",
+                  weight = 4,
+                  opacity = 1.0,
+                  color = "#91268F",
+                  dashArray = "4",
+                  fillOpacity = 0.0)
+  })
+
+# Center Summary Data -----------------------------------------------------
   rgc_year_filter <- reactive({
     centers_info %>%
       filter(rgc_mic=="Regional Growth Center" & name == input$RGC) %>%
@@ -69,13 +74,80 @@ shinyServer(function(input, output, session) {
       pull()
   })
   
-  rgc_county <- reactive({
+  output$RGCDesignationYear <- renderText({rgc_year_filter()})
+  output$RGCType <- renderText({rgc_type_filter()})
+  output$RGCDescription <- renderText({rgc_descritpion_filter()})
+  output$rgc_summary_table <- DT::renderDataTable({create_rgc_summary_table(center_name = input$RGC, yr = 2021)})
+  
+  mic_year_filter <- reactive({
     centers_info %>%
-      filter(rgc_mic=="Regional Growth Center" & name == input$RGC) %>%
-      select("county") %>%
+      filter(rgc_mic=="Manufacturing Industrial Center" & name == input$MIC) %>%
+      select("designation_year") %>%
       pull()
   })
   
+  mic_descritpion_filter <- reactive({
+    centers_info %>%
+      filter(rgc_mic=="Manufacturing Industrial Center" & name == input$MIC) %>%
+      select("information") %>%
+      pull()
+  })
+
+  mic_type_filter <- reactive({
+    centers_info %>%
+      filter(rgc_mic=="Manufacturing Industrial Center" & name == input$MIC) %>%
+      select("center_type") %>%
+      pull()
+  })
+  
+  output$MICDesignationYear <- renderText({mic_year_filter()})
+  output$MICType <- renderText({mic_type_filter()})
+  output$MICDescription <- renderText({mic_descritpion_filter()})
+  output$mic_summary_table <- DT::renderDataTable({create_mic_summary_table(center_name = input$MIC, yr = 2021)})
+
+# Transportation Tab ------------------------------------------------------
+  output$rgc_resident_mode_chart <- renderEcharts4r({
+    
+    echart_multi_column_chart(df = mode_data %>% 
+                                filter(geography_type %in% c(rgc_title, "County") & geography %in% c(input$RGC, "Region", "All Centers") & grouping != "Total"),
+                              x = "grouping", y = "share", fill="geography", tog = "data_year", 
+                              dec = 0, esttype = "percent", color = "jewel")
+  })
+  
+  output$rgc_resident_mode_table <- DT::renderDataTable({create_multi_year_table(df = mode_data, rgc_name = input$RGC, data_yrs = as.character(census_years), dec = 1)})
+  
+  output$rgc_destination_mode_chart <- renderEcharts4r({
+    
+    echart_multi_column_chart(df = destination_mode_data %>% 
+                                filter(geography_type %in% c(rgc_title, "Region") & geography %in% c(input$RGC, "Region", "All Centers") & grouping != "Total"),
+                              x = "grouping", y = "share", fill="geography", tog = "concept", 
+                              dec = 0, esttype = "percent", color = "jewel")
+  })
+  
+  output$rgc_destination_mode_table <- DT::renderDataTable({create_multi_group_table(df = destination_mode_data, rgc_name = input$RGC, grp = "concept", dec = 1)})
+  
+  output$rgc_stop_table <- DT::renderDataTable({create_rgc_transit_stop_table(center_name = input$RGC)})
+  
+  output$rgc_stop_map <- renderLeaflet({create_rgc_transit_map(center_name = input$RGC)})
+  
+  output$mic_destination_mode_chart <- renderEcharts4r({
+    
+    echart_multi_column_chart(df = destination_mode_data |>
+                                filter(geography_type %in% c(mic_title, "Region") & geography %in% c(input$MIC, "Region", "All Centers") & grouping != "Total"),
+                              x = "grouping", y = "share", fill="geography", tog = "concept", 
+                              dec = 0, esttype = "percent", color = "jewel")
+  })
+  
+  output$mic_destination_mode_table <- DT::renderDataTable({create_multi_group_table(df = destination_mode_data, rgc_name = input$MIC, grp = "concept", dec = 1, center_type="MIC")})
+  
+  output$mic_stop_table <- DT::renderDataTable({create_mic_transit_stop_table(center_name = input$MIC)})
+  
+  output$mic_stop_map <- renderLeaflet({create_mic_transit_map(center_name = input$MIC)})
+
+# Demographics Tab --------------------------------------------------------
+
+  
+
   output$lu_map <- renderImage({
     
     ifelse(input$RGC == "Seattle First Hill/Capitol Hill", imgfn <- "Seattle First Hill Capitol Hill.jpg", imgfn <- paste0(input$RGC, '.jpg'))
@@ -106,12 +178,6 @@ shinyServer(function(input, output, session) {
     
   })
   
-  mic_filter <- reactive({
-    data %>% 
-      filter(geography=="Manufacturing & Industrial Center" & name == input$MIC) %>%
-      mutate(year = as.character(year), `Total Population` = round(total_population,0))
-  })
-  
   rgc_summary_data <- reactive({
     
     create_public_spreadsheet(table_list = list("Population" = pop_hh_hu_data |> select(-"year") |> filter(geography %in% c(input$RGC) & geography_type %in% c(rgc_title) & grouping == "Population"), 
@@ -140,38 +206,6 @@ shinyServer(function(input, output, session) {
       saveWorkbook(rgc_summary_data(), file = file)},
     contentType = "application/Excel"
   )
-  
-  output$mic_population_chart <- renderEcharts4r({
-    mic_filter() %>%
-      e_charts(year) %>%
-      e_bar(`Total Population`, stack = "grp") %>%
-      e_color(psrc_colors$obgnpgy_5) %>%
-      e_toolbox_feature("dataView") %>%
-      e_toolbox_feature("saveAsImage") %>%
-      e_tooltip(trigger = "axis") %>%
-      e_x_axis(axisTick=list(show = FALSE)) %>%
-      e_show_loading() %>%
-      e_legend(show = FALSE, bottom=0) %>%
-      e_title(text="Total Population (including Group Quarters)",
-              link="https://ofm.wa.gov/washington-data-research/population-demographics/population-estimates/small-area-estimates-program")
-    
-  })
-  
-  output$RGCDesignationYear <- renderText({rgc_year_filter()})
-  output$RGCType <- renderText({rgc_type_filter()})
-  output$RGCDescription <- renderText({rgc_descritpion_filter()})
-  
-  output$rgc_map <- renderLeaflet({
-    leaflet(options = leafletOptions(zoomControl=FALSE)) %>%
-      addProviderTiles(providers$Esri.NatGeoWorldMap) %>%
-      addPolygons(data = rgc_shape %>% filter(name %in% input$RGC),
-                  fillColor = "76787A",
-                  weight = 4,
-                  opacity = 1.0,
-                  color = "#91268F",
-                  dashArray = "4",
-                  fillOpacity = 0.0)
-  })
   
   output$rgc_pop_chart <- renderEcharts4r({
     
@@ -224,8 +258,6 @@ shinyServer(function(input, output, session) {
   })
   
   output$rgc_education_table <- DT::renderDataTable({create_multi_year_table(df = education_data, rgc_name = input$RGC, data_yrs = as.character(census_years), dec = 1)})
-  
-  output$summary_table <- DT::renderDataTable({create_rgc_summary_table(center_name = input$RGC, yr = 2021)})
   
   output$urban_form_table <- DT::renderDataTable({create_rgc_urban_form_table(center_name = input$RGC)})
   
@@ -298,29 +330,6 @@ shinyServer(function(input, output, session) {
   
   output$rgc_owner_burden_table <- DT::renderDataTable({create_multi_year_table(df = owner_burden_data, rgc_name = input$RGC, data_yrs = as.character(census_years), dec = 1)})
   
-  output$rgc_resident_mode_chart <- renderEcharts4r({
-    
-    echart_multi_column_chart(df = mode_data %>% 
-                                filter(geography_type %in% c(rgc_title, "County") & geography %in% c(input$RGC, "Region", "All Centers") & grouping != "Total"),
-                              x = "grouping", y = "share", fill="geography", tog = "data_year", 
-                              dec = 0, esttype = "percent", color = "jewel")
-  })
-  
-  output$rgc_resident_mode_table <- DT::renderDataTable({create_multi_year_table(df = mode_data, rgc_name = input$RGC, data_yrs = as.character(census_years), dec = 1)})
-  
-  output$rgc_destination_mode_chart <- renderEcharts4r({
-    
-    echart_multi_column_chart(df = destination_mode_data %>% 
-                                filter(geography_type %in% c(rgc_title, "Region") & geography %in% c(input$RGC, "Region", "All Centers") & grouping != "Total"),
-                              x = "grouping", y = "share", fill="geography", tog = "concept", 
-                              dec = 0, esttype = "percent", color = "jewel")
-  })
-  
-  output$rgc_destination_mode_table <- DT::renderDataTable({create_multi_group_table(df = destination_mode_data, rgc_name = input$RGC, grp = "concept", dec = 1)})
-  
-  output$rgc_stop_table <- DT::renderDataTable({create_rgc_transit_stop_table(center_name = input$RGC)})
-  
-  output$rgc_stop_map <- renderLeaflet({create_rgc_transit_map(center_name = input$RGC)})
   
   output$rgc_jobs_chart <- renderEcharts4r({
     

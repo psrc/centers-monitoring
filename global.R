@@ -4,6 +4,7 @@
 library(shiny)
 library(shinydashboard)
 library(bs4Dash)
+library(shinycssloaders)
 
 # Packages for Data Cleaning/Processing
 library(tidyverse)
@@ -65,24 +66,24 @@ transit_stop_data <- readRDS("data/stops_layer.rds")
 centers_info <- read_csv("data/centers_information.csv", show_col_types = FALSE)
 intersection_density <- read_csv("data/center_intersection_density.csv", show_col_types = FALSE)
 
-mic_names <- age_data %>% filter(geography_type== mic_title) %>% select("geography") %>% arrange(geography) %>% distinct() %>% pull()
-
 # Shapefiles --------------------------------------------------------------
-rgc_shape <- st_read("https://services6.arcgis.com/GWxg6t7KXELn1thE/arcgis/rest/services/Regional_Growth_Centers/FeatureServer/0/query?where=0=0&outFields=*&f=pgeojson") %>%
-  mutate(name = gsub("Bellevue", "Bellevue Downtown", name)) %>%
-  mutate(name = gsub("Redmond-Overlake", "Redmond Overlake", name)) %>%
-  mutate(name = gsub("Greater Downtown Kirkland", "Kirkland Greater Downtown", name)) %>%
+rgc_shape <- st_read("https://services6.arcgis.com/GWxg6t7KXELn1thE/arcgis/rest/services/Regional_Growth_Centers/FeatureServer/0/query?where=0=0&outFields=*&f=pgeojson") |>
+  mutate(name = gsub("Bellevue", "Bellevue Downtown", name)) |>
+  mutate(name = gsub("Redmond-Overlake", "Redmond Overlake", name)) |>
+  mutate(name = gsub("Greater Downtown Kirkland", "Kirkland Greater Downtown", name)) |>
   select("name", "acres")
 
-rgc_names <- rgc_shape %>% st_drop_geometry() %>% select("name") %>% arrange(name) %>% distinct() %>% pull()
+rgc_names <- rgc_shape |> st_drop_geometry() |> select("name") |> arrange(name) |> distinct() |> pull()
 random_rgc <- rgc_names[[sample(1:length(rgc_names), 1)]]
 
+mic_shape <- st_read("https://services6.arcgis.com/GWxg6t7KXELn1thE/arcgis/rest/services/Manufacturing_Industrial_Centers/FeatureServer/0/query?where=0=0&outFields=*&f=pgeojson") |>
+  mutate(mic = gsub("Kent MIC", "Kent", mic)) |>
+  mutate(mic = gsub("Paine Field / Boeing Everett", "Paine Field/Boeing Everett", mic)) |>
+  mutate(mic = gsub("Sumner Pacific", "Sumner-Pacific", mic)) %>%
+  mutate(mic = gsub("Puget Sound Industrial Center- Bremerton", "Puget Sound Industrial Center - Bremerton", mic)) |>
+  mutate(mic = gsub("Cascade", "Cascade Industrial Center - Arlington/Marysville", mic)) |>
+  select(name="mic", "acres")
 
-
-#summary_data <- create_public_spreadsheet(table_list = dashboard_tables, output_path = "data/summary_centers_data.xlsx")
-
-
-
-
-
+mic_names <- mic_shape %>% st_drop_geometry() %>% select("name") %>% arrange(name) %>% distinct() %>% pull()
+random_mic <- mic_names[[sample(1:length(mic_names), 1)]]
 

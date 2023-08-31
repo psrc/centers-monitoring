@@ -980,6 +980,7 @@ create_rgc_urban_form_table <- function(center_name) {
   
 }
 
+# RGC Transit Functions ---------------------------------------------------
 create_rgc_transit_stop_table <- function(center_name) {
   
   data <- transit_stop_data |> st_drop_geometry()
@@ -1174,7 +1175,212 @@ create_rgc_transit_map <- function(center_name) {
   
 }
 
-create_multi_group_table <- function(df, rgc_name, grp, dec=0) {
+# MIC Transit Functions ---------------------------------------------------
+create_mic_transit_map <- function(center_name) {
+  
+  transit_pal <- colorFactor(
+    palette = c("#BCBEC0", "#8CC63E", "#91268F", "#00A7A0", "#F05A28"),
+    levels = c("Bus", "BRT", "Commuter Rail", "Ferry", "Light Rail or Streetcar"))
+  
+  center_shp <- mic_shape |> filter(name %in% center_name)
+  
+  lrt_stops <- transit_stop_data |>
+    filter(mic %in% center_name) |>
+    select(Stop="stop_id", Mode="lrt") |>
+    drop_na()
+  
+  brt_stops <- transit_stop_data |>
+    filter(mic %in% center_name) |>
+    select(Stop="stop_id", Mode="brt") |>
+    drop_na()
+  
+  crt_stops <- transit_stop_data |>
+    filter(mic %in% center_name) |>
+    select(Stop="stop_id", Mode="crt") |>
+    drop_na()
+  
+  ferry_stops <- transit_stop_data |>
+    filter(mic %in% center_name) |>
+    select(Stop="stop_id", Mode="ferry") |>
+    drop_na()
+  
+  bus_stops <- transit_stop_data |>
+    filter(mic %in% center_name) |>
+    select(Stop="stop_id", Mode="bus") |>
+    drop_na()
+  
+  m <- leaflet() |>
+    
+    addProviderTiles(providers$CartoDB.Positron) |>
+    
+    addLayersControl(baseGroups = c("Base Map"),
+                     overlayGroups = c("Bus",
+                                       "BRT", 
+                                       "Commuter Rail",
+                                       "Ferry",
+                                       "Light Rail or Streetcar", 
+                                       "Center"),
+                     options = layersControlOptions(collapsed = TRUE)) |>
+    
+    addPolygons(data = center_shp,
+                fillColor = "76787A",
+                weight = 4,
+                opacity = 1.0,
+                color = "#91268F",
+                dashArray = "4",
+                fillOpacity = 0.0,
+                group="Center") |>
+    
+    addCircles(data=bus_stops, 
+               group="Bus",
+               color = "#BCBEC0",
+               opacity = 1.0,
+               fillOpacity = 1.0) |>
+    
+    addCircles(data=brt_stops, 
+               group="BRT",
+               color = "#8CC63E",
+               opacity = 1.0,
+               fillOpacity = 1.0) |>
+    
+    addCircles(data=crt_stops, 
+               group="Commuter Rail",
+               color = "#91268F",
+               opacity = 1.0,
+               fillOpacity = 1.0) |>
+    
+    addCircles(data=ferry_stops, 
+               group="Ferry",
+               color = "#00A7A0",
+               opacity = 1.0,
+               fillOpacity = 1.0) |>
+    
+    addCircles(data=lrt_stops, 
+               group="Light Rail or Streetcar",
+               color = "#F05A28",
+               opacity = 1.0,
+               fillOpacity = 1.0)
+  
+  return(m)
+  
+  
+}
+
+create_mic_transit_stop_table <- function(center_name) {
+  
+  data <- transit_stop_data |> st_drop_geometry()
+  
+  # All Stops
+  r1 <- data |>
+    filter(mic == center_name) |> 
+    select(mode="mic", "stop_id") |>
+    mutate(estimate=1) |>
+    distinct() |>
+    group_by(mode) |>
+    summarise(estimate = sum(estimate)) |>
+    as_tibble() |>
+    mutate(mode  = "All Transit Stops")
+  
+  # Light Rail Stops
+  r2 <- data |>
+    filter(mic == center_name) |> 
+    select("mic", mode="lrt", "stop_id") |>
+    drop_na() |>
+    mutate(estimate=1) |>
+    group_by(mode) |>
+    summarise(estimate = sum(estimate)) |>
+    as_tibble()
+  
+  # Commuter Rail Stops
+  r3 <- data |>
+    filter(mic == center_name) |> 
+    select("mic", mode="crt", "stop_id") |>
+    drop_na() |>
+    mutate(estimate=1) |>
+    group_by(mode) |>
+    summarise(estimate = sum(estimate)) |>
+    as_tibble()
+  
+  # Ferry Stops
+  r4 <- data |>
+    filter(mic == center_name) |> 
+    select("mic", mode="ferry", "stop_id") |>
+    drop_na() |>
+    mutate(estimate=1) |>
+    group_by(mode) |>
+    summarise(estimate = sum(estimate)) |>
+    as_tibble()
+  
+  # BRT Stops
+  r5 <- data |>
+    filter(mic == center_name) |> 
+    select("mic", mode="brt", "stop_id") |>
+    drop_na() |>
+    mutate(estimate=1) |>
+    group_by(mode) |>
+    summarise(estimate = sum(estimate)) |>
+    as_tibble()
+  
+  # Bus Stops
+  r6 <- data |>
+    filter(mic == center_name) |> 
+    select("mic", mode="bus", "stop_id") |>
+    drop_na() |>
+    mutate(estimate=1) |>
+    group_by(mode) |>
+    summarise(estimate = sum(estimate)) |>
+    as_tibble()
+  
+  t <- bind_rows(r1, r2, r3, r4, r5, r6) %>% select("mode", "estimate")
+  
+  headerCallbackRemoveHeaderFooter <- c(
+    "function(thead, data, start, end, display){",
+    "  $('th', thead).css('display', 'none');",
+    "}"
+  )
+  
+  summary_tbl <- datatable(t,
+                           options = list(paging = FALSE,
+                                          pageLength = 15,
+                                          searching = FALSE,
+                                          dom = 't',
+                                          headerCallback = JS(headerCallbackRemoveHeaderFooter),
+                                          columnDefs = list(list(targets = c(1), className = 'dt-right'),
+                                                            list(targets = c(0), className = 'dt-left'))),
+                           selection = 'none',
+                           callback = JS(
+                             "$('table.dataTable.no-footer').css('border-bottom', 'none');"
+                           ),
+                           class = 'row-border',
+                           filter = 'none',              
+                           rownames = FALSE,
+                           escape = FALSE
+  ) 
+  
+  # Add Section Breaks
+  summary_tbl <- summary_tbl %>%
+    formatStyle(0:ncol(t), valueColumns = "mode",
+                `border-bottom` = styleEqual(c("Bus"), "solid 2px"))
+  
+  summary_tbl <- summary_tbl %>%
+    formatStyle(0:ncol(t), valueColumns = "mode",
+                `border-top` = styleEqual(c("All Transit Stops"), "solid 2px"))
+  
+  return(summary_tbl)
+  
+}
+
+# General Tables ----------------------------------------------------------
+create_multi_group_table <- function(df, rgc_name, grp, dec=0, center_type="RGC") {
+  
+  if (center_type=="RGC") {
+    
+    center_typ=rgc_title
+    
+      } else {
+        
+        center_typ=mic_title
+      } 
   
   num_grps <- df |> select(all_of(grp)) |> distinct() |> pull() |> length()
   grps <- df |> select(all_of(grp)) |> distinct() |> pull()
@@ -1287,7 +1493,7 @@ create_multi_group_table <- function(df, rgc_name, grp, dec=0) {
   
   # Filter Data
   tbl <- df %>% 
-    filter(geography_type %in% c(rgc_title) & geography %in% c(rgc_name)) %>%
+    filter(geography_type %in% c(center_typ) & geography %in% c(rgc_name)) %>%
     select("grouping", "estimate", "share", "concept") 
   
   tbl_full <- left_join(tbl_full, tbl, by=c("grouping", "concept")) %>%
@@ -1425,6 +1631,176 @@ create_public_spreadsheet <- function(table_list, place_name) {
   }
   
   return(wb)
+}
+
+create_mic_summary_table <- function(center_name, yr) {
+  
+  # Area
+  r1 <- mic_shape %>%
+    st_drop_geometry() %>%
+    filter(name == center_name) %>% 
+    select("name", "acres") %>% 
+    mutate(grouping="Land Area (acres)") %>% 
+    mutate(estimate=as.character(round(acres,0))) %>%
+    mutate(pic = as.character(icon("layer-group", lib = "font-awesome"))) %>%
+    select(-"acres")
+  
+  # Designation Year
+  r2 <- centers_info %>% 
+    filter(name == center_name & rgc_mic == "Manufacturing Industrial Center") %>% 
+    select("name", "designation_year") %>% 
+    mutate(grouping="Designation Year") %>% 
+    mutate(estimate=as.character(designation_year)) %>%
+    mutate(pic = as.character(icon("calendar-check", lib = "font-awesome"))) %>%
+    select(-"designation_year")
+  
+  # Center Type
+  r3 <- centers_info %>% 
+    filter(name == center_name & rgc_mic == "Manufacturing Industrial Center") %>% 
+    select("name", "center_type") %>% 
+    mutate(grouping="Center Type") %>% 
+    mutate(estimate=as.character(center_type)) %>%
+    mutate(pic = as.character(icon("city", lib = "font-awesome"))) %>%
+    select(-"center_type")
+  
+  # Population
+  r4 <- pop_hh_hu_data %>% 
+    filter(year == yr & geography == center_name & geography_type == mic_title & grouping == "Population") %>% 
+    select(name="geography", "grouping", "estimate") %>%
+    mutate(estimate = format(round(estimate, -1), big.mark = ",")) %>%
+    mutate(pic = as.character(icon("users", lib = "font-awesome")))
+  
+  # Housing Units
+  r5 <- pop_hh_hu_data %>% 
+    filter(year == yr & geography == center_name & geography_type == mic_title & grouping == "Housing Units") %>% 
+    select(name="geography", "grouping", "estimate") %>%
+    mutate(estimate = format(round(estimate, -1), big.mark = ",")) %>%
+    mutate(pic = as.character(icon("building", lib = "font-awesome")))
+  
+  # Jobs
+  j <- employment_data %>% 
+    filter(year == yr & geography == center_name & geography_type == mic_title & grouping == "Total") %>% 
+    mutate(grouping="Total Employment") %>% 
+    select(name="geography", "grouping", "estimate") %>% 
+    select("estimate") %>% 
+    pull()
+  
+  if (j == "*") {
+    
+    r6 <- r3 %>% mutate(estimate = "*", grouping = "Total Employment", pic = as.character(icon("briefcase", lib = "font-awesome")))
+    
+  } else {
+    
+    r6 <- employment_data %>% 
+      filter(year == yr & geography == center_name & geography_type == mic_title & grouping == "Total") %>% 
+      mutate(grouping="Total Employment") %>% 
+      select(name="geography", "grouping", "estimate") %>%
+      mutate(estimate = format(round(as.integer(estimate), -1), big.mark = ",")) %>%
+      mutate(pic = as.character(icon("briefcase", lib = "font-awesome")))
+    
+  }
+  
+  # Activity Units per Acre
+  acres <- r1 %>% select("estimate") %>% pull() %>% as.integer()
+  
+  pop <- pop_hh_hu_data %>% 
+    filter(year == yr & geography == center_name & geography_type == mic_title) %>% 
+    select(name="geography", "grouping", "estimate") %>%
+    filter(grouping %in% c("Population")) %>% 
+    select("estimate") %>% 
+    pull() %>% 
+    as.integer()
+  
+  j <- employment_data %>% 
+    filter(year == yr & geography == center_name & geography_type == mic_title & grouping == "Total") %>% 
+    mutate(grouping="Total Employment") %>% 
+    select(name="geography", "grouping", "estimate") %>% 
+    select("estimate") %>% 
+    pull()
+  
+  if (j == "*") {
+    
+    jobs <-"*"
+    
+  } else {
+    
+    jobs <- as.integer(j)
+    
+  }
+  
+  if (j == "*") {
+    
+    au <- "*"
+    
+  } else {
+    
+    au <- round((pop+jobs)/acres,0)
+    
+  }
+  
+  r7 <- r6 %>% mutate(estimate = as.character(au), grouping = "Activity Units per Acre", pic = as.character(icon("people-group", lib = "font-awesome")))
+  
+  # Jobs / Pop Balance
+  
+  if (j == "*") {
+    
+    jobs <-"*"
+    
+  } else {
+    
+    jobs <- as.integer(j)
+    
+  }
+  
+  if (jobs == "*") {
+    
+    jpr <- "*"
+    
+  } else {
+    
+    jpr <- round((jobs)/pop,1)
+    
+  }
+  
+  r8 <- r7 %>% mutate(estimate = as.character(jpr), grouping = "Jobs per Person", pic = as.character(icon("person-shelter", lib = "font-awesome")))
+  
+  t <- bind_rows(r1, r2, r3, r4, r5, r6, r7, r8) %>% select("pic", "grouping", "estimate")
+  
+  headerCallbackRemoveHeaderFooter <- c(
+    "function(thead, data, start, end, display){",
+    "  $('th', thead).css('display', 'none');",
+    "}"
+  )
+  
+  summary_tbl <- datatable(t,
+                           options = list(paging = FALSE,
+                                          pageLength = 15,
+                                          searching = FALSE,
+                                          dom = 't',
+                                          headerCallback = JS(headerCallbackRemoveHeaderFooter),
+                                          columnDefs = list(list(targets = c(2), className = 'dt-right'),
+                                                            list(targets = c(0), className = 'dt-center'))),
+                           selection = 'none',
+                           callback = JS(
+                             "$('table.dataTable.no-footer').css('border-bottom', 'none');"
+                           ),
+                           class = 'row-border',
+                           filter = 'none',              
+                           rownames = FALSE,
+                           escape = FALSE
+  ) 
+  
+  # Add Section Breaks
+  summary_tbl <- summary_tbl %>%
+    formatStyle(0:ncol(t), valueColumns = "grouping",
+                `border-bottom` = styleEqual(c("Center Type", "Total Employment", "Jobs per Person"), "solid 2px"))
+  
+  summary_tbl <- summary_tbl %>%
+    formatStyle(0:ncol(t), valueColumns = "grouping",
+                `border-top` = styleEqual(c("Land Area (acres)"), "solid 2px"))
+  
+  return(summary_tbl)
+  
 }
 
 
