@@ -86,4 +86,3 @@ mic_shape <- st_read("https://services6.arcgis.com/GWxg6t7KXELn1thE/arcgis/rest/
 
 mic_names <- mic_shape %>% st_drop_geometry() %>% select("name") %>% arrange(name) %>% distinct() %>% pull()
 random_mic <- mic_names[[sample(1:length(mic_names), 1)]]
-

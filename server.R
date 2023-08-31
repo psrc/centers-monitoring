@@ -145,68 +145,6 @@ shinyServer(function(input, output, session) {
   output$mic_stop_map <- renderLeaflet({create_mic_transit_map(center_name = input$MIC)})
 
 # Demographics Tab --------------------------------------------------------
-
-  
-
-  output$lu_map <- renderImage({
-    
-    ifelse(input$RGC == "Seattle First Hill/Capitol Hill", imgfn <- "Seattle First Hill Capitol Hill.jpg", imgfn <- paste0(input$RGC, '.jpg'))
-    
-    filename <- normalizePath(file.path('./www', imgfn))
-    
-    # Return a list containing the filename and alt text
-    list(src = filename,
-         width = 400,
-         height = 400,
-         alt = paste("Land use map for", input$RGC))
-    
-  }, deleteFile = FALSE)
-  
-  output$rgc_population_chart <- renderEcharts4r({
-    rgc_filter() %>%
-      e_charts(year) %>%
-      e_bar(`Total Population`, stack = "grp") %>%
-      e_color(psrc_colors$obgnpgy_5) %>%
-      e_toolbox_feature("dataView") %>%
-      e_toolbox_feature("saveAsImage") %>%
-      e_tooltip(trigger = "axis") %>%
-      e_x_axis(axisTick=list(show = FALSE)) %>%
-      e_show_loading() %>%
-      e_legend(show = FALSE, bottom=0) %>%
-      e_title(text="Total Population (including Group Quarters)",
-              link="https://ofm.wa.gov/washington-data-research/population-demographics/population-estimates/small-area-estimates-program")
-    
-  })
-  
-  rgc_summary_data <- reactive({
-    
-    create_public_spreadsheet(table_list = list("Population" = pop_hh_hu_data |> select(-"year") |> filter(geography %in% c(input$RGC) & geography_type %in% c(rgc_title) & grouping == "Population"), 
-                                                "Age" = age_data |> select(-"year") |> filter(geography %in% c(input$RGC) & geography_type %in% c(rgc_title)),
-                                                "Race" = race_data |> select(-"year") |> filter(geography %in% c(input$RGC) & geography_type %in% c(rgc_title)),
-                                                "Household Income" = income_data |> select(-"year") |> filter(geography %in% c(input$RGC) & geography_type %in% c(rgc_title)),
-                                                "Educational Attainment" = education_data |> select(-"year") |> filter(geography %in% c(input$RGC) & geography_type %in% c(rgc_title)),
-                                                "Jobs" = employment_data|> select(-"year") |> filter(geography %in% c(input$RGC) & geography_type %in% c(rgc_title)),
-                                                "Housing Units" = pop_hh_hu_data |> select(-"year") |> filter(geography %in% c(input$RGC) & geography_type %in% c(rgc_title) & grouping == "Housing Units"),
-                                                "Net Housing Units" = unit_data |> select(-"year") |> filter(geography %in% c(input$RGC) & geography_type %in% c(rgc_title)),
-                                                "Housing Tenure" = tenure_data |> select(-"year") |> filter(geography %in% c(input$RGC) & geography_type %in% c(rgc_title)),
-                                                "Housing Type" = type_data |> select(-"year") |> filter(geography %in% c(input$RGC) & geography_type %in% c(rgc_title)),
-                                                "Renter Cost Burden" = burden_data |> select(-"year") |> filter(concept == "Renter Cost Burden" & geography %in% c(input$RGC) & geography_type %in% c(rgc_title)),
-                                                "Owner Cost Burden" = burden_data |> select(-"year") |> filter(concept == "Owner Cost Burden" & geography %in% c(input$RGC) & geography_type %in% c(rgc_title)),
-                                                "Transit Stops" = transit_stop_data |> st_drop_geometry() |> filter(rgc %in% c(input$RGC)) |> select(-"mic"),
-                                                "Resident Mode Share" = mode_data |> select(-"year") |> filter(geography %in% c(input$RGC) & geography_type %in% c(rgc_title)),
-                                                "Destination Mode Share" = destination_mode_data |> select(-"year") |> filter(geography %in% c(input$RGC) & geography_type %in% c(rgc_title)),
-                                                "Intersection Density" = intersection_density |> filter(name %in% c(input$RGC))
-                                                ), place_name = input$RGC)
-  })
-  
-  output$downloadData <- downloadHandler(
-    filename = function() {
-      paste0(input$RGC,"_summary_data.xlsx")},
-    content <- function(file) {
-      saveWorkbook(rgc_summary_data(), file = file)},
-    contentType = "application/Excel"
-  )
-  
   output$rgc_pop_chart <- renderEcharts4r({
     
     echart_column_chart(df = pop_hh_hu_data %>% filter(geography_type == rgc_title, geography == input$RGC & grouping == "Population"),
@@ -219,7 +157,7 @@ shinyServer(function(input, output, session) {
   
   output$rgc_age_chart <- renderEcharts4r({
     
-      echart_multi_column_chart(df = age_data %>% filter(geography_type %in% c(rgc_title, "County") & geography %in% c(input$RGC, "Region", "All Centers") & grouping != "Total"),
+    echart_multi_column_chart(df = age_data %>% filter(geography_type %in% c(rgc_title, "County") & geography %in% c(input$RGC, "Region", "All Centers") & grouping != "Total"),
                               x = "grouping", y = "share", fill="geography", tog = "data_year", 
                               dec = 0, esttype = "percent", color = "jewel")
     
@@ -252,13 +190,116 @@ shinyServer(function(input, output, session) {
   output$rgc_education_chart <- renderEcharts4r({
     
     echart_multi_bar_chart(df = education_data %>% filter(geography_type %in% c(rgc_title, "County") & geography %in% c(input$RGC, "Region", "All Centers") & grouping != "Total"),
+                           x = "grouping", y = "share", fill="geography", tog = "data_year", 
+                           dec = 0, esttype = "percent", color = "jewel")
+    
+  })
+  
+  output$rgc_education_table <- DT::renderDataTable({create_multi_year_table(df = education_data, rgc_name = input$RGC, data_yrs = as.character(census_years), dec = 1)})
+
+  output$mic_pop_chart <- renderEcharts4r({
+    
+    echart_column_chart(df = pop_hh_hu_data %>% filter(geography_type == mic_title, geography == input$MIC & grouping == "Population"),
+                        x = "data_year", y = "estimate", tog = "grouping", title = "Total Population",
+                        dec = 0, esttype = "number", color = "oranges")
+    
+  })
+  
+  output$mic_pop_table <- DT::renderDataTable({create_single_group_table(df = pop_hh_hu_data, rgc_name = input$MIC, data_yrs = ofm_years, dec = 0, group = "Population", center_type="MIC")})
+  
+  output$mic_age_chart <- renderEcharts4r({
+    
+    echart_multi_column_chart(df = age_data %>% filter(geography_type %in% c(mic_title, "County") & geography %in% c(input$MIC, "Region", "All Centers") & grouping != "Total"),
                               x = "grouping", y = "share", fill="geography", tog = "data_year", 
                               dec = 0, esttype = "percent", color = "jewel")
     
   })
   
-  output$rgc_education_table <- DT::renderDataTable({create_multi_year_table(df = education_data, rgc_name = input$RGC, data_yrs = as.character(census_years), dec = 1)})
+  output$mic_age_table <- DT::renderDataTable({create_multi_year_table(df = age_data, rgc_name = input$MIC, data_yrs = as.character(census_years), dec = 1, center_type="MIC")})
   
+  output$mic_race_chart <- renderEcharts4r({
+    
+    echart_multi_bar_chart(df = race_data %>% 
+                             filter(geography_type %in% c(mic_title, "County") & geography %in% c(input$MIC, "Region", "All Centers") & grouping != "Total") %>%
+                             arrange(desc(grouping)),
+                           x = "grouping", y = "share", fill="geography", tog = "data_year",
+                           dec = 0, esttype = "percent", color = "jewel")
+    
+    
+  })
+  
+  output$mic_race_table <- DT::renderDataTable({create_multi_year_table(df = race_data, rgc_name = input$MIC, data_yrs = as.character(census_years), dec = 1, center_type="MIC")})
+  
+  output$mic_income_chart <- renderEcharts4r({
+    
+    echart_multi_column_chart(df = income_data %>% filter(geography_type %in% c(mic_title, "County") & geography %in% c(input$MIC, "Region", "All Centers") & grouping != "Total"),
+                              x = "grouping", y = "share", fill="geography", tog = "data_year", 
+                              dec = 0, esttype = "percent", color = "jewel")
+  })
+  
+  output$mic_income_table <- DT::renderDataTable({create_multi_year_table(df = income_data, rgc_name = input$MIC, data_yrs = as.character(census_years), dec = 1, center_type="MIC")})
+  
+  output$mic_education_chart <- renderEcharts4r({
+    
+    echart_multi_bar_chart(df = education_data %>% filter(geography_type %in% c(mic_title, "County") & geography %in% c(input$MIC, "Region", "All Centers") & grouping != "Total"),
+                           x = "grouping", y = "share", fill="geography", tog = "data_year", 
+                           dec = 0, esttype = "percent", color = "jewel")
+    
+  })
+  
+  output$mic_education_table <- DT::renderDataTable({create_multi_year_table(df = education_data, rgc_name = input$MIC, data_yrs = as.character(census_years), dec = 1, center_type="MIC")})
+  
+  
+# Housing Tab -------------------------------------------------------------
+
+  
+  
+
+  output$lu_map <- renderImage({
+    
+    ifelse(input$RGC == "Seattle First Hill/Capitol Hill", imgfn <- "Seattle First Hill Capitol Hill.jpg", imgfn <- paste0(input$RGC, '.jpg'))
+    
+    filename <- normalizePath(file.path('./www', imgfn))
+    
+    # Return a list containing the filename and alt text
+    list(src = filename,
+         width = 400,
+         height = 400,
+         alt = paste("Land use map for", input$RGC))
+    
+  }, deleteFile = FALSE)
+  
+
+  rgc_summary_data <- reactive({
+    
+    create_public_spreadsheet(table_list = list("Population" = pop_hh_hu_data |> select(-"year") |> filter(geography %in% c(input$RGC) & geography_type %in% c(rgc_title) & grouping == "Population"), 
+                                                "Age" = age_data |> select(-"year") |> filter(geography %in% c(input$RGC) & geography_type %in% c(rgc_title)),
+                                                "Race" = race_data |> select(-"year") |> filter(geography %in% c(input$RGC) & geography_type %in% c(rgc_title)),
+                                                "Household Income" = income_data |> select(-"year") |> filter(geography %in% c(input$RGC) & geography_type %in% c(rgc_title)),
+                                                "Educational Attainment" = education_data |> select(-"year") |> filter(geography %in% c(input$RGC) & geography_type %in% c(rgc_title)),
+                                                "Jobs" = employment_data|> select(-"year") |> filter(geography %in% c(input$RGC) & geography_type %in% c(rgc_title)),
+                                                "Housing Units" = pop_hh_hu_data |> select(-"year") |> filter(geography %in% c(input$RGC) & geography_type %in% c(rgc_title) & grouping == "Housing Units"),
+                                                "Net Housing Units" = unit_data |> select(-"year") |> filter(geography %in% c(input$RGC) & geography_type %in% c(rgc_title)),
+                                                "Housing Tenure" = tenure_data |> select(-"year") |> filter(geography %in% c(input$RGC) & geography_type %in% c(rgc_title)),
+                                                "Housing Type" = type_data |> select(-"year") |> filter(geography %in% c(input$RGC) & geography_type %in% c(rgc_title)),
+                                                "Renter Cost Burden" = burden_data |> select(-"year") |> filter(concept == "Renter Cost Burden" & geography %in% c(input$RGC) & geography_type %in% c(rgc_title)),
+                                                "Owner Cost Burden" = burden_data |> select(-"year") |> filter(concept == "Owner Cost Burden" & geography %in% c(input$RGC) & geography_type %in% c(rgc_title)),
+                                                "Transit Stops" = transit_stop_data |> st_drop_geometry() |> filter(rgc %in% c(input$RGC)) |> select(-"mic"),
+                                                "Resident Mode Share" = mode_data |> select(-"year") |> filter(geography %in% c(input$RGC) & geography_type %in% c(rgc_title)),
+                                                "Destination Mode Share" = destination_mode_data |> select(-"year") |> filter(geography %in% c(input$RGC) & geography_type %in% c(rgc_title)),
+                                                "Intersection Density" = intersection_density |> filter(name %in% c(input$RGC))
+                                                ), place_name = input$RGC)
+  })
+  
+  output$downloadData <- downloadHandler(
+    filename = function() {
+      paste0(input$RGC,"_summary_data.xlsx")},
+    content <- function(file) {
+      saveWorkbook(rgc_summary_data(), file = file)},
+    contentType = "application/Excel"
+  )
+  
+
   output$urban_form_table <- DT::renderDataTable({create_rgc_urban_form_table(center_name = input$RGC)})
   
   output$rgc_hu_chart <- renderEcharts4r({

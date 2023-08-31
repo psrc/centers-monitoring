@@ -727,180 +727,6 @@ echart_line_chart <- function(df, x, y, fill, tog, dec, esttype, color) {
   
 }
 
-create_multi_year_table <- function(df, rgc_name, data_yrs, dec=0) {
-  
-  num_years <- length(data_yrs)
-  
-  # Define the Container for the Summary Data by Years
-  if (num_years == 1) {
-    
-    summary_container = htmltools::withTags(table(
-      class = 'display',
-      thead(
-        tr(
-          th(rowspan = 2, 'Group'),
-          th(class = 'dt-center', colspan = 2, data_yrs[[1]])
-        ),
-        tr(
-          lapply(rep(c('Estimate', 'Share'), num_years), th)
-        )
-      )
-    ))
-    
-  }
-  
-  if (num_years == 2) {
-    
-    summary_container = htmltools::withTags(table(
-      class = 'display',
-      thead(
-        tr(
-          th(rowspan = 2, 'Group'),
-          th(class = 'dt-center', colspan = 2, data_yrs[[1]]),
-          th(class = 'dt-center', colspan = 2, data_yrs[[2]])
-        ),
-        tr(
-          lapply(rep(c('Estimate', 'Share'), num_years), th)
-        )
-      )
-    ))
-    
-  }
-  
-  if (num_years == 3) {
-    
-    summary_container = htmltools::withTags(table(
-      class = 'display',
-      thead(
-        tr(
-          th(rowspan = 2, 'Group'),
-          th(class = 'dt-center', colspan = 2, data_yrs[[1]]),
-          th(class = 'dt-center', colspan = 2, data_yrs[[2]]),
-          th(class = 'dt-center', colspan = 2, data_yrs[[3]])
-        ),
-        tr(
-          lapply(rep(c('Estimate', 'Share'), num_years), th)
-        )
-      )
-    ))
-    
-  }
-
-  if (num_years == 4) {
-    
-    summary_container = htmltools::withTags(table(
-      class = 'display',
-      thead(
-        tr(
-          th(rowspan = 2, 'Group'),
-          th(class = 'dt-center', colspan = 2, data_yrs[[1]]),
-          th(class = 'dt-center', colspan = 2, data_yrs[[2]]),
-          th(class = 'dt-center', colspan = 2, data_yrs[[3]]),
-          th(class = 'dt-center', colspan = 2, data_yrs[[4]])
-        ),
-        tr(
-          lapply(rep(c('Estimate', 'Share'), num_years), th)
-        )
-      )
-    ))
-    
-  }
-
-  if (num_years == 5) {
-    
-    summary_container = htmltools::withTags(table(
-      class = 'display',
-      thead(
-        tr(
-          th(rowspan = 2, 'Group'),
-          th(class = 'dt-center', colspan = 2, data_yrs[[1]]),
-          th(class = 'dt-center', colspan = 2, data_yrs[[2]]),
-          th(class = 'dt-center', colspan = 2, data_yrs[[3]]),
-          th(class = 'dt-center', colspan = 2, data_yrs[[4]]),
-          th(class = 'dt-center', colspan = 2, data_yrs[[5]])
-        ),
-        tr(
-          lapply(rep(c('Estimate', 'Share'), num_years), th)
-        )
-      )
-    ))
-    
-  }  
-  
-  # Get All possible categories
-  cat <- df %>% select("grouping") %>% distinct() %>% pull()
-  tbl_full <- NULL
-  for (y in data_yrs) {
-    
-    d <- data.frame(grouping = cat, year = y)
-    ifelse(is.null(tbl_full), tbl_full<-d, tbl_full<-bind_rows(tbl_full,d))
-    
-  }
-  
-  # Filter Data
-  tbl <- df %>% 
-    filter(geography_type %in% c(rgc_title) & geography %in% c(rgc_name)) %>%
-    select("grouping", "estimate", "share", "year") 
-  
-  tbl_full <- left_join(tbl_full, tbl, by=c("grouping", "year")) %>%
-    mutate(estimate = replace_na(estimate, 0), share = replace_na(share, 0)) %>%
-    pivot_longer(cols = !c(grouping, year)) %>%
-    pivot_wider(names_from = c(year, name), values_from = "value")
-  
-  final_tbl <- datatable(tbl_full,
-                         container = summary_container,
-                         colnames = c('Group', rep(c('Estimate', 'Share'), num_years)),
-                         options = list(pageLength = 15,
-                                        dom = 'rtB',
-                                        buttons = c('csv', 'excel'),
-                                        columnDefs = list(list(className = 'dt-center', targets=1:(num_years*2)))
-                         ),
-                         extensions = 'Buttons',
-                         filter = 'none',
-                         rownames = FALSE) %>%
-    formatPercentage(paste0(data_yrs,"_share"), dec) %>%
-    formatCurrency(paste0(data_yrs,"_estimate"), "", digits = 0)
-  
-  return(final_tbl)
-  
-}
-
-create_single_group_table <- function(df, rgc_name, data_yrs, group, dec=0) {
-  
-  df <- df %>% filter(geography_type == rgc_title, geography == rgc_name & grouping == group & year %in% data_yrs)
-  
-  # Get All possible categories
-  tbl_full <- NULL
-  for (y in data_yrs) {
-    
-    d <- data.frame(year = y)
-    ifelse(is.null(tbl_full), tbl_full<-d, tbl_full<-bind_rows(tbl_full,d))
-    
-  }
-  
-  # Filter Data
-  tbl <- df %>% 
-    select("year", "estimate") 
-  
-  tbl_full <- left_join(tbl_full, tbl, by=c("year")) %>%
-    mutate(estimate = replace_na(estimate, 0))
-  
-  final_tbl <- datatable(tbl_full,
-                         colnames = c('Year', group),
-                         options = list(pageLength = length(data_yrs),
-                                        dom = 'rtB',
-                                        buttons = c('csv', 'excel'),
-                                        columnDefs = list(list(className = 'dt-center', targets=0:1))
-                         ),
-                         extensions = 'Buttons',
-                         filter = 'none',
-                         rownames = FALSE) %>%
-    formatCurrency("estimate", "", digits = 0)
-  
-  return(final_tbl)
-  
-}
-
 create_change_table <- function(df, yr, val, nm) {
   
   # Filter Data
@@ -1371,6 +1197,51 @@ create_mic_transit_stop_table <- function(center_name) {
 }
 
 # General Tables ----------------------------------------------------------
+create_single_group_table <- function(df, rgc_name, data_yrs, group, dec=0, center_type="RGC") {
+  
+  if (center_type=="RGC") {
+    
+    center_typ=rgc_title
+    
+  } else {
+    
+    center_typ=mic_title
+  } 
+  
+  df <- df %>% filter(geography_type == center_typ, geography == rgc_name & grouping == group & year %in% data_yrs)
+  
+  # Get All possible categories
+  tbl_full <- NULL
+  for (y in data_yrs) {
+    
+    d <- data.frame(year = y)
+    ifelse(is.null(tbl_full), tbl_full<-d, tbl_full<-bind_rows(tbl_full,d))
+    
+  }
+  
+  # Filter Data
+  tbl <- df %>% 
+    select("year", "estimate") 
+  
+  tbl_full <- left_join(tbl_full, tbl, by=c("year")) %>%
+    mutate(estimate = replace_na(estimate, 0))
+  
+  final_tbl <- datatable(tbl_full,
+                         colnames = c('Year', group),
+                         options = list(pageLength = length(data_yrs),
+                                        dom = 'rtB',
+                                        buttons = c('csv', 'excel'),
+                                        columnDefs = list(list(className = 'dt-center', targets=0:1))
+                         ),
+                         extensions = 'Buttons',
+                         filter = 'none',
+                         rownames = FALSE) %>%
+    formatCurrency("estimate", "", digits = 0)
+  
+  return(final_tbl)
+  
+}
+
 create_multi_group_table <- function(df, rgc_name, grp, dec=0, center_type="RGC") {
   
   if (center_type=="RGC") {
@@ -1518,6 +1389,155 @@ create_multi_group_table <- function(df, rgc_name, grp, dec=0, center_type="RGC"
   return(final_tbl)
   
 }
+
+create_multi_year_table <- function(df, rgc_name, data_yrs, dec=0, center_type="RGC") {
+  
+  if (center_type=="RGC") {
+    
+    center_typ=rgc_title
+    
+  } else {
+    
+    center_typ=mic_title
+  } 
+  
+  
+  num_years <- length(data_yrs)
+  
+  # Define the Container for the Summary Data by Years
+  if (num_years == 1) {
+    
+    summary_container = htmltools::withTags(table(
+      class = 'display',
+      thead(
+        tr(
+          th(rowspan = 2, 'Group'),
+          th(class = 'dt-center', colspan = 2, data_yrs[[1]])
+        ),
+        tr(
+          lapply(rep(c('Estimate', 'Share'), num_years), th)
+        )
+      )
+    ))
+    
+  }
+  
+  if (num_years == 2) {
+    
+    summary_container = htmltools::withTags(table(
+      class = 'display',
+      thead(
+        tr(
+          th(rowspan = 2, 'Group'),
+          th(class = 'dt-center', colspan = 2, data_yrs[[1]]),
+          th(class = 'dt-center', colspan = 2, data_yrs[[2]])
+        ),
+        tr(
+          lapply(rep(c('Estimate', 'Share'), num_years), th)
+        )
+      )
+    ))
+    
+  }
+  
+  if (num_years == 3) {
+    
+    summary_container = htmltools::withTags(table(
+      class = 'display',
+      thead(
+        tr(
+          th(rowspan = 2, 'Group'),
+          th(class = 'dt-center', colspan = 2, data_yrs[[1]]),
+          th(class = 'dt-center', colspan = 2, data_yrs[[2]]),
+          th(class = 'dt-center', colspan = 2, data_yrs[[3]])
+        ),
+        tr(
+          lapply(rep(c('Estimate', 'Share'), num_years), th)
+        )
+      )
+    ))
+    
+  }
+  
+  if (num_years == 4) {
+    
+    summary_container = htmltools::withTags(table(
+      class = 'display',
+      thead(
+        tr(
+          th(rowspan = 2, 'Group'),
+          th(class = 'dt-center', colspan = 2, data_yrs[[1]]),
+          th(class = 'dt-center', colspan = 2, data_yrs[[2]]),
+          th(class = 'dt-center', colspan = 2, data_yrs[[3]]),
+          th(class = 'dt-center', colspan = 2, data_yrs[[4]])
+        ),
+        tr(
+          lapply(rep(c('Estimate', 'Share'), num_years), th)
+        )
+      )
+    ))
+    
+  }
+  
+  if (num_years == 5) {
+    
+    summary_container = htmltools::withTags(table(
+      class = 'display',
+      thead(
+        tr(
+          th(rowspan = 2, 'Group'),
+          th(class = 'dt-center', colspan = 2, data_yrs[[1]]),
+          th(class = 'dt-center', colspan = 2, data_yrs[[2]]),
+          th(class = 'dt-center', colspan = 2, data_yrs[[3]]),
+          th(class = 'dt-center', colspan = 2, data_yrs[[4]]),
+          th(class = 'dt-center', colspan = 2, data_yrs[[5]])
+        ),
+        tr(
+          lapply(rep(c('Estimate', 'Share'), num_years), th)
+        )
+      )
+    ))
+    
+  }  
+  
+  # Get All possible categories
+  cat <- df %>% select("grouping") %>% distinct() %>% pull()
+  tbl_full <- NULL
+  for (y in data_yrs) {
+    
+    d <- data.frame(grouping = cat, year = y)
+    ifelse(is.null(tbl_full), tbl_full<-d, tbl_full<-bind_rows(tbl_full,d))
+    
+  }
+  
+  # Filter Data
+  tbl <- df %>% 
+    filter(geography_type %in% c(center_typ) & geography %in% c(rgc_name)) %>%
+    select("grouping", "estimate", "share", "year") 
+  
+  tbl_full <- left_join(tbl_full, tbl, by=c("grouping", "year")) %>%
+    mutate(estimate = replace_na(estimate, 0), share = replace_na(share, 0)) %>%
+    pivot_longer(cols = !c(grouping, year)) %>%
+    pivot_wider(names_from = c(year, name), values_from = "value")
+  
+  final_tbl <- datatable(tbl_full,
+                         container = summary_container,
+                         colnames = c('Group', rep(c('Estimate', 'Share'), num_years)),
+                         options = list(pageLength = 15,
+                                        dom = 'rtB',
+                                        buttons = c('csv', 'excel'),
+                                        columnDefs = list(list(className = 'dt-center', targets=1:(num_years*2)))
+                         ),
+                         extensions = 'Buttons',
+                         filter = 'none',
+                         rownames = FALSE) %>%
+    formatPercentage(paste0(data_yrs,"_share"), dec) %>%
+    formatCurrency(paste0(data_yrs,"_estimate"), "", digits = 0)
+  
+  return(final_tbl)
+  
+}
+
 
 create_rgc_jobs_by_sector_table <- function(center_name, center_type="Regional Growth Center (6/22/2023)") {
   
