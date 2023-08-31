@@ -1197,18 +1197,9 @@ create_mic_transit_stop_table <- function(center_name) {
 }
 
 # General Tables ----------------------------------------------------------
-create_single_group_table <- function(df, rgc_name, data_yrs, group, dec=0, center_type="RGC") {
+create_single_group_table <- function(df, rgc_name, data_yrs, group, dec=0, center_type=rgc_title) {
   
-  if (center_type=="RGC") {
-    
-    center_typ=rgc_title
-    
-  } else {
-    
-    center_typ=mic_title
-  } 
-  
-  df <- df %>% filter(geography_type == center_typ, geography == rgc_name & grouping == group & year %in% data_yrs)
+  df <- df %>% filter(geography_type == center_type, geography == rgc_name & grouping == group & year %in% data_yrs)
   
   # Get All possible categories
   tbl_full <- NULL
@@ -1242,16 +1233,7 @@ create_single_group_table <- function(df, rgc_name, data_yrs, group, dec=0, cent
   
 }
 
-create_multi_group_table <- function(df, rgc_name, grp, dec=0, center_type="RGC") {
-  
-  if (center_type=="RGC") {
-    
-    center_typ=rgc_title
-    
-      } else {
-        
-        center_typ=mic_title
-      } 
+create_multi_group_table <- function(df, rgc_name, grp, dec=0, center_type=rgc_title) {
   
   num_grps <- df |> select(all_of(grp)) |> distinct() |> pull() |> length()
   grps <- df |> select(all_of(grp)) |> distinct() |> pull()
@@ -1364,7 +1346,7 @@ create_multi_group_table <- function(df, rgc_name, grp, dec=0, center_type="RGC"
   
   # Filter Data
   tbl <- df %>% 
-    filter(geography_type %in% c(center_typ) & geography %in% c(rgc_name)) %>%
+    filter(geography_type %in% c(center_type) & geography %in% c(rgc_name)) %>%
     select("grouping", "estimate", "share", "concept") 
   
   tbl_full <- left_join(tbl_full, tbl, by=c("grouping", "concept")) %>%
@@ -1390,17 +1372,7 @@ create_multi_group_table <- function(df, rgc_name, grp, dec=0, center_type="RGC"
   
 }
 
-create_multi_year_table <- function(df, rgc_name, data_yrs, dec=0, center_type="RGC") {
-  
-  if (center_type=="RGC") {
-    
-    center_typ=rgc_title
-    
-  } else {
-    
-    center_typ=mic_title
-  } 
-  
+create_multi_year_table <- function(df, rgc_name, data_yrs, dec=0, center_type=rgc_title) {
   
   num_years <- length(data_yrs)
   
@@ -1512,7 +1484,7 @@ create_multi_year_table <- function(df, rgc_name, data_yrs, dec=0, center_type="
   
   # Filter Data
   tbl <- df %>% 
-    filter(geography_type %in% c(center_typ) & geography %in% c(rgc_name)) %>%
+    filter(geography_type %in% c(center_type) & geography %in% c(rgc_name)) %>%
     select("grouping", "estimate", "share", "year") 
   
   tbl_full <- left_join(tbl_full, tbl, by=c("grouping", "year")) %>%

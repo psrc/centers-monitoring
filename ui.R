@@ -52,45 +52,7 @@ shinyUI(
                                              textOutput("RGCDescription"))),
                              br(),
                              tabsetPanel(type = "tabs",
-                                         tabPanel("Demographics", 
-
-                                                  hr(),
-                                                  
-                                                  strong(tags$div(class="chart_title","Total Population")),
-                                                  fluidRow(column(6,br(), br(), br(), br(), dataTableOutput("rgc_pop_table")),
-                                                           column(6,echarts4rOutput("rgc_pop_chart"))),
-                                                  tags$div(class="chart_source","Source: Office of Financial Managment SAEP Program & PSRC Parcelization"),
-                                                  hr(style = "border-top: 1px solid #000000;"),
-
-                                                  strong(tags$div(class="chart_title","Total Population by Age Group")),
-                                                  fluidRow(column(12, echarts4rOutput("rgc_age_chart"))),
-                                                  br(),
-                                                  fluidRow(column(12, dataTableOutput("rgc_age_table"))),
-                                                  tags$div(class="chart_source","Source: US Census Bureau American Community Survey (ACS) 5yr Data Table B01001"),
-                                                  hr(style = "border-top: 1px solid #000000;"),
-
-                                                  strong(tags$div(class="chart_title","Total Population by Race & Ethnicity")),
-                                                  fluidRow(column(12,echarts4rOutput("rgc_race_chart", height=500))),
-                                                  br(),
-                                                  fluidRow(column(12, dataTableOutput("rgc_race_table"))),
-                                                  tags$div(class="chart_source","Source: US Census Bureau American Community Survey (ACS) 5yr Data Table B03002"),
-                                                  hr(style = "border-top: 1px solid #000000;"),
-
-                                                  strong(tags$div(class="chart_title","Total Household Income")),
-                                                  fluidRow(column(12,echarts4rOutput("rgc_income_chart", height=500))),
-                                                  br(),
-                                                  fluidRow(column(12, dataTableOutput("rgc_income_table"))),
-                                                  tags$div(class="chart_source","Source: US Census Bureau American Community Survey (ACS) 5yr Data Table B19001"),
-                                                  hr(style = "border-top: 1px solid #000000;"),
-                                                  
-                                                  strong(tags$div(class="chart_title","Educational Attainment")),
-                                                  fluidRow(column(12,echarts4rOutput("rgc_education_chart", height=500))),
-                                                  br(),
-                                                  fluidRow(column(12, dataTableOutput("rgc_education_table"))),
-                                                  tags$div(class="chart_source","Source: US Census Bureau American Community Survey (ACS) 5yr Data Table B15002"),
-                                                  hr(style = "border-top: 1px solid #000000;")
-                                                  
-                                                  ), # end of TabPanel for RGC Demographics
+                                         tabPanel("Demographics", demographics_ui('rgcDemographics')),
                                          
                                          tabPanel("Jobs", 
                                                   
@@ -186,6 +148,7 @@ shinyUI(
                                               
                                          ), # end of TabPanel for RGC Transportation
                                          
+                                         
                                          tabPanel("Urban Form", 
                                                   
                                                   
@@ -238,45 +201,8 @@ shinyUI(
                                              textOutput("MICDescription"))),
                              br(),
                              tabsetPanel(type = "tabs",
-                                         tabPanel("Demographics", 
-                                                  
-                                                  hr(),
-                                                  
-                                                  strong(tags$div(class="chart_title","Total Population")),
-                                                  fluidRow(column(6,br(), br(), br(), br(), dataTableOutput("mic_pop_table")),
-                                                           column(6,echarts4rOutput("mic_pop_chart"))),
-                                                  tags$div(class="chart_source","Source: Office of Financial Managment SAEP Program & PSRC Parcelization"),
-                                                  hr(style = "border-top: 1px solid #000000;"),
-                                                  
-                                                  strong(tags$div(class="chart_title","Total Population by Age Group")),
-                                                  fluidRow(column(12, echarts4rOutput("mic_age_chart"))),
-                                                  br(),
-                                                  fluidRow(column(12, dataTableOutput("mic_age_table"))),
-                                                  tags$div(class="chart_source","Source: US Census Bureau American Community Survey (ACS) 5yr Data Table B01001"),
-                                                  hr(style = "border-top: 1px solid #000000;"),
-                                                  
-                                                  strong(tags$div(class="chart_title","Total Population by Race & Ethnicity")),
-                                                  fluidRow(column(12,echarts4rOutput("mic_race_chart", height=500))),
-                                                  br(),
-                                                  fluidRow(column(12, dataTableOutput("mic_race_table"))),
-                                                  tags$div(class="chart_source","Source: US Census Bureau American Community Survey (ACS) 5yr Data Table B03002"),
-                                                  hr(style = "border-top: 1px solid #000000;"),
-                                                  
-                                                  strong(tags$div(class="chart_title","Total Household Income")),
-                                                  fluidRow(column(12,echarts4rOutput("mic_income_chart", height=500))),
-                                                  br(),
-                                                  fluidRow(column(12, dataTableOutput("mic_income_table"))),
-                                                  tags$div(class="chart_source","Source: US Census Bureau American Community Survey (ACS) 5yr Data Table B19001"),
-                                                  hr(style = "border-top: 1px solid #000000;"),
-                                                  
-                                                  strong(tags$div(class="chart_title","Educational Attainment")),
-                                                  fluidRow(column(12,echarts4rOutput("mic_education_chart", height=500))),
-                                                  br(),
-                                                  fluidRow(column(12, dataTableOutput("mic_education_table"))),
-                                                  tags$div(class="chart_source","Source: US Census Bureau American Community Survey (ACS) 5yr Data Table B15002"),
-                                                  hr(style = "border-top: 1px solid #000000;")
-                                                  
-                                         ), # end of TabPanel for MIC Demographics
+                                         
+                                         tabPanel("Demographics", demographics_ui('micDemographics')),
                                          
                                          tabPanel("Jobs", 
                                                   
