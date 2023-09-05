@@ -71,57 +71,11 @@ shinyUI(
                                                   
                                          ), # end of TabPanel for RGC Jobs
                                          
-                                         tabPanel("Housing", 
-                                                  
-                                                  hr(),
-
-                                                  strong(tags$div(class="chart_title","Total Housing Units")),
-                                                  fluidRow(column(6,br(), br(), br(), br(), dataTableOutput("rgc_hu_table")),
-                                                           column(6,echarts4rOutput("rgc_hu_chart"))),
-                                                  tags$div(class="chart_source","Source: Office of Financial Managment SAEP Program & PSRC Parcelization"),
-                                                  hr(style = "border-top: 1px solid #000000;"),
-
-                                                  strong(tags$div(class="chart_title","New Net Housing Units")),
-                                                  fluidRow(column(6,br(), br(), br(), br(), dataTableOutput("rgc_hu_change_table")),
-                                                           column(6,echarts4rOutput("rgc_hu_change_chart"))),
-                                                  tags$div(class="chart_source","Source: Office of Financial Managment SAEP Program & PSRC Parcelization"),
-                                                  hr(style = "border-top: 1px solid #000000;"),
-
-                                                  strong(tags$div(class="chart_title","Housing Tenure")),
-                                                  fluidRow(column(12,echarts4rOutput("rgc_tenure_chart"))),
-                                                  br(),
-                                                  fluidRow(column(12, dataTableOutput("rgc_tenure_table"))),
-                                                  tags$div(class="chart_source","Source: US Census Bureau American Community Survey (ACS) 5yr Data Table B25003"),
-                                                  hr(style = "border-top: 1px solid #000000;"),
-
-                                                  strong(tags$div(class="chart_title","Housing Unit Type")),
-                                                  fluidRow(column(12,echarts4rOutput("rgc_type_chart"))),
-                                                  br(),
-                                                  fluidRow(column(12, dataTableOutput("rgc_type_table"))),
-                                                  tags$div(class="chart_source","Source: US Census Bureau American Community Survey (ACS) 5yr Data Table B25024"),
-                                                  hr(style = "border-top: 1px solid #000000;"),
-
-                                                  strong(tags$div(class="chart_title","Cost Burden: Renters")),
-                                                  fluidRow(column(12,echarts4rOutput("rgc_renter_burden_chart"))),
-                                                  br(),
-                                                  fluidRow(column(12, dataTableOutput("rgc_renter_burden_table"))),
-                                                  tags$div(class="chart_source","Source: US Census Bureau American Community Survey (ACS) 5yr Data Table B25070"),
-                                                  hr(style = "border-top: 1px solid #000000;"),
-                                                  
-                                                  strong(tags$div(class="chart_title","Cost Burden: Owners")),
-                                                  fluidRow(column(12,echarts4rOutput("rgc_owner_burden_chart"))),
-                                                  br(),
-                                                  fluidRow(column(12, dataTableOutput("rgc_owner_burden_table"))),
-                                                  tags$div(class="chart_source","Source: US Census Bureau American Community Survey (ACS) 5yr Data Table B25091"),
-                                                  hr(style = "border-top: 1px solid #000000;")
-                                                  
-                                         ), # end of TabPanel for RGC Housing
+                                         tabPanel("Housing", housing_ui('rgcHousing')),
                                          
                                          tabPanel("Transportation", transportation_ui('rgcTransportation')),
                                          
-                                         
                                          tabPanel("Urban Form", 
-                                                  
                                                   
                                                   hr(),
                                                   
@@ -181,11 +135,7 @@ shinyUI(
                                                   
                                          ), # end of TabPanel for MIC Jobs
                                          
-                                         tabPanel("Housing", 
-                                                  
-                                                  "test"
-                                                  
-                                         ), # end of TabPanel for MIC Housing
+                                         tabPanel("Housing", housing_ui('micHousing')),
                                          
                                          tabPanel("Transportation", transportation_ui('micTransportation')),
                                          

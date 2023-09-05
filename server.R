@@ -45,6 +45,14 @@ shinyServer(function(input, output, session) {
                       center_type = mic_title,
                       center_desc = "mic")
   
+  housing_server('rgcHousing',
+                 center_name = reactive(input$RGC),
+                 center_type = rgc_title)
+  
+  housing_server('micHousing',
+                 center_name = reactive(input$MIC),
+                 center_type = mic_title)
+  
 # Center Maps -------------------------------------------
   output$rgc_map <- renderLeaflet({
     leaflet(options = leafletOptions(zoomControl=FALSE)) %>%
@@ -71,7 +79,6 @@ shinyServer(function(input, output, session) {
   })
 
 # Center Summary Data -----------------------------------------------------
-
   rgc_descritpion_filter <- reactive({
    centers_info |>
      filter(rgc_mic=="Regional Growth Center" & name == input$RGC) |>
@@ -106,7 +113,6 @@ shinyServer(function(input, output, session) {
     
   }, deleteFile = FALSE)
   
-
   rgc_summary_data <- reactive({
     
     create_public_spreadsheet(table_list = list("Population" = pop_hh_hu_data |> select(-"year") |> filter(geography %in% c(input$RGC) & geography_type %in% c(rgc_title) & grouping == "Population"), 
@@ -138,76 +144,6 @@ shinyServer(function(input, output, session) {
   
 
   output$urban_form_table <- DT::renderDataTable({create_rgc_urban_form_table(center_name = input$RGC)})
-  
-  output$rgc_hu_chart <- renderEcharts4r({
-    
-    echart_column_chart(df = pop_hh_hu_data %>% filter(geography_type == rgc_title, geography == input$RGC & grouping == "Housing Units"),
-                        x = "data_year", y = "estimate", tog = "grouping", title = "Total Housing Units",
-                        dec = 0, esttype = "number", color = "blues")
-    
-  })
-  
-  output$rgc_hu_table <- DT::renderDataTable({create_single_group_table(df = pop_hh_hu_data, rgc_name = input$RGC, data_yrs = ofm_years, dec = 0, group = "Housing Units")})
-  
-  output$rgc_hu_change_chart <- renderEcharts4r({
-    
-    echart_column_chart(df = unit_data %>% 
-                          filter(geography_type %in% c(rgc_title) & geography %in% c(input$RGC) & year %in% ofm_years) %>% 
-                          mutate(concept="New Net Housing Units") %>% 
-                          mutate(delta = estimate-lag(estimate), data_year = paste0(lag(data_year),"-",data_year)) %>%
-                          drop_na(),
-                        x = "data_year", y = "delta", tog = "concept", title = "New Net Housing Units",
-                        dec = 0, esttype = "number", color = "purples")
-    
-  })
-  
-  output$rgc_hu_change_table <- DT::renderDataTable({create_change_table(df = unit_data %>% 
-                                                                           filter(geography_type %in% c(rgc_title) & geography %in% c(input$RGC) & year %in% ofm_years) %>% 
-                                                                           mutate(delta = estimate-lag(estimate), data_year = paste0(lag(data_year),"-",data_year)) %>%
-                                                                           drop_na(), 
-                                                                         yr = "data_year",val="delta", nm="New Net Housing Units")})
-  
-  output$rgc_tenure_chart <- renderEcharts4r({
-    
-    echart_multi_column_chart(df = tenure_data %>% filter(geography_type %in% c(rgc_title, "County") & geography %in% c(input$RGC, "Region", "All Centers") & grouping != "Total"),
-                              x = "grouping", y = "share", fill="geography", tog = "data_year", 
-                              dec = 0, esttype = "percent", color = "jewel")
-  })
-  
-  output$rgc_tenure_table <- DT::renderDataTable({create_multi_year_table(df = tenure_data, rgc_name = input$RGC, data_yrs = as.character(census_years), dec = 1)})
-  
-  output$rgc_type_chart <- renderEcharts4r({
-    
-    echart_multi_bar_chart(df = type_data %>% 
-                             filter(geography_type %in% c(rgc_title, "County") & geography %in% c(input$RGC, "Region", "All Centers") & grouping != "Total") %>%
-                             arrange(desc(grouping)),
-                           x = "grouping", y = "share", fill="geography", tog = "data_year", 
-                           dec = 0, esttype = "percent", color = "jewel")
-  })
-  
-  output$rgc_type_table <- DT::renderDataTable({create_multi_year_table(df = type_data, rgc_name = input$RGC, data_yrs = as.character(census_years), dec = 1)})
-  
-  output$rgc_renter_burden_chart <- renderEcharts4r({
-    
-    echart_multi_column_chart(df = burden_data %>% 
-                                filter(geography_type %in% c(rgc_title, "County") & geography %in% c(input$RGC, "Region", "All Centers") & grouping != "Total" & concept == "Renter Cost Burden"),
-                              x = "grouping", y = "share", fill="geography", tog = "data_year", 
-                              dec = 0, esttype = "percent", color = "jewel")
-  })
-  
-  output$rgc_renter_burden_table <- DT::renderDataTable({create_multi_year_table(df = renter_burden_data, rgc_name = input$RGC, data_yrs = as.character(census_years), dec = 1)})
-  
-  output$rgc_owner_burden_chart <- renderEcharts4r({
-    
-    echart_multi_column_chart(df = burden_data %>% 
-                                filter(geography_type %in% c(rgc_title, "County") & geography %in% c(input$RGC, "Region", "All Centers") & grouping != "Total" & concept == "Owner Cost Burden"),
-                              x = "grouping", y = "share", fill="geography", tog = "data_year", 
-                              dec = 0, esttype = "percent", color = "jewel")
-    
-  })
-  
-  output$rgc_owner_burden_table <- DT::renderDataTable({create_multi_year_table(df = owner_burden_data, rgc_name = input$RGC, data_yrs = as.character(census_years), dec = 1)})
-  
   
   output$rgc_jobs_chart <- renderEcharts4r({
     
