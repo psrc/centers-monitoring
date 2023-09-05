@@ -117,38 +117,7 @@ shinyUI(
                                                   
                                          ), # end of TabPanel for RGC Housing
                                          
-                                         tabPanel("Transportation", 
-                                                  
-                                                  transportation_ui('rgcTransportation')
-                                                  # 
-                                                  # hr(),
-                                                  # 
-                                                  # # Section on page for Map and Summary Table
-                                                  # fluidRow(column(6, leafletOutput("rgc_stop_map")),
-                                                  #          column(6, strong("Transit Service"),
-                                                  #                 br(),
-                                                  #                 dataTableOutput("rgc_stop_table"),
-                                                  #                 br(),
-                                                  #                 tags$div(class="chart_source","Source: Spring GTFS Service")
-                                                  #          )),
-                                                  # fluidRow(column(12, div(img(src="transit-legend.png", width = "75%", style = "padding-left: 0px;")))),
-                                                  # br(),
-                                                  # 
-                                                  # strong(tags$div(class="chart_title","Mode to Work for Residents")),
-                                                  # fluidRow(column(12,echarts4rOutput("rgc_resident_mode_chart"))),
-                                                  # br(),
-                                                  # fluidRow(column(12, dataTableOutput("rgc_resident_mode_table"))),
-                                                  # tags$div(class="chart_source","Source: US Census Bureau American Community Survey (ACS) 5yr Data Table B08301"),
-                                                  # hr(style = "border-top: 1px solid #000000;"),
-                                                  # 
-                                                  # strong(tags$div(class="chart_title","Destination Mode Share")),
-                                                  # fluidRow(column(12,echarts4rOutput("rgc_destination_mode_chart"))),
-                                                  # br(),
-                                                  # fluidRow(column(12, dataTableOutput("rgc_destination_mode_table"))),
-                                                  # tags$div(class="chart_source","Source: 2018 PSRC SoundCast Activity Based Model"),
-                                                  # hr(style = "border-top: 1px solid #000000;")
-                                              
-                                         ), # end of TabPanel for RGC Transportation
+                                         tabPanel("Transportation", transportation_ui('rgcTransportation')),
                                          
                                          
                                          tabPanel("Urban Form", 
@@ -218,31 +187,7 @@ shinyUI(
                                                   
                                          ), # end of TabPanel for MIC Housing
                                          
-                                         tabPanel("Transportation", 
-                                                  
-                                                  transportation_ui('micTransportation')
-                                                  
-                                                  # hr(),
-                                                  # 
-                                                  # # Section on page for Map and Summary Table
-                                                  # fluidRow(column(6, leafletOutput("mic_stop_map")),
-                                                  #          column(6, strong("Transit Service"),
-                                                  #                 br(),
-                                                  #                 dataTableOutput("mic_stop_table"),
-                                                  #                 br(),
-                                                  #                 tags$div(class="chart_source","Source: Spring GTFS Service")
-                                                  #          )),
-                                                  # fluidRow(column(12, div(img(src="transit-legend.png", width = "75%", style = "padding-left: 0px;")))),
-                                                  # br(),
-                                                  # 
-                                                  # strong(tags$div(class="chart_title","Destination Mode Share")),
-                                                  # fluidRow(column(12,echarts4rOutput("mic_destination_mode_chart"))),
-                                                  # br(),
-                                                  # fluidRow(column(12, dataTableOutput("mic_destination_mode_table"))),
-                                                  # tags$div(class="chart_source","Source: 2018 PSRC SoundCast Activity Based Model"),
-                                                  # hr(style = "border-top: 1px solid #000000;")
-                                                  
-                                         ), # end of TabPanel for MIC Transportation
+                                         tabPanel("Transportation", transportation_ui('micTransportation')),
                                          
                                          tabPanel("Urban Form", 
                                                   
