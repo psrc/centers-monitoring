@@ -30,8 +30,7 @@ shinyUI(
                column(4, style='padding-left:10px; padding-right:0px;', leftpanel_ui('rgcleftpanel')),
                
                # Main Panel for Regional Growth Centers
-               column(8, 
-                      style='padding-left:25px; padding-right:25px;',
+               column(8, style='padding-left:25px; padding-right:25px;',
                       
                       # Center Selection
                       fluidRow(
@@ -40,18 +39,7 @@ shinyUI(
                         ), 
                       
                       # Center Summary Data
-                      fluidRow(column(6, leafletOutput("rgc_map")),
-                               column(6, strong("Summary Statistics"),
-                                      br(),
-                                      dataTableOutput("rgc_summary_table"),
-                                      br(),
-                                      tags$div(class="chart_source","* Employment data is suppressed")
-                                      )),
-                      br(),
-                      fluidRow(column(12, strong("Description:"),
-                                      br(),
-                                      textOutput("RGCDescription"))),
-                      br(),
+                      overview_ui('rgcOverview'),
                       
                       # Summary Charts and Tables by Tabs for Demographics, Jobs, Housing, Transportation and Urban Form
                       tabsetPanel(type = "tabs",
@@ -79,58 +67,40 @@ shinyUI(
              ) # End of Main Panel Fluid Row for RGC Tab 
     ), # end Tabpanel for RGC
              
-    
     tabPanel(title=HTML("Manufacturing & Industrial Centers"),
              value="MIC",
              banner_ui('micBanner'),
              
-             fluidRow(column(4, style='padding-left:10px; padding-right:0px;',
-                             leftpanel_ui('micleftpanel')),
+             fluidRow(
+               
+               # Side Panel for Manufacturing and Industrial Centers
+               column(4, style='padding-left:10px; padding-right:0px;', leftpanel_ui('micleftpanel')),
+               
+               # Main Panel for Manufacturing and Industrial Centers
+               column(8, style='padding-left:25px; padding-right:25px;',
                       
-                      column(8, style='padding-left:25px; padding-right:25px;',
-                             
-                             
-                             fluidRow(
-                               column(6, selectInput("MIC","Select Center:",mic_names, selected = random_mic)),
-                               column(6, br(), downloadLink('downloadmicData', label = "Download Center Data in Excel Format"))
-                             ),
-                             
-                             # Section on page for Map and Summary Table
-                             fluidRow(column(6, leafletOutput("mic_map")),
-                                      column(6, strong("Summary Statistics"),
-                                             br(),
-                                             dataTableOutput("mic_summary_table"),
-                                             br(),
-                                             tags$div(class="chart_source","* Employment data is suppressed")
-                                      )),
-                             br(),
-                             
-                             # Section on page for Text Description
-                             fluidRow(column(12, strong("Description:"),
-                                             br(),
-                                             textOutput("MICDescription"))),
-                             br(),
-                             tabsetPanel(type = "tabs",
-                                         
-                                         tabPanel("Demographics", demographics_ui('micDemographics')),
-                                         tabPanel("Jobs", jobs_ui('micEmployment')),
-                                         tabPanel("Housing", housing_ui('micHousing')),
-                                         tabPanel("Transportation", transportation_ui('micTransportation')),
-                                         
-                                         tabPanel("Urban Form", 
-                                                  
-                                                  
-                                                  "test"
-                                                  
-                                         ) # end of TabPanel for MIC Urban Form
-                                         
-                             ) # end of MIC Tabsets
-                      ),
-             ) # End of Main Panel Fluid Row for MIC Tab 
-    ), # end Tabpanel for MIC
+                      # Center Selection
+                      fluidRow(
+                        column(6, selectInput("MIC","Select Center:",mic_names, selected = random_mic)),
+                        column(6, br(), downloadLink('downloadmicData', label = "Download Center Data in Excel Format"))
+                        ),
+                      
+                      # Center Summary Data
+                      overview_ui('micOverview'),
+                      
+                      # Summary Charts and Tables by Tabs for Demographics, Jobs, Housing, Transportation and Urban Form
+                      tabsetPanel(type = "tabs",
+                                  tabPanel("Demographics", demographics_ui('micDemographics')),
+                                  tabPanel("Jobs", jobs_ui('micEmployment')),
+                                  tabPanel("Housing", housing_ui('micHousing')),
+                                  tabPanel("Transportation", transportation_ui('micTransportation')),
+                                  tabPanel("Urban Form", "test")
+                                  ) # end of Manufacturing and Industrial Centers tabsetPanel
+                      ), # End of Main Panel Column for Manufacturing and Industrial Centers
+               ) # End of Manufacturing and Industrial Centers fluidRow
+             ), # end of Manufacturing and Industrial Centers tabPanel
 
-                      
     tags$footer(footer_ui('psrcfooter'))
     
-             ) # End of NavBar Page
-  ) # End of Shiny App
+    ) # End of navbarPage
+  ) # End of shinyUI

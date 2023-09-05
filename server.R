@@ -1,4 +1,3 @@
-# Define server logic required to draw a histogram
 shinyServer(function(input, output, session) {
   
   footer_server('psrcfooter')
@@ -61,52 +60,15 @@ shinyServer(function(input, output, session) {
               center_name = reactive(input$MIC),
               center_type = mic_title)
   
-# Center Maps -------------------------------------------
-  output$rgc_map <- renderLeaflet({
-    leaflet(options = leafletOptions(zoomControl=FALSE)) %>%
-      addProviderTiles(providers$Esri.NatGeoWorldMap) %>%
-      addPolygons(data = rgc_shape %>% filter(name %in% input$RGC),
-                  fillColor = "76787A",
-                  weight = 4,
-                  opacity = 1.0,
-                  color = "#91268F",
-                  dashArray = "4",
-                  fillOpacity = 0.0)
-  })
+  overview_server('rgcOverview',
+              center_name = reactive(input$RGC),
+              center_type = rgc_title)
   
-  output$mic_map <- renderLeaflet({
-    leaflet(options = leafletOptions(zoomControl=FALSE)) %>%
-      addProviderTiles(providers$Esri.NatGeoWorldMap) %>%
-      addPolygons(data = mic_shape %>% filter(name %in% input$MIC),
-                  fillColor = "76787A",
-                  weight = 4,
-                  opacity = 1.0,
-                  color = "#91268F",
-                  dashArray = "4",
-                  fillOpacity = 0.0)
-  })
-
+  overview_server('micOverview',
+              center_name = reactive(input$MIC),
+              center_type = mic_title)
+  
 # Center Summary Data -----------------------------------------------------
-  rgc_descritpion_filter <- reactive({
-   centers_info |>
-     filter(rgc_mic=="Regional Growth Center" & name == input$RGC) |>
-     select("information") |>
-     pull()
-  })
-
-  output$RGCDescription <- renderText(rgc_descritpion_filter())
-  output$rgc_summary_table <- DT::renderDataTable({create_rgc_summary_table(center_name = input$RGC, yr = 2021)})
-  
-  mic_descritpion_filter <- reactive({
-   centers_info |>
-     filter(rgc_mic=="Manufacturing Industrial Center" & name == input$MIC) |>
-     select("information") |>
-     pull()
-  })
-  
-  output$MICDescription <- renderText(mic_descritpion_filter())
-  output$mic_summary_table <- DT::renderDataTable(create_mic_summary_table(center_name = input$MIC, yr = 2021))
-
   output$lu_map <- renderImage({
     
     ifelse(input$RGC == "Seattle First Hill/Capitol Hill", imgfn <- "Seattle First Hill Capitol Hill.jpg", imgfn <- paste0(input$RGC, '.jpg'))

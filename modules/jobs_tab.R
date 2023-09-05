@@ -1,4 +1,4 @@
-# Display Panel
+# Employment tabPanel
 
 jobs_ui <- function(id) {
   ns <- NS(id)

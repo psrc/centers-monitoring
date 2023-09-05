@@ -298,176 +298,6 @@ echart_bar_chart <- function(df, x, y, tog, title, dec, esttype, color) {
   
 }
 
-create_rgc_summary_table <- function(center_name, yr) {
-  
-  # Area
-  r1 <- rgc_shape %>%
-    st_drop_geometry() %>%
-    filter(name == center_name) %>% 
-    select("name", "acres") %>% 
-    mutate(grouping="Land Area (acres)") %>% 
-    mutate(estimate=as.character(round(acres,0))) %>%
-    mutate(pic = as.character(icon("layer-group", lib = "font-awesome"))) %>%
-    select(-"acres")
-  
-  # Designation Year
-  r2 <- centers_info %>% 
-    filter(name == center_name & rgc_mic == "Regional Growth Center") %>% 
-    select("name", "designation_year") %>% 
-    mutate(grouping="Designation Year") %>% 
-    mutate(estimate=as.character(designation_year)) %>%
-    mutate(pic = as.character(icon("calendar-check", lib = "font-awesome"))) %>%
-    select(-"designation_year")
-  
-  # Center Type
-  r3 <- centers_info %>% 
-    filter(name == center_name & rgc_mic == "Regional Growth Center") %>% 
-    select("name", "center_type") %>% 
-    mutate(grouping="Center Type") %>% 
-    mutate(estimate=as.character(center_type)) %>%
-    mutate(pic = as.character(icon("city", lib = "font-awesome"))) %>%
-    select(-"center_type")
-  
-  # Population
-  r4 <- pop_hh_hu_data %>% 
-    filter(year == yr & geography == center_name & geography_type == rgc_title & grouping == "Population") %>% 
-    select(name="geography", "grouping", "estimate") %>%
-    mutate(estimate = format(round(estimate, -1), big.mark = ",")) %>%
-    mutate(pic = as.character(icon("users", lib = "font-awesome")))
-  
-  # Housing Units
-  r5 <- pop_hh_hu_data %>% 
-    filter(year == yr & geography == center_name & geography_type == rgc_title & grouping == "Housing Units") %>% 
-    select(name="geography", "grouping", "estimate") %>%
-    mutate(estimate = format(round(estimate, -1), big.mark = ",")) %>%
-    mutate(pic = as.character(icon("building", lib = "font-awesome")))
-  
-  # Jobs
-  j <- employment_data %>% 
-    filter(year == yr & geography == center_name & geography_type == rgc_title & grouping == "Total") %>% 
-    mutate(grouping="Total Employment") %>% 
-    select(name="geography", "grouping", "estimate") %>% 
-    select("estimate") %>% 
-    pull()
-  
-  if (j == "*") {
-    
-    r6 <- r3 %>% mutate(estimate = "*", grouping = "Total Employment", pic = as.character(icon("briefcase", lib = "font-awesome")))
-    
-  } else {
-    
-    r6 <- employment_data %>% 
-      filter(year == yr & geography == center_name & geography_type == rgc_title & grouping == "Total") %>% 
-      mutate(grouping="Total Employment") %>% 
-      select(name="geography", "grouping", "estimate") %>%
-      mutate(estimate = format(round(as.integer(estimate), -1), big.mark = ",")) %>%
-      mutate(pic = as.character(icon("briefcase", lib = "font-awesome")))
-    
-  }
-  
-  # Activity Units per Acre
-  acres <- r1 %>% select("estimate") %>% pull() %>% as.integer()
-  
-  pop <- pop_hh_hu_data %>% 
-    filter(year == yr & geography == center_name & geography_type == rgc_title) %>% 
-    select(name="geography", "grouping", "estimate") %>%
-    filter(grouping %in% c("Population")) %>% 
-    select("estimate") %>% 
-    pull() %>% 
-    as.integer()
-  
-  j <- employment_data %>% 
-    filter(year == yr & geography == center_name & geography_type == rgc_title & grouping == "Total") %>% 
-    mutate(grouping="Total Employment") %>% 
-    select(name="geography", "grouping", "estimate") %>% 
-    select("estimate") %>% 
-    pull()
-  
-  if (j == "*") {
-    
-    jobs <-"*"
-    
-  } else {
-    
-    jobs <- as.integer(j)
-    
-  }
-  
-  if (j == "*") {
-    
-    au <- "*"
-    
-  } else {
-    
-    au <- round((pop+jobs)/acres,0)
-    
-  }
-  
-  r7 <- r6 %>% mutate(estimate = as.character(au), grouping = "Activity Units per Acre", pic = as.character(icon("people-group", lib = "font-awesome")))
-  
-  # Jobs / Pop Balance
-  
-  if (j == "*") {
-    
-    jobs <-"*"
-    
-  } else {
-    
-    jobs <- as.integer(j)
-    
-  }
-  
-  if (jobs == "*") {
-    
-    jpr <- "*"
-    
-  } else {
-    
-    jpr <- round((jobs)/pop,1)
-    
-  }
-  
-  r8 <- r7 %>% mutate(estimate = as.character(jpr), grouping = "Jobs per Person", pic = as.character(icon("person-shelter", lib = "font-awesome")))
-  
-  t <- bind_rows(r1, r2, r3, r4, r5, r6, r7, r8) %>% select("pic", "grouping", "estimate")
-  
-  headerCallbackRemoveHeaderFooter <- c(
-    "function(thead, data, start, end, display){",
-    "  $('th', thead).css('display', 'none');",
-    "}"
-  )
-  
-  summary_tbl <- datatable(t,
-                           options = list(paging = FALSE,
-                                          pageLength = 15,
-                                          searching = FALSE,
-                                          dom = 't',
-                                          headerCallback = JS(headerCallbackRemoveHeaderFooter),
-                                          columnDefs = list(list(targets = c(2), className = 'dt-right'),
-                                                            list(targets = c(0), className = 'dt-center'))),
-                           selection = 'none',
-                           callback = JS(
-                             "$('table.dataTable.no-footer').css('border-bottom', 'none');"
-                           ),
-                           class = 'row-border',
-                           filter = 'none',              
-                           rownames = FALSE,
-                           escape = FALSE
-  ) 
-  
-  # Add Section Breaks
-  summary_tbl <- summary_tbl %>%
-    formatStyle(0:ncol(t), valueColumns = "grouping",
-                `border-bottom` = styleEqual(c("Center Type", "Total Employment", "Jobs per Person"), "solid 2px"))
-  
-  summary_tbl <- summary_tbl %>%
-    formatStyle(0:ncol(t), valueColumns = "grouping",
-                `border-top` = styleEqual(c("Land Area (acres)"), "solid 2px"))
-  
-  return(summary_tbl)
-  
-}
-
 echart_multi_bar_chart <- function(df, x, y, fill, tog, dec, esttype, color) {
  
   c <- echart_multi_column_chart(df=df, x=x, y=y, fill=fill, tog=tog, dec=dec, esttype=esttype, color=color) 
@@ -1314,7 +1144,6 @@ create_multi_year_table <- function(df, rgc_name, data_yrs, dec=0, center_type=r
   
 }
 
-
 create_rgc_jobs_by_sector_table <- function(center_name, center_type="Regional Growth Center (6/22/2023)") {
   
   sectors <- employment_data |> select("grouping") |> distinct() |> pull()
@@ -1429,89 +1258,147 @@ create_public_spreadsheet <- function(table_list, place_name) {
   return(wb)
 }
 
-create_mic_summary_table <- function(center_name, yr) {
+# General Centers Information -------------------------------------------------------------
+create_center_map <- function(center_name, center_type) {
+  
+  if(center_type == rgc_title) {
+    
+    center_shp <- rgc_shape |> filter(name %in% center_name)
+    
+  } else {
+    
+    center_shp <- mic_shape |> filter(name %in% center_name)
+    
+  }
+  
+  m <- leaflet(options = leafletOptions(zoomControl=FALSE)) |>
+    addProviderTiles(providers$Esri.NatGeoWorldMap) |>
+    addPolygons(data = center_shp,
+                fillColor = "76787A",
+                weight = 4,
+                opacity = 1.0,
+                color = "#91268F",
+                dashArray = "4",
+                fillOpacity = 0.0)
+  
+  return(m)
+
+}
+
+pull_center_information <- function(center_name, center_type) {
+  
+  if(center_type == rgc_title) {
+    
+    center_desc <- "Regional Growth Center"
+    
+  } else {
+    
+    center_desc <- "Manufacturing Industrial Center"
+    
+  }
+  
+  t <- centers_info |>
+    filter(rgc_mic==center_desc & name == center_name) |>
+    select("information") |>
+    pull()
+  
+  return(t)
+  
+}
+
+create_summary_table <- function(center_name, center_type, yr) {
+  
+  if(center_type == rgc_title) {
+    
+    d <- rgc_shape |> st_drop_geometry() |> filter(name %in% center_name)
+    center_desc <- "Regional Growth Center"
+    
+  } else {
+    
+    d <- mic_shape |> st_drop_geometry() |> filter(name %in% center_name)
+    center_desc <- "Manufacturing Industrial Center"
+    
+  }
   
   # Area
-  r1 <- mic_shape %>%
-    st_drop_geometry() %>%
-    filter(name == center_name) %>% 
-    select("name", "acres") %>% 
-    mutate(grouping="Land Area (acres)") %>% 
-    mutate(estimate=as.character(round(acres,0))) %>%
-    mutate(pic = as.character(icon("layer-group", lib = "font-awesome"))) %>%
+  r1 <- d |>
+    select("name", "acres") |> 
+    mutate(grouping="Land Area (acres)") |> 
+    mutate(estimate=as.character(round(acres,0))) |>
+    mutate(pic = as.character(icon("layer-group", lib = "font-awesome"))) |>
     select(-"acres")
   
   # Designation Year
-  r2 <- centers_info %>% 
-    filter(name == center_name & rgc_mic == "Manufacturing Industrial Center") %>% 
-    select("name", "designation_year") %>% 
-    mutate(grouping="Designation Year") %>% 
-    mutate(estimate=as.character(designation_year)) %>%
-    mutate(pic = as.character(icon("calendar-check", lib = "font-awesome"))) %>%
+  r2 <- centers_info |> 
+    filter(name == center_name & rgc_mic == center_desc) |>
+    select("name", "designation_year") |> 
+    mutate(grouping="Designation Year") |> 
+    mutate(estimate=as.character(designation_year)) |>
+    mutate(pic = as.character(icon("calendar-check", lib = "font-awesome"))) |>
     select(-"designation_year")
   
   # Center Type
-  r3 <- centers_info %>% 
-    filter(name == center_name & rgc_mic == "Manufacturing Industrial Center") %>% 
-    select("name", "center_type") %>% 
-    mutate(grouping="Center Type") %>% 
-    mutate(estimate=as.character(center_type)) %>%
-    mutate(pic = as.character(icon("city", lib = "font-awesome"))) %>%
+  r3 <- centers_info |> 
+    filter(name == center_name & rgc_mic == center_desc) |> 
+    select("name", "center_type")|> 
+    mutate(grouping="Center Type") |> 
+    mutate(estimate=as.character(center_type)) |>
+    mutate(pic = as.character(icon("city", lib = "font-awesome"))) |>
     select(-"center_type")
   
   # Population
-  r4 <- pop_hh_hu_data %>% 
-    filter(year == yr & geography == center_name & geography_type == mic_title & grouping == "Population") %>% 
-    select(name="geography", "grouping", "estimate") %>%
-    mutate(estimate = format(round(estimate, -1), big.mark = ",")) %>%
+  r4 <- pop_hh_hu_data |> 
+    filter(year == yr & geography == center_name & geography_type == center_type & grouping == "Population") |> 
+    select(name="geography", "grouping", "estimate") |>
+    mutate(estimate = format(round(estimate, -1), big.mark = ",")) |>
     mutate(pic = as.character(icon("users", lib = "font-awesome")))
   
   # Housing Units
-  r5 <- pop_hh_hu_data %>% 
-    filter(year == yr & geography == center_name & geography_type == mic_title & grouping == "Housing Units") %>% 
-    select(name="geography", "grouping", "estimate") %>%
-    mutate(estimate = format(round(estimate, -1), big.mark = ",")) %>%
+  r5 <- pop_hh_hu_data |> 
+    filter(year == yr & geography == center_name & geography_type == center_type & grouping == "Housing Units") |>
+    select(name="geography", "grouping", "estimate") |>
+    mutate(estimate = format(round(estimate, -1), big.mark = ",")) |>
     mutate(pic = as.character(icon("building", lib = "font-awesome")))
   
   # Jobs
-  j <- employment_data %>% 
-    filter(year == yr & geography == center_name & geography_type == mic_title & grouping == "Total") %>% 
-    mutate(grouping="Total Employment") %>% 
-    select(name="geography", "grouping", "estimate") %>% 
-    select("estimate") %>% 
+  j <- employment_data |> 
+    filter(year == yr & geography == center_name & geography_type == center_type & grouping == "Total") |> 
+    mutate(grouping="Total Employment") |> 
+    select(name="geography", "grouping", "estimate") |> 
+    select("estimate") |> 
     pull()
   
   if (j == "*") {
     
-    r6 <- r3 %>% mutate(estimate = "*", grouping = "Total Employment", pic = as.character(icon("briefcase", lib = "font-awesome")))
+    r6 <- r3 |> mutate(estimate = "*", grouping = "Total Employment", pic = as.character(icon("briefcase", lib = "font-awesome")))
     
   } else {
     
-    r6 <- employment_data %>% 
-      filter(year == yr & geography == center_name & geography_type == mic_title & grouping == "Total") %>% 
-      mutate(grouping="Total Employment") %>% 
-      select(name="geography", "grouping", "estimate") %>%
-      mutate(estimate = format(round(as.integer(estimate), -1), big.mark = ",")) %>%
+    r6 <- employment_data |> 
+      filter(year == yr & geography == center_name & geography_type == center_type & grouping == "Total") |> 
+      mutate(grouping="Total Employment") |> 
+      select(name="geography", "grouping", "estimate") |>
+      mutate(estimate = format(round(as.integer(estimate), -1), big.mark = ",")) |>
       mutate(pic = as.character(icon("briefcase", lib = "font-awesome")))
     
   }
   
   # Activity Units per Acre
-  acres <- r1 %>% select("estimate") %>% pull() %>% as.integer()
+  acres <- r1 |> select("estimate") |> pull() |> as.integer()
   
-  pop <- pop_hh_hu_data %>% 
-    filter(year == yr & geography == center_name & geography_type == mic_title) %>% 
-    select(name="geography", "grouping", "estimate") %>%
-    filter(grouping %in% c("Population")) %>% 
-    select("estimate") %>% 
-    pull() %>% 
+  pop <- pop_hh_hu_data |> 
+    filter(year == yr & geography == center_name & geography_type == center_type) |> 
+    select(name="geography", "grouping", "estimate") |>
+    filter(grouping %in% c("Population")) |> 
+    select("estimate") |> 
+    pull() |>
     as.integer()
   
-  j <- employment_data %>% 
-    filter(year == yr & geography == center_name & geography_type == mic_title & grouping == "Total") %>% 
-    mutate(grouping="Total Employment") %>% 
-    select(name="geography", "grouping", "estimate") %>% 
-    select("estimate") %>% 
+  j <- employment_data |> 
+    filter(year == yr & geography == center_name & geography_type == center_type & grouping == "Total") |> 
+    mutate(grouping="Total Employment") |> 
+    select(name="geography", "grouping", "estimate") |> 
+    select("estimate") |> 
     pull()
   
   if (j == "*") {
@@ -1534,7 +1421,7 @@ create_mic_summary_table <- function(center_name, yr) {
     
   }
   
-  r7 <- r6 %>% mutate(estimate = as.character(au), grouping = "Activity Units per Acre", pic = as.character(icon("people-group", lib = "font-awesome")))
+  r7 <- r6 |> mutate(estimate = as.character(au), grouping = "Activity Units per Acre", pic = as.character(icon("people-group", lib = "font-awesome")))
   
   # Jobs / Pop Balance
   
@@ -1558,9 +1445,9 @@ create_mic_summary_table <- function(center_name, yr) {
     
   }
   
-  r8 <- r7 %>% mutate(estimate = as.character(jpr), grouping = "Jobs per Person", pic = as.character(icon("person-shelter", lib = "font-awesome")))
+  r8 <- r7 |> mutate(estimate = as.character(jpr), grouping = "Jobs per Person", pic = as.character(icon("person-shelter", lib = "font-awesome")))
   
-  t <- bind_rows(r1, r2, r3, r4, r5, r6, r7, r8) %>% select("pic", "grouping", "estimate")
+  t <- bind_rows(r1, r2, r3, r4, r5, r6, r7, r8) |> select("pic", "grouping", "estimate")
   
   headerCallbackRemoveHeaderFooter <- c(
     "function(thead, data, start, end, display){",
@@ -1598,5 +1485,4 @@ create_mic_summary_table <- function(center_name, yr) {
   return(summary_tbl)
   
 }
-
 

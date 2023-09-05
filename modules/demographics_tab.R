@@ -1,4 +1,4 @@
-# Display Panel
+# Demographic tabPanel
 
 demographics_ui <- function(id) {
   ns <- NS(id)

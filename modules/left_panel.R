@@ -1,4 +1,4 @@
-# Display footer
+# Display Left Panel
 
 leftpanel_ui <- function(id) {
   ns <- NS(id)
