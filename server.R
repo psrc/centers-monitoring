@@ -53,6 +53,14 @@ shinyServer(function(input, output, session) {
                  center_name = reactive(input$MIC),
                  center_type = mic_title)
   
+  jobs_server('rgcEmployment',
+              center_name = reactive(input$RGC),
+              center_type = rgc_title)
+  
+  jobs_server('micEmployment',
+              center_name = reactive(input$MIC),
+              center_type = mic_title)
+  
 # Center Maps -------------------------------------------
   output$rgc_map <- renderLeaflet({
     leaflet(options = leafletOptions(zoomControl=FALSE)) %>%
@@ -113,6 +121,8 @@ shinyServer(function(input, output, session) {
     
   }, deleteFile = FALSE)
   
+  output$urban_form_table <- DT::renderDataTable({create_rgc_urban_form_table(center_name = input$RGC)})
+  
   rgc_summary_data <- reactive({
     
     create_public_spreadsheet(table_list = list("Population" = pop_hh_hu_data |> select(-"year") |> filter(geography %in% c(input$RGC) & geography_type %in% c(rgc_title) & grouping == "Population"), 
@@ -141,24 +151,7 @@ shinyServer(function(input, output, session) {
       saveWorkbook(rgc_summary_data(), file = file)},
     contentType = "application/Excel"
   )
-  
 
-  output$urban_form_table <- DT::renderDataTable({create_rgc_urban_form_table(center_name = input$RGC)})
-  
-  output$rgc_jobs_chart <- renderEcharts4r({
-    
-    echart_column_chart(df = employment_data |> 
-                          filter(geography_type == rgc_title, geography == input$RGC & grouping == "Total") |>
-                          mutate(estimate = as.integer(estimate)) |>
-                          filter(data_year %in% ofm_years),
-                        x = "data_year", y = "estimate", tog = "grouping", title = "Total Employment",
-                        dec = 0, esttype = "number", color = "purples")
-    
-  })
-  
-  output$rgc_job_sectors_table <- DT::renderDataTable({create_rgc_jobs_by_sector_table(center_name = input$RGC)})
-  
-    
 })    
 
 

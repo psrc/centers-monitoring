@@ -25,58 +25,43 @@ shinyUI(
              value="RGC",
              banner_ui('rgcBanner'),
              
-             fluidRow(column(4, style='padding-left:10px; padding-right:0px;',
-                             leftpanel_ui('rgcleftpanel')),
+             fluidRow(
+               # Side Panel for Regional Growth Centers
+               column(4, style='padding-left:10px; padding-right:0px;', leftpanel_ui('rgcleftpanel')),
+               
+               # Main Panel for Regional Growth Centers
+               column(8, 
+                      style='padding-left:25px; padding-right:25px;',
                       
-                      column(8, style='padding-left:25px; padding-right:25px;',
-                             
-                             
-                             fluidRow(
-                               column(6, selectInput("RGC","Select Center:",rgc_names, selected = random_rgc)),
-                               column(6, br(), downloadLink('downloadData', label = "Download Center Data in Excel Format"))
-                             ),
-                             
-                             # Section on page for Map and Summary Table
-                             fluidRow(column(6, leafletOutput("rgc_map")),
-                                      column(6, strong("Summary Statistics"),
-                                             br(),
-                                             dataTableOutput("rgc_summary_table"),
-                                             br(),
-                                             tags$div(class="chart_source","* Employment data is suppressed")
-                                             )),
-                             br(),
-                             
-                             # Section on page for Text Description
-                             fluidRow(column(12, strong("Description:"),
-                                             br(),
-                                             textOutput("RGCDescription"))),
-                             br(),
-                             tabsetPanel(type = "tabs",
-                                         tabPanel("Demographics", demographics_ui('rgcDemographics')),
-                                         
-                                         tabPanel("Jobs", 
-                                                  
-                                                  hr(),
-                                                  
-                                                  # Section on page for Map and Summary Table
-                                                  fluidRow(column(6, echarts4rOutput("rgc_jobs_chart")),
-                                                           column(6, strong("Jobs by Sector"),
-                                                                  br(),
-                                                                  dataTableOutput("rgc_job_sectors_table"),
-                                                                  br(),
-                                                                  tags$div(class="chart_source","* Employment data is suppressed")
-                                                           )),
-                                                  
-                                                  hr(style = "border-top: 1px solid #000000;")
-                                                  
-                                         ), # end of TabPanel for RGC Jobs
-                                         
-                                         tabPanel("Housing", housing_ui('rgcHousing')),
-                                         
-                                         tabPanel("Transportation", transportation_ui('rgcTransportation')),
-                                         
-                                         tabPanel("Urban Form", 
-                                                  
+                      # Center Selection
+                      fluidRow(
+                        column(6, selectInput("RGC","Select Center:",rgc_names, selected = random_rgc)),
+                        column(6, br(), downloadLink('downloadData', label = "Download Center Data in Excel Format"))
+                        ), 
+                      
+                      # Center Summary Data
+                      fluidRow(column(6, leafletOutput("rgc_map")),
+                               column(6, strong("Summary Statistics"),
+                                      br(),
+                                      dataTableOutput("rgc_summary_table"),
+                                      br(),
+                                      tags$div(class="chart_source","* Employment data is suppressed")
+                                      )),
+                      br(),
+                      fluidRow(column(12, strong("Description:"),
+                                      br(),
+                                      textOutput("RGCDescription"))),
+                      br(),
+                      
+                      # Summary Charts and Tables by Tabs for Demographics, Jobs, Housing, Transportation and Urban Form
+                      tabsetPanel(type = "tabs",
+                                  tabPanel("Demographics", demographics_ui('rgcDemographics')),
+                                  tabPanel("Jobs", jobs_ui('rgcEmployment')),
+                                  tabPanel("Housing", housing_ui('rgcHousing')),
+                                  tabPanel("Transportation", transportation_ui('rgcTransportation')),
+                                  
+                                  tabPanel("Urban Form", 
+                                           
                                                   hr(),
                                                   
                                                   strong(tags$div(class="chart_title","Zoning Map")),
@@ -90,7 +75,7 @@ shinyUI(
                                         ) # end of TabPanel for RGC Urban Form
                                         
                               ) # end of RGC Tabsets
-                      ),
+                      ), # End of RGC Main Panel
              ) # End of Main Panel Fluid Row for RGC Tab 
     ), # end Tabpanel for RGC
              
@@ -128,15 +113,8 @@ shinyUI(
                              tabsetPanel(type = "tabs",
                                          
                                          tabPanel("Demographics", demographics_ui('micDemographics')),
-                                         
-                                         tabPanel("Jobs", 
-                                                  
-                                                  "test"
-                                                  
-                                         ), # end of TabPanel for MIC Jobs
-                                         
+                                         tabPanel("Jobs", jobs_ui('micEmployment')),
                                          tabPanel("Housing", housing_ui('micHousing')),
-                                         
                                          tabPanel("Transportation", transportation_ui('micTransportation')),
                                          
                                          tabPanel("Urban Form", 
