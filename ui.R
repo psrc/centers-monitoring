@@ -53,7 +53,7 @@ shinyUI(
                                                   hr(),
                                                   
                                                   strong(tags$div(class="chart_title","Zoning Map")),
-                                                  fluidRow(column(7,imageOutput("lu_map")),
+                                                  fluidRow(column(7,imageOutput("rgc_lu_map")),
                                                            column(5, div(img(src="legend.png", width = "75%", style = "padding-left: 0px;")))),
                                                   
                                                   br(),
@@ -94,7 +94,17 @@ shinyUI(
                                   tabPanel("Jobs", jobs_ui('micEmployment')),
                                   tabPanel("Housing", housing_ui('micHousing')),
                                   tabPanel("Transportation", transportation_ui('micTransportation')),
-                                  tabPanel("Urban Form", "test")
+                                  tabPanel("Urban Form", 
+                                           hr(),
+                                           
+                                           strong(tags$div(class="chart_title","Zoning Map")),
+                                           fluidRow(column(7,imageOutput("mic_lu_map")),
+                                                    column(5, div(img(src="legend.png", width = "75%", style = "padding-left: 0px;")))),
+                                           
+                                           br(),
+                                           #fluidRow(column(12,dataTableOutput("urban_form_table"))),
+                                           hr(style = "border-top: 1px solid #000000;")
+                                  )
                                   ) # end of Manufacturing and Industrial Centers tabsetPanel
                       ), # End of Main Panel Column for Manufacturing and Industrial Centers
                ) # End of Manufacturing and Industrial Centers fluidRow

@@ -1,0 +1,474 @@
+﻿year,quarter,name,inventory,vacant,vacancy_rate,net_absorption,rental_rate
+2012,Q1,Ballard-Interbay,629273,500,0.001,9523,14.1
+2012,Q2,Ballard-Interbay,629273,500,0.001,,14.1
+2012,Q3,Ballard-Interbay,629273,500,0.001,,14.1
+2012,Q4,Ballard-Interbay,629273,500,0.001,,14.1
+2013,Q1,Ballard-Interbay,629273,500,0.001,,
+2013,Q2,Ballard-Interbay,629273,500,0.001,,9
+2013,Q3,Ballard-Interbay,629273,500,0.001,,9
+2013,Q4,Ballard-Interbay,629273,500,0.001,,9
+2014,Q1,Ballard-Interbay,629273,500,0.001,,9.93
+2014,Q2,Ballard-Interbay,629273,7769,0.012,7269,14.09
+2014,Q3,Ballard-Interbay,629273,36184,0.058,28415,13.92
+2014,Q4,Ballard-Interbay,629273,36184,0.058,,13.92
+2015,Q1,Ballard-Interbay,629273,38101,0.061,1917,18.37
+2015,Q2,Ballard-Interbay,629273,28415,0.045,9686,18.37
+2015,Q3,Ballard-Interbay,629273,30832,0.049,2417,18.37
+2015,Q4,Ballard-Interbay,629273,28415,0.045,2417,13
+2016,Q1,Ballard-Interbay,629273,28915,0.046,500,13
+2016,Q2,Ballard-Interbay,629273,39164,0.062,10249,12.87
+2016,Q3,Ballard-Interbay,629273,28415,0.045,10749,11.02
+2016,Q4,Ballard-Interbay,629273,32415,0.052,4000,11.46
+2017,Q1,Ballard-Interbay,629273,6000,0.01,26415,12.6
+2017,Q2,Ballard-Interbay,629273,7744,0.012,1744,12.94
+2017,Q3,Ballard-Interbay,629273,7744,0.012,,12.18
+2017,Q4,Ballard-Interbay,629273,7670,0.012,74,12.3
+2018,Q1,Ballard-Interbay,629273,4500,0.007,3170,11.82
+2018,Q2,Ballard-Interbay,629273,4500,0.007,,12.31
+2018,Q3,Ballard-Interbay,629273,14900,0.024,10400,11.85
+2018,Q4,Ballard-Interbay,629273,14900,0.024,,11.83
+2019,Q1,Ballard-Interbay,629273,,0,14900,11.94
+2019,Q2,Ballard-Interbay,629273,14261,0.023,14261,11.94
+2019,Q3,Ballard-Interbay,629273,14261,0.023,,11.94
+2019,Q4,Ballard-Interbay,629273,14261,0.023,,11.77
+2020,Q1,Ballard-Interbay,629273,14261,0.023,,12.69
+2020,Q2,Ballard-Interbay,629273,15461,0.025,1200,13.8
+2020,Q3,Ballard-Interbay,629273,19661,0.031,4200,12.03
+2020,Q4,Ballard-Interbay,629273,86973,0.138,67312,16.62
+2021,Q1,Ballard-Interbay,629273,86732,0.138,241,15.58
+2021,Q2,Ballard-Interbay,629273,84315,0.134,2417,15.58
+2021,Q3,Ballard-Interbay,629273,106085,0.169,21770,15.91
+2021,Q4,Ballard-Interbay,629273,174187,0.277,68102,15.77
+2022,Q1,Ballard-Interbay,629273,172775,0.275,1412,17.52
+2022,Q2,Ballard-Interbay,629273,255141,0.405,82366,17.41
+2022,Q3,Ballard-Interbay,629273,336069,0.534,80928,17.4
+2012,Q1,Cascade Industrial Center - Arlington/Marysville,267241,54560,0.204,,5.04
+2012,Q2,Cascade Industrial Center - Arlington/Marysville,267241,54560,0.204,,5.04
+2012,Q3,Cascade Industrial Center - Arlington/Marysville,267241,54560,0.204,,5.04
+2012,Q4,Cascade Industrial Center - Arlington/Marysville,267241,54560,0.204,,5.04
+2013,Q1,Cascade Industrial Center - Arlington/Marysville,267241,54560,0.204,,5.04
+2013,Q2,Cascade Industrial Center - Arlington/Marysville,267241,54560,0.204,,5.04
+2013,Q3,Cascade Industrial Center - Arlington/Marysville,267241,54560,0.204,,5.04
+2013,Q4,Cascade Industrial Center - Arlington/Marysville,267241,54560,0.204,,5.16
+2014,Q1,Cascade Industrial Center - Arlington/Marysville,267241,54560,0.204,,5.16
+2014,Q2,Cascade Industrial Center - Arlington/Marysville,267241,54560,0.204,,5.16
+2014,Q3,Cascade Industrial Center - Arlington/Marysville,267241,54560,0.204,,5.28
+2014,Q4,Cascade Industrial Center - Arlington/Marysville,267241,54560,0.204,,5.28
+2015,Q1,Cascade Industrial Center - Arlington/Marysville,267241,54560,0.204,,5.28
+2015,Q2,Cascade Industrial Center - Arlington/Marysville,267241,54560,0.204,,5.28
+2015,Q3,Cascade Industrial Center - Arlington/Marysville,267241,54560,0.204,,5.28
+2015,Q4,Cascade Industrial Center - Arlington/Marysville,267241,54560,0.204,,5.28
+2016,Q1,Cascade Industrial Center - Arlington/Marysville,267241,54560,0.204,,5.28
+2016,Q2,Cascade Industrial Center - Arlington/Marysville,267241,54560,0.204,,5.28
+2016,Q3,Cascade Industrial Center - Arlington/Marysville,267241,54560,0.204,,5.28
+2016,Q4,Cascade Industrial Center - Arlington/Marysville,267241,54560,0.204,,5.28
+2017,Q1,Cascade Industrial Center - Arlington/Marysville,267241,54560,0.204,,5.64
+2017,Q2,Cascade Industrial Center - Arlington/Marysville,267241,54560,0.204,,5.28
+2017,Q3,Cascade Industrial Center - Arlington/Marysville,267241,54560,0.204,,5.4
+2017,Q4,Cascade Industrial Center - Arlington/Marysville,267241,54560,0.204,,5.4
+2018,Q1,Cascade Industrial Center - Arlington/Marysville,267241,54560,0.204,,5.4
+2018,Q2,Cascade Industrial Center - Arlington/Marysville,267241,20000,0.075,34560,5.64
+2018,Q3,Cascade Industrial Center - Arlington/Marysville,267241,20000,0.075,,8.54
+2018,Q4,Cascade Industrial Center - Arlington/Marysville,267241,20000,0.075,,8.54
+2019,Q1,Cascade Industrial Center - Arlington/Marysville,267241,20000,0.075,,6.45
+2019,Q2,Cascade Industrial Center - Arlington/Marysville,362461,37022,0.102,78198,6.45
+2019,Q3,Cascade Industrial Center - Arlington/Marysville,362461,28511,0.079,8511,9.14
+2019,Q4,Cascade Industrial Center - Arlington/Marysville,362461,123476,0.341,94965,8.09
+2020,Q1,Cascade Industrial Center - Arlington/Marysville,362461,123476,0.341,,8.09
+2020,Q2,Cascade Industrial Center - Arlington/Marysville,362461,74389,0.205,49087,8.26
+2020,Q3,Cascade Industrial Center - Arlington/Marysville,362461,74389,0.205,,7.8
+2020,Q4,Cascade Industrial Center - Arlington/Marysville,362461,74389,0.205,,7.8
+2021,Q1,Cascade Industrial Center - Arlington/Marysville,362461,16128,0.044,58261,7.8
+2021,Q2,Cascade Industrial Center - Arlington/Marysville,362461,16128,0.044,,7.8
+2021,Q3,Cascade Industrial Center - Arlington/Marysville,362461,112566,0.311,96438,7.8
+2021,Q4,Cascade Industrial Center - Arlington/Marysville,362461,63948,0.176,48618,7.8
+2022,Q1,Cascade Industrial Center - Arlington/Marysville,362461,63948,0.176,,7.8
+2022,Q2,Cascade Industrial Center - Arlington/Marysville,362461,43500,0.12,20448,8.64
+2022,Q3,Cascade Industrial Center - Arlington/Marysville,362461,43500,0.12,,8.64
+2012,Q1,Duwamish,3061968,189705,0.062,12910,9.57
+2012,Q2,Duwamish,3061968,184017,0.06,5688,9.12
+2012,Q3,Duwamish,3061968,160882,0.053,23135,9.13
+2012,Q4,Duwamish,3061968,109714,0.036,51168,8.94
+2013,Q1,Duwamish,3061968,46059,0.015,63655,9.02
+2013,Q2,Duwamish,3061968,60376,0.02,14317,8.76
+2013,Q3,Duwamish,3061968,102161,0.033,41785,9.23
+2013,Q4,Duwamish,3061968,94740,0.031,7421,9
+2014,Q1,Duwamish,3061968,68997,0.023,25743,9.03
+2014,Q2,Duwamish,3061968,92725,0.03,23728,7.66
+2014,Q3,Duwamish,3061968,72623,0.024,20102,7.8
+2014,Q4,Duwamish,3061968,78116,0.026,5493,7.89
+2015,Q1,Duwamish,3061968,63152,0.021,14964,7.95
+2015,Q2,Duwamish,3061968,70630,0.023,7478,8.04
+2015,Q3,Duwamish,3061968,165367,0.054,94737,8.77
+2015,Q4,Duwamish,3061968,148381,0.048,16986,8.9
+2016,Q1,Duwamish,3061968,174451,0.057,26070,8.48
+2016,Q2,Duwamish,3061968,186424,0.061,11973,8.72
+2016,Q3,Duwamish,3061968,204216,0.067,17792,8.84
+2016,Q4,Duwamish,3061968,494190,0.161,289974,10.13
+2017,Q1,Duwamish,3061968,192963,0.063,301227,10.16
+2017,Q2,Duwamish,3061968,198593,0.065,5630,11.53
+2017,Q3,Duwamish,3061968,216323,0.071,17730,11.48
+2017,Q4,Duwamish,3061968,72069,0.024,144254,11.81
+2018,Q1,Duwamish,3061968,65148,0.021,6921,11.81
+2018,Q2,Duwamish,3061968,255382,0.083,190234,15.63
+2018,Q3,Duwamish,3061968,101985,0.033,153397,15.83
+2018,Q4,Duwamish,3061968,102935,0.034,950,16.34
+2019,Q1,Duwamish,3061968,374730,0.122,271795,16.55
+2019,Q2,Duwamish,3061968,374730,0.122,,15.89
+2019,Q3,Duwamish,3061968,385606,0.126,10876,16.77
+2019,Q4,Duwamish,3061968,425923,0.139,40317,15.98
+2020,Q1,Duwamish,3061968,451592,0.147,25669,16.22
+2020,Q2,Duwamish,3061968,439496,0.144,12096,16.44
+2020,Q3,Duwamish,3061968,461758,0.151,22262,15.55
+2020,Q4,Duwamish,3061968,411877,0.135,49881,15.39
+2021,Q1,Duwamish,3061968,485437,0.159,73560,15.01
+2021,Q2,Duwamish,3061968,500277,0.163,14840,15.09
+2021,Q3,Duwamish,3061968,666759,0.218,166482,15.58
+2021,Q4,Duwamish,3213059,785870,0.245,31980,16.71
+2022,Q1,Duwamish,3213059,787835,0.245,1965,14.91
+2022,Q2,Duwamish,3213059,916926,0.285,129091,15.32
+2022,Q3,Duwamish,3213059,1162836,0.362,245910,14.78
+2012,Q1,Frederickson,132745,,0,,
+2012,Q2,Frederickson,132745,,0,,
+2012,Q3,Frederickson,132745,,0,,
+2012,Q4,Frederickson,132745,,0,,
+2013,Q1,Frederickson,132745,,0,,
+2013,Q2,Frederickson,132745,,0,,
+2013,Q3,Frederickson,132745,,0,,
+2013,Q4,Frederickson,132745,,0,,
+2014,Q1,Frederickson,132745,,0,,
+2014,Q2,Frederickson,132745,,0,,
+2014,Q3,Frederickson,132745,,0,,
+2014,Q4,Frederickson,132745,,0,,
+2015,Q1,Frederickson,132745,,0,,
+2015,Q2,Frederickson,132745,,0,,
+2015,Q3,Frederickson,132745,,0,,
+2015,Q4,Frederickson,132745,,0,,
+2016,Q1,Frederickson,132745,,0,,
+2016,Q2,Frederickson,132745,,0,,
+2016,Q3,Frederickson,132745,,0,,
+2016,Q4,Frederickson,132745,,0,,
+2017,Q1,Frederickson,132745,,0,,
+2017,Q2,Frederickson,132745,,0,,
+2017,Q3,Frederickson,132745,,0,,
+2017,Q4,Frederickson,132745,,0,,
+2018,Q1,Frederickson,132745,,0,,
+2018,Q2,Frederickson,132745,,0,,
+2018,Q3,Frederickson,132745,,0,,
+2018,Q4,Frederickson,132745,,0,,
+2019,Q1,Frederickson,132745,,0,,
+2019,Q2,Frederickson,132745,,0,,
+2019,Q3,Frederickson,132745,,0,,
+2019,Q4,Frederickson,132745,,0,,
+2020,Q1,Frederickson,132745,,0,,
+2020,Q2,Frederickson,132745,,0,,
+2020,Q3,Frederickson,132745,,0,,
+2020,Q4,Frederickson,132745,,0,,
+2021,Q1,Frederickson,132745,,0,,
+2021,Q2,Frederickson,132745,,0,,
+2021,Q3,Frederickson,274051,141306,0.516,,
+2021,Q4,Frederickson,274051,141306,0.516,,
+2022,Q1,Frederickson,274051,141306,0.516,,
+2022,Q2,Frederickson,274051,141306,0.516,,
+2022,Q3,Frederickson,356266,141306,0.397,82215,
+2012,Q1,Kent,4834268,1221871,0.253,8667,4.77
+2012,Q2,Kent,4834268,881906,0.182,339965,4.91
+2012,Q3,Kent,4834268,1144290,0.237,262384,4.93
+2012,Q4,Kent,4834268,1120785,0.232,23505,4.85
+2013,Q1,Kent,4834268,936143,0.194,184642,4.99
+2013,Q2,Kent,4834268,709328,0.147,226815,5.1
+2013,Q3,Kent,4834268,736221,0.152,26893,4.99
+2013,Q4,Kent,4834268,636842,0.132,99379,5.29
+2014,Q1,Kent,4834268,727937,0.151,91095,5.32
+2014,Q2,Kent,4834268,659923,0.137,68014,5.22
+2014,Q3,Kent,4834268,621293,0.129,38630,5.45
+2014,Q4,Kent,4834268,531948,0.11,89345,5.44
+2015,Q1,Kent,4834268,356900,0.074,175048,5.3
+2015,Q2,Kent,4834268,273436,0.057,83464,5.38
+2015,Q3,Kent,4834268,240022,0.05,33414,5.48
+2015,Q4,Kent,4834268,277797,0.057,37775,5.49
+2016,Q1,Kent,4834268,206762,0.043,71035,5.66
+2016,Q2,Kent,4834268,388539,0.08,181777,5.51
+2016,Q3,Kent,4834268,178440,0.037,210099,6.66
+2016,Q4,Kent,4834268,147054,0.03,31386,6.74
+2017,Q1,Kent,4834268,83992,0.017,63062,7.28
+2017,Q2,Kent,4834268,259941,0.054,175949,8.29
+2017,Q3,Kent,4834268,349011,0.072,89070,6.8
+2017,Q4,Kent,4834268,224310,0.046,124701,7.32
+2018,Q1,Kent,4834268,142804,0.03,81506,7.35
+2018,Q2,Kent,4834268,186313,0.039,43509,8.25
+2018,Q3,Kent,4834268,129840,0.027,56473,7.64
+2018,Q4,Kent,4834268,99896,0.021,29944,8.01
+2019,Q1,Kent,4834268,280882,0.058,180986,10
+2019,Q2,Kent,4834268,275965,0.057,4917,9.26
+2019,Q3,Kent,4834268,260243,0.054,15722,7.24
+2019,Q4,Kent,4834268,201405,0.042,58838,7
+2020,Q1,Kent,4834268,297263,0.061,95858,6.95
+2020,Q2,Kent,4834268,305036,0.063,7773,7.17
+2020,Q3,Kent,4834268,440346,0.091,135310,6.71
+2020,Q4,Kent,4834268,500909,0.104,60563,6.27
+2021,Q1,Kent,4834268,617133,0.128,116224,5.68
+2021,Q2,Kent,4834268,546445,0.113,70688,5.51
+2021,Q3,Kent,4834268,559862,0.116,13417,7.92
+2021,Q4,Kent,4834268,867279,0.179,307417,9.16
+2022,Q1,Kent,4834268,916171,0.19,48892,12.81
+2022,Q2,Kent,5092767,1493280,0.293,318610,12.86
+2022,Q3,Kent,5092767,1605004,0.315,111724,12.7
+2012,Q1,North Tukwila,280484,181311,0.646,48056,12.25
+2012,Q2,North Tukwila,280484,175811,0.627,5500,12.25
+2012,Q3,North Tukwila,280484,175811,0.627,,12.25
+2012,Q4,North Tukwila,280484,173508,0.619,2303,12.25
+2013,Q1,North Tukwila,280484,100349,0.358,73159,12.25
+2013,Q2,North Tukwila,280484,100349,0.358,,12.25
+2013,Q3,North Tukwila,280484,100349,0.358,,12.25
+2013,Q4,North Tukwila,280484,100349,0.358,,12.25
+2014,Q1,North Tukwila,280484,100349,0.358,,
+2014,Q2,North Tukwila,280484,100349,0.358,,
+2014,Q3,North Tukwila,280484,100349,0.358,,
+2014,Q4,North Tukwila,280484,100349,0.358,,
+2015,Q1,North Tukwila,280484,100349,0.358,,
+2015,Q2,North Tukwila,280484,100349,0.358,,
+2015,Q3,North Tukwila,280484,164309,0.586,63960,
+2015,Q4,North Tukwila,280484,164309,0.586,,
+2016,Q1,North Tukwila,280484,164309,0.586,,
+2016,Q2,North Tukwila,280484,164309,0.586,,
+2016,Q3,North Tukwila,280484,166628,0.594,2319,
+2016,Q4,North Tukwila,280484,166628,0.594,,
+2017,Q1,North Tukwila,280484,166628,0.594,,
+2017,Q2,North Tukwila,280484,166628,0.594,,
+2017,Q3,North Tukwila,280484,166628,0.594,,
+2017,Q4,North Tukwila,280484,166628,0.594,,
+2018,Q1,North Tukwila,280484,119269,0.425,47359,17.95
+2018,Q2,North Tukwila,280484,119169,0.425,100,15.24
+2018,Q3,North Tukwila,280484,70837,0.253,48332,15.24
+2018,Q4,North Tukwila,280484,76337,0.272,5500,15.84
+2019,Q1,North Tukwila,280484,70837,0.253,5500,16.04
+2019,Q2,North Tukwila,280484,70837,0.253,,16.04
+2019,Q3,North Tukwila,280484,70837,0.253,,15.24
+2019,Q4,North Tukwila,280484,53948,0.192,16889,15.24
+2020,Q1,North Tukwila,280484,53948,0.192,,17.64
+2020,Q2,North Tukwila,280484,53948,0.192,,17.64
+2020,Q3,North Tukwila,280484,53948,0.192,,17.64
+2020,Q4,North Tukwila,280484,53948,0.192,,17.64
+2021,Q1,North Tukwila,280484,53948,0.192,,17.64
+2021,Q2,North Tukwila,280484,53948,0.192,,17.64
+2021,Q3,North Tukwila,280484,53377,0.19,571,14.69
+2021,Q4,North Tukwila,280484,53377,0.19,,11.4
+2022,Q1,North Tukwila,280484,53377,0.19,,11.4
+2022,Q2,North Tukwila,280484,58977,0.21,5600,11.72
+2022,Q3,North Tukwila,280484,58977,0.21,,11.72
+2012,Q1,Paine Field/Boeing Everett,678690,59177,0.087,48757,6.78
+2012,Q2,Paine Field/Boeing Everett,678690,59177,0.087,,7.06
+2012,Q3,Paine Field/Boeing Everett,678690,147327,0.217,88150,8.26
+2012,Q4,Paine Field/Boeing Everett,678690,167349,0.247,20022,8.32
+2013,Q1,Paine Field/Boeing Everett,678690,140071,0.206,27278,8.08
+2013,Q2,Paine Field/Boeing Everett,678690,140071,0.206,,7.28
+2013,Q3,Paine Field/Boeing Everett,678690,145951,0.215,5880,7.35
+2013,Q4,Paine Field/Boeing Everett,678690,141871,0.209,4080,7.07
+2014,Q1,Paine Field/Boeing Everett,678690,139571,0.206,2300,5.95
+2014,Q2,Paine Field/Boeing Everett,678690,138971,0.205,600,5.95
+2014,Q3,Paine Field/Boeing Everett,678690,153971,0.227,15000,6.8
+2014,Q4,Paine Field/Boeing Everett,678690,155321,0.229,1350,6.78
+2015,Q1,Paine Field/Boeing Everett,678690,106164,0.156,49157,9.03
+2015,Q2,Paine Field/Boeing Everett,678690,89814,0.132,16350,9.03
+2015,Q3,Paine Field/Boeing Everett,797892,69772,0.087,139244,8.61
+2015,Q4,Paine Field/Boeing Everett,797892,69272,0.087,500,8.39
+2016,Q1,Paine Field/Boeing Everett,880848,152428,0.173,200,8.42
+2016,Q2,Paine Field/Boeing Everett,880848,8300,0.009,144128,8.42
+2016,Q3,Paine Field/Boeing Everett,880848,7800,0.009,500,8.64
+2016,Q4,Paine Field/Boeing Everett,880848,7400,0.008,400,8.64
+2017,Q1,Paine Field/Boeing Everett,880848,9100,0.01,1700,
+2017,Q2,Paine Field/Boeing Everett,880848,6000,0.007,3100,
+2017,Q3,Paine Field/Boeing Everett,880848,3400,0.004,2600,12.3
+2017,Q4,Paine Field/Boeing Everett,880848,3700,0.004,300,12.3
+2018,Q1,Paine Field/Boeing Everett,880848,31292,0.036,27592,6.43
+2018,Q2,Paine Field/Boeing Everett,880848,34392,0.039,3100,6.43
+2018,Q3,Paine Field/Boeing Everett,880848,27492,0.031,6900,6.32
+2018,Q4,Paine Field/Boeing Everett,880848,33092,0.038,5600,5.88
+2019,Q1,Paine Field/Boeing Everett,880848,5800,0.007,27292,
+2019,Q2,Paine Field/Boeing Everett,880848,7500,0.009,1700,
+2019,Q3,Paine Field/Boeing Everett,880848,12700,0.014,5200,
+2019,Q4,Paine Field/Boeing Everett,880848,11500,0.013,1200,
+2020,Q1,Paine Field/Boeing Everett,880848,6200,0.007,5300,
+2020,Q2,Paine Field/Boeing Everett,880848,9100,0.01,2900,10.68
+2020,Q3,Paine Field/Boeing Everett,880848,20741,0.024,11641,10.19
+2020,Q4,Paine Field/Boeing Everett,880848,21241,0.024,500,10.19
+2021,Q1,Paine Field/Boeing Everett,880848,97136,0.11,75895,10.54
+2021,Q2,Paine Field/Boeing Everett,880848,143681,0.163,46545,13.38
+2021,Q3,Paine Field/Boeing Everett,880848,76883,0.087,66798,14
+2021,Q4,Paine Field/Boeing Everett,880848,48941,0.056,27942,17.56
+2022,Q1,Paine Field/Boeing Everett,880848,48941,0.056,,17.56
+2022,Q2,Paine Field/Boeing Everett,880848,81894,0.093,32953,17.56
+2022,Q3,Paine Field/Boeing Everett,880848,49395,0.056,32499,19.19
+2012,Q1,Port of Tacoma,573990,900,0.002,,
+2012,Q2,Port of Tacoma,573990,800,0.001,100,
+2012,Q3,Port of Tacoma,573990,700,0.001,100,
+2012,Q4,Port of Tacoma,573990,500,0.001,200,
+2013,Q1,Port of Tacoma,573990,500,0.001,,
+2013,Q2,Port of Tacoma,573990,500,0.001,,
+2013,Q3,Port of Tacoma,573990,500,0.001,,
+2013,Q4,Port of Tacoma,573990,500,0.001,,
+2014,Q1,Port of Tacoma,573990,500,0.001,,
+2014,Q2,Port of Tacoma,573990,500,0.001,,
+2014,Q3,Port of Tacoma,573990,500,0.001,,
+2014,Q4,Port of Tacoma,573990,,0,500,
+2015,Q1,Port of Tacoma,573990,,0,,
+2015,Q2,Port of Tacoma,573990,,0,,
+2015,Q3,Port of Tacoma,573990,,0,,
+2015,Q4,Port of Tacoma,573990,,0,,
+2016,Q1,Port of Tacoma,573990,,0,,
+2016,Q2,Port of Tacoma,573990,,0,,
+2016,Q3,Port of Tacoma,573990,,0,,
+2016,Q4,Port of Tacoma,573990,,0,,
+2017,Q1,Port of Tacoma,573990,,0,,
+2017,Q2,Port of Tacoma,573990,,0,,
+2017,Q3,Port of Tacoma,573990,,0,,
+2017,Q4,Port of Tacoma,573990,,0,,
+2018,Q1,Port of Tacoma,573990,,0,,
+2018,Q2,Port of Tacoma,573990,,0,,
+2018,Q3,Port of Tacoma,573990,,0,,
+2018,Q4,Port of Tacoma,573990,,0,,
+2019,Q1,Port of Tacoma,573990,,0,,
+2019,Q2,Port of Tacoma,573990,,0,,
+2019,Q3,Port of Tacoma,573990,,0,,
+2019,Q4,Port of Tacoma,573990,,0,,
+2020,Q1,Port of Tacoma,573990,,0,,
+2020,Q2,Port of Tacoma,573990,537182,0.936,537182,
+2020,Q3,Port of Tacoma,573990,537182,0.936,,
+2020,Q4,Port of Tacoma,573990,220438,0.384,316744,
+2021,Q1,Port of Tacoma,573990,220438,0.384,,
+2021,Q2,Port of Tacoma,573990,220438,0.384,,
+2021,Q3,Port of Tacoma,573990,117277,0.204,103161,
+2021,Q4,Port of Tacoma,573990,117277,0.204,,
+2022,Q1,Port of Tacoma,573990,117277,0.204,,
+2022,Q2,Port of Tacoma,573990,117277,0.204,,
+2022,Q3,Port of Tacoma,573990,124213,0.216,6936,15
+2012,Q1,Puget Sound Industrial Center - Bremerton,,,,,
+2012,Q2,Puget Sound Industrial Center - Bremerton,,,,,
+2012,Q3,Puget Sound Industrial Center - Bremerton,,,,,
+2012,Q4,Puget Sound Industrial Center - Bremerton,,,,,
+2013,Q1,Puget Sound Industrial Center - Bremerton,,,,,
+2013,Q2,Puget Sound Industrial Center - Bremerton,,,,,
+2013,Q3,Puget Sound Industrial Center - Bremerton,,,,,
+2013,Q4,Puget Sound Industrial Center - Bremerton,,,,,
+2014,Q1,Puget Sound Industrial Center - Bremerton,,,,,
+2014,Q2,Puget Sound Industrial Center - Bremerton,,,,,
+2014,Q3,Puget Sound Industrial Center - Bremerton,,,,,
+2014,Q4,Puget Sound Industrial Center - Bremerton,,,,,
+2015,Q1,Puget Sound Industrial Center - Bremerton,,,,,
+2015,Q2,Puget Sound Industrial Center - Bremerton,,,,,
+2015,Q3,Puget Sound Industrial Center - Bremerton,,,,,
+2015,Q4,Puget Sound Industrial Center - Bremerton,,,,,
+2016,Q1,Puget Sound Industrial Center - Bremerton,,,,,
+2016,Q2,Puget Sound Industrial Center - Bremerton,,,,,
+2016,Q3,Puget Sound Industrial Center - Bremerton,,,,,
+2016,Q4,Puget Sound Industrial Center - Bremerton,,,,,
+2017,Q1,Puget Sound Industrial Center - Bremerton,,,,,
+2017,Q2,Puget Sound Industrial Center - Bremerton,,,,,
+2017,Q3,Puget Sound Industrial Center - Bremerton,,,,,
+2017,Q4,Puget Sound Industrial Center - Bremerton,,,,,
+2018,Q1,Puget Sound Industrial Center - Bremerton,,,,,
+2018,Q2,Puget Sound Industrial Center - Bremerton,,,,,
+2018,Q3,Puget Sound Industrial Center - Bremerton,,,,,
+2018,Q4,Puget Sound Industrial Center - Bremerton,,,,,
+2019,Q1,Puget Sound Industrial Center - Bremerton,,,,,
+2019,Q2,Puget Sound Industrial Center - Bremerton,,,,,
+2019,Q3,Puget Sound Industrial Center - Bremerton,,,,,
+2019,Q4,Puget Sound Industrial Center - Bremerton,,,,,
+2020,Q1,Puget Sound Industrial Center - Bremerton,,,,,
+2020,Q2,Puget Sound Industrial Center - Bremerton,,,,,
+2020,Q3,Puget Sound Industrial Center - Bremerton,,,,,
+2020,Q4,Puget Sound Industrial Center - Bremerton,,,,,
+2021,Q1,Puget Sound Industrial Center - Bremerton,,,,,
+2021,Q2,Puget Sound Industrial Center - Bremerton,,,,,
+2021,Q3,Puget Sound Industrial Center - Bremerton,,,,,
+2021,Q4,Puget Sound Industrial Center - Bremerton,,,,,
+2022,Q1,Puget Sound Industrial Center - Bremerton,,,,,
+2022,Q2,Puget Sound Industrial Center - Bremerton,,,,,
+2022,Q3,Puget Sound Industrial Center - Bremerton,,,,,
+2012,Q1,Sumner-Pacific,278805,61272,0.22,,3.6
+2012,Q2,Sumner-Pacific,278805,61272,0.22,,
+2012,Q3,Sumner-Pacific,278805,61272,0.22,,
+2012,Q4,Sumner-Pacific,278805,61272,0.22,,
+2013,Q1,Sumner-Pacific,278805,6872,0.025,54400,
+2013,Q2,Sumner-Pacific,278805,6872,0.025,,4.56
+2013,Q3,Sumner-Pacific,278805,6872,0.025,,4.56
+2013,Q4,Sumner-Pacific,278805,6872,0.025,,4.56
+2014,Q1,Sumner-Pacific,278805,6872,0.025,,4.56
+2014,Q2,Sumner-Pacific,467195,195262,0.418,,4.56
+2014,Q3,Sumner-Pacific,467195,195262,0.418,,4.66
+2014,Q4,Sumner-Pacific,467195,90412,0.194,104850,4.8
+2015,Q1,Sumner-Pacific,467195,90412,0.194,,4.8
+2015,Q2,Sumner-Pacific,467195,90412,0.194,,4.8
+2015,Q3,Sumner-Pacific,467195,187594,0.402,97182,4.56
+2015,Q4,Sumner-Pacific,933475,659879,0.707,6005,4.72
+2016,Q1,Sumner-Pacific,933475,565063,0.605,94816,5.43
+2016,Q2,Sumner-Pacific,933475,330532,0.354,234531,5.37
+2016,Q3,Sumner-Pacific,933475,237438,0.254,93094,5.59
+2016,Q4,Sumner-Pacific,933475,75917,0.081,161521,5.52
+2017,Q1,Sumner-Pacific,933475,75917,0.081,,9.96
+2017,Q2,Sumner-Pacific,933475,40872,0.044,35045,9.96
+2017,Q3,Sumner-Pacific,933475,34000,0.036,6872,4.96
+2017,Q4,Sumner-Pacific,933475,34000,0.036,,4.96
+2018,Q1,Sumner-Pacific,933475,55043,0.059,21043,4.92
+2018,Q2,Sumner-Pacific,933475,55043,0.059,,
+2018,Q3,Sumner-Pacific,933475,,0,55043,
+2018,Q4,Sumner-Pacific,933475,,0,,
+2019,Q1,Sumner-Pacific,933475,6457,0.007,6457,12
+2019,Q2,Sumner-Pacific,933475,8826,0.009,2369,12
+2019,Q3,Sumner-Pacific,933475,6827,0.007,1999,12.28
+2019,Q4,Sumner-Pacific,933475,8865,0.009,2038,12.28
+2020,Q1,Sumner-Pacific,933475,8865,0.009,,12.28
+2020,Q2,Sumner-Pacific,933475,8865,0.009,,12.28
+2020,Q3,Sumner-Pacific,933475,70882,0.076,62017,11.35
+2020,Q4,Sumner-Pacific,933475,80015,0.086,9133,11.32
+2021,Q1,Sumner-Pacific,933475,12257,0.013,67758,12.19
+2021,Q2,Sumner-Pacific,933475,6827,0.007,5430,12.19
+2021,Q3,Sumner-Pacific,933475,6827,0.007,,12.19
+2021,Q4,Sumner-Pacific,933475,6827,0.007,,12.19
+2022,Q1,Sumner-Pacific,933475,6827,0.007,,12
+2022,Q2,Sumner-Pacific,1374989,434321,0.316,14020,12
+2022,Q3,Sumner-Pacific,1374989,312055,0.227,122266,12
+2012,Q1,Region,20821006,3295126,0.158,53835,5.92
+2012,Q2,Region,20821006,2830240,0.136,464886,5.91
+2012,Q3,Region,20821006,3053728,0.147,223488,6.09
+2012,Q4,Region,20821006,3117459,0.15,63731,6.05
+2013,Q1,Region,20821006,2846766,0.137,270693,6.08
+2013,Q2,Region,20821006,2470655,0.119,376111,6.1
+2013,Q3,Region,20821006,2549283,0.122,78628,6.05
+2013,Q4,Region,20821006,2447279,0.118,102004,6.28
+2014,Q1,Region,20821006,2485128,0.119,37849,6.1
+2014,Q2,Region,21009396,2603024,0.124,70494,6.11
+2014,Q3,Region,21009396,2404376,0.114,198648,6.23
+2014,Q4,Region,21009396,2190748,0.104,213628,6.43
+2015,Q1,Region,21009396,1888558,0.09,302190,6.53
+2015,Q2,Region,21234396,1998786,0.094,114772,6.54
+2015,Q3,Region,21420992,2276229,0.106,90847,6.3
+2015,Q4,Region,21887272,2859869,0.131,117360,6.37
+2016,Q1,Region,21970228,2802529,0.128,140296,6.53
+2016,Q2,Region,21970228,2326738,0.106,475791,6.6
+2016,Q3,Region,21970228,1713818,0.078,612920,7.13
+2016,Q4,Region,21970228,1619054,0.074,94764,7.32
+2017,Q1,Region,21970228,1162751,0.053,456303,7.75
+2017,Q2,Region,21970228,1369266,0.062,206515,9.09
+2017,Q3,Region,21970228,1662707,0.076,293441,8.51
+2017,Q4,Region,21970228,1199199,0.055,463508,8.7
+2018,Q1,Region,21970228,1175211,0.053,23988,9.1
+2018,Q2,Region,22437436,1889002,0.084,246583,9.55
+2018,Q3,Region,22437436,1313955,0.059,575047,9.79
+2018,Q4,Region,22437436,1167911,0.052,146044,10.32
+2019,Q1,Region,22437436,1556220,0.069,388309,11.11
+2019,Q2,Region,22532656,1792642,0.08,141202,10.92
+2019,Q3,Region,22532656,1786034,0.079,6608,12.42
+2019,Q4,Region,22532656,1758035,0.078,27999,11.25
+2020,Q1,Region,22532656,1939588,0.086,181553,11.1
+2020,Q2,Region,22532656,2537165,0.113,597577,11.39
+2020,Q3,Region,22532656,3139495,0.139,602330,11.41
+2020,Q4,Region,22532656,2898110,0.129,241385,12.68
+2021,Q1,Region,22532656,3065529,0.136,167419,12.32
+2021,Q2,Region,22683656,3288367,0.145,71838,12.62
+2021,Q3,Region,22824962,3266355,0.143,163318,13.52
+2021,Q4,Region,22976053,3905354,0.17,487908,14.04
+2022,Q1,Region,23140666,4218642,0.182,148675,14.44
+2022,Q2,Region,24014219,6081569,0.253,989374,15
+2022,Q3,Region,24435916,8428785,0.345,1925519,13.78

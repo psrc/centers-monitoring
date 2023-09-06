@@ -66,6 +66,10 @@ transit_stop_data <- readRDS("data/stops_layer.rds") %>% mutate(rgc = gsub("Grea
 centers_info <- read_csv("data/centers_information.csv", show_col_types = FALSE)
 intersection_density <- read_csv("data/center_intersection_density.csv", show_col_types = FALSE)
 
+# MIC Measures
+vacancy_absorption <- read_csv("data/mic-vacancy-absorption.csv", show_col_types = FALSE)
+industrial_land <- read_csv("data/mic-industrial-lands.csv", show_col_types = FALSE)
+
 # Shapefiles --------------------------------------------------------------
 rgc_shape <- st_read("https://services6.arcgis.com/GWxg6t7KXELn1thE/arcgis/rest/services/Regional_Growth_Centers/FeatureServer/0/query?where=0=0&outFields=*&f=pgeojson") |>
   mutate(name = gsub("Bellevue", "Bellevue Downtown", name)) |>
