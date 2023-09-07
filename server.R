@@ -68,42 +68,15 @@ shinyServer(function(input, output, session) {
               center_name = reactive(input$MIC),
               center_type = mic_title)
   
+  form_server('rgcForm',
+              center_name = reactive(input$RGC),
+              center_type = rgc_title)
+  
+  form_server('micForm',
+              center_name = reactive(input$MIC),
+              center_type = mic_title)
+  
 # Center Summary Data -----------------------------------------------------
-  output$rgc_lu_map <- renderImage({
-    
-    ifelse(input$RGC == "Seattle First Hill/Capitol Hill", imgfn <- "Seattle First Hill Capitol Hill.jpg", imgfn <- paste0(input$RGC, '.jpg'))
-    
-    filename <- normalizePath(file.path('./www', imgfn))
-    
-    # Return a list containing the filename and alt text
-    list(src = filename,
-         width = 400,
-         height = 400,
-         alt = paste("Land use map for", input$RGC))
-    
-  }, deleteFile = FALSE)
-  
-  output$urban_form_table <- DT::renderDataTable({create_rgc_urban_form_table(center_name = input$RGC)})
-  
-  output$mic_lu_map <- renderImage({
-    
-    if(input$MIC == "Cascade Industrial Center - Arlington/Marysville") {imgfn <- "Cascade Industrial Center - Arlington-Marysville.jpg"}
-    if(input$MIC == "Kent") {imgfn <- "Kent-MIC.jpg"}
-    if(input$MIC == "Paine Field/Boeing Everett") {imgfn <- "Paine Field-Boeing Everett.jpg"}
-    if(!(input$MIC %in% c("Cascade Industrial Center - Arlington/Marysville", "Kent", "Paine Field/Boeing Everett"))) {imgfn <- paste0(input$MIC, '.jpg')}
-
-    filename <- normalizePath(file.path('./www', imgfn))
-    
-    # Return a list containing the filename and alt text
-    list(src = filename,
-         width = 400,
-         height = 400,
-         alt = paste("Land use map for", input$MIC))
-    
-  }, deleteFile = FALSE)
-  
-  
-  
   rgc_summary_data <- reactive({
     
     create_public_spreadsheet(table_list = list("Population" = pop_hh_hu_data |> select(-"year") |> filter(geography %in% c(input$RGC) & geography_type %in% c(rgc_title) & grouping == "Population"), 

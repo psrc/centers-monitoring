@@ -47,25 +47,11 @@ shinyUI(
                                   tabPanel("Jobs", jobs_ui('rgcEmployment')),
                                   tabPanel("Housing", housing_ui('rgcHousing')),
                                   tabPanel("Transportation", transportation_ui('rgcTransportation')),
-                                  
-                                  tabPanel("Urban Form", 
-                                           
-                                                  hr(),
-                                                  
-                                                  strong(tags$div(class="chart_title","Zoning Map")),
-                                                  fluidRow(column(7,imageOutput("rgc_lu_map")),
-                                                           column(5, div(img(src="legend.png", width = "75%", style = "padding-left: 0px;")))),
-                                                  
-                                                  br(),
-                                                  fluidRow(column(12,dataTableOutput("urban_form_table"))),
-                                                  hr(style = "border-top: 1px solid #000000;")
-                                                  
-                                        ) # end of TabPanel for RGC Urban Form
-                                        
-                              ) # end of RGC Tabsets
+                                  tabPanel("Urban Form", form_ui('rgcForm'))
+                                  ) # end of RGC Tabsets
                       ), # End of RGC Main Panel
-             ) # End of Main Panel Fluid Row for RGC Tab 
-    ), # end Tabpanel for RGC
+               ) # End of Main Panel Fluid Row for RGC Tab 
+             ), # end Tabpanel for RGC
              
     tabPanel(title=HTML("Manufacturing & Industrial Centers"),
              value="MIC",
@@ -94,17 +80,7 @@ shinyUI(
                                   tabPanel("Jobs", jobs_ui('micEmployment')),
                                   tabPanel("Housing", housing_ui('micHousing')),
                                   tabPanel("Transportation", transportation_ui('micTransportation')),
-                                  tabPanel("Urban Form", 
-                                           hr(),
-                                           
-                                           strong(tags$div(class="chart_title","Zoning Map")),
-                                           fluidRow(column(7,imageOutput("mic_lu_map")),
-                                                    column(5, div(img(src="legend.png", width = "75%", style = "padding-left: 0px;")))),
-                                           
-                                           br(),
-                                           #fluidRow(column(12,dataTableOutput("urban_form_table"))),
-                                           hr(style = "border-top: 1px solid #000000;")
-                                  )
+                                  tabPanel("Urban Form", form_ui('micForm'))
                                   ) # end of Manufacturing and Industrial Centers tabsetPanel
                       ), # End of Main Panel Column for Manufacturing and Industrial Centers
                ) # End of Manufacturing and Industrial Centers fluidRow
