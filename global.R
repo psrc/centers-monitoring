@@ -89,10 +89,29 @@ mic_names <- mic_shape %>% st_drop_geometry() %>% select("name") %>% arrange(nam
 random_mic <- mic_names[[sample(1:length(mic_names), 1)]]
 
 # MIC Measures ------------------------------------------------------------
-vacancy_absorption <- read_csv("data/mic-vacancy-absorption.csv", show_col_types = FALSE)
-industrial_land <- read_csv("data/mic-industrial-lands.csv", show_col_types = FALSE)
-
 ord <- unique(c("Region", "All Centers", mic_names))
+
+vacancy_absorption <- read_csv("data/mic-vacancy-absorption.csv", show_col_types = FALSE)
+
+land_ord <- c("Aviation Operations", "Standard Industrial", "Light Industrial",
+              "Military", "Public Industrial", 
+              "Vacant", "Re-developable", "Available", "Total")
+
+industrial_land <- read_csv("data/mic-industrial-lands.csv", show_col_types = FALSE) |>
+  pivot_longer(cols = !c(year, geography, geography_type), names_to = "grouping", values_to = "estimate") |>
+  mutate(year = as.character(year)) |>
+  mutate(geography = factor(geography, levels = ord)) |>
+  mutate(grouping = factor(grouping, levels = land_ord)) |>
+  arrange(geography, grouping, year)
+
+total <- industrial_land |> filter(grouping == "Total") |> rename(total="estimate") |> select(-"grouping")
+
+industrial_land <- left_join(industrial_land, total, by=c("year", "geography", "geography_type")) |>
+  mutate(share = estimate / total) |>
+  select(-"total")
+
+rm(total)
+
 industrial_jobs <- read_csv("data/mic-industrial-jobs.csv", show_col_types = FALSE) |>
   filter(year %in% industrial_years) |>
   mutate(year = as.character(year)) |>

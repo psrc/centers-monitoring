@@ -43,25 +43,58 @@ form_server <- function(id, center_name, center_type) {
          alt = paste("Land use map for", center_name()))
       
     }, deleteFile = FALSE)
-     
-    output$urban_form_table <- DT::renderDataTable(create_rgc_urban_form_table(center_name = center_name()))
+    
+    if (center_type == rgc_title) {
+      
+      output$urban_form_table <- DT::renderDataTable(create_rgc_urban_form_table(center_name = center_name()))
+      
+    }
+    
+    if (center_type == mic_title) {
+      
+      output$industrial_land_table <- DT::renderDataTable({create_multi_year_table(df = industrial_land |> filter(!(grouping %in% c("Vacant", "Re-developable", "Available"))), 
+                                                                                   rgc_name = center_name(), data_yrs = c("2018"), dec = 0, center_type = center_type)})
+      
+    }
 
     # Tab layout
     output$aformtab <- renderUI({
       
-      tagList(
+      if (center_type == rgc_title) {
         
-        hr(),
-        
-        strong(tags$div(class="chart_title","Zoning Map")),
-        fluidRow(column(7, imageOutput(ns("lu_map"))),
-                 column(5, div(img(src="legend.png", width = "75%", style = "padding-left: 0px;")))),
-        
-        br(),
-        fluidRow(column(12,dataTableOutput(ns("urban_form_table")))),
-        hr(style = "border-top: 1px solid #000000;")
+        tagList(
+          
+          hr(),
+          
+          strong(tags$div(class="chart_title","Zoning Map")),
+          fluidRow(column(7, imageOutput(ns("lu_map"))),
+                   column(5, div(img(src="legend.png", width = "75%", style = "padding-left: 0px;")))),
+          br(),
+          fluidRow(column(12,dataTableOutput(ns("urban_form_table")))),
+          hr(style = "border-top: 1px solid #000000;")
         
       )
+        
+      } else {
+        
+        tagList(
+          
+          hr(),
+          
+          strong(tags$div(class="chart_title","Zoning Map")),
+          fluidRow(column(7, imageOutput(ns("lu_map"))),
+                   column(5, div(img(src="legend.png", width = "75%", style = "padding-left: 0px;")))),
+          hr(style = "border-top: 1px solid #000000;"),
+          
+          strong(tags$div(class="chart_title","Industrial Land by Type (acres)")),
+          fluidRow(column(12, dataTableOutput(ns("industrial_land_table")))),
+          tags$div(class="chart_source","Source: PSRC UrbanSim Base Year Dataset"),
+          hr(style = "border-top: 1px solid #000000;")
+          
+        )
+        
+        
+      }
       
     })
     
