@@ -30,6 +30,7 @@ spn <- 32148
 current_census_yr <- (lubridate::year(Sys.Date())-2)
 census_years <- c(current_census_yr-10, current_census_yr-5, current_census_yr)
 ofm_years <- c(2011, 2016, 2021, 2022)
+industrial_years <- c(2010, 2015, 2020) 
 year_ord <- c("2022","2021", "2020", "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010")
 
 # Run Modules files -------------------------------------------------------
@@ -66,10 +67,6 @@ transit_stop_data <- readRDS("data/stops_layer.rds") %>% mutate(rgc = gsub("Grea
 centers_info <- read_csv("data/centers_information.csv", show_col_types = FALSE)
 intersection_density <- read_csv("data/center_intersection_density.csv", show_col_types = FALSE)
 
-# MIC Measures
-vacancy_absorption <- read_csv("data/mic-vacancy-absorption.csv", show_col_types = FALSE)
-industrial_land <- read_csv("data/mic-industrial-lands.csv", show_col_types = FALSE)
-
 # Shapefiles --------------------------------------------------------------
 rgc_shape <- st_read("https://services6.arcgis.com/GWxg6t7KXELn1thE/arcgis/rest/services/Regional_Growth_Centers/FeatureServer/0/query?where=0=0&outFields=*&f=pgeojson") |>
   mutate(name = gsub("Bellevue", "Bellevue Downtown", name)) |>
@@ -90,3 +87,17 @@ mic_shape <- st_read("https://services6.arcgis.com/GWxg6t7KXELn1thE/arcgis/rest/
 
 mic_names <- mic_shape %>% st_drop_geometry() %>% select("name") %>% arrange(name) %>% distinct() %>% pull()
 random_mic <- mic_names[[sample(1:length(mic_names), 1)]]
+
+# MIC Measures ------------------------------------------------------------
+vacancy_absorption <- read_csv("data/mic-vacancy-absorption.csv", show_col_types = FALSE)
+industrial_land <- read_csv("data/mic-industrial-lands.csv", show_col_types = FALSE)
+
+ord <- unique(c("Region", "All Centers", mic_names))
+industrial_jobs <- read_csv("data/mic-industrial-jobs.csv", show_col_types = FALSE) |>
+  filter(year %in% industrial_years) |>
+  mutate(year = as.character(year)) |>
+  mutate(data_year = factor(year, levels=year_ord)) |>
+  filter(grouping %in% c("Industrial", "Non-industrial")) |>
+  mutate(geography = factor(geography, levels = ord)) |>
+  arrange(geography, grouping, year)
+
