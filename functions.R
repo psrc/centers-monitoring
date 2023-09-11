@@ -1486,3 +1486,51 @@ create_summary_table <- function(center_name, center_type, yr) {
   
 }
 
+echart_pie_chart <- function(df, value, fill, dec, esttype, color) {
+  
+  # If the value is a percentage, round differently
+  ifelse(esttype == "percent", num_dec <- 4, num_dec <- dec)
+  
+  top_padding <- 100
+  title_padding <- 75
+  bottom_padding <- 75
+  
+  # Create the most basic chart
+  c <- df |>
+    e_charts_(fill, timeline = FALSE) |>
+    e_toolbox_feature("dataView") |>
+    e_toolbox_feature("saveAsImage") |>
+    e_pie_(value) |>
+    e_tooltip(trigger = "item") |>
+    e_labels(show = FALSE)
+  
+  if (color == "blues") {
+    c <- c |> e_color(c('#BFE9E7', '#73CFCB', '#40BDB8', '#00A7A0', '#00716c', '#005753')) 
+  }
+  
+  if (color == "greens") {
+    c <- c |> e_color(c('#E2F1CF', '#C0E095', '#A9D46E', '#8CC63E', '#588527', '#3f6618'))
+  }
+  
+  if (color == "oranges") {
+    c <- c |> e_color(c('#FBD6C9', '#F7A489', '#F4835E', '#F05A28', '#9f3913', '#7a2700'))
+  }
+  
+  if (color == "purples") {
+    
+    c <- c |> e_color(c('#E3C9E3', '#C388C2', '#AD5CAB', '#91268F', '#630460', '#4a0048')) 
+  }
+  
+  if (color == "jewel") {
+    
+    c <- c |> e_color(c('#91268F', '#F05A28', '#8CC63E', '#00A7A0', '#4C4C4C', '#630460', '#9f3913', '#588527', '#00716c', '#3e4040')) 
+  }
+  
+  c <- c |>
+    e_grid(top = top_padding, bottom = bottom_padding) |>
+    e_show_loading() |>
+    e_legend(show = TRUE, bottom = 0)
+  
+  return(c)
+  
+}

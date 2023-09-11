@@ -120,3 +120,16 @@ industrial_jobs <- read_csv("data/mic-industrial-jobs.csv", show_col_types = FAL
   mutate(geography = factor(geography, levels = ord)) |>
   arrange(geography, grouping, year)
 
+net_industrial_land <- industrial_land |> filter(grouping %in% c("Vacant", "Re-developable")) 
+
+t <-  industrial_land |> filter(grouping %in% c("Total")) |> select("geography", "geography_type", total="estimate")
+a <-  industrial_land |> filter(grouping %in% c("Available")) |> select("geography", "geography_type", available="estimate")
+u <- left_join(t, a, by=c("geography", "geography_type")) |> 
+  mutate(estimate = total-available, year="2018", grouping="In-Use", share = estimate/total) |>
+  select(-"total", -"available")
+
+net_industrial_land <- bind_rows(net_industrial_land, u)
+rm(t, a, u)
+
+my_chart <- echart_pie_chart(df = net_industrial_land |> filter(geography=="Kent"), value="estimate", fill="grouping", color="jewel", esttype="number", dec=0)
+
