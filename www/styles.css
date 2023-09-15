@@ -50,6 +50,14 @@ i {
   padding-right: 10px;
 }
 
+.well {
+  background-color: #F2F2F2;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
 .jumbotron.bg-success{
   background-color: #005753;
   padding-top: 25px;

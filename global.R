@@ -130,6 +130,3 @@ u <- left_join(t, a, by=c("geography", "geography_type")) |>
 
 net_industrial_land <- bind_rows(net_industrial_land, u)
 rm(t, a, u)
-
-my_chart <- echart_pie_chart(df = net_industrial_land |> filter(geography=="Kent"), value="estimate", fill="grouping", color="jewel", esttype="number", dec=0)
-

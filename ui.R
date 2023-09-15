@@ -33,10 +33,11 @@ shinyUI(
                column(8, style='padding-left:25px; padding-right:25px;',
                       
                       # Center Selection
-                      fluidRow(
+                      wellPanel(
+                        fluidRow(
                         column(6, selectInput("RGC","Select Center:",rgc_names, selected = random_rgc)),
                         column(6, br(), downloadLink('downloadData', label = "Download Center Data in Excel Format"))
-                        ), 
+                        )), 
                       
                       # Center Summary Data
                       overview_ui('rgcOverview'),
@@ -66,10 +67,11 @@ shinyUI(
                column(8, style='padding-left:25px; padding-right:25px;',
                       
                       # Center Selection
-                      fluidRow(
+                      wellPanel(
+                        fluidRow(
                         column(6, selectInput("MIC","Select Center:",mic_names, selected = random_mic)),
                         column(6, br(), downloadLink('downloadmicData', label = "Download Center Data in Excel Format"))
-                        ),
+                        )),
                       
                       # Center Summary Data
                       overview_ui('micOverview'),
