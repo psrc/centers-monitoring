@@ -565,11 +565,11 @@ create_change_table <- function(df, yr, val, nm) {
 
   final_tbl <- datatable(tbl,
                          colnames = c('Year', nm),
-                         options = list(dom = 'rtB',
-                                        buttons = c('csv', 'excel'),
+                         options = list(dom = 'rt',
+                                        #buttons = c('csv', 'excel'),
                                         columnDefs = list(list(className = 'dt-center', targets=0:1))
                          ),
-                         extensions = 'Buttons',
+                         #extensions = 'Buttons',
                          filter = 'none',
                          rownames = FALSE) %>%
     formatCurrency(val, "", digits = 0)
@@ -790,7 +790,7 @@ create_transit_map <- function(center_name, center_type, center_desc) {
                 fillColor = "76787A",
                 weight = 4,
                 opacity = 1.0,
-                color = "#91268F",
+                color = "#EB4584",
                 dashArray = "4",
                 fillOpacity = 0.0,
                 group="Center") |>
@@ -854,11 +854,11 @@ create_single_group_table <- function(df, rgc_name, data_yrs, group, dec=0, cent
   final_tbl <- datatable(tbl_full,
                          colnames = c('Year', group),
                          options = list(pageLength = length(data_yrs),
-                                        dom = 'rtB',
-                                        buttons = c('csv', 'excel'),
+                                        dom = 'rt',
+                                        #buttons = c('csv', 'excel'),
                                         columnDefs = list(list(className = 'dt-center', targets=0:1))
                          ),
-                         extensions = 'Buttons',
+                         #extensions = 'Buttons',
                          filter = 'none',
                          rownames = FALSE) %>%
     formatCurrency("estimate", "", digits = 0)
@@ -992,11 +992,11 @@ create_multi_group_table <- function(df, rgc_name, grp, dec=0, center_type=rgc_t
                          container = summary_container,
                          colnames = c('Group', rep(c('Estimate', 'Share'), num_grps)),
                          options = list(pageLength = 15,
-                                        dom = 'rtB',
-                                        buttons = c('csv', 'excel'),
+                                        dom = 'rt',
+                                        #buttons = c('csv', 'excel'),
                                         columnDefs = list(list(className = 'dt-center', targets=1:(num_grps*2)))
                          ),
-                         extensions = 'Buttons',
+                         #extensions = 'Buttons',
                          filter = 'none',
                          rownames = FALSE) %>%
     formatPercentage(paste0(grps,"_share"), dec) %>%
@@ -1130,11 +1130,11 @@ create_multi_year_table <- function(df, rgc_name, data_yrs, dec=0, center_type=r
                          container = summary_container,
                          colnames = c('Group', rep(c('Estimate', 'Share'), num_years)),
                          options = list(pageLength = 15,
-                                        dom = 'rtB',
-                                        buttons = c('csv', 'excel'),
+                                        dom = 'rt',
+                                        #buttons = c('csv', 'excel'),
                                         columnDefs = list(list(className = 'dt-center', targets=1:(num_years*2)))
                          ),
-                         extensions = 'Buttons',
+                         #extensions = 'Buttons',
                          filter = 'none',
                          rownames = FALSE) %>%
     formatPercentage(paste0(data_yrs,"_share"), dec) %>%
@@ -1277,7 +1277,7 @@ create_center_map <- function(center_name, center_type) {
                 fillColor = "76787A",
                 weight = 4,
                 opacity = 1.0,
-                color = "#91268F",
+                color = "#EB4584",
                 dashArray = "4",
                 fillOpacity = 0.0)
   
@@ -1285,7 +1285,7 @@ create_center_map <- function(center_name, center_type) {
 
 }
 
-pull_center_information <- function(center_name, center_type) {
+pull_center_information <- function(center_name, center_type, center_info) {
   
   if(center_type == rgc_title) {
     
@@ -1299,10 +1299,12 @@ pull_center_information <- function(center_name, center_type) {
   
   t <- centers_info |>
     filter(rgc_mic==center_desc & name == center_name) |>
-    select("information") |>
+    select(all_of(center_info)) |>
     pull()
   
-  return(t)
+  if(is.na(t)) {f <- ""} else {f <- t}
+  
+  return(f)
   
 }
 

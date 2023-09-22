@@ -85,7 +85,7 @@ form_server <- function(id, center_name, center_type) {
           
           strong(tags$div(class="chart_title","Zoning Map")),
           fluidRow(column(7, imageOutput(ns("lu_map"))),
-                   column(5, div(img(src="legend.png", width = "75%", style = "padding-left: 0px;")))),
+                   column(5, div(img(src="mic-legend.png", width = "75%", style = "padding-left: 0px;")))),
           hr(style = "border-top: 1px solid #000000;"),
           
           strong(tags$div(class="chart_title","Industrial Land by Type (acres)")),

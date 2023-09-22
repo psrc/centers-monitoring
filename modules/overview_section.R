@@ -17,7 +17,9 @@ overview_server <- function(id, center_name, center_type) {
     # Tables and Charts
     output$center_map <- renderLeaflet(create_center_map(center_name=center_name(), center_type = center_type))
     output$center_summary_table <- DT::renderDataTable(create_summary_table(center_name=center_name(), center_type = center_type, yr = current_census_yr))
-    output$center_description <- renderText(pull_center_information(center_name=center_name(), center_type = center_type))
+    output$center_description <- renderText(pull_center_information(center_name=center_name(), center_type = center_type, center_info = "information"))
+    output$center_employment_caveat <- renderText(pull_center_information(center_name=center_name(), center_type = center_type, center_info = "employment_caveat"))
+    output$center_population_caveat <- renderText(pull_center_information(center_name=center_name(), center_type = center_type, center_info = "gq_caveat"))
     
     # Tab layout
     output$aoverviewtab <- renderUI({
@@ -30,7 +32,8 @@ overview_server <- function(id, center_name, center_type) {
                         br(),
                         dataTableOutput(ns("center_summary_table")),
                         br(),
-                        tags$div(class="chart_source","* Employment data is suppressed")
+                        tags$div(class="chart_source",textOutput(ns("center_employment_caveat"))),
+                        tags$div(class="chart_source",textOutput(ns("center_population_caveat")))
                  )),
         br(),
         fluidRow(column(12, strong("Description:"),
