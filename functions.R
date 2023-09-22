@@ -1447,7 +1447,7 @@ create_summary_table <- function(center_name, center_type, yr) {
     
   }
   
-  r8 <- r7 |> mutate(estimate = as.character(jpr), grouping = "Jobs per Person", pic = as.character(icon("person-shelter", lib = "font-awesome")))
+  r8 <- r7 |> mutate(estimate = as.character(jpr), grouping = "Jobs per Resident", pic = as.character(icon("person-shelter", lib = "font-awesome")))
   
   t <- bind_rows(r1, r2, r3, r4, r5, r6, r7, r8) |> select("pic", "grouping", "estimate")
   
@@ -1478,7 +1478,7 @@ create_summary_table <- function(center_name, center_type, yr) {
   # Add Section Breaks
   summary_tbl <- summary_tbl %>%
     formatStyle(0:ncol(t), valueColumns = "grouping",
-                `border-bottom` = styleEqual(c("Center Type", "Total Employment", "Jobs per Person"), "solid 2px"))
+                `border-bottom` = styleEqual(c("Center Type", "Total Employment", "Jobs per Resident"), "solid 2px"))
   
   summary_tbl <- summary_tbl %>%
     formatStyle(0:ncol(t), valueColumns = "grouping",

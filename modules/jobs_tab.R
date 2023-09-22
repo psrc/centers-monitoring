@@ -82,6 +82,7 @@ jobs_server <- function(id, center_name, center_type) {
           fluidRow(column(12, echarts4rOutput(ns("industrial_jobs_chart")))),
           br(),
           fluidRow(column(12, dataTableOutput(ns("industrial_table")))),
+          br(),
           tags$div(class="chart_source","Source: PSRC Covered Employment Estimates"),
           hr(style = "border-top: 1px solid #000000;")
           

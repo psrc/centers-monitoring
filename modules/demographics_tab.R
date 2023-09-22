@@ -85,6 +85,7 @@ demographics_server <- function(id, center_name, center_type) {
         fluidRow(column(12, echarts4rOutput(ns("age_chart")))),
         br(),
         fluidRow(column(12, dataTableOutput(ns("age_table")))),
+        br(),
         tags$div(class="chart_source","Source: US Census Bureau American Community Survey (ACS) 5yr Data Table B01001"),
         hr(style = "border-top: 1px solid #000000;"),
         
@@ -93,6 +94,7 @@ demographics_server <- function(id, center_name, center_type) {
         fluidRow(column(12,echarts4rOutput(ns("race_chart"), height=500))),
         br(),
         fluidRow(column(12, dataTableOutput(ns("race_table")))),
+        br(),
         tags$div(class="chart_source","Source: US Census Bureau American Community Survey (ACS) 5yr Data Table B03002"),
         hr(style = "border-top: 1px solid #000000;"),
         
@@ -101,6 +103,7 @@ demographics_server <- function(id, center_name, center_type) {
         fluidRow(column(12,echarts4rOutput(ns("income_chart"), height=500))),
         br(),
         fluidRow(column(12, dataTableOutput(ns("income_table")))),
+        br(),
         tags$div(class="chart_source","Source: US Census Bureau American Community Survey (ACS) 5yr Data Table B19001"),
         hr(style = "border-top: 1px solid #000000;"),
         
@@ -109,6 +112,7 @@ demographics_server <- function(id, center_name, center_type) {
         fluidRow(column(12,echarts4rOutput(ns("education_chart"), height=500))),
         br(),
         fluidRow(column(12, dataTableOutput(ns("education_table")))),
+        br(),
         tags$div(class="chart_source","Source: US Census Bureau American Community Survey (ACS) 5yr Data Table B15002"),
         hr(style = "border-top: 1px solid #000000;")
         

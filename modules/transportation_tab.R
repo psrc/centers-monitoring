@@ -68,15 +68,17 @@ transportation_server <- function(id, center_name, center_type, center_desc) {
           fluidRow(column(12,echarts4rOutput(ns("resident_mode_chart")))),
           br(),
           fluidRow(column(12, dataTableOutput(ns("resident_mode_table")))),
+          br(),
           tags$div(class="chart_source","Source: US Census Bureau American Community Survey (ACS) 5yr Data Table B08301"),
           hr(style = "border-top: 1px solid #000000;"),
           
         
           # Destination Mode Share
-          strong(tags$div(class="chart_title","Destination Mode Share")),
+          strong(tags$div(class="chart_title","Commute Mode of Workers ")),
           fluidRow(column(12,echarts4rOutput(ns("destination_mode_chart")))),
           br(),
           fluidRow(column(12, dataTableOutput(ns("destination_mode_table")))),
+          br(),
           tags$div(class="chart_source","Source: 2018 PSRC SoundCast Activity Based Model"),
           hr(style = "border-top: 1px solid #000000;")
         )
@@ -99,10 +101,11 @@ transportation_server <- function(id, center_name, center_type, center_desc) {
           br(),
           
           # Destination Mode Share
-          strong(tags$div(class="chart_title","Destination Mode Share")),
+          strong(tags$div(class="chart_title","Commute Mode of Workers ")),
           fluidRow(column(12,echarts4rOutput(ns("destination_mode_chart")))),
           br(),
           fluidRow(column(12, dataTableOutput(ns("destination_mode_table")))),
+          br(),
           tags$div(class="chart_source","Source: 2018 PSRC SoundCast Activity Based Model"),
           hr(style = "border-top: 1px solid #000000;")
         )

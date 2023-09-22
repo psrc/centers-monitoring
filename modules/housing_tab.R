@@ -115,6 +115,7 @@ housing_server <- function(id, center_name, center_type) {
           fluidRow(column(12,echarts4rOutput(ns("tenure_chart")))),
           br(),
           fluidRow(column(12, dataTableOutput(ns("tenure_table")))),
+          br(),
           tags$div(class="chart_source","Source: US Census Bureau American Community Survey (ACS) 5yr Data Table B25003"),
           hr(style = "border-top: 1px solid #000000;"),
         
@@ -123,6 +124,7 @@ housing_server <- function(id, center_name, center_type) {
           fluidRow(column(12,echarts4rOutput(ns("type_chart")))),
           br(),
           fluidRow(column(12, dataTableOutput(ns("type_table")))),
+          br(),
           tags$div(class="chart_source","Source: US Census Bureau American Community Survey (ACS) 5yr Data Table B25024"),
           hr(style = "border-top: 1px solid #000000;"),
         
@@ -131,6 +133,7 @@ housing_server <- function(id, center_name, center_type) {
           fluidRow(column(12,echarts4rOutput(ns("renter_burden_chart")))),
           br(),
           fluidRow(column(12, dataTableOutput(ns("renter_burden_table")))),
+          br(),
           tags$div(class="chart_source","Source: US Census Bureau American Community Survey (ACS) 5yr Data Table B25070"),
           hr(style = "border-top: 1px solid #000000;"),
         
@@ -139,6 +142,7 @@ housing_server <- function(id, center_name, center_type) {
           fluidRow(column(12,echarts4rOutput(ns("owner_burden_chart")))),
           br(),
           fluidRow(column(12, dataTableOutput(ns("owner_burden_table")))),
+          br(),
           tags$div(class="chart_source","Source: US Census Bureau American Community Survey (ACS) 5yr Data Table B25091"),
           hr(style = "border-top: 1px solid #000000;")
         
@@ -161,24 +165,8 @@ housing_server <- function(id, center_name, center_type) {
           fluidRow(column(6,br(), br(), br(), br(), dataTableOutput(ns("hu_change_table"))),
                    column(6,echarts4rOutput(ns("hu_change_chart")))),
           tags$div(class="chart_source","Source: Office of Financial Managment SAEP Program & PSRC Parcelization"),
-          hr(style = "border-top: 1px solid #000000;"),
-          
-          # Housing Tenure
-          strong(tags$div(class="chart_title","Housing Tenure")),
-          fluidRow(column(12,echarts4rOutput(ns("tenure_chart")))),
-          br(),
-          fluidRow(column(12, dataTableOutput(ns("tenure_table")))),
-          tags$div(class="chart_source","Source: US Census Bureau American Community Survey (ACS) 5yr Data Table B25003"),
-          hr(style = "border-top: 1px solid #000000;"),
-          
-          # Housing Unit Type
-          strong(tags$div(class="chart_title","Housing Unit Type")),
-          fluidRow(column(12,echarts4rOutput(ns("type_chart")))),
-          br(),
-          fluidRow(column(12, dataTableOutput(ns("type_table")))),
-          tags$div(class="chart_source","Source: US Census Bureau American Community Survey (ACS) 5yr Data Table B25024"),
           hr(style = "border-top: 1px solid #000000;")
-    
+        
         )
         
       }

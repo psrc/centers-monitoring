@@ -70,7 +70,7 @@ form_server <- function(id, center_name, center_type) {
           
           strong(tags$div(class="chart_title","Zoning Map")),
           fluidRow(column(7, imageOutput(ns("lu_map"))),
-                   column(5, div(img(src="legend.png", width = "75%", style = "padding-left: 0px;")))),
+                   column(5, div(img(src="legend.png", width = "60%", style = "padding-left: 0px;")))),
           br(),
           fluidRow(column(12,dataTableOutput(ns("urban_form_table")))),
           hr(style = "border-top: 1px solid #000000;")
@@ -83,7 +83,7 @@ form_server <- function(id, center_name, center_type) {
           
           hr(),
           
-          strong(tags$div(class="chart_title","Zoning Map")),
+          strong(tags$div(class="chart_title","Industrial Land Types")),
           fluidRow(column(7, imageOutput(ns("lu_map"))),
                    column(5, div(img(src="mic-legend.png", width = "75%", style = "padding-left: 0px;")))),
           hr(style = "border-top: 1px solid #000000;"),
