@@ -1,7 +1,6 @@
 shinyUI(
   
   navbarPage(
-    
     id = "PSRC-Centers-Monitoring",
     tags$style("@import url(https://use.fontawesome.com/releases/v6.3.0/css/all.css);"),
     title = tags$a(div(tags$img(src='psrc-logo.png',
@@ -35,7 +34,8 @@ shinyUI(
                       # Center Selection
                       wellPanel(
                         fluidRow(
-                        column(6, selectInput("RGC","Select Center:",rgc_names, selected = random_rgc)),
+                        column(6, selectInput("RGC","Select Center:",rgc_names, selected = random_rgc),
+                               bsPopover(id="RGC", title="Center Selection", content="Pick from the selection of Centers", placement = "left")),
                         column(6, br(), downloadLink('downloadData', label = "Download Center Data in Excel Format"))
                         )), 
                       
@@ -69,7 +69,8 @@ shinyUI(
                       # Center Selection
                       wellPanel(
                         fluidRow(
-                        column(6, selectInput("MIC","Select Center:",mic_names, selected = random_mic)),
+                        column(6, selectInput("MIC","Select Center:",mic_names, selected = random_mic),
+                               bsPopover(id="MIC", title="Center Selection", content="Pick from the selection of Centers", placement = "left")),
                         column(6, br(), downloadLink('downloadmicData', label = "Download Center Data in Excel Format"))
                         )),
                       

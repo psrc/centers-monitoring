@@ -5,6 +5,7 @@ library(shiny)
 library(shinydashboard)
 library(bs4Dash)
 library(shinycssloaders)
+library(shinyBS)
 
 # Packages for Data Cleaning/Processing
 library(tidyverse)
