@@ -70,53 +70,73 @@ demographics_server <- function(id, center_name, center_type) {
     # Tab layout
     output$ademographicstab <- renderUI({
       
-      tagList(
+      if (center_type == rgc_title) {
+      
+        tagList(
         
-        # Total Population
-        hr(),
-        strong(tags$div(class="chart_title","Total Population")),
-        fluidRow(column(6,br(), br(), br(), br(), dataTableOutput(ns("pop_table"))),
-                 column(6,echarts4rOutput(ns("pop_chart")))),
-        tags$div(class="chart_source","Source: Office of Financial Managment SAEP Program & PSRC Parcelization"),
-        hr(style = "border-top: 1px solid #000000;"),    
+          # Total Population
+          hr(),
+          strong(tags$div(class="chart_title","Total Population")),
+          fluidRow(column(6,br(), br(), br(), br(), dataTableOutput(ns("pop_table"))),
+                  column(6,echarts4rOutput(ns("pop_chart")))),
+          tags$div(class="chart_source","Source: Office of Financial Managment SAEP Program & PSRC Parcelization"),
+          hr(style = "border-top: 1px solid #000000;"),    
         
-        # Age Group
-        strong(tags$div(class="chart_title","Total Population by Age Group")),
-        fluidRow(column(12, echarts4rOutput(ns("age_chart")))),
-        br(),
-        fluidRow(column(12, dataTableOutput(ns("age_table")))),
-        br(),
-        tags$div(class="chart_source","Source: US Census Bureau American Community Survey (ACS) 5yr Data Table B01001"),
-        hr(style = "border-top: 1px solid #000000;"),
+          # Age Group
+          strong(tags$div(class="chart_title","Total Population by Age Group")),
+          fluidRow(column(12, echarts4rOutput(ns("age_chart")))),
+          br(),
+          fluidRow(column(12, dataTableOutput(ns("age_table")))),
+          br(),
+          tags$div(class="chart_source","Source: US Census Bureau American Community Survey (ACS) 5yr Data Table B01001"),
+          hr(style = "border-top: 1px solid #000000;"),
         
-        # Race & Hispanic Origin
-        strong(tags$div(class="chart_title","Total Population by Race & Ethnicity")),
-        fluidRow(column(12,echarts4rOutput(ns("race_chart"), height=500))),
-        br(),
-        fluidRow(column(12, dataTableOutput(ns("race_table")))),
-        br(),
-        tags$div(class="chart_source","Source: US Census Bureau American Community Survey (ACS) 5yr Data Table B03002"),
-        hr(style = "border-top: 1px solid #000000;"),
+          # Race & Hispanic Origin
+          strong(tags$div(class="chart_title","Total Population by Race & Ethnicity")),
+          fluidRow(column(12,echarts4rOutput(ns("race_chart"), height=500))),
+          br(),
+          fluidRow(column(12, dataTableOutput(ns("race_table")))),
+          br(),
+          tags$div(class="chart_source","Source: US Census Bureau American Community Survey (ACS) 5yr Data Table B03002"),
+          hr(style = "border-top: 1px solid #000000;"),
         
-        # Household Income
-        strong(tags$div(class="chart_title","Total Household Income")),
-        fluidRow(column(12,echarts4rOutput(ns("income_chart"), height=500))),
-        br(),
-        fluidRow(column(12, dataTableOutput(ns("income_table")))),
-        br(),
-        tags$div(class="chart_source","Source: US Census Bureau American Community Survey (ACS) 5yr Data Table B19001"),
-        hr(style = "border-top: 1px solid #000000;"),
+          # Household Income
+          strong(tags$div(class="chart_title","Total Household Income")),
+          fluidRow(column(12,echarts4rOutput(ns("income_chart"), height=500))),
+          br(),
+          fluidRow(column(12, dataTableOutput(ns("income_table")))),
+          br(),
+          tags$div(class="chart_source","Source: US Census Bureau American Community Survey (ACS) 5yr Data Table B19001"),
+          hr(style = "border-top: 1px solid #000000;"),
         
-        # Educational Attainment
-        strong(tags$div(class="chart_title","Educational Attainment")),
-        fluidRow(column(12,echarts4rOutput(ns("education_chart"), height=500))),
-        br(),
-        fluidRow(column(12, dataTableOutput(ns("education_table")))),
-        br(),
-        tags$div(class="chart_source","Source: US Census Bureau American Community Survey (ACS) 5yr Data Table B15002"),
-        hr(style = "border-top: 1px solid #000000;")
+          # Educational Attainment
+          strong(tags$div(class="chart_title","Educational Attainment")),
+          fluidRow(column(12,echarts4rOutput(ns("education_chart"), height=500))),
+          br(),
+          fluidRow(column(12, dataTableOutput(ns("education_table")))),
+          br(),
+          tags$div(class="chart_source","Source: US Census Bureau American Community Survey (ACS) 5yr Data Table B15002"),
+          hr(style = "border-top: 1px solid #000000;")
         
       )
+        
+      } else {
+        
+        tagList(
+          
+          # Total Population
+          hr(),
+          strong(tags$div(class="chart_title","Total Population")),
+          fluidRow(column(6,br(), br(), br(), br(), dataTableOutput(ns("pop_table"))),
+                   column(6,echarts4rOutput(ns("pop_chart")))),
+          tags$div(class="chart_source","Source: Office of Financial Managment SAEP Program & PSRC Parcelization"),
+          hr(style = "border-top: 1px solid #000000;")
+          
+        )
+        
+        
+        
+      }
       
     })
     
