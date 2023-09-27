@@ -27,7 +27,7 @@ demographics_server <- function(id, center_name, center_type) {
     
     output$age_chart <- renderEcharts4r({
       
-      echart_multi_column_chart(df = age_data %>% filter(geography_type %in% c(center_type, "County") & geography %in% c(center_name(), "Region", "All Centers") & grouping != "Total"),
+      echart_multi_column_chart(df = age_data %>% filter(geography_type %in% c(center_type, "County") & geography %in% c(center_name(), "Region", "All Centers", "All RGCs", "All MICs") & grouping != "Total"),
                                 x = "grouping", y = "share", fill="geography", tog = "data_year", 
                                 dec = 0, esttype = "percent", color = "jewel")
       
@@ -38,7 +38,7 @@ demographics_server <- function(id, center_name, center_type) {
     output$race_chart <- renderEcharts4r({
       
       echart_multi_bar_chart(df = race_data %>% 
-                               filter(geography_type %in% c(center_type, "County") & geography %in% c(center_name(), "Region", "All Centers") & grouping != "Total") %>%
+                               filter(geography_type %in% c(center_type, "County") & geography %in% c(center_name(), "Region", "All Centers", "All RGCs", "All MICs") & grouping != "Total") %>%
                                arrange(desc(grouping)),
                              x = "grouping", y = "share", fill="geography", tog = "data_year",
                              dec = 0, esttype = "percent", color = "jewel")
@@ -50,7 +50,7 @@ demographics_server <- function(id, center_name, center_type) {
     
     output$income_chart <- renderEcharts4r({
       
-      echart_multi_column_chart(df = income_data %>% filter(geography_type %in% c(center_type, "County") & geography %in% c(center_name(), "Region", "All Centers") & grouping != "Total"),
+      echart_multi_column_chart(df = income_data %>% filter(geography_type %in% c(center_type, "County") & geography %in% c(center_name(), "Region", "All Centers", "All RGCs", "All MICs") & grouping != "Total"),
                                 x = "grouping", y = "share", fill="geography", tog = "data_year", 
                                 dec = 0, esttype = "percent", color = "jewel")
     })
@@ -59,7 +59,7 @@ demographics_server <- function(id, center_name, center_type) {
     
     output$education_chart <- renderEcharts4r({
       
-      echart_multi_bar_chart(df = education_data %>% filter(geography_type %in% c(center_type, "County") & geography %in% c(center_name(), "Region", "All Centers") & grouping != "Total"),
+      echart_multi_bar_chart(df = education_data %>% filter(geography_type %in% c(center_type, "County") & geography %in% c(center_name(), "Region", "All Centers", "All RGCs", "All MICs") & grouping != "Total"),
                              x = "grouping", y = "share", fill="geography", tog = "data_year", 
                              dec = 0, esttype = "percent", color = "jewel")
       

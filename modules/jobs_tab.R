@@ -32,7 +32,7 @@ jobs_server <- function(id, center_name, center_type) {
       
       output$industrial_jobs_chart <- renderEcharts4r({
         
-        echart_multi_column_chart(df = industrial_jobs |> filter(geography %in% c(center_name(), "Region", "All Centers")),
+        echart_multi_column_chart(df = industrial_jobs |> filter(geography %in% c(center_name(), "Region", "All Centers", "All RGCs", "All MICs")),
                                   x = "grouping", y = "share", tog = "data_year", fill="geography",
                                   dec = 0, esttype = "percent", color = "jewel")
         })

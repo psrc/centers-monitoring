@@ -20,7 +20,7 @@ transportation_server <- function(id, center_name, center_type, center_desc) {
       
       output$resident_mode_chart <- renderEcharts4r({
         echart_multi_column_chart(df = mode_data %>% 
-                                    filter(geography_type %in% c(center_type, "County") & geography %in% c(center_name(), "Region", "All Centers") & grouping != "Total"),
+                                    filter(geography_type %in% c(center_type, "County") & geography %in% c(center_name(), "Region", "All Centers", "All RGCs", "All MICs") & grouping != "Total"),
                                   x = "grouping", y = "share", fill="geography", tog = "data_year", 
                                   dec = 0, esttype = "percent", color = "jewel")
         })
@@ -32,7 +32,7 @@ transportation_server <- function(id, center_name, center_type, center_desc) {
     output$destination_mode_chart <- renderEcharts4r({
       
       echart_multi_column_chart(df = destination_mode_data %>% 
-                                  filter(geography_type %in% c(center_type, "Region") & geography %in% c(center_name(), "Region", "All Centers") & grouping != "Total"),
+                                  filter(geography_type %in% c(center_type, "Region") & geography %in% c(center_name(), "Region", "All Centers", "All RGCs", "All MICs") & grouping != "Total"),
                                 x = "grouping", y = "share", fill="geography", tog = "concept", 
                                 dec = 0, esttype = "percent", color = "jewel")
     })

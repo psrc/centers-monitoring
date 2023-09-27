@@ -45,7 +45,7 @@ housing_server <- function(id, center_name, center_type) {
     
     output$tenure_chart <- renderEcharts4r({
       
-      echart_multi_column_chart(df = tenure_data |> filter(geography_type %in% c(center_type, "County") & geography %in% c(center_name(), "Region", "All Centers") & grouping != "Total"),
+      echart_multi_column_chart(df = tenure_data |> filter(geography_type %in% c(center_type, "County") & geography %in% c(center_name(), "Region", "All Centers", "All RGCs", "All MICs") & grouping != "Total"),
                                 x = "grouping", y = "share", fill="geography", tog = "data_year", 
                                 dec = 0, esttype = "percent", color = "jewel")
     })
@@ -55,7 +55,7 @@ housing_server <- function(id, center_name, center_type) {
     output$type_chart <- renderEcharts4r({
       
       echart_multi_bar_chart(df = type_data |>
-                               filter(geography_type %in% c(center_type, "County") & geography %in% c(center_name(), "Region", "All Centers") & grouping != "Total") |>
+                               filter(geography_type %in% c(center_type, "County") & geography %in% c(center_name(), "Region", "All Centers", "All RGCs", "All MICs") & grouping != "Total") |>
                                arrange(desc(grouping)),
                              x = "grouping", y = "share", fill="geography", tog = "data_year", 
                              dec = 0, esttype = "percent", color = "jewel")
@@ -68,7 +68,7 @@ housing_server <- function(id, center_name, center_type) {
       output$renter_burden_chart <- renderEcharts4r({
       
        echart_multi_column_chart(df = burden_data |>
-                                    filter(geography_type %in% c(center_type, "County") & geography %in% c(center_name(), "Region", "All Centers") & grouping != "Total" & concept == "Renter Cost Burden"),
+                                    filter(geography_type %in% c(center_type, "County") & geography %in% c(center_name(), "Region", "All Centers", "All RGCs", "All MICs") & grouping != "Total" & concept == "Renter Cost Burden"),
                                   x = "grouping", y = "share", fill="geography", tog = "data_year", 
                                   dec = 0, esttype = "percent", color = "jewel")
       })
@@ -78,7 +78,7 @@ housing_server <- function(id, center_name, center_type) {
       output$owner_burden_chart <- renderEcharts4r({
       
         echart_multi_column_chart(df = burden_data |>
-                                    filter(geography_type %in% c(center_type, "County") & geography %in% c(center_name(), "Region", "All Centers") & grouping != "Total" & concept == "Owner Cost Burden"),
+                                    filter(geography_type %in% c(center_type, "County") & geography %in% c(center_name(), "Region", "All Centers", "All RGCs", "All MICs") & grouping != "Total" & concept == "Owner Cost Burden"),
                                   x = "grouping", y = "share", fill="geography", tog = "data_year", 
                                   dec = 0, esttype = "percent", color = "jewel")
       
