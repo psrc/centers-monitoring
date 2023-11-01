@@ -17,6 +17,7 @@ library(echarts4r)
 
 # Packages for Table Creation
 library(DT)
+library(scales)
 
 # Packages for Maps
 library(sf)
@@ -84,13 +85,7 @@ education_data <- readRDS("data/educational_attainment.rds") |>
     geography == "All Centers" & geography_type == mic_title ~ "All MICs",
     geography != "All Centers" ~ geography))
 
-employment_data <- readRDS("data/centers_employment.rds") |>
-  mutate(data_year = factor(year, levels=year_ord)) |>
-  mutate(geography = gsub("Greater Downtown Kirkland", "Kirkland Greater Downtown", geography)) |>
-  mutate(geography = case_when(
-    geography == "All Centers" & geography_type == rgc_title ~ "All RGCs",
-    geography == "All Centers" & geography_type == mic_title ~ "All MICs",
-    geography != "All Centers" ~ geography))
+employment_data <- readRDS("data/centers_employment.rds") 
 
 # Housing Data Metrics
 tenure_data <- readRDS("data/households_by_tenure.rds") |>

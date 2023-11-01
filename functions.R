@@ -1153,12 +1153,15 @@ create_rgc_jobs_by_sector_table <- function(center_name, center_type="Regional G
   # Jobs by Sector
   t <- data |>
     filter(year == max_year) |>
-    select("grouping","estimate") |>
+    select("grouping","estimate", "share") |>
     mutate(estimate = round(as.integer(estimate), -1)) |>
     mutate(estimate = replace_na(estimate,999999)) |>
     mutate(estimate = format(estimate, big.mark = ",")) |>
-    mutate(estimate = gsub("999,999", "*", estimate))
-    
+    mutate(estimate = gsub("999,999", "*", estimate)) |>
+    mutate(share = round(share, 4)) |>
+    mutate(share = replace_na(share, 999999)) |>
+    mutate(share = label_percent(accuracy=1)(share)) |>
+    mutate(share = gsub("99 999 900%", "*", share))
   
   headerCallbackRemoveHeaderFooter <- c(
     "function(thead, data, start, end, display){",
@@ -1172,7 +1175,7 @@ create_rgc_jobs_by_sector_table <- function(center_name, center_type="Regional G
                                           searching = FALSE,
                                           dom = 't',
                                           headerCallback = JS(headerCallbackRemoveHeaderFooter),
-                                          columnDefs = list(list(targets = c(1), className = 'dt-right'),
+                                          columnDefs = list(list(targets = c(1,2), className = 'dt-right'),
                                                             list(targets = c(0), className = 'dt-left'))),
                            selection = 'none',
                            callback = JS(
@@ -1191,7 +1194,7 @@ create_rgc_jobs_by_sector_table <- function(center_name, center_type="Regional G
   
   summary_tbl <- summary_tbl %>%
     formatStyle(0:ncol(t), valueColumns = "grouping",
-                `border-top` = styleEqual(c("Const/Res"), "solid 2px"))
+                `border-top` = styleEqual(c("Construction / Resources"), "solid 2px"))
   
   return(summary_tbl)
   

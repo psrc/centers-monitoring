@@ -14,6 +14,10 @@ api_years <- c(2016, 2021)
 acs_pre2013_bg_dir <- "C:/coding/acs_blockgroups_pre2013"
 base_model_yr <- 2018
 
+year_ord <- c("2022","2021", "2020", "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010")
+rgc_title <- "Regional Growth Center (6/22/2023)"
+mic_title <- "MIC (2022 RTP)"
+
 srt_ids <- c('kcm_100340', 'kcm_102638')
 lrt_ids <- c('kcm_100479', 'st_100479', 'st_TLINK')
 crt_ids <- c('st_SNDR_EV','st_SNDR_TL','st_AMTK', 'st_SNDR_S', 'st_SNDR_N')
@@ -65,8 +69,8 @@ education_table <- "B15002"
 mode_table <- "B08301"
 
 # Employment Data
-rgc_emp_file <- "data/rgc_covered_emp_2010_2021_revised_20230705.csv"
-mic_emp_file <- "data/mic_covered_emp_2010_2021.csv"
+rgc_emp_file <- "data/rgc_covered_emp_2010_2022.csv"
+mic_emp_file <- "data/mic_covered_emp_2010_2022.csv"
 
 # RGS Mode Destination Mode Share
 rgc_dest_mod_file <- "data/mode_share_rgc.csv"
@@ -185,34 +189,55 @@ mic_names <- st_read("https://services6.arcgis.com/GWxg6t7KXELn1thE/arcgis/rest/
   unique()
 
 # Total Jobs from QCEW ----------------------------------------------------
-rgc_jobs <- read_csv(rgc_emp_file) %>% 
-  filter(center != "RGC Total") %>%
-  mutate(Government = as.character(Government), `Public Education` = as.character(`Public Education`)) %>%
-  pivot_longer(cols = !c(year,center), names_to = "grouping", values_to = "estimate") %>%
-  rename(geography="center") %>%
-  mutate(estimate = gsub("S", "*", estimate)) %>%
-  mutate(geography = gsub("Redmond-Overlake", "Redmond Overlake", geography)) %>%
-  mutate(geography = gsub("Bellevue", "Bellevue Downtown", geography)) %>%
-  mutate(concept = "Employment", share=1, geography_type = "Regional Growth Center (6/22/2023)")
+rgc_jobs <- read_csv(rgc_emp_file) |>
+  filter(center != "RGC Total") |>
+  mutate(Government = as.character(Government), `Public Education` = as.character(`Public Education`)) |>
+  pivot_longer(cols = !c(year,center), names_to = "grouping", values_to = "estimate") |>
+  rename(geography="center") |>
+  mutate(estimate = gsub("S", "*", estimate)) |>
+  mutate(geography = gsub("Redmond-Overlake", "Redmond Overlake", geography)) |>
+  mutate(geography = gsub("Bellevue", "Bellevue Downtown", geography)) |>
+  mutate(geography = gsub("Greater Downtown Kirkland", "Kirkland Greater Downtown", geography)) |>
+  mutate(grouping = gsub("Const/Res", "Construction / Resources", grouping)) |>
+  mutate(grouping = gsub("WTU", "Wholesale, Transportation & Utilties", grouping)) |>
+  mutate(grouping = gsub("FIRE", "Finance, Insurance & Real Estate", grouping)) |>
+  mutate(concept = "Employment", share=1, geography_type = "Regional Growth Center (6/22/2023)") |>
+  mutate(data_year = factor(year, levels=year_ord)) |>
+  mutate(geography = case_when(
+    geography == "All Centers" & geography_type == rgc_title ~ "All RGCs",
+    geography == "All Centers" & geography_type == mic_title ~ "All MICs",
+    geography != "All Centers" ~ geography))
 
-mic_jobs <- read_csv(mic_emp_file) %>% 
-  filter(center != "MIC Total") %>%
-  rename(`Public Education` = "Public_Education") %>%
-  mutate(Const_Res = as.character(Const_Res), Government = as.character(Government), `Public Education` = as.character(`Public Education`)) %>%
-  mutate(WTU = as.character(WTU), Total = as.character(Total)) %>%
-  pivot_longer(cols = !c(year,center), names_to = "grouping", values_to = "estimate") %>%
-  rename(geography="center") %>%
-  mutate(estimate = gsub("S", "*", estimate)) %>%
-  mutate(geography = gsub("Kent MIC", "Kent", geography)) %>%
-  mutate(geography = gsub("Paine Field / Boeing Everett", "Paine Field/Boeing Everett", geography)) %>%
-  mutate(geography = gsub("Sumner Pacific", "Sumner-Pacific", geography)) %>%
-  mutate(geography = gsub("Puget Sound Industrial Center- Bremerton", "Puget Sound Industrial Center - Bremerton", geography)) %>%
-  mutate(geography = gsub("Cascade", "Cascade Industrial Center - Arlington/Marysville", geography)) %>%
-  mutate(concept = "Employment", share=1, geography_type = "MIC (2022 RTP)")
+mic_jobs <- read_csv(mic_emp_file) |> 
+  filter(center != "MIC Total") |>
+  rename(`Public Education` = "Public_Education") |>
+  mutate(Const_Res = as.character(Const_Res), Government = as.character(Government), `Public Education` = as.character(`Public Education`)) |>
+  mutate(WTU = as.character(WTU), Total = as.character(Total)) |>
+  pivot_longer(cols = !c(year,center), names_to = "grouping", values_to = "estimate") |>
+  rename(geography="center") |>
+  mutate(estimate = gsub("S", "*", estimate)) |>
+  mutate(geography = gsub("Kent MIC", "Kent", geography)) |>
+  mutate(geography = gsub("Paine Field / Boeing Everett", "Paine Field/Boeing Everett", geography)) |>
+  mutate(geography = gsub("Sumner Pacific", "Sumner-Pacific", geography)) |>
+  mutate(geography = gsub("Puget Sound Industrial Center- Bremerton", "Puget Sound Industrial Center - Bremerton", geography)) |>
+  mutate(geography = gsub("Cascade", "Cascade Industrial Center - Arlington/Marysville", geography)) |>
+  mutate(grouping = gsub("Const_Res", "Construction / Resources", grouping)) |>
+  mutate(grouping = gsub("WTU", "Wholesale, Transportation & Utilties", grouping)) |>
+  mutate(grouping = gsub("FIRE", "Finance, Insurance & Real Estate", grouping)) |>
+  mutate(concept = "Employment", share=1, geography_type = "MIC (2022 RTP)") |>
+  mutate(data_year = factor(year, levels=year_ord)) |>
+  mutate(geography = case_when(
+    geography == "All Centers" & geography_type == rgc_title ~ "All RGCs",
+    geography == "All Centers" & geography_type == mic_title ~ "All MICs",
+    geography != "All Centers" ~ geography))
 
-centers_employment <- bind_rows(rgc_jobs, mic_jobs)
-rm(rgc_jobs, mic_jobs)
+centers_employment <- bind_rows(rgc_jobs, mic_jobs) |> mutate(estimate = as.integer(estimate))
+
+# Get Totals for Shares
+totals <- centers_employment |> filter(grouping == "Total") |> select("year", "geography", "geography_type", total="estimate")
+centers_employment <- left_join(centers_employment, totals, by=c("year", "geography", "geography_type")) |> mutate(share = estimate/total) |> select(-"total")
 saveRDS(centers_employment, "data/centers_employment.rds")
+rm(rgc_jobs, mic_jobs, totals)
 
 # Total Population from Parcelization -------------------------------------
 parcel_facts <- get_table(schema='ofm', tbl_name='parcelized_saep_facts')
