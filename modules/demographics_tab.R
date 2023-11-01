@@ -23,7 +23,18 @@ demographics_server <- function(id, center_name, center_type) {
       
     })
     
+    output$pop_hsg_chart <- renderEcharts4r({
+      
+      echart_column_chart(df = pop_hh_hu_data %>% filter(geography_type == center_type, geography == center_name() & grouping %in% c("Population", "Housing Units")),
+                          x = "data_year", y = "estimate", tog = "grouping", title = "Total",
+                          dec = 0, esttype = "number", color = "jewel")
+      
+    })
+    
     output$pop_table <- DT::renderDataTable({create_single_group_table(df = pop_hh_hu_data, rgc_name = center_name(), data_yrs = ofm_years, dec = 0, group = "Population", center_type = center_type)})
+    
+    output$pop_hsg_table <- DT::renderDataTable({create_multi_year_table(df = pop_hh_hu_data %>% filter(geography_type == center_type, geography == center_name() & grouping %in% c("Population", "Housing Units")), 
+                                                                         data_yrs = ofm_years, dec = 0, rgc_name = center_name(), center_type = center_type)})
     
     output$age_chart <- renderEcharts4r({
       
@@ -127,8 +138,8 @@ demographics_server <- function(id, center_name, center_type) {
           # Total Population
           hr(),
           strong(tags$div(class="chart_title","Total Population")),
-          fluidRow(column(6,br(), br(), br(), br(), dataTableOutput(ns("pop_table"))),
-                   column(6,echarts4rOutput(ns("pop_chart")))),
+          fluidRow(column(12,echarts4rOutput(ns("pop_hsg_chart")))),
+          fluidRow(column(12,dataTableOutput(ns("pop_hsg_table")))),
           tags$div(class="chart_source","Source: Office of Financial Managment SAEP Program & PSRC Parcelization"),
           hr(style = "border-top: 1px solid #000000;")
           

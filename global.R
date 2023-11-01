@@ -139,7 +139,8 @@ destination_mode_data <- readRDS("data/destination_mode_share.rds") |>
   mutate(geography = case_when(
     geography == "All Centers" & geography_type == rgc_title ~ "All RGCs",
     geography == "All Centers" & geography_type == mic_title ~ "All MICs",
-    geography != "All Centers" ~ geography))
+    geography != "All Centers" ~ geography)) |>
+  filter(concept == "Work")
 
 transit_stop_data <- readRDS("data/stops_layer.rds") |>
   mutate(rgc = gsub("Greater Downtown Kirkland", "Kirkland Greater Downtown", rgc))
@@ -220,3 +221,6 @@ u <- left_join(t, a, by=c("geography", "geography_type")) |>
 
 net_industrial_land <- bind_rows(net_industrial_land, u)
 rm(t, a, u)
+
+# my_tbl <- create_multi_year_table(df = pop_hh_hu_data %>% filter(geography_type == mic_title, geography == "Kent" & grouping %in% c("Population", "Housing Units")), 
+#                                   data_yrs = ofm_years, dec = 0, center_type = mic_title)

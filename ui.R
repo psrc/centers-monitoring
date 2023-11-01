@@ -80,8 +80,7 @@ shinyUI(
                       # Summary Charts and Tables by Tabs for Demographics, Jobs, Housing, Transportation and Urban Form
                       tabsetPanel(type = "tabs",
                                   tabPanel("Jobs", jobs_ui('micEmployment')),
-                                  tabPanel("Demographics", demographics_ui('micDemographics')),
-                                  tabPanel("Housing", housing_ui('micHousing')),
+                                  tabPanel("Population and Housing", demographics_ui('micDemographics')),
                                   tabPanel("Transportation", transportation_ui('micTransportation')),
                                   tabPanel("Urban Form", form_ui('micForm'))
                                   ) # end of Manufacturing and Industrial Centers tabsetPanel
