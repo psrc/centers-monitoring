@@ -82,7 +82,7 @@ shinyUI(
                                   tabPanel("Jobs", jobs_ui('micEmployment')),
                                   tabPanel("Population and Housing", demographics_ui('micDemographics')),
                                   tabPanel("Transportation", transportation_ui('micTransportation')),
-                                  tabPanel("Urban Form", form_ui('micForm'))
+                                  tabPanel("Industrial Lands", form_ui('micForm'))
                                   ) # end of Manufacturing and Industrial Centers tabsetPanel
                       ), # End of Main Panel Column for Manufacturing and Industrial Centers
                ) # End of Manufacturing and Industrial Centers fluidRow
