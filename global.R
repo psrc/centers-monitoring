@@ -150,6 +150,9 @@ transit_stop_data <- readRDS("data/stops_layer.rds") |>
 centers_info <- read_csv("data/centers_information.csv", show_col_types = FALSE)
 intersection_density <- read_csv("data/center_intersection_density.csv", show_col_types = FALSE)
 
+# Source information
+source_info <- read_csv("data/source_information.csv", show_col_types = FALSE)
+
 # Shapefiles --------------------------------------------------------------
 rgc_shape <- st_read("https://services6.arcgis.com/GWxg6t7KXELn1thE/arcgis/rest/services/Regional_Growth_Centers/FeatureServer/0/query?where=0=0&outFields=*&f=pgeojson") |>
   mutate(name = gsub("Bellevue", "Bellevue Downtown", name)) |>

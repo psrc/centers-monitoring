@@ -1717,3 +1717,71 @@ create_mic_summary_table <- function(center_name, yr) {
   return(summary_tbl)
   
 }
+
+create_source_table <- function(d=source_info, center_type) {
+  
+  if(center_type == rgc_title) {
+    
+    center_desc <- "Regional Growth Center"
+    
+  } else {
+    
+    center_desc <- "Manufacturing Industrial Center"
+    
+  }
+  
+  # Table
+  t <- d |> filter(center_type == center_desc) |> select(-"center_type")
+  t <- rbind(names(t), t)
+  
+  headerCallbackRemoveHeaderFooter <- c(
+    "function(thead, data, start, end, display){",
+    "  $('th', thead).css('display', 'none');",
+    "}"
+  )
+  
+  summary_tbl <- datatable(t,
+                           options = list(paging = FALSE,
+                                          pageLength = 30,
+                                          searching = FALSE,
+                                          dom = 't',
+                                          headerCallback = JS(headerCallbackRemoveHeaderFooter),
+                                          columnDefs = list(list(targets = c(0,3), className = 'dt-left'))),
+                           selection = 'none',
+                           callback = JS(
+                             "$('table.dataTable.no-footer').css('border-bottom', 'none');"
+                           ),
+                           class = 'row-border',
+                           filter = 'none',              
+                           rownames = FALSE,
+                           escape = FALSE
+  ) 
+  
+  # Add Section Breaks
+  if (center_desc == "Regional Growth Center") {
+    
+    summary_tbl <- summary_tbl %>%
+      formatStyle(0:ncol(t), valueColumns = "Data Point",
+                  `border-bottom` = styleEqual(c("Jobs per Resident", "Educational Attainment", "Jobs by Sector", "Cost Burden: Owners", "Commute Mode for Workers", "Intersection Density (per acre)"), "solid 2px"))
+    
+    summary_tbl <- summary_tbl %>%
+      formatStyle(0:ncol(t), valueColumns = "Data Point",
+                  `border-top` = styleEqual(c("Total Acres"), "solid 2px"))
+    
+  } else {
+    
+    summary_tbl <- summary_tbl %>%
+      formatStyle(0:ncol(t), valueColumns = "Data Point",
+                  `border-bottom` = styleEqual(c("Housing", "Share of Industrial Jobs", "Total Housing Units", "Commute Mode of Workers", "Gross Land Acreage by Category (Chart)"), "solid 2px"))
+    
+    summary_tbl <- summary_tbl %>%
+      formatStyle(0:ncol(t), valueColumns = "Data Point",
+                  `border-top` = styleEqual(c("Land Area (acres)"), "solid 2px"))   
+    
+  }
+  
+  
+  return(summary_tbl)
+  
+}
+

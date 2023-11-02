@@ -76,6 +76,10 @@ shinyServer(function(input, output, session) {
               center_name = reactive(input$MIC),
               center_type = mic_title)
   
+  source_server('rgcSource', center_type = rgc_title)
+  
+  source_server('micSource', center_type = mic_title)
+  
 # Center Summary Data -----------------------------------------------------
   rgc_summary_data <- reactive({
     
