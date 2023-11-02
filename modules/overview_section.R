@@ -16,7 +16,20 @@ overview_server <- function(id, center_name, center_type) {
     
     # Tables and Charts
     output$center_map <- renderLeaflet(create_center_map(center_name=center_name(), center_type = center_type))
-    output$center_summary_table <- DT::renderDataTable(create_summary_table(center_name=center_name(), center_type = center_type, yr = current_census_yr))
+    
+    if(center_type == rgc_title) {
+      
+      output$center_summary_table <- DT::renderDataTable(create_summary_table(center_name=center_name(), center_type = center_type, yr = current_employment_yr))
+      
+    } else {
+      
+      output$center_summary_table <- DT::renderDataTable(create_mic_summary_table(center_name=center_name(), yr = current_employment_yr))
+      
+    }
+    
+    
+    
+    
     output$center_description <- renderText(pull_center_information(center_name=center_name(), center_type = center_type, center_info = "information"))
     output$center_employment_caveat <- renderText(pull_center_information(center_name=center_name(), center_type = center_type, center_info = "employment_caveat"))
     output$center_population_caveat <- renderText(pull_center_information(center_name=center_name(), center_type = center_type, center_info = "gq_caveat"))

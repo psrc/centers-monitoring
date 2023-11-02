@@ -30,6 +30,7 @@ wgs84 <- 4326
 spn <- 32148
 
 current_census_yr <- (lubridate::year(Sys.Date())-2)
+current_employment_yr <- 2022
 census_years <- c(current_census_yr-10, current_census_yr-5, current_census_yr)
 ofm_years <- c(2011, 2016, 2021, 2022)
 industrial_years <- c(2010, 2015, 2020) 
@@ -222,5 +223,3 @@ u <- left_join(t, a, by=c("geography", "geography_type")) |>
 net_industrial_land <- bind_rows(net_industrial_land, u)
 rm(t, a, u)
 
-# my_tbl <- create_multi_year_table(df = pop_hh_hu_data %>% filter(geography_type == mic_title, geography == "Kent" & grouping %in% c("Population", "Housing Units")), 
-#                                   data_yrs = ofm_years, dec = 0, center_type = mic_title)
