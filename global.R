@@ -141,7 +141,8 @@ destination_mode_data <- readRDS("data/destination_mode_share.rds") |>
     geography == "All Centers" & geography_type == rgc_title ~ "All RGCs",
     geography == "All Centers" & geography_type == mic_title ~ "All MICs",
     geography != "All Centers" ~ geography)) |>
-  filter(concept == "Work")
+  filter(concept == "Work") |>
+  filter(!(geography %in% c("Puget Sound Industrial Center - Bremerton", "North Tukwila", "Port of Tacoma", "Sumner-Pacific")))
 
 transit_stop_data <- readRDS("data/stops_layer.rds") |>
   mutate(rgc = gsub("Greater Downtown Kirkland", "Kirkland Greater Downtown", rgc))
