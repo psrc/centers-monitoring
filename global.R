@@ -179,9 +179,10 @@ ord <- unique(c("Region", "All Centers", "All RGCs", "All MICs", mic_names))
 
 vacancy_absorption <- read_csv("data/mic-vacancy-absorption.csv", show_col_types = FALSE)
 
-land_ord <- c("Aviation Operations", "Standard Industrial", "Light Industrial",
-              "Military", "Public Industrial", 
-              "Vacant", "Re-developable", "Available", "Total")
+land_ord <- c("Core Industrial", "Industrial-Commercial", "Aviation Operations",
+              "Military", "Total Industrial", 
+              "Limited Industrial", "Non-Industrial*", "Total Gross Acreage",
+              "share")
 
 industrial_land <- read_csv("data/mic-industrial-lands.csv", show_col_types = FALSE) |>
   pivot_longer(cols = !c(year, geography, geography_type), names_to = "grouping", values_to = "estimate") |>
@@ -192,17 +193,32 @@ industrial_land <- read_csv("data/mic-industrial-lands.csv", show_col_types = FA
     geography != "All Centers" ~ geography)) |>
   mutate(geography = factor(geography, levels = ord)) |>
   mutate(grouping = factor(grouping, levels = land_ord)) |>
-  arrange(geography, grouping, year)
-  
+  arrange(geography, grouping, year) |>
+  filter(grouping != "share")
 
-total <- industrial_land |> filter(grouping == "Total") |> rename(total="estimate") |> select(-"grouping")
+# Data for IL Pie Chart  
+industrial_land_shares <- industrial_land |>
+  filter(grouping %in% c("Total Industrial", "Limited Industrial", "Non-Industrial*", "Total Gross Acreage"))
+
+total <- industrial_land_shares |> filter(grouping == "Total Gross Acreage") |> rename(total="estimate") |> select(-"grouping")
+
+industrial_land_shares <- left_join(industrial_land_shares, total, by=c("year", "geography", "geography_type")) |>
+  mutate(share = estimate / total, estimate = round(estimate, 0)) |>
+  select(-"total") |>
+  filter(grouping != "Total Gross Acreage")
+
+rm(total)
+
+# Data for IL Table
+total <- industrial_land |> filter(grouping == "Total Gross Acreage") |> rename(total="estimate") |> select(-"grouping")
 
 industrial_land <- left_join(industrial_land, total, by=c("year", "geography", "geography_type")) |>
-  mutate(share = estimate / total) |>
+  mutate(share = estimate / total, estimate = round(estimate, 0)) |>
   select(-"total")
 
 rm(total)
 
+# Data for Industrial Jobs
 industrial_jobs <- read_csv("data/mic-industrial-jobs.csv", show_col_types = FALSE) |>
   filter(year %in% industrial_years) |>
   mutate(year = as.character(year)) |>
@@ -214,15 +230,3 @@ industrial_jobs <- read_csv("data/mic-industrial-jobs.csv", show_col_types = FAL
   filter(grouping %in% c("Industrial", "Non-industrial")) |>
   mutate(geography = factor(geography, levels = ord)) |>
   arrange(geography, grouping, year)
-
-net_industrial_land <- industrial_land |> filter(grouping %in% c("Vacant", "Re-developable")) 
-
-t <-  industrial_land |> filter(grouping %in% c("Total")) |> select("geography", "geography_type", total="estimate")
-a <-  industrial_land |> filter(grouping %in% c("Available")) |> select("geography", "geography_type", available="estimate")
-u <- left_join(t, a, by=c("geography", "geography_type")) |> 
-  mutate(estimate = total-available, year="2018", grouping="In-Use", share = estimate/total) |>
-  select(-"total", -"available")
-
-net_industrial_land <- bind_rows(net_industrial_land, u)
-rm(t, a, u)
-
