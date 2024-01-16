@@ -1017,6 +1017,128 @@ create_multi_year_table <- function(df, rgc_name, data_yrs, dec=0, center_type=r
       class = 'display',
       thead(
         tr(
+          th(rowspan = 1, 'Group'),
+          th(class = 'dt-center', colspan = 1, data_yrs[[1]])
+        )
+      )
+    ))
+    
+  }
+  
+  if (num_years == 2) {
+    
+    summary_container = htmltools::withTags(table(
+      class = 'display',
+      thead(
+        tr(
+          th(rowspan = 1, 'Group'),
+          th(class = 'dt-center', colspan = 1, data_yrs[[1]]),
+          th(class = 'dt-center', colspan = 1, data_yrs[[2]])
+        )
+      )
+    ))
+    
+  }
+  
+  if (num_years == 3) {
+    
+    summary_container = htmltools::withTags(table(
+      class = 'display',
+      thead(
+        tr(
+          th(rowspan = 1, 'Group'),
+          th(class = 'dt-center', colspan = 1, data_yrs[[1]]),
+          th(class = 'dt-center', colspan = 1, data_yrs[[2]]),
+          th(class = 'dt-center', colspan = 1, data_yrs[[3]])
+        )
+      )
+    ))
+    
+  }
+  
+  if (num_years == 4) {
+    
+    summary_container = htmltools::withTags(table(
+      class = 'display',
+      thead(
+        tr(
+          th(rowspan = 1, 'Group'),
+          th(class = 'dt-center', colspan = 1, data_yrs[[1]]),
+          th(class = 'dt-center', colspan = 1, data_yrs[[2]]),
+          th(class = 'dt-center', colspan = 1, data_yrs[[3]]),
+          th(class = 'dt-center', colspan = 1, data_yrs[[4]])
+        )
+      )
+    ))
+    
+  }
+  
+  if (num_years == 5) {
+    
+    summary_container = htmltools::withTags(table(
+      class = 'display',
+      thead(
+        tr(
+          th(rowspan = 1, 'Group'),
+          th(class = 'dt-center', colspan = 1, data_yrs[[1]]),
+          th(class = 'dt-center', colspan = 1, data_yrs[[2]]),
+          th(class = 'dt-center', colspan = 1, data_yrs[[3]]),
+          th(class = 'dt-center', colspan = 1, data_yrs[[4]]),
+          th(class = 'dt-center', colspan = 1, data_yrs[[5]])
+        )
+      )
+    ))
+    
+  }  
+  
+  # Get All possible categories
+  cat <- df %>% select("grouping") %>% distinct() %>% pull()
+  tbl_full <- NULL
+  for (y in data_yrs) {
+    
+    d <- data.frame(grouping = cat, year = y)
+    ifelse(is.null(tbl_full), tbl_full<-d, tbl_full<-bind_rows(tbl_full,d))
+    
+  }
+  
+  # Filter Data
+  tbl <- df %>% 
+    filter(geography_type %in% c(center_type) & geography %in% c(rgc_name)) %>%
+    select("grouping", "share", "year") 
+  
+  tbl_full <- left_join(tbl_full, tbl, by=c("grouping", "year")) %>%
+    mutate(share = replace_na(share, 0)) %>%
+    pivot_longer(cols = !c(grouping, year)) %>%
+    pivot_wider(names_from = c(year, name), values_from = "value")
+  
+  final_tbl <- datatable(tbl_full,
+                         container = summary_container,
+                         colnames = c('Group', rep(c('Share'), num_years)),
+                         options = list(pageLength = 15,
+                                        dom = 'rt',
+                                        #buttons = c('csv', 'excel'),
+                                        columnDefs = list(list(className = 'dt-center', targets=1:(num_years)))
+                         ),
+                         #extensions = 'Buttons',
+                         filter = 'none',
+                         rownames = FALSE) %>%
+    formatPercentage(paste0(data_yrs,"_share"), dec)
+  
+  return(final_tbl)
+  
+}
+
+create_multi_year_table_all <- function(df, rgc_name, data_yrs, dec=0, center_type=rgc_title) {
+  
+  num_years <- length(data_yrs)
+  
+  # Define the Container for the Summary Data by Years
+  if (num_years == 1) {
+    
+    summary_container = htmltools::withTags(table(
+      class = 'display',
+      thead(
+        tr(
           th(rowspan = 2, 'Group'),
           th(class = 'dt-center', colspan = 2, data_yrs[[1]])
         ),

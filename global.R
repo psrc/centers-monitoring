@@ -29,7 +29,7 @@ library(openxlsx)
 wgs84 <- 4326
 spn <- 32148
 
-current_census_yr <- (lubridate::year(Sys.Date())-2)
+current_census_yr <- 2021
 current_employment_yr <- 2022
 census_years <- c(current_census_yr-10, current_census_yr-5, current_census_yr)
 ofm_years <- c(2011, 2016, 2021, 2022)
@@ -52,7 +52,8 @@ pop_hh_hu_data <- readRDS("data/center_pop_hh_hu.rds") |>
   mutate(geography = case_when(
     geography == "All Centers" & geography_type == rgc_title ~ "All RGCs",
     geography == "All Centers" & geography_type == mic_title ~ "All MICs",
-    geography != "All Centers" ~ geography))
+    geography != "All Centers" ~ geography)) |>
+  mutate(estimate = round(estimate, -1))
 
 age_data <- readRDS("data/population_by_age.rds") |>
   mutate(data_year = factor(year, levels=year_ord)) |>
@@ -60,7 +61,8 @@ age_data <- readRDS("data/population_by_age.rds") |>
   mutate(geography = case_when(
     geography == "All Centers" & geography_type == rgc_title ~ "All RGCs",
     geography == "All Centers" & geography_type == mic_title ~ "All MICs",
-    geography != "All Centers" ~ geography))
+    geography != "All Centers" ~ geography))|>
+  mutate(estimate = round(estimate, -1))
 
 race_data <- readRDS("data/population_by_race.rds") |>
   mutate(data_year = factor(year, levels=year_ord)) |>
@@ -68,7 +70,8 @@ race_data <- readRDS("data/population_by_race.rds") |>
   mutate(geography = case_when(
     geography == "All Centers" & geography_type == rgc_title ~ "All RGCs",
     geography == "All Centers" & geography_type == mic_title ~ "All MICs",
-    geography != "All Centers" ~ geography))
+    geography != "All Centers" ~ geography))|>
+  mutate(estimate = round(estimate, -1))
 
 income_data <- readRDS("data/households_by_income.rds") |>
   mutate(data_year = factor(year, levels=year_ord)) |>
@@ -76,7 +79,8 @@ income_data <- readRDS("data/households_by_income.rds") |>
   mutate(geography = case_when(
     geography == "All Centers" & geography_type == rgc_title ~ "All RGCs",
     geography == "All Centers" & geography_type == mic_title ~ "All MICs",
-    geography != "All Centers" ~ geography))
+    geography != "All Centers" ~ geography))|>
+  mutate(estimate = round(estimate, -1))
 
 education_data <- readRDS("data/educational_attainment.rds") |>
   mutate(data_year = factor(year, levels=year_ord)) |>
@@ -84,9 +88,11 @@ education_data <- readRDS("data/educational_attainment.rds") |>
   mutate(geography = case_when(
     geography == "All Centers" & geography_type == rgc_title ~ "All RGCs",
     geography == "All Centers" & geography_type == mic_title ~ "All MICs",
-    geography != "All Centers" ~ geography))
+    geography != "All Centers" ~ geography))|>
+  mutate(estimate = round(estimate, -1))
 
-employment_data <- readRDS("data/centers_employment.rds") 
+employment_data <- readRDS("data/centers_employment.rds") |>
+  mutate(estimate = round(estimate, -1))
 
 # Housing Data Metrics
 tenure_data <- readRDS("data/households_by_tenure.rds") |>
@@ -95,7 +101,8 @@ tenure_data <- readRDS("data/households_by_tenure.rds") |>
   mutate(geography = case_when(
     geography == "All Centers" & geography_type == rgc_title ~ "All RGCs",
     geography == "All Centers" & geography_type == mic_title ~ "All MICs",
-    geography != "All Centers" ~ geography))
+    geography != "All Centers" ~ geography))|>
+  mutate(estimate = round(estimate, -1))
 
 type_data <- readRDS("data/housing_units_by_type.rds") |>
   mutate(data_year = factor(year, levels=year_ord)) |>
@@ -103,7 +110,8 @@ type_data <- readRDS("data/housing_units_by_type.rds") |>
   mutate(geography = case_when(
     geography == "All Centers" & geography_type == rgc_title ~ "All RGCs",
     geography == "All Centers" & geography_type == mic_title ~ "All MICs",
-    geography != "All Centers" ~ geography))
+    geography != "All Centers" ~ geography)) |>
+  mutate(estimate = round(estimate, -1))
 
 burden_data <- readRDS("data/cost_burden.rds") |>
   mutate(data_year = factor(year, levels=year_ord)) |>
@@ -111,7 +119,8 @@ burden_data <- readRDS("data/cost_burden.rds") |>
   mutate(geography = case_when(
     geography == "All Centers" & geography_type == rgc_title ~ "All RGCs",
     geography == "All Centers" & geography_type == mic_title ~ "All MICs",
-    geography != "All Centers" ~ geography)) 
+    geography != "All Centers" ~ geography)) |>
+  mutate(estimate = round(estimate, -1))
 
 unit_data <- readRDS("data/center_hu.rds") |>
   mutate(data_year = factor(year, levels=year_ord)) |>
@@ -119,7 +128,8 @@ unit_data <- readRDS("data/center_hu.rds") |>
   mutate(geography = case_when(
     geography == "All Centers" & geography_type == rgc_title ~ "All RGCs",
     geography == "All Centers" & geography_type == mic_title ~ "All MICs",
-    geography != "All Centers" ~ geography))
+    geography != "All Centers" ~ geography)) |>
+  mutate(estimate = round(estimate, -1))
 
 renter_burden_data <- burden_data |> filter(concept == "Renter Cost Burden")
 
@@ -132,7 +142,8 @@ mode_data <- readRDS("data/mode_to_work.rds") |>
   mutate(geography = case_when(
     geography == "All Centers" & geography_type == rgc_title ~ "All RGCs",
     geography == "All Centers" & geography_type == mic_title ~ "All MICs",
-    geography != "All Centers" ~ geography))
+    geography != "All Centers" ~ geography)) |>
+  mutate(estimate = round(estimate, -1))
 
 destination_mode_data <- readRDS("data/destination_mode_share.rds") |>
   mutate(data_year = factor(year, levels=year_ord)) |>
@@ -142,7 +153,8 @@ destination_mode_data <- readRDS("data/destination_mode_share.rds") |>
     geography == "All Centers" & geography_type == mic_title ~ "All MICs",
     geography != "All Centers" ~ geography)) |>
   filter(concept == "Work") |>
-  filter(!(geography %in% c("Puget Sound Industrial Center - Bremerton", "North Tukwila", "Port of Tacoma", "Sumner-Pacific")))
+  filter(!(geography %in% c("Puget Sound Industrial Center - Bremerton", "North Tukwila", "Port of Tacoma", "Sumner-Pacific"))) |>
+  mutate(estimate = round(estimate, -1))
 
 transit_stop_data <- readRDS("data/stops_layer.rds") |>
   mutate(rgc = gsub("Greater Downtown Kirkland", "Kirkland Greater Downtown", rgc))
@@ -231,3 +243,5 @@ industrial_jobs <- read_csv("data/mic-industrial-jobs.csv", show_col_types = FAL
   filter(grouping %in% c("Industrial", "Non-industrial")) |>
   mutate(geography = factor(geography, levels = ord)) |>
   arrange(geography, grouping, year)
+
+

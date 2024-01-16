@@ -33,7 +33,7 @@ demographics_server <- function(id, center_name, center_type) {
     
     output$pop_table <- DT::renderDataTable({create_single_group_table(df = pop_hh_hu_data, rgc_name = center_name(), data_yrs = ofm_years, dec = 0, group = "Population", center_type = center_type)})
     
-    output$pop_hsg_table <- DT::renderDataTable({create_multi_year_table(df = pop_hh_hu_data %>% filter(geography_type == center_type, geography == center_name() & grouping %in% c("Population", "Housing Units")), 
+    output$pop_hsg_table <- DT::renderDataTable({create_multi_year_table_all(df = pop_hh_hu_data %>% filter(geography_type == center_type, geography == center_name() & grouping %in% c("Population", "Housing Units")), 
                                                                          data_yrs = ofm_years, dec = 0, rgc_name = center_name(), center_type = center_type)})
     
     output$age_chart <- renderEcharts4r({
