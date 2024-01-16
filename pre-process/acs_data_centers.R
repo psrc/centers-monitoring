@@ -1,6 +1,6 @@
 # Libraries -----------------------------------------------------------------
 library(tidyverse)
-#library(psrccensus)
+library(psrccensus)
 library(psrcelmer)
 library(tidycensus)
 library(sf)
@@ -10,13 +10,13 @@ wgs84 <- 4326
 spn <- 32148
 
 pre_api_year <- 2011
-api_years <- c(2016, 2021)
+api_years <- c(2016, 2017, 2021, 2022)
 acs_pre2013_bg_dir <- "C:/coding/acs_blockgroups_pre2013"
 base_model_yr <- 2018
 
 year_ord <- c("2022","2021", "2020", "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010")
-rgc_title <- "Regional Growth Center (6/22/2023)"
-mic_title <- "MIC (2022 RTP)"
+rgc_title <- "Regional Growth Center (12/12/2023)"
+mic_title <- "MIC (1/5/2024)"
 
 srt_ids <- c('kcm_100340', 'kcm_102638')
 lrt_ids <- c('kcm_100479', 'st_100479', 'st_TLINK')
@@ -33,9 +33,6 @@ st_express <- c("510","511","512","513","522","532","535","540","541","542","544
 
 brt_routes <- c("701","702", "Swift", "Swift Blue", "Swift Green",
                 "A Line", "B Line", "C Line", "D Line", "E Line", "F Line", "G Line", "H Line")
-
-rgc_title <- "Regional Growth Center (6/22/2023)"
-mic_title <- "MIC (2022 RTP)"
 
 # Factor Levels
 county_order <- c("Region", "King County", "Kitsap County", "Pierce County", "Snohomish County")
@@ -94,36 +91,36 @@ centers_estimate_from_bg <- function(split_df=blockgroup_splits, estimate_df=blo
 
   if (center_name == "All Centers") {
     
-    t <- split_df %>% filter(planning_geog_type == center_type & planning_geog != cn) %>% mutate(planning_geog = "All Centers")
+    t <- split_df |> filter(planning_geog_type == center_type & planning_geog != cn) |> mutate(planning_geog = "All Centers")
     
   } else {
     
-    t <- split_df %>% filter(planning_geog_type == center_type & planning_geog == center_name)
+    t <- split_df |> filter(planning_geog_type == center_type & planning_geog == center_name)
     
   }
   
   # Filter Blockgroup Splits to Center
-  t <- t %>%
-    select(year = "ofm_estimate_year", geography = "data_geog", name = "planning_geog", share = all_of(split_type)) %>%
+  t <- t |>
+    select(year = "ofm_estimate_year", geography = "data_geog", name = "planning_geog", share = all_of(split_type)) |>
     mutate(year = as.character(year))
   
-  d <- estimate_df %>%
+  d <- estimate_df |>
     select("year","geography", "grouping", "concept","estimate")
   
-  c <- left_join(t, d, by=c("year", "geography")) %>%
-    mutate(center_estimate = round(estimate*share,0)) %>%
-    group_by(year, name, grouping, concept) %>%
-    summarise(estimate = sum(center_estimate)) %>%
-    as_tibble() %>%
-    rename(geography="name") %>%
+  c <- left_join(t, d, by=c("year", "geography")) |>
+    mutate(center_estimate = round(estimate*share,0)) |>
+    group_by(year, name, grouping, concept) |>
+    summarise(estimate = sum(center_estimate)) |>
+    as_tibble() |>
+    rename(geography="name") |>
     mutate(geography_type = center_type)
   
-  totals <- c %>%
-    filter(grouping == "Total") %>%
+  totals <- c |>
+    filter(grouping == "Total") |>
     select("geography", "year", "concept", total="estimate")
   
-  c <- left_join(c, totals, by=c("geography", "year", "concept")) %>%
-    mutate(share = estimate / total) %>%
+  c <- left_join(c, totals, by=c("geography", "year", "concept")) |>
+    mutate(share = estimate / total) |>
     select(-"total")
   
   return(c)
@@ -144,10 +141,10 @@ for (y in c(pre_api_year, api_years)) {
   
   if (y >=2018) {parcel_yr <- 2018} else {parcel_yr <- 2014}
   
-  q <- paste0("SELECT * FROM general.get_geography_splits('",geog_yr,"', 'Regional Growth Center (6/22/2023)'," , y, ", ",ofm_vin,", ",parcel_yr,")")
+  q <- paste0("SELECT * FROM general.get_geography_splits('",geog_yr,"', 'Regional Growth Center (12/12/2023)'," , y, ", ",ofm_vin,", ",parcel_yr,")")
   rgc <- get_query(sql = q, db_name = "Elmer")
   
-  q <- paste0("SELECT * FROM general.get_geography_splits('",geog_yr,"', 'MIC (2022 RTP)'," , y, ", ",ofm_vin,", ",parcel_yr,")")
+  q <- paste0("SELECT * FROM general.get_geography_splits('",geog_yr,"', 'MIC (1/5/2024)'," , y, ", ",ofm_vin,", ",parcel_yr,")")
   mic <- get_query(sql = q, db_name = "Elmer")
   
   splits <- bind_rows(rgc, mic)
@@ -159,33 +156,52 @@ for (y in c(pre_api_year, api_years)) {
 
 rm(y, ofm_vin, geog_yr, parcel_yr)
 
-blockgroup_splits <- blockgroup_splits %>%
-  mutate(planning_geog = gsub("Cascade", "Cascade Industrial Center - Arlington/Marysville", planning_geog)) %>%
-  mutate(planning_geog = gsub("Bellevue", "Bellevue Downtown", planning_geog)) %>%
-  mutate(planning_geog = gsub("Kent MIC", "Kent", planning_geog)) %>%
-  mutate(planning_geog = gsub("Paine Field / Boeing Everett", "Paine Field/Boeing Everett", planning_geog)) %>%
-  mutate(planning_geog = gsub("Sumner Pacific", "Sumner-Pacific", planning_geog)) %>%
-  mutate(planning_geog = gsub("Puget Sound Industrial Center- Bremerton", "Puget Sound Industrial Center - Bremerton", planning_geog)) %>%
+blockgroup_splits <- blockgroup_splits |>
+  mutate(planning_geog = gsub("Cascade", "Cascade Industrial Center - Arlington/Marysville", planning_geog)) |>
+  mutate(planning_geog = gsub("Bellevue", "Bellevue Downtown", planning_geog)) |>
+  mutate(planning_geog = gsub("Kent MIC", "Kent", planning_geog)) |>
+  mutate(planning_geog = gsub("Paine Field / Boeing Everett", "Paine Field/Boeing Everett", planning_geog)) |>
+  mutate(planning_geog = gsub("Sumner Pacific", "Sumner-Pacific", planning_geog)) |>
+  mutate(planning_geog = gsub("Puget Sound Industrial Center- Bremerton", "Puget Sound Industrial Center - Bremerton", planning_geog)) |>
   mutate(planning_geog = gsub("Redmond-Overlake", "Redmond Overlake", planning_geog))
 
+# Center Shapefiles -------------------------------------------------------
+rgc_shape <- st_read_elmergeo(layer_name = "urban_centers") |>
+  mutate(name = gsub("Bellevue", "Bellevue Downtown", name)) |>
+  mutate(name = gsub("Redmond-Overlake", "Redmond Overlake", name)) |>
+  mutate(name = gsub("Greater Downtown Kirkland", "Kirkland Greater Downtown", name)) |>
+  select("name", "acres")
+
+saveRDS(rgc_shape, "data/rgc_shape.rds")
+
+mic_shape <- st_read_elmergeo(layer_name = "micen") |>
+  mutate(mic = gsub("Kent MIC", "Kent", mic)) |>
+  mutate(mic = gsub("Paine Field / Boeing Everett", "Paine Field/Boeing Everett", mic)) |>
+  mutate(mic = gsub("Sumner Pacific", "Sumner-Pacific", mic)) %>%
+  mutate(mic = gsub("Puget Sound Industrial Center- Bremerton", "Puget Sound Industrial Center - Bremerton", mic)) |>
+  mutate(mic = gsub("Cascade", "Cascade Industrial Center - Arlington/Marysville", mic)) |>
+  select(name="mic", "acres")
+
+saveRDS(mic_shape, "data/mic_shape.rds")
+
 # List of Centers ---------------------------------------------------------
-rgc_names <- st_read("https://services6.arcgis.com/GWxg6t7KXELn1thE/arcgis/rest/services/Regional_Growth_Centers/FeatureServer/0/query?where=0=0&outFields=*&f=pgeojson") %>%
-  select("name") %>%
-  st_drop_geometry() %>%
-  mutate(name = gsub("Redmond-Overlake", "Redmond Overlake", name)) %>%
-  mutate(name = gsub("Bellevue", "Bellevue Downtown", name)) %>%
-  pull() %>%
+rgc_names <- st_read_elmergeo(layer_name = "urban_centers") |> 
+  select("name") |> 
+  st_drop_geometry() |> 
+  mutate(name = gsub("Redmond-Overlake", "Redmond Overlake", name)) |>
+  mutate(name = gsub("Bellevue", "Bellevue Downtown", name)) |>
+  pull() |>
   unique()
 
-mic_names <- st_read("https://services6.arcgis.com/GWxg6t7KXELn1thE/arcgis/rest/services/Manufacturing_Industrial_Centers/FeatureServer/0/query?where=0=0&outFields=*&f=pgeojson") %>%
-  select("mic") %>%
-  st_drop_geometry() %>%
-  mutate(mic = gsub("Kent MIC", "Kent", mic)) %>%
-  mutate(mic = gsub("Paine Field / Boeing Everett", "Paine Field/Boeing Everett", mic)) %>%
-  mutate(mic = gsub("Sumner Pacific", "Sumner-Pacific", mic)) %>%
-  mutate(mic = gsub("Puget Sound Industrial Center- Bremerton", "Puget Sound Industrial Center - Bremerton", mic)) %>%
-  mutate(mic = gsub("Cascade", "Cascade Industrial Center - Arlington/Marysville", mic)) %>%
-  pull() %>%
+mic_names <- st_read_elmergeo(layer_name = "micen") |> 
+  select("mic") |>
+  st_drop_geometry() |>
+  mutate(mic = gsub("Kent MIC", "Kent", mic)) |>
+  mutate(mic = gsub("Paine Field / Boeing Everett", "Paine Field/Boeing Everett", mic)) |>
+  mutate(mic = gsub("Sumner Pacific", "Sumner-Pacific", mic)) |>
+  mutate(mic = gsub("Puget Sound Industrial Center- Bremerton", "Puget Sound Industrial Center - Bremerton", mic)) |>
+  mutate(mic = gsub("Cascade", "Cascade Industrial Center - Arlington/Marysville", mic)) |>
+  pull() |>
   unique()
 
 # Total Jobs from QCEW ----------------------------------------------------
@@ -199,14 +215,15 @@ rgc_jobs <- read_csv(rgc_emp_file) |>
   mutate(geography = gsub("Bellevue", "Bellevue Downtown", geography)) |>
   mutate(geography = gsub("Greater Downtown Kirkland", "Kirkland Greater Downtown", geography)) |>
   mutate(grouping = gsub("Const/Res", "Construction / Resources", grouping)) |>
-  mutate(grouping = gsub("WTU", "Wholesale, Transportation & Utilties", grouping)) |>
+  mutate(grouping = gsub("WTU", "Wholesale, Transportation & Utilities", grouping)) |>
   mutate(grouping = gsub("FIRE", "Finance, Insurance & Real Estate", grouping)) |>
   mutate(concept = "Employment", share=1, geography_type = "Regional Growth Center (6/22/2023)") |>
   mutate(data_year = factor(year, levels=year_ord)) |>
   mutate(geography = case_when(
     geography == "All Centers" & geography_type == rgc_title ~ "All RGCs",
     geography == "All Centers" & geography_type == mic_title ~ "All MICs",
-    geography != "All Centers" ~ geography))
+    geography != "All Centers" ~ geography)) |>
+  mutate(estimate = round(as.integer(estimate), -1))
 
 mic_jobs <- read_csv(mic_emp_file) |> 
   filter(center != "MIC Total") |>
@@ -222,16 +239,17 @@ mic_jobs <- read_csv(mic_emp_file) |>
   mutate(geography = gsub("Puget Sound Industrial Center- Bremerton", "Puget Sound Industrial Center - Bremerton", geography)) |>
   mutate(geography = gsub("Cascade", "Cascade Industrial Center - Arlington/Marysville", geography)) |>
   mutate(grouping = gsub("Const_Res", "Construction / Resources", grouping)) |>
-  mutate(grouping = gsub("WTU", "Wholesale, Transportation & Utilties", grouping)) |>
+  mutate(grouping = gsub("WTU", "Wholesale, Transportation & Utilities", grouping)) |>
   mutate(grouping = gsub("FIRE", "Finance, Insurance & Real Estate", grouping)) |>
   mutate(concept = "Employment", share=1, geography_type = "MIC (2022 RTP)") |>
   mutate(data_year = factor(year, levels=year_ord)) |>
   mutate(geography = case_when(
     geography == "All Centers" & geography_type == rgc_title ~ "All RGCs",
     geography == "All Centers" & geography_type == mic_title ~ "All MICs",
-    geography != "All Centers" ~ geography))
+    geography != "All Centers" ~ geography)) |>
+  mutate(estimate = round(as.integer(estimate), -1))
 
-centers_employment <- bind_rows(rgc_jobs, mic_jobs) |> mutate(estimate = as.integer(estimate))
+centers_employment <- bind_rows(rgc_jobs, mic_jobs)
 
 # Get Totals for Shares
 totals <- centers_employment |> filter(grouping == "Total") |> select("year", "geography", "geography_type", total="estimate")

@@ -91,8 +91,7 @@ education_data <- readRDS("data/educational_attainment.rds") |>
     geography != "All Centers" ~ geography))|>
   mutate(estimate = round(estimate, -1))
 
-employment_data <- readRDS("data/centers_employment.rds") |>
-  mutate(estimate = round(estimate, -1))
+employment_data <- readRDS("data/centers_employment.rds")
 
 # Housing Data Metrics
 tenure_data <- readRDS("data/households_by_tenure.rds") |>
@@ -167,23 +166,11 @@ intersection_density <- read_csv("data/center_intersection_density.csv", show_co
 source_info <- read_csv("data/source_information.csv", show_col_types = FALSE)
 
 # Shapefiles --------------------------------------------------------------
-rgc_shape <- st_read("https://services6.arcgis.com/GWxg6t7KXELn1thE/arcgis/rest/services/Regional_Growth_Centers/FeatureServer/0/query?where=0=0&outFields=*&f=pgeojson") |>
-  mutate(name = gsub("Bellevue", "Bellevue Downtown", name)) |>
-  mutate(name = gsub("Redmond-Overlake", "Redmond Overlake", name)) |>
-  mutate(name = gsub("Greater Downtown Kirkland", "Kirkland Greater Downtown", name)) |>
-  select("name", "acres")
-
+rgc_shape <- readRDS("data/rgc_shape.rds")
 rgc_names <- rgc_shape |> st_drop_geometry() |> select("name") |> arrange(name) |> distinct() |> pull()
 random_rgc <- rgc_names[[sample(1:length(rgc_names), 1)]]
 
-mic_shape <- st_read("https://services6.arcgis.com/GWxg6t7KXELn1thE/arcgis/rest/services/Manufacturing_Industrial_Centers/FeatureServer/0/query?where=0=0&outFields=*&f=pgeojson") |>
-  mutate(mic = gsub("Kent MIC", "Kent", mic)) |>
-  mutate(mic = gsub("Paine Field / Boeing Everett", "Paine Field/Boeing Everett", mic)) |>
-  mutate(mic = gsub("Sumner Pacific", "Sumner-Pacific", mic)) %>%
-  mutate(mic = gsub("Puget Sound Industrial Center- Bremerton", "Puget Sound Industrial Center - Bremerton", mic)) |>
-  mutate(mic = gsub("Cascade", "Cascade Industrial Center - Arlington/Marysville", mic)) |>
-  select(name="mic", "acres")
-
+mic_shape <- readRDS("data/mic_shape.rds")
 mic_names <- mic_shape %>% st_drop_geometry() %>% select("name") %>% arrange(name) %>% distinct() %>% pull()
 random_mic <- mic_names[[sample(1:length(mic_names), 1)]]
 

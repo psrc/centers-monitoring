@@ -100,14 +100,14 @@ housing_server <- function(id, center_name, center_type) {
           strong(tags$div(class="chart_title","Total Housing Units")),
           fluidRow(column(6,br(), br(), br(), br(), dataTableOutput(ns("hu_table"))),
                   column(6,echarts4rOutput(ns("hu_chart")))),
-          tags$div(class="chart_source","Source: Office of Financial Managment SAEP Program & PSRC Parcelization"),
+          tags$div(class="chart_source","Source: Office of Financial Management SAEP Program & PSRC Parcelization"),
           hr(style = "border-top: 1px solid #000000;"),
         
           # Net Housing Unit Change
           strong(tags$div(class="chart_title","New Net Housing Units")),
           fluidRow(column(6,br(), br(), br(), br(), dataTableOutput(ns("hu_change_table"))),
                   column(6,echarts4rOutput(ns("hu_change_chart")))),
-          tags$div(class="chart_source","Source: Office of Financial Managment SAEP Program & PSRC Parcelization"),
+          tags$div(class="chart_source","Source: Office of Financial Management SAEP Program & PSRC Parcelization"),
           hr(style = "border-top: 1px solid #000000;"),
         
           # Housing Tenure
@@ -157,14 +157,14 @@ housing_server <- function(id, center_name, center_type) {
           strong(tags$div(class="chart_title","Total Housing Units")),
           fluidRow(column(6,br(), br(), br(), br(), dataTableOutput(ns("hu_table"))),
                    column(6,echarts4rOutput(ns("hu_chart")))),
-          tags$div(class="chart_source","Source: Office of Financial Managment SAEP Program & PSRC Parcelization"),
+          tags$div(class="chart_source","Source: Office of Financial Management SAEP Program & PSRC Parcelization"),
           hr(style = "border-top: 1px solid #000000;"),
           
           # Net Housing Unit Change
           strong(tags$div(class="chart_title","New Net Housing Units")),
           fluidRow(column(6,br(), br(), br(), br(), dataTableOutput(ns("hu_change_table"))),
                    column(6,echarts4rOutput(ns("hu_change_chart")))),
-          tags$div(class="chart_source","Source: Office of Financial Managment SAEP Program & PSRC Parcelization"),
+          tags$div(class="chart_source","Source: Office of Financial Management SAEP Program & PSRC Parcelization"),
           hr(style = "border-top: 1px solid #000000;")
         
         )
