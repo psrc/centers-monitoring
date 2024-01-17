@@ -230,3 +230,5 @@ industrial_jobs <- read_csv("data/mic-industrial-jobs.csv", show_col_types = FAL
   filter(grouping %in% c("Industrial", "Non-industrial")) |>
   mutate(geography = factor(geography, levels = ord)) |>
   arrange(geography, grouping, year)
+
+

@@ -1801,7 +1801,7 @@ create_mic_summary_table <- function(center_name, yr) {
     mutate(estimate = label_percent(accuracy=1)(estimate), grouping = "% Industrial Jobs") |>
     mutate(pic = as.character(icon("industry", lib = "font-awesome")))
   
-  t <- bind_rows(r6, r9, r7, r1, r2, r3, r4, r5) |> select("pic", "grouping", "estimate")
+  t <- bind_rows(r1, r2, r3, r6, r9, r7, r4, r5) |> select("pic", "grouping", "estimate")
   
   headerCallbackRemoveHeaderFooter <- c(
     "function(thead, data, start, end, display){",
@@ -1834,7 +1834,7 @@ create_mic_summary_table <- function(center_name, yr) {
   
   summary_tbl <- summary_tbl %>%
     formatStyle(0:ncol(t), valueColumns = "grouping",
-                `border-top` = styleEqual(c("Total Employment"), "solid 2px"))
+                `border-top` = styleEqual(c("Total Acres"), "solid 2px"))
   
   return(summary_tbl)
   

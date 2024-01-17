@@ -37,7 +37,7 @@ transportation_server <- function(id, center_name, center_type, center_desc) {
                                 dec = 0, esttype = "percent", color = "jewel")
     })
     
-    output$destination_mode_table <- DT::renderDataTable({create_multi_group_table(df = destination_mode_data, rgc_name = center_name(), grp = "concept", dec = 1, center_type = center_type)})
+    output$destination_mode_table <- DT::renderDataTable({create_multi_year_table(df = destination_mode_data, rgc_name = center_name(), data_yrs = c("2018"), dec = 1, center_type = center_type)})
     
     output$stop_table <- DT::renderDataTable({create_transit_stop_table(center_name = center_name(), center_type = center_desc)})
     
@@ -80,6 +80,8 @@ transportation_server <- function(id, center_name, center_type, center_desc) {
           fluidRow(column(12, dataTableOutput(ns("destination_mode_table")))),
           br(),
           tags$div(class="chart_source","Source: 2018 PSRC SoundCast Activity Based Model"),
+          br(),
+          tags$div(class="chart_source", "Note: Results are from the Regional Activity Based Model. If a zero value is shown, there is not reliable model data for this geography and the data is suppressed."),
           hr(style = "border-top: 1px solid #000000;")
         )
         
@@ -107,6 +109,8 @@ transportation_server <- function(id, center_name, center_type, center_desc) {
           fluidRow(column(12, dataTableOutput(ns("destination_mode_table")))),
           br(),
           tags$div(class="chart_source","Source: 2018 PSRC SoundCast Activity Based Model"),
+          br(),
+          tags$div(class="chart_source", "Note: Results are from the Regional Activity Based Model. If a zero value is shown, there is not reliable model data for this geography and the data is suppressed."),
           hr(style = "border-top: 1px solid #000000;")
         )
         

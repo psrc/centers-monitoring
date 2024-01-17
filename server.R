@@ -22,7 +22,7 @@ shinyServer(function(input, output, session) {
                 banner_url = "https://www.psrc.org/our-work/centers")
   
   banner_server('micBanner', 
-                banner_title = "Manufacturing and Industrial Centers", 
+                banner_title = "Manufacturing/Industrial Centers", 
                 banner_subtitle = "Centers",
                 banner_url = "https://www.psrc.org/our-work/centers")
   

@@ -15,8 +15,8 @@ acs_pre2013_bg_dir <- "C:/coding/acs_blockgroups_pre2013"
 base_model_yr <- 2018
 
 year_ord <- c("2022","2021", "2020", "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010")
-rgc_title <- "Regional Growth Center (12/12/2023)"
-mic_title <- "MIC (1/5/2024)"
+rgc_title <- "Regional Growth Center (6/22/2023)"
+mic_title <- "MIC (2022 RTP)"
 
 srt_ids <- c('kcm_100340', 'kcm_102638')
 lrt_ids <- c('kcm_100479', 'st_100479', 'st_TLINK')
@@ -256,6 +256,89 @@ totals <- centers_employment |> filter(grouping == "Total") |> select("year", "g
 centers_employment <- left_join(centers_employment, totals, by=c("year", "geography", "geography_type")) |> mutate(share = estimate/total) |> select(-"total")
 saveRDS(centers_employment, "data/centers_employment.rds")
 rm(rgc_jobs, mic_jobs, totals)
+
+# Destination Mode Share --------------------------------------------------
+dest_mode_order <- c("SOV", "non-SOV")
+rgcs <- st_read_elmergeo(layer_name = "urban_centers") |> select("name") |> st_drop_geometry() |> pull() |> unique()
+mics <-  st_read_elmergeo(layer_name = "micen") |> select("mic") |> st_drop_geometry() |> pull() |> unique()
+
+rgc_modes <- read_csv(rgc_dest_mod_file) |>
+  drop_na() |>
+  mutate(concept = case_when(
+    dpurp == "Work" ~ "Work",
+    TRUE ~ "Non-Work")) |>
+  mutate(grouping = case_when(
+    mode == "SOV" ~ "SOV",
+    mode %in% c("HOV2", "HOV3+") ~ "non-SOV",
+    mode == "Bike" ~ "non-SOV",
+    mode %in% c("School Bus", "Transit") ~ "non-SOV",
+    mode == "TNC" ~ "non-SOV",
+    mode == "Walk" ~ "non-SOV")) |>
+  mutate(year = as.character(base_model_yr)) |> 
+  select(geography="hh_rgc", "year", "grouping", estimate="trexpfac", "concept") |>
+  group_by(geography, year, grouping, concept) |>
+  summarise(estimate = sum(estimate)) |>
+  as_tibble() |>
+  mutate(geography_type = case_when(
+    geography %in% mics ~ mic_title,
+    geography %in% rgcs ~ rgc_title,
+    TRUE ~ "Not in a Center")) |>
+  mutate(geography = gsub("Redmond-Overlake", "Redmond Overlake", geography)) |>
+  mutate(geography = gsub("Bellevue", "Bellevue Downtown", geography)) |>
+  mutate(geography = gsub("Kent MIC", "Kent", geography)) |>
+  mutate(geography = gsub("Paine Field / Boeing Everett", "Paine Field/Boeing Everett", geography)) |>
+  mutate(geography = gsub("Sumner Pacific", "Sumner-Pacific", geography)) |>
+  mutate(geography = gsub("Puget Sound Industrial Center- Bremerton", "Puget Sound Industrial Center - Bremerton", geography)) |>
+  mutate(geography = gsub("Cascade", "Cascade Industrial Center - Arlington/Marysville", geography)) |>
+  mutate(grouping = factor(grouping, levels = dest_mode_order)) |>
+  arrange(geography, grouping, year)
+
+# RGC and MIC's
+centers <- rgc_modes |> filter(geography != "Not in RGC")
+totals <- centers |> group_by(geography, year, concept, geography_type) |> summarise(total = sum(estimate)) |> as_tibble()
+
+centers <- left_join(centers, totals,  by=c("geography", "year", "concept", "geography_type")) |>
+  mutate(share = estimate / total) |>
+  select(-"total")
+
+rm(totals)
+
+# Region
+region <- rgc_modes |> group_by(year, grouping, concept) |> summarise(estimate = sum(estimate)) |> as_tibble() |> mutate(geography = "Region", geography_type = "Region")
+totals <- region |>  group_by(year, concept) |> summarise(total = sum(estimate)) |> as_tibble()
+
+region <- left_join(region, totals,  by=c("year", "concept")) |>
+  mutate(share = estimate / total) |>
+  select(-"total")
+
+rm(totals)
+
+# All RGCs
+all_rgcs <- rgc_modes |> filter(geography_type == rgc_title & geography != "Not in RGC") |> group_by(year, grouping, concept) |> summarise(estimate = sum(estimate)) |> as_tibble() |> mutate(geography = "All Centers", geography_type = rgc_title)
+totals <- all_rgcs |> group_by(year, concept) |> summarise(total = sum(estimate)) |> as_tibble()
+
+all_rgcs <- left_join(all_rgcs, totals,  by=c("year", "concept")) |>
+  mutate(share = estimate / total) |>
+  select(-"total")
+
+rm(totals)
+
+# All MICs
+all_mics <- rgc_modes |> filter(geography_type == mic_title & geography != "Not in RGC") |> group_by(year, grouping, concept) |> summarise(estimate = sum(estimate)) |> as_tibble() |> mutate(geography = "All Centers", geography_type = mic_title)
+totals <- all_mics |>  group_by(year, concept) |> summarise(total = sum(estimate)) |> as_tibble()
+
+all_mics <- left_join(all_mics, totals,  by=c("year", "concept")) |>
+  mutate(share = estimate / total) |>
+  select(-"total")
+
+rm(totals)
+
+destination_mode_share <- bind_rows(centers, region, all_rgcs, all_mics)
+ord <- unique(c("Region", "All Centers", rgc_names, mic_names))
+destination_mode_share <- destination_mode_share |> mutate(geography = factor(geography, levels = ord)) |> arrange(geography, grouping, year)
+rm(dest_mode_order, centers, region, all_rgcs, all_mics, rgc_modes)
+saveRDS(destination_mode_share, "data/destination_mode_share.rds")
+
 
 # Total Population from Parcelization -------------------------------------
 parcel_facts <- get_table(schema='ofm', tbl_name='parcelized_saep_facts')
@@ -1528,130 +1611,6 @@ rm(mode_lookup, centers, blockgroups, county)
 ord <- unique(c("Region", "All Centers", rgc_names, mic_names))
 mode_to_work <- mode_to_work %>% mutate(geography = factor(geography, levels = ord)) %>% arrange(geography, grouping, year)
 saveRDS(mode_to_work, "data/mode_to_work.rds")
-
-# Destination Mode Share --------------------------------------------------
-dest_mode_order <- c("Drove\nAlone", "Carpooled", "Transit", "Bike", "Walk", "TNC")
-
-rgcs <- st_read("https://services6.arcgis.com/GWxg6t7KXELn1thE/arcgis/rest/services/Regional_Growth_Centers/FeatureServer/0/query?where=0=0&outFields=*&f=pgeojson") %>%
-  select("name") %>%
-  st_drop_geometry() %>%
-  pull() %>%
-  unique()
-
-mics <- st_read("https://services6.arcgis.com/GWxg6t7KXELn1thE/arcgis/rest/services/Manufacturing_Industrial_Centers/FeatureServer/0/query?where=0=0&outFields=*&f=pgeojson") %>%
-  select("mic") %>%
-  st_drop_geometry() %>%
-  pull() %>%
-  unique()
-
-rgc_modes <- read_csv(rgc_dest_mod_file) %>% 
-  drop_na %>%
-  mutate(concept = case_when(
-    dpurp == "Work" ~ "Work",
-    TRUE ~ "Non-Work")) %>%
-  mutate(grouping = case_when(
-    mode == "SOV" ~ "Drove Alone",
-    mode %in% c("HOV2", "HOV3+") ~ "Carpooled",
-    mode == "Bike" ~ "Bike",
-    mode %in% c("School Bus", "Transit") ~ "Transit",
-    mode == "TNC" ~ "TNC",
-    mode == "Walk" ~ "Walk")) %>%
-  mutate(year = as.character(base_model_yr)) %>% 
-  select(geography="hh_rgc", "year", "grouping", estimate="trexpfac", "concept") %>%
-  group_by(geography, year, grouping, concept) %>%
-  summarise(estimate = sum(estimate)) %>%
-  as_tibble() %>%
-  mutate(geography_type = case_when(
-    geography %in% mics ~ mic_title,
-    geography %in% rgcs ~ rgc_title,
-    TRUE ~ "Not in a Center")) %>%
-  mutate(geography = gsub("Redmond-Overlake", "Redmond Overlake", geography)) %>%
-  mutate(geography = gsub("Bellevue", "Bellevue Downtown", geography)) %>%
-  mutate(geography = gsub("Kent MIC", "Kent", geography)) %>%
-  mutate(geography = gsub("Paine Field / Boeing Everett", "Paine Field/Boeing Everett", geography)) %>%
-  mutate(geography = gsub("Sumner Pacific", "Sumner-Pacific", geography)) %>%
-  mutate(geography = gsub("Puget Sound Industrial Center- Bremerton", "Puget Sound Industrial Center - Bremerton", geography)) %>%
-  mutate(geography = gsub("Cascade", "Cascade Industrial Center - Arlington/Marysville", geography)) %>%
-  mutate(grouping = str_wrap(grouping, width=10)) %>%
-  mutate(grouping = factor(grouping, levels = dest_mode_order)) %>%
-  arrange(geography, grouping, year)
-
-# RGC and MIC's
-centers <- rgc_modes %>%
-  filter(geography != "Not in RGC")
-
-totals <- centers %>%
-  group_by(geography, year, concept, geography_type) %>%
-  summarise(total = sum(estimate)) %>%
-  as_tibble()
-
-centers <- left_join(centers, totals,  by=c("geography", "year", "concept", "geography_type")) %>%
-  mutate(share = estimate / total) %>%
-  select(-"total")
-
-rm(totals)
-
-# Region
-region <- rgc_modes %>%
-  group_by(year, grouping, concept) %>%
-  summarise(estimate = sum(estimate)) %>%
-  as_tibble() %>% 
-  mutate(geography = "Region", geography_type = "Region")
-
-totals <- region %>%
-  group_by(year, concept) %>%
-  summarise(total = sum(estimate)) %>%
-  as_tibble()
-
-region <- left_join(region, totals,  by=c("year", "concept")) %>%
-  mutate(share = estimate / total) %>%
-  select(-"total")
-
-rm(totals)
-
-# All RGCs
-all_rgcs <- rgc_modes %>%
-  filter(geography_type == rgc_title & geography != "Not in RGC") %>%
-  group_by(year, grouping, concept) %>%
-  summarise(estimate = sum(estimate)) %>%
-  as_tibble() %>% 
-  mutate(geography = "All Centers", geography_type = rgc_title)
-
-totals <- all_rgcs %>%
-  group_by(year, concept) %>%
-  summarise(total = sum(estimate)) %>%
-  as_tibble()
-
-all_rgcs <- left_join(all_rgcs, totals,  by=c("year", "concept")) %>%
-  mutate(share = estimate / total) %>%
-  select(-"total")
-
-rm(totals)
-
-# All MICs
-all_mics <- rgc_modes %>%
-  filter(geography_type == mic_title & geography != "Not in RGC") %>%
-  group_by(year, grouping, concept) %>%
-  summarise(estimate = sum(estimate)) %>%
-  as_tibble() %>% 
-  mutate(geography = "All Centers", geography_type = mic_title)
-
-totals <- all_mics %>%
-  group_by(year, concept) %>%
-  summarise(total = sum(estimate)) %>%
-  as_tibble()
-
-all_mics <- left_join(all_mics, totals,  by=c("year", "concept")) %>%
-  mutate(share = estimate / total) %>%
-  select(-"total")
-
-rm(totals)
-
-destination_mode_share <- bind_rows(centers, region, all_rgcs, all_mics)
-ord <- unique(c("Region", "All Centers", rgc_names, mic_names))
-destination_mode_share <- destination_mode_share %>% mutate(geography = factor(geography, levels = ord)) %>% arrange(geography, grouping, year)
-rm(dest_mode_order, centers, region, all_rgcs, all_mics, rgc_modes)
-saveRDS(destination_mode_share, "data/destination_mode_share.rds")
 
 # Transit Service ---------------------------------------------------------
 stops <- read_csv("data/stops.txt") |> 

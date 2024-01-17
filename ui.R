@@ -55,7 +55,7 @@ shinyUI(
                ) # End of Main Panel Fluid Row for RGC Tab 
              ), # end Tabpanel for RGC
              
-    tabPanel(title=HTML("Manufacturing & Industrial Centers"),
+    tabPanel(title=HTML("Manufacturing/Industrial Centers"),
              value="MIC",
              banner_ui('micBanner'),
              
