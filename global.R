@@ -23,13 +23,13 @@ library(scales)
 library(sf)
 library(leaflet)
 
-# Packaage for Excel Data Creation
+# Package for Excel Data Creation
 library(openxlsx)
 
 wgs84 <- 4326
 spn <- 32148
 
-current_census_yr <- 2021
+current_census_yr <- 2022
 current_employment_yr <- 2022
 census_years <- c(current_census_yr-10, current_census_yr-5, current_census_yr)
 ofm_years <- c(2011, 2016, 2021, 2022)
@@ -42,8 +42,8 @@ sapply(module_files, source)
 source("functions.R")
 
 # Inputs ---------------------------------------------------------------
-rgc_title <- "Regional Growth Center (6/22/2023)"
-mic_title <- "MIC (2022 RTP)"
+rgc_title <- "Regional Growth Center (12/12/2023)"
+mic_title <- "MIC (1/5/2024)"
 
 # Demographic Metrics
 pop_hh_hu_data <- readRDS("data/center_pop_hh_hu.rds") |>

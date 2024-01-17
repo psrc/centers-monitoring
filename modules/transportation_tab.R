@@ -61,6 +61,7 @@ transportation_server <- function(id, center_name, center_type, center_desc) {
                           tags$div(class="chart_source","Source: Spring GTFS Service")
                   )),
           fluidRow(column(12, div(img(src="transit-legend.png", width = "75%", style = "padding-left: 0px;")))),
+          tags$div(class="chart_source", "Note: Many stations show stops for each direction of travel."),
          br(),
         
           # Resident Mode Share

@@ -1,32 +1,32 @@
 name,intersection_count,acreage,intersection_density
-Auburn,92,234,0.39
-Bellevue Downtown,126,410,0.31
-Bothell Canyon Park,39,563,0.07
-Bremerton,114,578,0.2
-Burien,88,421,0.21
-Everett,166,661,0.25
-Federal Way,23,200,0.12
-Kirkland Greater Downtown,157,564,0.28
-Issaquah,63,464,0.14
-Kent,95,292,0.32
-Kirkland Totem Lake,124,842,0.15
-Lakewood,74,333,0.22
-Lynnwood,67,764,0.09
-Puyallup Downtown,79,215,0.37
-Puyallup South Hill,60,845,0.07
-Redmond Downtown,96,433,0.22
-Redmond Overlake,85,519,0.16
-Renton,130,599,0.22
-SeaTac,99,885,0.11
-Seattle Downtown,372,932,0.4
-Seattle First Hill/Capitol Hill,484,915,0.53
-Seattle Northgate,84,409,0.21
-Seattle South Lake Union,91,339,0.27
-Seattle University Community,204,766,0.27
-Seattle Uptown,111,335,0.33
-Silverdale,70,848,0.08
-Tacoma Downtown,442,"1,297",0.34
-Tacoma Mall,101,575,0.18
-Tukwila,42,847,0.05
-University Place,107,481,0.22
-All Centers,3885,17566,0.22
+Auburn,92,234,3.93
+Bellevue Downtown,126,410,3.07
+Bothell Canyon Park,39,563,0.69
+Bremerton,114,578,1.97
+Burien,88,421,2.09
+Everett,166,661,2.51
+Federal Way,23,200,1.15
+Kirkland Greater Downtown,157,564,2.78
+Issaquah,63,464,1.36
+Kent,95,292,3.25
+Kirkland Totem Lake,124,842,1.47
+Lakewood,74,333,2.22
+Lynnwood,67,764,0.88
+Puyallup Downtown,79,215,3.67
+Puyallup South Hill,60,845,0.71
+Redmond Downtown,96,433,2.22
+Redmond Overlake,85,519,1.64
+Renton,130,599,2.17
+SeaTac,99,885,1.12
+Seattle Downtown,372,932,3.99
+Seattle First Hill/Capitol Hill,484,915,5.29
+Seattle Northgate,84,409,2.05
+Seattle South Lake Union,91,339,2.68
+Seattle University Community,204,766,2.66
+Seattle Uptown,111,335,3.31
+Silverdale,70,848,0.83
+Tacoma Downtown,442,"1,297",3.41
+Tacoma Mall,101,575,1.76
+Tukwila,42,847,0.50
+University Place,107,481,2.22
+All Centers,3885,17566,2.21

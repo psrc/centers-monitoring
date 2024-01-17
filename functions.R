@@ -590,12 +590,12 @@ create_rgc_urban_form_table <- function(center_name) {
   r2 <- intersection_density %>% 
     filter(name == center_name) %>% 
     select("name", estimate="intersection_density") %>% 
-    mutate(grouping="Intersection Density (per acre)")
+    mutate(grouping="Intersection Density (per 10 acres)")
   
   r3 <- intersection_density %>% 
     filter(name == "All Centers") %>% 
     select("name", estimate="intersection_density") %>% 
-    mutate(grouping="Intersection Density (per acre) - All Centers")
+    mutate(grouping="Intersection Density (per 10 acres) - All Centers")
   
   t <- bind_rows(r1, r2, r3) %>% select("grouping", "estimate")
   
