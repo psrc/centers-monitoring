@@ -33,7 +33,7 @@ current_census_yr <- 2021
 current_employment_yr <- 2022
 census_years <- c(current_census_yr-10, current_census_yr-5, current_census_yr)
 ofm_years <- c(2011, 2016, 2021, 2022)
-industrial_years <- c(2010, 2015, 2020) 
+industrial_years <- c(2010, 2015, 2020, 2022) 
 year_ord <- c("2022","2021", "2020", "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010")
 
 # Run Modules files -------------------------------------------------------
@@ -230,5 +230,3 @@ industrial_jobs <- read_csv("data/mic-industrial-jobs.csv", show_col_types = FAL
   filter(grouping %in% c("Industrial", "Non-industrial")) |>
   mutate(geography = factor(geography, levels = ord)) |>
   arrange(geography, grouping, year)
-
-
