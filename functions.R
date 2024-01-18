@@ -1495,7 +1495,7 @@ create_summary_table <- function(center_name, center_type, yr) {
     select("estimate") |> 
     pull()
   
-  if (j == "*") {
+  if (is.na(j)) {
     
     r6 <- r3 |> mutate(estimate = "*", grouping = "Total Employment", pic = as.character(icon("briefcase", lib = "font-awesome")))
     
@@ -1528,7 +1528,7 @@ create_summary_table <- function(center_name, center_type, yr) {
     select("estimate") |> 
     pull()
   
-  if (j == "*") {
+  if (is.na(j)) {
     
     jobs <-"*"
     
@@ -1538,7 +1538,7 @@ create_summary_table <- function(center_name, center_type, yr) {
     
   }
   
-  if (j == "*") {
+  if (is.na(j)) {
     
     au <- "*"
     
@@ -1552,7 +1552,7 @@ create_summary_table <- function(center_name, center_type, yr) {
   
   # Jobs / Pop Balance
   
-  if (j == "*") {
+  if (is.na(j)) {
     
     jobs <-"*"
     
@@ -1562,7 +1562,7 @@ create_summary_table <- function(center_name, center_type, yr) {
     
   }
   
-  if (jobs == "*") {
+  if (is.na(j)) {
     
     jpr <- "*"
     
