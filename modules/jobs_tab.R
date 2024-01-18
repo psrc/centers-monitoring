@@ -20,7 +20,7 @@ jobs_server <- function(id, center_name, center_type) {
       echart_column_chart(df = employment_data |> 
                             filter(geography_type == center_type, geography == center_name() & grouping == "Total") |>
                             mutate(estimate = as.integer(estimate)) |>
-                            filter(data_year %in% ofm_years),
+                            filter(data_year %in% pop_hsg_yrs),
                           x = "data_year", y = "estimate", tog = "grouping", title = "Total Employment",
                           dec = 0, esttype = "number", color = "purples")
       
@@ -32,12 +32,12 @@ jobs_server <- function(id, center_name, center_type) {
       
       output$industrial_jobs_chart <- renderEcharts4r({
         
-        echart_multi_column_chart(df = industrial_jobs |> filter(geography %in% c(center_name(), "Region", "All Centers", "All RGCs", "All MICs")),
+        echart_multi_column_chart(df = industrial_jobs |> filter(geography %in% c(center_name(), "Region", "All Centers", "All RGCs", "All MICs") & data_year %in% pop_hsg_yrs),
                                   x = "grouping", y = "share", tog = "data_year", fill="geography",
                                   dec = 0, esttype = "percent", color = "jewel")
         })
       
-      output$industrial_table <- DT::renderDataTable({create_multi_year_table(df = industrial_jobs, rgc_name = center_name(), data_yrs = as.character(industrial_years), dec = 1, center_type = center_type)})
+      output$industrial_table <- DT::renderDataTable({create_multi_year_table(df = industrial_jobs, rgc_name = center_name(), data_yrs = as.character(pop_hsg_yrs), dec = 1, center_type = center_type)})
       
     }
   

@@ -20,7 +20,7 @@ transportation_server <- function(id, center_name, center_type, center_desc) {
       
       output$resident_mode_chart <- renderEcharts4r({
         echart_multi_column_chart(df = mode_data %>% 
-                                    filter(geography_type %in% c(center_type, "County") & geography %in% c(center_name(), "Region", "All Centers", "All RGCs", "All MICs") & grouping != "Total"),
+                                    filter(geography_type %in% c(center_type, "County") & geography %in% c(center_name(), "Region", "All Centers", "All RGCs", "All MICs") & grouping != "Total" & data_year %in% census_years),
                                   x = "grouping", y = "share", fill="geography", tog = "data_year", 
                                   dec = 0, esttype = "percent", color = "jewel")
         })
@@ -101,6 +101,7 @@ transportation_server <- function(id, center_name, center_type, center_desc) {
                           tags$div(class="chart_source","Source: Spring GTFS Service")
                    )),
           fluidRow(column(12, div(img(src="transit-legend.png", width = "75%", style = "padding-left: 0px;")))),
+          tags$div(class="chart_source", "Note: Many stations show stops for each direction of travel."),
           br(),
           
           # Destination Mode Share

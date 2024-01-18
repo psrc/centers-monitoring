@@ -33,6 +33,7 @@ current_census_yr <- 2022
 current_employment_yr <- 2022
 census_years <- c(current_census_yr-10, current_census_yr-5, current_census_yr)
 ofm_years <- c(2011, 2016, 2021, 2022)
+pop_hsg_yrs <- c(2010, 2020, 2022)
 industrial_years <- c(2010, 2015, 2020, 2022) 
 year_ord <- c("2022","2021", "2020", "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010")
 
@@ -46,7 +47,7 @@ rgc_title <- "Regional Growth Center (12/12/2023)"
 mic_title <- "MIC (1/5/2024)"
 
 # Demographic Metrics
-pop_hh_hu_data <- readRDS("data/center_pop_hh_hu.rds") |>
+pop_hh_hu_data <- read_csv("data/pop_hsg_data.csv", show_col_types = FALSE) |>
   mutate(data_year = factor(year, levels=year_ord)) |>
   mutate(geography = gsub("Greater Downtown Kirkland", "Kirkland Greater Downtown", geography)) |>
   mutate(geography = case_when(
