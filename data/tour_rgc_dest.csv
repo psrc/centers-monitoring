@@ -1,0 +1,2005 @@
+pdpurp,tmodetp,tour_d_rgc,toexpfac
+Work,Walk,Auburn,46.0
+Work,Walk,Ballard-Interbay,690.0
+Work,Walk,Bellevue,3827.0
+Work,Walk,Bothell Canyon Park,42.0
+Work,Walk,Bremerton,391.0
+Work,Walk,Burien,96.0
+Work,Walk,Cascade,33.0
+Work,Walk,Duwamish,318.0
+Work,Walk,Everett,723.0
+Work,Walk,Federal Way,39.0
+Work,Walk,Frederickson,2.0
+Work,Walk,Greater Downtown Kirkland,213.0
+Work,Walk,Issaquah,22.0
+Work,Walk,Kent,56.0
+Work,Walk,Kent MIC,59.0
+Work,Walk,Kirkland Totem Lake,126.0
+Work,Walk,Lakewood,82.0
+Work,Walk,Lynnwood,157.0
+Work,Walk,North Tukwila,9.0
+Work,Walk,Not in RGC,18109.0
+Work,Walk,Paine Field / Boeing Everett,174.0
+Work,Walk,Port of Tacoma,14.0
+Work,Walk,Puyallup Downtown,66.0
+Work,Walk,Puyallup South Hill,55.0
+Work,Walk,Redmond Downtown,502.0
+Work,Walk,Redmond-Overlake,452.0
+Work,Walk,Renton,205.0
+Work,Walk,SeaTac,194.0
+Work,Walk,Seattle Downtown,22019.0
+Work,Walk,Seattle First Hill/Capitol Hill,6989.0
+Work,Walk,Seattle Northgate,462.0
+Work,Walk,Seattle South Lake Union,6935.0
+Work,Walk,Seattle University Community,1623.0
+Work,Walk,Seattle Uptown,2623.0
+Work,Walk,Silverdale,150.0
+Work,Walk,Sumner Pacific,29.0
+Work,Walk,Tacoma Downtown,1931.0
+Work,Walk,Tacoma Mall,145.0
+Work,Walk,Tukwila,12.0
+Work,Walk,University Place,93.0
+Work,Bike,Auburn,42.0
+Work,Bike,Ballard-Interbay,236.0
+Work,Bike,Bellevue,437.0
+Work,Bike,Bothell Canyon Park,77.0
+Work,Bike,Bremerton,109.0
+Work,Bike,Burien,34.0
+Work,Bike,Cascade,102.0
+Work,Bike,Duwamish,714.0
+Work,Bike,Everett,177.0
+Work,Bike,Federal Way,17.0
+Work,Bike,Frederickson,22.0
+Work,Bike,Greater Downtown Kirkland,86.0
+Work,Bike,Issaquah,27.0
+Work,Bike,Kent,54.0
+Work,Bike,Kent MIC,323.0
+Work,Bike,Kirkland Totem Lake,113.0
+Work,Bike,Lakewood,50.0
+Work,Bike,Lynnwood,149.0
+Work,Bike,North Tukwila,58.0
+Work,Bike,Not in RGC,10515.0
+Work,Bike,Paine Field / Boeing Everett,403.0
+Work,Bike,Port of Tacoma,67.0
+Work,Bike,Puget Sound Industrial Center- Bremerton,1.0
+Work,Bike,Puyallup Downtown,39.0
+Work,Bike,Puyallup South Hill,58.0
+Work,Bike,Redmond Downtown,73.0
+Work,Bike,Redmond-Overlake,245.0
+Work,Bike,Renton,101.0
+Work,Bike,SeaTac,191.0
+Work,Bike,Seattle Downtown,2266.0
+Work,Bike,Seattle First Hill/Capitol Hill,582.0
+Work,Bike,Seattle Northgate,197.0
+Work,Bike,Seattle South Lake Union,885.0
+Work,Bike,Seattle University Community,471.0
+Work,Bike,Seattle Uptown,285.0
+Work,Bike,Silverdale,73.0
+Work,Bike,Sumner Pacific,98.0
+Work,Bike,Tacoma Downtown,511.0
+Work,Bike,Tacoma Mall,87.0
+Work,Bike,Tukwila,120.0
+Work,Bike,University Place,53.0
+Work,SOV,Auburn,2338.0
+Work,SOV,Ballard-Interbay,8179.0
+Work,SOV,Bellevue,20069.0
+Work,SOV,Bothell Canyon Park,5865.0
+Work,SOV,Bremerton,5945.0
+Work,SOV,Burien,1994.0
+Work,SOV,Cascade,4226.0
+Work,SOV,Duwamish,35241.0
+Work,SOV,Everett,7511.0
+Work,SOV,Federal Way,1025.0
+Work,SOV,Frederickson,1186.0
+Work,SOV,Greater Downtown Kirkland,5109.0
+Work,SOV,Issaquah,3511.0
+Work,SOV,Kent,3889.0
+Work,SOV,Kent MIC,31480.0
+Work,SOV,Kirkland Totem Lake,7492.0
+Work,SOV,Lakewood,2247.0
+Work,SOV,Lynnwood,6866.0
+Work,SOV,North Tukwila,4130.0
+Work,SOV,Not in RGC,623702.0
+Work,SOV,Paine Field / Boeing Everett,22678.0
+Work,SOV,Port of Tacoma,4936.0
+Work,SOV,Puget Sound Industrial Center- Bremerton,177.0
+Work,SOV,Puyallup Downtown,1845.0
+Work,SOV,Puyallup South Hill,3499.0
+Work,SOV,Redmond Downtown,4070.0
+Work,SOV,Redmond-Overlake,16310.0
+Work,SOV,Renton,7833.0
+Work,SOV,SeaTac,13180.0
+Work,SOV,Seattle Downtown,58206.0
+Work,SOV,Seattle First Hill/Capitol Hill,18447.0
+Work,SOV,Seattle Northgate,5784.0
+Work,SOV,Seattle South Lake Union,19918.0
+Work,SOV,Seattle University Community,13817.0
+Work,SOV,Seattle Uptown,7668.0
+Work,SOV,Silverdale,4528.0
+Work,SOV,Sumner Pacific,7597.0
+Work,SOV,Tacoma Downtown,22986.0
+Work,SOV,Tacoma Mall,3814.0
+Work,SOV,Tukwila,10206.0
+Work,SOV,University Place,2113.0
+Work,HOV2,Auburn,603.0
+Work,HOV2,Ballard-Interbay,1986.0
+Work,HOV2,Bellevue,5791.0
+Work,HOV2,Bothell Canyon Park,1530.0
+Work,HOV2,Bremerton,1636.0
+Work,HOV2,Burien,488.0
+Work,HOV2,Cascade,1183.0
+Work,HOV2,Duwamish,9102.0
+Work,HOV2,Everett,2178.0
+Work,HOV2,Federal Way,274.0
+Work,HOV2,Frederickson,338.0
+Work,HOV2,Greater Downtown Kirkland,1240.0
+Work,HOV2,Issaquah,905.0
+Work,HOV2,Kent,1046.0
+Work,HOV2,Kent MIC,8284.0
+Work,HOV2,Kirkland Totem Lake,1921.0
+Work,HOV2,Lakewood,645.0
+Work,HOV2,Lynnwood,1787.0
+Work,HOV2,North Tukwila,991.0
+Work,HOV2,Not in RGC,163153.0
+Work,HOV2,Paine Field / Boeing Everett,5854.0
+Work,HOV2,Port of Tacoma,1271.0
+Work,HOV2,Puget Sound Industrial Center- Bremerton,42.0
+Work,HOV2,Puyallup Downtown,510.0
+Work,HOV2,Puyallup South Hill,990.0
+Work,HOV2,Redmond Downtown,1028.0
+Work,HOV2,Redmond-Overlake,4164.0
+Work,HOV2,Renton,2074.0
+Work,HOV2,SeaTac,3383.0
+Work,HOV2,Seattle Downtown,17430.0
+Work,HOV2,Seattle First Hill/Capitol Hill,5324.0
+Work,HOV2,Seattle Northgate,1559.0
+Work,HOV2,Seattle South Lake Union,5652.0
+Work,HOV2,Seattle University Community,3875.0
+Work,HOV2,Seattle Uptown,2004.0
+Work,HOV2,Silverdale,1132.0
+Work,HOV2,Sumner Pacific,2055.0
+Work,HOV2,Tacoma Downtown,6567.0
+Work,HOV2,Tacoma Mall,1063.0
+Work,HOV2,Tukwila,2731.0
+Work,HOV2,University Place,606.0
+Work,HOV3+,Auburn,292.0
+Work,HOV3+,Ballard-Interbay,950.0
+Work,HOV3+,Bellevue,2954.0
+Work,HOV3+,Bothell Canyon Park,812.0
+Work,HOV3+,Bremerton,796.0
+Work,HOV3+,Burien,273.0
+Work,HOV3+,Cascade,602.0
+Work,HOV3+,Duwamish,4481.0
+Work,HOV3+,Everett,1199.0
+Work,HOV3+,Federal Way,131.0
+Work,HOV3+,Frederickson,160.0
+Work,HOV3+,Greater Downtown Kirkland,627.0
+Work,HOV3+,Issaquah,435.0
+Work,HOV3+,Kent,556.0
+Work,HOV3+,Kent MIC,4143.0
+Work,HOV3+,Kirkland Totem Lake,979.0
+Work,HOV3+,Lakewood,348.0
+Work,HOV3+,Lynnwood,883.0
+Work,HOV3+,North Tukwila,494.0
+Work,HOV3+,Not in RGC,81657.0
+Work,HOV3+,Paine Field / Boeing Everett,3037.0
+Work,HOV3+,Port of Tacoma,674.0
+Work,HOV3+,Puget Sound Industrial Center- Bremerton,20.0
+Work,HOV3+,Puyallup Downtown,243.0
+Work,HOV3+,Puyallup South Hill,569.0
+Work,HOV3+,Redmond Downtown,523.0
+Work,HOV3+,Redmond-Overlake,2159.0
+Work,HOV3+,Renton,1043.0
+Work,HOV3+,SeaTac,1716.0
+Work,HOV3+,Seattle Downtown,8621.0
+Work,HOV3+,Seattle First Hill/Capitol Hill,2590.0
+Work,HOV3+,Seattle Northgate,734.0
+Work,HOV3+,Seattle South Lake Union,2724.0
+Work,HOV3+,Seattle University Community,1982.0
+Work,HOV3+,Seattle Uptown,1034.0
+Work,HOV3+,Silverdale,596.0
+Work,HOV3+,Sumner Pacific,1023.0
+Work,HOV3+,Tacoma Downtown,3480.0
+Work,HOV3+,Tacoma Mall,533.0
+Work,HOV3+,Tukwila,1382.0
+Work,HOV3+,University Place,311.0
+Work,Transit,Auburn,205.0
+Work,Transit,Ballard-Interbay,738.0
+Work,Transit,Bellevue,3430.0
+Work,Transit,Bothell Canyon Park,145.0
+Work,Transit,Bremerton,241.0
+Work,Transit,Burien,139.0
+Work,Transit,Cascade,48.0
+Work,Transit,Duwamish,4134.0
+Work,Transit,Everett,370.0
+Work,Transit,Federal Way,119.0
+Work,Transit,Greater Downtown Kirkland,254.0
+Work,Transit,Issaquah,137.0
+Work,Transit,Kent,325.0
+Work,Transit,Kent MIC,1542.0
+Work,Transit,Kirkland Totem Lake,231.0
+Work,Transit,Lakewood,56.0
+Work,Transit,Lynnwood,259.0
+Work,Transit,North Tukwila,250.0
+Work,Transit,Not in RGC,29544.0
+Work,Transit,Paine Field / Boeing Everett,581.0
+Work,Transit,Port of Tacoma,71.0
+Work,Transit,Puyallup Downtown,193.0
+Work,Transit,Puyallup South Hill,74.0
+Work,Transit,Redmond Downtown,328.0
+Work,Transit,Redmond-Overlake,1685.0
+Work,Transit,Renton,454.0
+Work,Transit,SeaTac,1582.0
+Work,Transit,Seattle Downtown,44662.0
+Work,Transit,Seattle First Hill/Capitol Hill,6227.0
+Work,Transit,Seattle Northgate,453.0
+Work,Transit,Seattle South Lake Union,9066.0
+Work,Transit,Seattle University Community,6282.0
+Work,Transit,Seattle Uptown,1088.0
+Work,Transit,Silverdale,60.0
+Work,Transit,Sumner Pacific,43.0
+Work,Transit,Tacoma Downtown,1271.0
+Work,Transit,Tacoma Mall,175.0
+Work,Transit,Tukwila,872.0
+Work,Transit,University Place,67.0
+Work,Park,Auburn,92.0
+Work,Park,Ballard-Interbay,190.0
+Work,Park,Bellevue,1826.0
+Work,Park,Bothell Canyon Park,154.0
+Work,Park,Bremerton,192.0
+Work,Park,Burien,53.0
+Work,Park,Cascade,54.0
+Work,Park,Duwamish,879.0
+Work,Park,Everett,347.0
+Work,Park,Federal Way,89.0
+Work,Park,Greater Downtown Kirkland,175.0
+Work,Park,Issaquah,100.0
+Work,Park,Kent,140.0
+Work,Park,Kent MIC,791.0
+Work,Park,Kirkland Totem Lake,176.0
+Work,Park,Lakewood,60.0
+Work,Park,Lynnwood,184.0
+Work,Park,North Tukwila,74.0
+Work,Park,Not in RGC,14986.0
+Work,Park,Paine Field / Boeing Everett,385.0
+Work,Park,Port of Tacoma,53.0
+Work,Park,Puyallup Downtown,102.0
+Work,Park,Puyallup South Hill,118.0
+Work,Park,Redmond Downtown,193.0
+Work,Park,Redmond-Overlake,975.0
+Work,Park,Renton,296.0
+Work,Park,SeaTac,459.0
+Work,Park,Seattle Downtown,9358.0
+Work,Park,Seattle First Hill/Capitol Hill,1497.0
+Work,Park,Seattle Northgate,174.0
+Work,Park,Seattle South Lake Union,2336.0
+Work,Park,Seattle University Community,1214.0
+Work,Park,Seattle Uptown,308.0
+Work,Park,Silverdale,126.0
+Work,Park,Sumner Pacific,26.0
+Work,Park,Tacoma Downtown,1148.0
+Work,Park,Tacoma Mall,175.0
+Work,Park,Tukwila,400.0
+Work,Park,University Place,48.0
+Work,TNC,Auburn,26.0
+Work,TNC,Ballard-Interbay,178.0
+Work,TNC,Bellevue,320.0
+Work,TNC,Bothell Canyon Park,65.0
+Work,TNC,Bremerton,70.0
+Work,TNC,Burien,30.0
+Work,TNC,Cascade,42.0
+Work,TNC,Duwamish,689.0
+Work,TNC,Everett,117.0
+Work,TNC,Federal Way,9.0
+Work,TNC,Frederickson,11.0
+Work,TNC,Greater Downtown Kirkland,66.0
+Work,TNC,Issaquah,50.0
+Work,TNC,Kent,53.0
+Work,TNC,Kent MIC,330.0
+Work,TNC,Kirkland Totem Lake,96.0
+Work,TNC,Lakewood,31.0
+Work,TNC,Lynnwood,68.0
+Work,TNC,North Tukwila,32.0
+Work,TNC,Not in RGC,8409.0
+Work,TNC,Paine Field / Boeing Everett,166.0
+Work,TNC,Port of Tacoma,43.0
+Work,TNC,Puget Sound Industrial Center- Bremerton,1.0
+Work,TNC,Puyallup Downtown,24.0
+Work,TNC,Puyallup South Hill,36.0
+Work,TNC,Redmond Downtown,68.0
+Work,TNC,Redmond-Overlake,210.0
+Work,TNC,Renton,78.0
+Work,TNC,SeaTac,121.0
+Work,TNC,Seattle Downtown,2953.0
+Work,TNC,Seattle First Hill/Capitol Hill,1049.0
+Work,TNC,Seattle Northgate,67.0
+Work,TNC,Seattle South Lake Union,817.0
+Work,TNC,Seattle University Community,372.0
+Work,TNC,Seattle Uptown,282.0
+Work,TNC,Silverdale,53.0
+Work,TNC,Sumner Pacific,63.0
+Work,TNC,Tacoma Downtown,337.0
+Work,TNC,Tacoma Mall,46.0
+Work,TNC,Tukwila,142.0
+Work,TNC,University Place,28.0
+School,Walk,Auburn,8.0
+School,Walk,Ballard-Interbay,79.0
+School,Walk,Bellevue,284.0
+School,Walk,Bothell Canyon Park,43.0
+School,Walk,Bremerton,10.0
+School,Walk,Burien,42.0
+School,Walk,Cascade,20.0
+School,Walk,Duwamish,42.0
+School,Walk,Everett,153.0
+School,Walk,Federal Way,5.0
+School,Walk,Frederickson,1.0
+School,Walk,Greater Downtown Kirkland,81.0
+School,Walk,Kent,57.0
+School,Walk,Kent MIC,11.0
+School,Walk,Kirkland Totem Lake,183.0
+School,Walk,Lakewood,35.0
+School,Walk,Lynnwood,48.0
+School,Walk,North Tukwila,1.0
+School,Walk,Not in RGC,28642.0
+School,Walk,Paine Field / Boeing Everett,14.0
+School,Walk,Port of Tacoma,2.0
+School,Walk,Puyallup Downtown,80.0
+School,Walk,Puyallup South Hill,28.0
+School,Walk,Redmond Downtown,79.0
+School,Walk,Redmond-Overlake,126.0
+School,Walk,Renton,97.0
+School,Walk,SeaTac,58.0
+School,Walk,Seattle Downtown,538.0
+School,Walk,Seattle First Hill/Capitol Hill,1448.0
+School,Walk,Seattle Northgate,72.0
+School,Walk,Seattle South Lake Union,102.0
+School,Walk,Seattle University Community,2319.0
+School,Walk,Seattle Uptown,79.0
+School,Walk,Silverdale,58.0
+School,Walk,Tacoma Downtown,575.0
+School,Walk,Tacoma Mall,34.0
+School,Walk,Tukwila,16.0
+School,Walk,University Place,79.0
+School,Bike,Auburn,4.0
+School,Bike,Ballard-Interbay,42.0
+School,Bike,Bellevue,43.0
+School,Bike,Bothell Canyon Park,42.0
+School,Bike,Bremerton,1.0
+School,Bike,Burien,13.0
+School,Bike,Cascade,20.0
+School,Bike,Duwamish,42.0
+School,Bike,Everett,39.0
+School,Bike,Federal Way,1.0
+School,Bike,Greater Downtown Kirkland,24.0
+School,Bike,Kent,22.0
+School,Bike,Kent MIC,13.0
+School,Bike,Kirkland Totem Lake,248.0
+School,Bike,Lakewood,17.0
+School,Bike,Lynnwood,26.0
+School,Bike,North Tukwila,1.0
+School,Bike,Not in RGC,15091.0
+School,Bike,Paine Field / Boeing Everett,12.0
+School,Bike,Port of Tacoma,6.0
+School,Bike,Puyallup Downtown,41.0
+School,Bike,Puyallup South Hill,19.0
+School,Bike,Redmond Downtown,26.0
+School,Bike,Redmond-Overlake,41.0
+School,Bike,Renton,29.0
+School,Bike,SeaTac,13.0
+School,Bike,Seattle Downtown,152.0
+School,Bike,Seattle First Hill/Capitol Hill,662.0
+School,Bike,Seattle Northgate,26.0
+School,Bike,Seattle South Lake Union,39.0
+School,Bike,Seattle University Community,2648.0
+School,Bike,Seattle Uptown,22.0
+School,Bike,Silverdale,52.0
+School,Bike,Sumner Pacific,1.0
+School,Bike,Tacoma Downtown,380.0
+School,Bike,Tacoma Mall,18.0
+School,Bike,Tukwila,12.0
+School,Bike,University Place,32.0
+School,SOV,Auburn,13.0
+School,SOV,Ballard-Interbay,30.0
+School,SOV,Bellevue,14.0
+School,SOV,Bothell Canyon Park,75.0
+School,SOV,Burien,13.0
+School,SOV,Cascade,36.0
+School,SOV,Duwamish,41.0
+School,SOV,Everett,22.0
+School,SOV,Federal Way,4.0
+School,SOV,Frederickson,7.0
+School,SOV,Greater Downtown Kirkland,42.0
+School,SOV,Issaquah,4.0
+School,SOV,Kent,12.0
+School,SOV,Kent MIC,56.0
+School,SOV,Kirkland Totem Lake,1359.0
+School,SOV,Lakewood,31.0
+School,SOV,Lynnwood,39.0
+School,SOV,North Tukwila,3.0
+School,SOV,Not in RGC,46575.0
+School,SOV,Paine Field / Boeing Everett,15.0
+School,SOV,Port of Tacoma,9.0
+School,SOV,Puyallup Downtown,34.0
+School,SOV,Puyallup South Hill,37.0
+School,SOV,Redmond Downtown,38.0
+School,SOV,Redmond-Overlake,52.0
+School,SOV,Renton,57.0
+School,SOV,SeaTac,17.0
+School,SOV,Seattle Downtown,31.0
+School,SOV,Seattle First Hill/Capitol Hill,475.0
+School,SOV,Seattle Northgate,37.0
+School,SOV,Seattle South Lake Union,11.0
+School,SOV,Seattle University Community,1764.0
+School,SOV,Seattle Uptown,6.0
+School,SOV,Silverdale,118.0
+School,SOV,Sumner Pacific,2.0
+School,SOV,Tacoma Downtown,1214.0
+School,SOV,Tacoma Mall,25.0
+School,SOV,Tukwila,41.0
+School,SOV,University Place,17.0
+School,HOV2,Auburn,44.0
+School,HOV2,Ballard-Interbay,381.0
+School,HOV2,Bellevue,142.0
+School,HOV2,Bothell Canyon Park,484.0
+School,HOV2,Bremerton,27.0
+School,HOV2,Burien,173.0
+School,HOV2,Cascade,149.0
+School,HOV2,Duwamish,546.0
+School,HOV2,Everett,128.0
+School,HOV2,Federal Way,22.0
+School,HOV2,Frederickson,25.0
+School,HOV2,Greater Downtown Kirkland,303.0
+School,HOV2,Issaquah,5.0
+School,HOV2,Kent,214.0
+School,HOV2,Kent MIC,302.0
+School,HOV2,Kirkland Totem Lake,695.0
+School,HOV2,Lakewood,184.0
+School,HOV2,Lynnwood,325.0
+School,HOV2,North Tukwila,17.0
+School,HOV2,Not in RGC,123492.0
+School,HOV2,Paine Field / Boeing Everett,162.0
+School,HOV2,Port of Tacoma,40.0
+School,HOV2,Puget Sound Industrial Center- Bremerton,8.0
+School,HOV2,Puyallup Downtown,366.0
+School,HOV2,Puyallup South Hill,250.0
+School,HOV2,Redmond Downtown,245.0
+School,HOV2,Redmond-Overlake,474.0
+School,HOV2,Renton,430.0
+School,HOV2,SeaTac,138.0
+School,HOV2,Seattle Downtown,215.0
+School,HOV2,Seattle First Hill/Capitol Hill,544.0
+School,HOV2,Seattle Northgate,313.0
+School,HOV2,Seattle South Lake Union,96.0
+School,HOV2,Seattle University Community,828.0
+School,HOV2,Seattle Uptown,81.0
+School,HOV2,Silverdale,534.0
+School,HOV2,Sumner Pacific,2.0
+School,HOV2,Tacoma Downtown,767.0
+School,HOV2,Tacoma Mall,219.0
+School,HOV2,Tukwila,290.0
+School,HOV2,University Place,265.0
+School,HOV3+,Auburn,74.0
+School,HOV3+,Ballard-Interbay,591.0
+School,HOV3+,Bellevue,495.0
+School,HOV3+,Bothell Canyon Park,682.0
+School,HOV3+,Bremerton,45.0
+School,HOV3+,Burien,249.0
+School,HOV3+,Cascade,281.0
+School,HOV3+,Duwamish,873.0
+School,HOV3+,Everett,324.0
+School,HOV3+,Federal Way,48.0
+School,HOV3+,Frederickson,37.0
+School,HOV3+,Greater Downtown Kirkland,435.0
+School,HOV3+,Issaquah,4.0
+School,HOV3+,Kent,367.0
+School,HOV3+,Kent MIC,456.0
+School,HOV3+,Kirkland Totem Lake,1018.0
+School,HOV3+,Lakewood,224.0
+School,HOV3+,Lynnwood,518.0
+School,HOV3+,North Tukwila,29.0
+School,HOV3+,Not in RGC,189947.0
+School,HOV3+,Paine Field / Boeing Everett,247.0
+School,HOV3+,Port of Tacoma,48.0
+School,HOV3+,Puget Sound Industrial Center- Bremerton,7.0
+School,HOV3+,Puyallup Downtown,584.0
+School,HOV3+,Puyallup South Hill,328.0
+School,HOV3+,Redmond Downtown,369.0
+School,HOV3+,Redmond-Overlake,673.0
+School,HOV3+,Renton,599.0
+School,HOV3+,SeaTac,189.0
+School,HOV3+,Seattle Downtown,786.0
+School,HOV3+,Seattle First Hill/Capitol Hill,1191.0
+School,HOV3+,Seattle Northgate,447.0
+School,HOV3+,Seattle South Lake Union,285.0
+School,HOV3+,Seattle University Community,1727.0
+School,HOV3+,Seattle Uptown,217.0
+School,HOV3+,Silverdale,815.0
+School,HOV3+,Sumner Pacific,8.0
+School,HOV3+,Tacoma Downtown,1474.0
+School,HOV3+,Tacoma Mall,355.0
+School,HOV3+,Tukwila,437.0
+School,HOV3+,University Place,397.0
+School,Transit,Auburn,15.0
+School,Transit,Ballard-Interbay,69.0
+School,Transit,Bellevue,155.0
+School,Transit,Bothell Canyon Park,39.0
+School,Transit,Bremerton,9.0
+School,Transit,Burien,24.0
+School,Transit,Cascade,7.0
+School,Transit,Duwamish,157.0
+School,Transit,Everett,49.0
+School,Transit,Federal Way,6.0
+School,Transit,Greater Downtown Kirkland,50.0
+School,Transit,Issaquah,1.0
+School,Transit,Kent,18.0
+School,Transit,Kent MIC,28.0
+School,Transit,Kirkland Totem Lake,346.0
+School,Transit,Lakewood,35.0
+School,Transit,Lynnwood,44.0
+School,Transit,North Tukwila,3.0
+School,Transit,Not in RGC,19351.0
+School,Transit,Paine Field / Boeing Everett,19.0
+School,Transit,Port of Tacoma,7.0
+School,Transit,Puyallup Downtown,34.0
+School,Transit,Puyallup South Hill,15.0
+School,Transit,Redmond Downtown,22.0
+School,Transit,Redmond-Overlake,61.0
+School,Transit,Renton,106.0
+School,Transit,SeaTac,38.0
+School,Transit,Seattle Downtown,1392.0
+School,Transit,Seattle First Hill/Capitol Hill,2645.0
+School,Transit,Seattle Northgate,73.0
+School,Transit,Seattle South Lake Union,189.0
+School,Transit,Seattle University Community,7601.0
+School,Transit,Seattle Uptown,92.0
+School,Transit,Silverdale,39.0
+School,Transit,Sumner Pacific,2.0
+School,Transit,Tacoma Downtown,1261.0
+School,Transit,Tacoma Mall,35.0
+School,Transit,Tukwila,53.0
+School,Transit,University Place,30.0
+School,School Bus,Auburn,78.0
+School,School Bus,Ballard-Interbay,496.0
+School,School Bus,Bellevue,853.0
+School,School Bus,Bothell Canyon Park,570.0
+School,School Bus,Bremerton,41.0
+School,School Bus,Burien,247.0
+School,School Bus,Cascade,271.0
+School,School Bus,Duwamish,734.0
+School,School Bus,Everett,515.0
+School,School Bus,Federal Way,47.0
+School,School Bus,Frederickson,39.0
+School,School Bus,Greater Downtown Kirkland,409.0
+School,School Bus,Issaquah,5.0
+School,School Bus,Kent,377.0
+School,School Bus,Kent MIC,419.0
+School,School Bus,Kirkland Totem Lake,614.0
+School,School Bus,Lakewood,253.0
+School,School Bus,Lynnwood,452.0
+School,School Bus,North Tukwila,38.0
+School,School Bus,Not in RGC,177189.0
+School,School Bus,Paine Field / Boeing Everett,207.0
+School,School Bus,Port of Tacoma,48.0
+School,School Bus,Puget Sound Industrial Center- Bremerton,3.0
+School,School Bus,Puyallup Downtown,557.0
+School,School Bus,Puyallup South Hill,305.0
+School,School Bus,Redmond Downtown,412.0
+School,School Bus,Redmond-Overlake,602.0
+School,School Bus,Renton,689.0
+School,School Bus,SeaTac,172.0
+School,School Bus,Seattle Downtown,1314.0
+School,School Bus,Seattle First Hill/Capitol Hill,1088.0
+School,School Bus,Seattle Northgate,408.0
+School,School Bus,Seattle South Lake Union,392.0
+School,School Bus,Seattle University Community,625.0
+School,School Bus,Seattle Uptown,303.0
+School,School Bus,Silverdale,832.0
+School,School Bus,Sumner Pacific,11.0
+School,School Bus,Tacoma Downtown,1135.0
+School,School Bus,Tacoma Mall,334.0
+School,School Bus,Tukwila,416.0
+School,School Bus,University Place,421.0
+School,TNC,Auburn,5.0
+School,TNC,Ballard-Interbay,51.0
+School,TNC,Bellevue,92.0
+School,TNC,Bothell Canyon Park,67.0
+School,TNC,Bremerton,3.0
+School,TNC,Burien,24.0
+School,TNC,Cascade,23.0
+School,TNC,Duwamish,66.0
+School,TNC,Everett,52.0
+School,TNC,Federal Way,8.0
+School,TNC,Frederickson,6.0
+School,TNC,Greater Downtown Kirkland,46.0
+School,TNC,Kent,39.0
+School,TNC,Kent MIC,30.0
+School,TNC,Kirkland Totem Lake,148.0
+School,TNC,Lakewood,33.0
+School,TNC,Lynnwood,61.0
+School,TNC,North Tukwila,1.0
+School,TNC,Not in RGC,21652.0
+School,TNC,Paine Field / Boeing Everett,19.0
+School,TNC,Port of Tacoma,3.0
+School,TNC,Puyallup Downtown,47.0
+School,TNC,Puyallup South Hill,29.0
+School,TNC,Redmond Downtown,41.0
+School,TNC,Redmond-Overlake,79.0
+School,TNC,Renton,66.0
+School,TNC,SeaTac,20.0
+School,TNC,Seattle Downtown,150.0
+School,TNC,Seattle First Hill/Capitol Hill,351.0
+School,TNC,Seattle Northgate,58.0
+School,TNC,Seattle South Lake Union,55.0
+School,TNC,Seattle University Community,610.0
+School,TNC,Seattle Uptown,40.0
+School,TNC,Silverdale,67.0
+School,TNC,Tacoma Downtown,259.0
+School,TNC,Tacoma Mall,42.0
+School,TNC,Tukwila,18.0
+School,TNC,University Place,42.0
+Escort,Walk,Auburn,54.0
+Escort,Walk,Ballard-Interbay,170.0
+Escort,Walk,Bellevue,511.0
+Escort,Walk,Bothell Canyon Park,43.0
+Escort,Walk,Bremerton,144.0
+Escort,Walk,Burien,61.0
+Escort,Walk,Cascade,41.0
+Escort,Walk,Duwamish,159.0
+Escort,Walk,Everett,383.0
+Escort,Walk,Federal Way,15.0
+Escort,Walk,Frederickson,6.0
+Escort,Walk,Greater Downtown Kirkland,95.0
+Escort,Walk,Issaquah,18.0
+Escort,Walk,Kent,135.0
+Escort,Walk,Kent MIC,83.0
+Escort,Walk,Kirkland Totem Lake,101.0
+Escort,Walk,Lakewood,106.0
+Escort,Walk,Lynnwood,95.0
+Escort,Walk,North Tukwila,9.0
+Escort,Walk,Not in RGC,20496.0
+Escort,Walk,Paine Field / Boeing Everett,51.0
+Escort,Walk,Port of Tacoma,15.0
+Escort,Walk,Puget Sound Industrial Center- Bremerton,1.0
+Escort,Walk,Puyallup Downtown,80.0
+Escort,Walk,Puyallup South Hill,45.0
+Escort,Walk,Redmond Downtown,161.0
+Escort,Walk,Redmond-Overlake,144.0
+Escort,Walk,Renton,105.0
+Escort,Walk,SeaTac,105.0
+Escort,Walk,Seattle Downtown,1997.0
+Escort,Walk,Seattle First Hill/Capitol Hill,1086.0
+Escort,Walk,Seattle Northgate,127.0
+Escort,Walk,Seattle South Lake Union,487.0
+Escort,Walk,Seattle University Community,277.0
+Escort,Walk,Seattle Uptown,310.0
+Escort,Walk,Silverdale,68.0
+Escort,Walk,Sumner Pacific,26.0
+Escort,Walk,Tacoma Downtown,785.0
+Escort,Walk,Tacoma Mall,92.0
+Escort,Walk,Tukwila,26.0
+Escort,Walk,University Place,101.0
+Escort,Bike,Auburn,39.0
+Escort,Bike,Ballard-Interbay,101.0
+Escort,Bike,Bellevue,115.0
+Escort,Bike,Bothell Canyon Park,54.0
+Escort,Bike,Bremerton,32.0
+Escort,Bike,Burien,31.0
+Escort,Bike,Cascade,31.0
+Escort,Bike,Duwamish,347.0
+Escort,Bike,Everett,140.0
+Escort,Bike,Federal Way,20.0
+Escort,Bike,Frederickson,7.0
+Escort,Bike,Greater Downtown Kirkland,45.0
+Escort,Bike,Issaquah,24.0
+Escort,Bike,Kent,71.0
+Escort,Bike,Kent MIC,168.0
+Escort,Bike,Kirkland Totem Lake,68.0
+Escort,Bike,Lakewood,44.0
+Escort,Bike,Lynnwood,71.0
+Escort,Bike,North Tukwila,24.0
+Escort,Bike,Not in RGC,10689.0
+Escort,Bike,Paine Field / Boeing Everett,61.0
+Escort,Bike,Port of Tacoma,55.0
+Escort,Bike,Puyallup Downtown,85.0
+Escort,Bike,Puyallup South Hill,23.0
+Escort,Bike,Redmond Downtown,60.0
+Escort,Bike,Redmond-Overlake,51.0
+Escort,Bike,Renton,81.0
+Escort,Bike,SeaTac,42.0
+Escort,Bike,Seattle Downtown,676.0
+Escort,Bike,Seattle First Hill/Capitol Hill,330.0
+Escort,Bike,Seattle Northgate,51.0
+Escort,Bike,Seattle South Lake Union,129.0
+Escort,Bike,Seattle University Community,129.0
+Escort,Bike,Seattle Uptown,131.0
+Escort,Bike,Silverdale,50.0
+Escort,Bike,Sumner Pacific,37.0
+Escort,Bike,Tacoma Downtown,348.0
+Escort,Bike,Tacoma Mall,68.0
+Escort,Bike,Tukwila,60.0
+Escort,Bike,University Place,50.0
+Escort,SOV,Auburn,53.0
+Escort,SOV,Ballard-Interbay,100.0
+Escort,SOV,Bellevue,131.0
+Escort,SOV,Bothell Canyon Park,44.0
+Escort,SOV,Bremerton,39.0
+Escort,SOV,Burien,49.0
+Escort,SOV,Cascade,37.0
+Escort,SOV,Duwamish,347.0
+Escort,SOV,Everett,143.0
+Escort,SOV,Federal Way,16.0
+Escort,SOV,Frederickson,13.0
+Escort,SOV,Greater Downtown Kirkland,78.0
+Escort,SOV,Issaquah,29.0
+Escort,SOV,Kent,93.0
+Escort,SOV,Kent MIC,229.0
+Escort,SOV,Kirkland Totem Lake,93.0
+Escort,SOV,Lakewood,57.0
+Escort,SOV,Lynnwood,69.0
+Escort,SOV,North Tukwila,23.0
+Escort,SOV,Not in RGC,12247.0
+Escort,SOV,Paine Field / Boeing Everett,87.0
+Escort,SOV,Port of Tacoma,55.0
+Escort,SOV,Puget Sound Industrial Center- Bremerton,1.0
+Escort,SOV,Puyallup Downtown,77.0
+Escort,SOV,Puyallup South Hill,48.0
+Escort,SOV,Redmond Downtown,52.0
+Escort,SOV,Redmond-Overlake,79.0
+Escort,SOV,Renton,81.0
+Escort,SOV,SeaTac,55.0
+Escort,SOV,Seattle Downtown,520.0
+Escort,SOV,Seattle First Hill/Capitol Hill,319.0
+Escort,SOV,Seattle Northgate,73.0
+Escort,SOV,Seattle South Lake Union,126.0
+Escort,SOV,Seattle University Community,110.0
+Escort,SOV,Seattle Uptown,94.0
+Escort,SOV,Silverdale,54.0
+Escort,SOV,Sumner Pacific,59.0
+Escort,SOV,Tacoma Downtown,334.0
+Escort,SOV,Tacoma Mall,77.0
+Escort,SOV,Tukwila,112.0
+Escort,SOV,University Place,55.0
+Escort,HOV2,Auburn,958.0
+Escort,HOV2,Ballard-Interbay,1750.0
+Escort,HOV2,Bellevue,2279.0
+Escort,HOV2,Bothell Canyon Park,1230.0
+Escort,HOV2,Bremerton,1125.0
+Escort,HOV2,Burien,875.0
+Escort,HOV2,Cascade,1179.0
+Escort,HOV2,Duwamish,4585.0
+Escort,HOV2,Everett,2984.0
+Escort,HOV2,Federal Way,301.0
+Escort,HOV2,Frederickson,390.0
+Escort,HOV2,Greater Downtown Kirkland,1164.0
+Escort,HOV2,Issaquah,666.0
+Escort,HOV2,Kent,1685.0
+Escort,HOV2,Kent MIC,2988.0
+Escort,HOV2,Kirkland Totem Lake,1610.0
+Escort,HOV2,Lakewood,1047.0
+Escort,HOV2,Lynnwood,1663.0
+Escort,HOV2,North Tukwila,407.0
+Escort,HOV2,Not in RGC,246778.0
+Escort,HOV2,Paine Field / Boeing Everett,1250.0
+Escort,HOV2,Port of Tacoma,703.0
+Escort,HOV2,Puget Sound Industrial Center- Bremerton,19.0
+Escort,HOV2,Puyallup Downtown,1333.0
+Escort,HOV2,Puyallup South Hill,929.0
+Escort,HOV2,Redmond Downtown,1485.0
+Escort,HOV2,Redmond-Overlake,1217.0
+Escort,HOV2,Renton,1551.0
+Escort,HOV2,SeaTac,958.0
+Escort,HOV2,Seattle Downtown,7422.0
+Escort,HOV2,Seattle First Hill/Capitol Hill,4470.0
+Escort,HOV2,Seattle Northgate,1026.0
+Escort,HOV2,Seattle South Lake Union,1841.0
+Escort,HOV2,Seattle University Community,1739.0
+Escort,HOV2,Seattle Uptown,1532.0
+Escort,HOV2,Silverdale,1823.0
+Escort,HOV2,Sumner Pacific,847.0
+Escort,HOV2,Tacoma Downtown,4565.0
+Escort,HOV2,Tacoma Mall,1079.0
+Escort,HOV2,Tukwila,1249.0
+Escort,HOV2,University Place,1023.0
+Escort,HOV3+,Auburn,1213.0
+Escort,HOV3+,Ballard-Interbay,1411.0
+Escort,HOV3+,Bellevue,1950.0
+Escort,HOV3+,Bothell Canyon Park,1148.0
+Escort,HOV3+,Bremerton,863.0
+Escort,HOV3+,Burien,1219.0
+Escort,HOV3+,Cascade,1263.0
+Escort,HOV3+,Duwamish,4643.0
+Escort,HOV3+,Everett,3314.0
+Escort,HOV3+,Federal Way,380.0
+Escort,HOV3+,Frederickson,461.0
+Escort,HOV3+,Greater Downtown Kirkland,1144.0
+Escort,HOV3+,Issaquah,586.0
+Escort,HOV3+,Kent,2021.0
+Escort,HOV3+,Kent MIC,3408.0
+Escort,HOV3+,Kirkland Totem Lake,1513.0
+Escort,HOV3+,Lakewood,1254.0
+Escort,HOV3+,Lynnwood,1627.0
+Escort,HOV3+,North Tukwila,549.0
+Escort,HOV3+,Not in RGC,280677.0
+Escort,HOV3+,Paine Field / Boeing Everett,1396.0
+Escort,HOV3+,Port of Tacoma,720.0
+Escort,HOV3+,Puget Sound Industrial Center- Bremerton,25.0
+Escort,HOV3+,Puyallup Downtown,1600.0
+Escort,HOV3+,Puyallup South Hill,952.0
+Escort,HOV3+,Redmond Downtown,1547.0
+Escort,HOV3+,Redmond-Overlake,1151.0
+Escort,HOV3+,Renton,1879.0
+Escort,HOV3+,SeaTac,1074.0
+Escort,HOV3+,Seattle Downtown,5991.0
+Escort,HOV3+,Seattle First Hill/Capitol Hill,4245.0
+Escort,HOV3+,Seattle Northgate,906.0
+Escort,HOV3+,Seattle South Lake Union,1423.0
+Escort,HOV3+,Seattle University Community,1560.0
+Escort,HOV3+,Seattle Uptown,1246.0
+Escort,HOV3+,Silverdale,1748.0
+Escort,HOV3+,Sumner Pacific,925.0
+Escort,HOV3+,Tacoma Downtown,5048.0
+Escort,HOV3+,Tacoma Mall,1049.0
+Escort,HOV3+,Tukwila,1365.0
+Escort,HOV3+,University Place,925.0
+Escort,Transit,Ballard-Interbay,1.0
+Escort,Transit,Bellevue,2.0
+Escort,Transit,Bremerton,1.0
+Escort,Transit,Duwamish,8.0
+Escort,Transit,Everett,1.0
+Escort,Transit,Kent MIC,3.0
+Escort,Transit,Not in RGC,63.0
+Escort,Transit,SeaTac,1.0
+Escort,Transit,Seattle Downtown,46.0
+Escort,Transit,Seattle First Hill/Capitol Hill,25.0
+Escort,Transit,Seattle South Lake Union,5.0
+Escort,Transit,Seattle University Community,1.0
+Escort,Transit,Seattle Uptown,5.0
+Escort,Transit,Tacoma Downtown,5.0
+Escort,TNC,Auburn,3.0
+Escort,TNC,Ballard-Interbay,3.0
+Escort,TNC,Bellevue,31.0
+Escort,TNC,Bothell Canyon Park,4.0
+Escort,TNC,Bremerton,6.0
+Escort,TNC,Cascade,2.0
+Escort,TNC,Duwamish,23.0
+Escort,TNC,Everett,15.0
+Escort,TNC,Federal Way,1.0
+Escort,TNC,Greater Downtown Kirkland,2.0
+Escort,TNC,Issaquah,2.0
+Escort,TNC,Kent,4.0
+Escort,TNC,Kent MIC,16.0
+Escort,TNC,Kirkland Totem Lake,4.0
+Escort,TNC,Lynnwood,3.0
+Escort,TNC,Not in RGC,476.0
+Escort,TNC,Paine Field / Boeing Everett,9.0
+Escort,TNC,Puyallup Downtown,1.0
+Escort,TNC,Puyallup South Hill,2.0
+Escort,TNC,Redmond Downtown,3.0
+Escort,TNC,Redmond-Overlake,12.0
+Escort,TNC,Renton,8.0
+Escort,TNC,SeaTac,4.0
+Escort,TNC,Seattle Downtown,151.0
+Escort,TNC,Seattle First Hill/Capitol Hill,63.0
+Escort,TNC,Seattle Northgate,5.0
+Escort,TNC,Seattle South Lake Union,30.0
+Escort,TNC,Seattle University Community,16.0
+Escort,TNC,Seattle Uptown,22.0
+Escort,TNC,Silverdale,2.0
+Escort,TNC,Sumner Pacific,2.0
+Escort,TNC,Tacoma Downtown,35.0
+Escort,TNC,Tacoma Mall,2.0
+Escort,TNC,Tukwila,6.0
+Escort,TNC,University Place,1.0
+Personal Business,Walk,Auburn,123.0
+Personal Business,Walk,Ballard-Interbay,248.0
+Personal Business,Walk,Bellevue,1022.0
+Personal Business,Walk,Bothell Canyon Park,83.0
+Personal Business,Walk,Bremerton,292.0
+Personal Business,Walk,Burien,173.0
+Personal Business,Walk,Cascade,56.0
+Personal Business,Walk,Duwamish,253.0
+Personal Business,Walk,Everett,820.0
+Personal Business,Walk,Federal Way,58.0
+Personal Business,Walk,Frederickson,16.0
+Personal Business,Walk,Greater Downtown Kirkland,145.0
+Personal Business,Walk,Issaquah,57.0
+Personal Business,Walk,Kent,219.0
+Personal Business,Walk,Kent MIC,174.0
+Personal Business,Walk,Kirkland Totem Lake,159.0
+Personal Business,Walk,Lakewood,147.0
+Personal Business,Walk,Lynnwood,228.0
+Personal Business,Walk,North Tukwila,23.0
+Personal Business,Walk,Not in RGC,36317.0
+Personal Business,Walk,Paine Field / Boeing Everett,93.0
+Personal Business,Walk,Port of Tacoma,35.0
+Personal Business,Walk,Puyallup Downtown,130.0
+Personal Business,Walk,Puyallup South Hill,142.0
+Personal Business,Walk,Redmond Downtown,227.0
+Personal Business,Walk,Redmond-Overlake,218.0
+Personal Business,Walk,Renton,170.0
+Personal Business,Walk,SeaTac,139.0
+Personal Business,Walk,Seattle Downtown,4358.0
+Personal Business,Walk,Seattle First Hill/Capitol Hill,2284.0
+Personal Business,Walk,Seattle Northgate,234.0
+Personal Business,Walk,Seattle South Lake Union,971.0
+Personal Business,Walk,Seattle University Community,729.0
+Personal Business,Walk,Seattle Uptown,553.0
+Personal Business,Walk,Silverdale,219.0
+Personal Business,Walk,Sumner Pacific,26.0
+Personal Business,Walk,Tacoma Downtown,1621.0
+Personal Business,Walk,Tacoma Mall,161.0
+Personal Business,Walk,Tukwila,80.0
+Personal Business,Walk,University Place,198.0
+Personal Business,Bike,Auburn,7.0
+Personal Business,Bike,Ballard-Interbay,19.0
+Personal Business,Bike,Bellevue,26.0
+Personal Business,Bike,Bothell Canyon Park,7.0
+Personal Business,Bike,Bremerton,6.0
+Personal Business,Bike,Burien,8.0
+Personal Business,Bike,Cascade,8.0
+Personal Business,Bike,Duwamish,44.0
+Personal Business,Bike,Everett,32.0
+Personal Business,Bike,Federal Way,9.0
+Personal Business,Bike,Frederickson,1.0
+Personal Business,Bike,Greater Downtown Kirkland,11.0
+Personal Business,Bike,Issaquah,8.0
+Personal Business,Bike,Kent,7.0
+Personal Business,Bike,Kent MIC,21.0
+Personal Business,Bike,Kirkland Totem Lake,16.0
+Personal Business,Bike,Lakewood,11.0
+Personal Business,Bike,Lynnwood,16.0
+Personal Business,Bike,North Tukwila,6.0
+Personal Business,Bike,Not in RGC,2040.0
+Personal Business,Bike,Paine Field / Boeing Everett,12.0
+Personal Business,Bike,Port of Tacoma,8.0
+Personal Business,Bike,Puyallup Downtown,7.0
+Personal Business,Bike,Puyallup South Hill,11.0
+Personal Business,Bike,Redmond Downtown,15.0
+Personal Business,Bike,Redmond-Overlake,11.0
+Personal Business,Bike,Renton,7.0
+Personal Business,Bike,SeaTac,3.0
+Personal Business,Bike,Seattle Downtown,225.0
+Personal Business,Bike,Seattle First Hill/Capitol Hill,110.0
+Personal Business,Bike,Seattle Northgate,18.0
+Personal Business,Bike,Seattle South Lake Union,58.0
+Personal Business,Bike,Seattle University Community,53.0
+Personal Business,Bike,Seattle Uptown,48.0
+Personal Business,Bike,Silverdale,17.0
+Personal Business,Bike,Sumner Pacific,3.0
+Personal Business,Bike,Tacoma Downtown,80.0
+Personal Business,Bike,Tacoma Mall,11.0
+Personal Business,Bike,Tukwila,16.0
+Personal Business,Bike,University Place,5.0
+Personal Business,SOV,Auburn,1225.0
+Personal Business,SOV,Ballard-Interbay,1849.0
+Personal Business,SOV,Bellevue,1945.0
+Personal Business,SOV,Bothell Canyon Park,928.0
+Personal Business,SOV,Bremerton,931.0
+Personal Business,SOV,Burien,1364.0
+Personal Business,SOV,Cascade,864.0
+Personal Business,SOV,Duwamish,4262.0
+Personal Business,SOV,Everett,3328.0
+Personal Business,SOV,Federal Way,599.0
+Personal Business,SOV,Frederickson,113.0
+Personal Business,SOV,Greater Downtown Kirkland,1165.0
+Personal Business,SOV,Issaquah,853.0
+Personal Business,SOV,Kent,2226.0
+Personal Business,SOV,Kent MIC,2826.0
+Personal Business,SOV,Kirkland Totem Lake,1774.0
+Personal Business,SOV,Lakewood,1360.0
+Personal Business,SOV,Lynnwood,2168.0
+Personal Business,SOV,North Tukwila,271.0
+Personal Business,SOV,Not in RGC,226083.0
+Personal Business,SOV,Paine Field / Boeing Everett,754.0
+Personal Business,SOV,Port of Tacoma,530.0
+Personal Business,SOV,Puget Sound Industrial Center- Bremerton,15.0
+Personal Business,SOV,Puyallup Downtown,1742.0
+Personal Business,SOV,Puyallup South Hill,1459.0
+Personal Business,SOV,Redmond Downtown,2012.0
+Personal Business,SOV,Redmond-Overlake,970.0
+Personal Business,SOV,Renton,1847.0
+Personal Business,SOV,SeaTac,1097.0
+Personal Business,SOV,Seattle Downtown,5813.0
+Personal Business,SOV,Seattle First Hill/Capitol Hill,4104.0
+Personal Business,SOV,Seattle Northgate,1386.0
+Personal Business,SOV,Seattle South Lake Union,1560.0
+Personal Business,SOV,Seattle University Community,1974.0
+Personal Business,SOV,Seattle Uptown,1214.0
+Personal Business,SOV,Silverdale,2696.0
+Personal Business,SOV,Sumner Pacific,255.0
+Personal Business,SOV,Tacoma Downtown,5567.0
+Personal Business,SOV,Tacoma Mall,1542.0
+Personal Business,SOV,Tukwila,1923.0
+Personal Business,SOV,University Place,1183.0
+Personal Business,HOV2,Auburn,908.0
+Personal Business,HOV2,Ballard-Interbay,1117.0
+Personal Business,HOV2,Bellevue,1871.0
+Personal Business,HOV2,Bothell Canyon Park,554.0
+Personal Business,HOV2,Bremerton,688.0
+Personal Business,HOV2,Burien,906.0
+Personal Business,HOV2,Cascade,575.0
+Personal Business,HOV2,Duwamish,3055.0
+Personal Business,HOV2,Everett,2644.0
+Personal Business,HOV2,Federal Way,374.0
+Personal Business,HOV2,Frederickson,110.0
+Personal Business,HOV2,Greater Downtown Kirkland,782.0
+Personal Business,HOV2,Issaquah,556.0
+Personal Business,HOV2,Kent,1666.0
+Personal Business,HOV2,Kent MIC,1882.0
+Personal Business,HOV2,Kirkland Totem Lake,1134.0
+Personal Business,HOV2,Lakewood,998.0
+Personal Business,HOV2,Lynnwood,1490.0
+Personal Business,HOV2,North Tukwila,218.0
+Personal Business,HOV2,Not in RGC,152837.0
+Personal Business,HOV2,Paine Field / Boeing Everett,545.0
+Personal Business,HOV2,Port of Tacoma,385.0
+Personal Business,HOV2,Puget Sound Industrial Center- Bremerton,10.0
+Personal Business,HOV2,Puyallup Downtown,1272.0
+Personal Business,HOV2,Puyallup South Hill,1063.0
+Personal Business,HOV2,Redmond Downtown,1243.0
+Personal Business,HOV2,Redmond-Overlake,593.0
+Personal Business,HOV2,Renton,1199.0
+Personal Business,HOV2,SeaTac,761.0
+Personal Business,HOV2,Seattle Downtown,5423.0
+Personal Business,HOV2,Seattle First Hill/Capitol Hill,3330.0
+Personal Business,HOV2,Seattle Northgate,788.0
+Personal Business,HOV2,Seattle South Lake Union,1261.0
+Personal Business,HOV2,Seattle University Community,1534.0
+Personal Business,HOV2,Seattle Uptown,1004.0
+Personal Business,HOV2,Silverdale,1677.0
+Personal Business,HOV2,Sumner Pacific,203.0
+Personal Business,HOV2,Tacoma Downtown,4874.0
+Personal Business,HOV2,Tacoma Mall,1138.0
+Personal Business,HOV2,Tukwila,1315.0
+Personal Business,HOV2,University Place,835.0
+Personal Business,HOV3+,Auburn,774.0
+Personal Business,HOV3+,Ballard-Interbay,804.0
+Personal Business,HOV3+,Bellevue,1684.0
+Personal Business,HOV3+,Bothell Canyon Park,489.0
+Personal Business,HOV3+,Bremerton,505.0
+Personal Business,HOV3+,Burien,775.0
+Personal Business,HOV3+,Cascade,495.0
+Personal Business,HOV3+,Duwamish,2435.0
+Personal Business,HOV3+,Everett,2422.0
+Personal Business,HOV3+,Federal Way,371.0
+Personal Business,HOV3+,Frederickson,74.0
+Personal Business,HOV3+,Greater Downtown Kirkland,553.0
+Personal Business,HOV3+,Issaquah,489.0
+Personal Business,HOV3+,Kent,1421.0
+Personal Business,HOV3+,Kent MIC,1642.0
+Personal Business,HOV3+,Kirkland Totem Lake,862.0
+Personal Business,HOV3+,Lakewood,749.0
+Personal Business,HOV3+,Lynnwood,1126.0
+Personal Business,HOV3+,North Tukwila,167.0
+Personal Business,HOV3+,Not in RGC,124463.0
+Personal Business,HOV3+,Paine Field / Boeing Everett,430.0
+Personal Business,HOV3+,Port of Tacoma,313.0
+Personal Business,HOV3+,Puget Sound Industrial Center- Bremerton,12.0
+Personal Business,HOV3+,Puyallup Downtown,1045.0
+Personal Business,HOV3+,Puyallup South Hill,881.0
+Personal Business,HOV3+,Redmond Downtown,1090.0
+Personal Business,HOV3+,Redmond-Overlake,502.0
+Personal Business,HOV3+,Renton,1060.0
+Personal Business,HOV3+,SeaTac,667.0
+Personal Business,HOV3+,Seattle Downtown,5120.0
+Personal Business,HOV3+,Seattle First Hill/Capitol Hill,2745.0
+Personal Business,HOV3+,Seattle Northgate,587.0
+Personal Business,HOV3+,Seattle South Lake Union,1028.0
+Personal Business,HOV3+,Seattle University Community,1245.0
+Personal Business,HOV3+,Seattle Uptown,749.0
+Personal Business,HOV3+,Silverdale,1322.0
+Personal Business,HOV3+,Sumner Pacific,165.0
+Personal Business,HOV3+,Tacoma Downtown,4068.0
+Personal Business,HOV3+,Tacoma Mall,906.0
+Personal Business,HOV3+,Tukwila,1146.0
+Personal Business,HOV3+,University Place,615.0
+Personal Business,Transit,Auburn,40.0
+Personal Business,Transit,Ballard-Interbay,237.0
+Personal Business,Transit,Bellevue,383.0
+Personal Business,Transit,Bothell Canyon Park,9.0
+Personal Business,Transit,Bremerton,2.0
+Personal Business,Transit,Burien,119.0
+Personal Business,Transit,Duwamish,777.0
+Personal Business,Transit,Everett,38.0
+Personal Business,Transit,Federal Way,23.0
+Personal Business,Transit,Greater Downtown Kirkland,59.0
+Personal Business,Transit,Issaquah,21.0
+Personal Business,Transit,Kent,116.0
+Personal Business,Transit,Kent MIC,101.0
+Personal Business,Transit,Kirkland Totem Lake,75.0
+Personal Business,Transit,Lakewood,2.0
+Personal Business,Transit,Lynnwood,20.0
+Personal Business,Transit,North Tukwila,18.0
+Personal Business,Transit,Not in RGC,7972.0
+Personal Business,Transit,Paine Field / Boeing Everett,5.0
+Personal Business,Transit,Port of Tacoma,4.0
+Personal Business,Transit,Puyallup Downtown,13.0
+Personal Business,Transit,Puyallup South Hill,5.0
+Personal Business,Transit,Redmond Downtown,90.0
+Personal Business,Transit,Redmond-Overlake,58.0
+Personal Business,Transit,Renton,122.0
+Personal Business,Transit,SeaTac,164.0
+Personal Business,Transit,Seattle Downtown,6505.0
+Personal Business,Transit,Seattle First Hill/Capitol Hill,2138.0
+Personal Business,Transit,Seattle Northgate,130.0
+Personal Business,Transit,Seattle South Lake Union,917.0
+Personal Business,Transit,Seattle University Community,468.0
+Personal Business,Transit,Seattle Uptown,414.0
+Personal Business,Transit,Silverdale,3.0
+Personal Business,Transit,Tacoma Downtown,196.0
+Personal Business,Transit,Tacoma Mall,9.0
+Personal Business,Transit,Tukwila,160.0
+Personal Business,Transit,University Place,3.0
+Personal Business,TNC,Auburn,20.0
+Personal Business,TNC,Ballard-Interbay,47.0
+Personal Business,TNC,Bellevue,169.0
+Personal Business,TNC,Bothell Canyon Park,7.0
+Personal Business,TNC,Bremerton,48.0
+Personal Business,TNC,Burien,21.0
+Personal Business,TNC,Cascade,12.0
+Personal Business,TNC,Duwamish,100.0
+Personal Business,TNC,Everett,109.0
+Personal Business,TNC,Federal Way,3.0
+Personal Business,TNC,Frederickson,1.0
+Personal Business,TNC,Greater Downtown Kirkland,22.0
+Personal Business,TNC,Issaquah,15.0
+Personal Business,TNC,Kent,26.0
+Personal Business,TNC,Kent MIC,58.0
+Personal Business,TNC,Kirkland Totem Lake,25.0
+Personal Business,TNC,Lakewood,16.0
+Personal Business,TNC,Lynnwood,41.0
+Personal Business,TNC,North Tukwila,1.0
+Personal Business,TNC,Not in RGC,3347.0
+Personal Business,TNC,Paine Field / Boeing Everett,21.0
+Personal Business,TNC,Port of Tacoma,8.0
+Personal Business,TNC,Puyallup Downtown,24.0
+Personal Business,TNC,Puyallup South Hill,34.0
+Personal Business,TNC,Redmond Downtown,27.0
+Personal Business,TNC,Redmond-Overlake,31.0
+Personal Business,TNC,Renton,39.0
+Personal Business,TNC,SeaTac,20.0
+Personal Business,TNC,Seattle Downtown,1019.0
+Personal Business,TNC,Seattle First Hill/Capitol Hill,494.0
+Personal Business,TNC,Seattle Northgate,42.0
+Personal Business,TNC,Seattle South Lake Union,213.0
+Personal Business,TNC,Seattle University Community,110.0
+Personal Business,TNC,Seattle Uptown,115.0
+Personal Business,TNC,Silverdale,30.0
+Personal Business,TNC,Sumner Pacific,4.0
+Personal Business,TNC,Tacoma Downtown,230.0
+Personal Business,TNC,Tacoma Mall,21.0
+Personal Business,TNC,Tukwila,40.0
+Personal Business,TNC,University Place,12.0
+Shop,Walk,Auburn,189.0
+Shop,Walk,Ballard-Interbay,556.0
+Shop,Walk,Bellevue,1871.0
+Shop,Walk,Bothell Canyon Park,147.0
+Shop,Walk,Bremerton,352.0
+Shop,Walk,Burien,429.0
+Shop,Walk,Cascade,95.0
+Shop,Walk,Duwamish,475.0
+Shop,Walk,Everett,945.0
+Shop,Walk,Federal Way,226.0
+Shop,Walk,Frederickson,34.0
+Shop,Walk,Greater Downtown Kirkland,290.0
+Shop,Walk,Issaquah,230.0
+Shop,Walk,Kent,309.0
+Shop,Walk,Kent MIC,277.0
+Shop,Walk,Kirkland Totem Lake,438.0
+Shop,Walk,Lakewood,428.0
+Shop,Walk,Lynnwood,695.0
+Shop,Walk,North Tukwila,70.0
+Shop,Walk,Not in RGC,41459.0
+Shop,Walk,Paine Field / Boeing Everett,59.0
+Shop,Walk,Port of Tacoma,25.0
+Shop,Walk,Puyallup Downtown,112.0
+Shop,Walk,Puyallup South Hill,410.0
+Shop,Walk,Redmond Downtown,414.0
+Shop,Walk,Redmond-Overlake,284.0
+Shop,Walk,Renton,248.0
+Shop,Walk,SeaTac,109.0
+Shop,Walk,Seattle Downtown,7657.0
+Shop,Walk,Seattle First Hill/Capitol Hill,2231.0
+Shop,Walk,Seattle Northgate,813.0
+Shop,Walk,Seattle South Lake Union,2538.0
+Shop,Walk,Seattle University Community,2007.0
+Shop,Walk,Seattle Uptown,479.0
+Shop,Walk,Silverdale,349.0
+Shop,Walk,Sumner Pacific,48.0
+Shop,Walk,Tacoma Downtown,725.0
+Shop,Walk,Tacoma Mall,569.0
+Shop,Walk,Tukwila,236.0
+Shop,Walk,University Place,382.0
+Shop,Bike,Auburn,8.0
+Shop,Bike,Ballard-Interbay,30.0
+Shop,Bike,Bellevue,58.0
+Shop,Bike,Bothell Canyon Park,11.0
+Shop,Bike,Bremerton,16.0
+Shop,Bike,Burien,21.0
+Shop,Bike,Cascade,4.0
+Shop,Bike,Duwamish,60.0
+Shop,Bike,Everett,31.0
+Shop,Bike,Federal Way,15.0
+Shop,Bike,Frederickson,5.0
+Shop,Bike,Greater Downtown Kirkland,10.0
+Shop,Bike,Issaquah,21.0
+Shop,Bike,Kent,9.0
+Shop,Bike,Kent MIC,16.0
+Shop,Bike,Kirkland Totem Lake,12.0
+Shop,Bike,Lakewood,22.0
+Shop,Bike,Lynnwood,55.0
+Shop,Bike,North Tukwila,6.0
+Shop,Bike,Not in RGC,1924.0
+Shop,Bike,Paine Field / Boeing Everett,3.0
+Shop,Bike,Port of Tacoma,5.0
+Shop,Bike,Puyallup Downtown,8.0
+Shop,Bike,Puyallup South Hill,21.0
+Shop,Bike,Redmond Downtown,21.0
+Shop,Bike,Redmond-Overlake,8.0
+Shop,Bike,Renton,5.0
+Shop,Bike,SeaTac,1.0
+Shop,Bike,Seattle Downtown,376.0
+Shop,Bike,Seattle First Hill/Capitol Hill,89.0
+Shop,Bike,Seattle Northgate,32.0
+Shop,Bike,Seattle South Lake Union,137.0
+Shop,Bike,Seattle University Community,87.0
+Shop,Bike,Seattle Uptown,22.0
+Shop,Bike,Silverdale,20.0
+Shop,Bike,Tacoma Downtown,30.0
+Shop,Bike,Tacoma Mall,46.0
+Shop,Bike,Tukwila,27.0
+Shop,Bike,University Place,17.0
+Shop,SOV,Auburn,1521.0
+Shop,SOV,Ballard-Interbay,2953.0
+Shop,SOV,Bellevue,2882.0
+Shop,SOV,Bothell Canyon Park,1249.0
+Shop,SOV,Bremerton,602.0
+Shop,SOV,Burien,2307.0
+Shop,SOV,Cascade,1139.0
+Shop,SOV,Duwamish,6092.0
+Shop,SOV,Everett,2321.0
+Shop,SOV,Federal Way,1504.0
+Shop,SOV,Frederickson,272.0
+Shop,SOV,Greater Downtown Kirkland,1669.0
+Shop,SOV,Issaquah,3361.0
+Shop,SOV,Kent,2307.0
+Shop,SOV,Kent MIC,3588.0
+Shop,SOV,Kirkland Totem Lake,3127.0
+Shop,SOV,Lakewood,3760.0
+Shop,SOV,Lynnwood,6260.0
+Shop,SOV,North Tukwila,811.0
+Shop,SOV,Not in RGC,244625.0
+Shop,SOV,Paine Field / Boeing Everett,322.0
+Shop,SOV,Port of Tacoma,207.0
+Shop,SOV,Puget Sound Industrial Center- Bremerton,10.0
+Shop,SOV,Puyallup Downtown,684.0
+Shop,SOV,Puyallup South Hill,3806.0
+Shop,SOV,Redmond Downtown,2839.0
+Shop,SOV,Redmond-Overlake,995.0
+Shop,SOV,Renton,1927.0
+Shop,SOV,SeaTac,524.0
+Shop,SOV,Seattle Downtown,7006.0
+Shop,SOV,Seattle First Hill/Capitol Hill,2691.0
+Shop,SOV,Seattle Northgate,3034.0
+Shop,SOV,Seattle South Lake Union,2760.0
+Shop,SOV,Seattle University Community,2889.0
+Shop,SOV,Seattle Uptown,610.0
+Shop,SOV,Silverdale,3825.0
+Shop,SOV,Sumner Pacific,413.0
+Shop,SOV,Tacoma Downtown,710.0
+Shop,SOV,Tacoma Mall,4555.0
+Shop,SOV,Tukwila,4031.0
+Shop,SOV,University Place,1553.0
+Shop,HOV2,Auburn,933.0
+Shop,HOV2,Ballard-Interbay,1419.0
+Shop,HOV2,Bellevue,2158.0
+Shop,HOV2,Bothell Canyon Park,685.0
+Shop,HOV2,Bremerton,371.0
+Shop,HOV2,Burien,1276.0
+Shop,HOV2,Cascade,673.0
+Shop,HOV2,Duwamish,3523.0
+Shop,HOV2,Everett,1504.0
+Shop,HOV2,Federal Way,918.0
+Shop,HOV2,Frederickson,162.0
+Shop,HOV2,Greater Downtown Kirkland,842.0
+Shop,HOV2,Issaquah,1892.0
+Shop,HOV2,Kent,1474.0
+Shop,HOV2,Kent MIC,2213.0
+Shop,HOV2,Kirkland Totem Lake,1733.0
+Shop,HOV2,Lakewood,2393.0
+Shop,HOV2,Lynnwood,3783.0
+Shop,HOV2,North Tukwila,474.0
+Shop,HOV2,Not in RGC,139823.0
+Shop,HOV2,Paine Field / Boeing Everett,175.0
+Shop,HOV2,Port of Tacoma,127.0
+Shop,HOV2,Puget Sound Industrial Center- Bremerton,7.0
+Shop,HOV2,Puyallup Downtown,399.0
+Shop,HOV2,Puyallup South Hill,2327.0
+Shop,HOV2,Redmond Downtown,1526.0
+Shop,HOV2,Redmond-Overlake,510.0
+Shop,HOV2,Renton,1088.0
+Shop,HOV2,SeaTac,312.0
+Shop,HOV2,Seattle Downtown,5507.0
+Shop,HOV2,Seattle First Hill/Capitol Hill,1653.0
+Shop,HOV2,Seattle Northgate,1556.0
+Shop,HOV2,Seattle South Lake Union,1898.0
+Shop,HOV2,Seattle University Community,1878.0
+Shop,HOV2,Seattle Uptown,382.0
+Shop,HOV2,Silverdale,2130.0
+Shop,HOV2,Sumner Pacific,230.0
+Shop,HOV2,Tacoma Downtown,477.0
+Shop,HOV2,Tacoma Mall,2914.0
+Shop,HOV2,Tukwila,2441.0
+Shop,HOV2,University Place,809.0
+Shop,HOV3+,Auburn,771.0
+Shop,HOV3+,Ballard-Interbay,917.0
+Shop,HOV3+,Bellevue,1959.0
+Shop,HOV3+,Bothell Canyon Park,579.0
+Shop,HOV3+,Bremerton,349.0
+Shop,HOV3+,Burien,1031.0
+Shop,HOV3+,Cascade,581.0
+Shop,HOV3+,Duwamish,2891.0
+Shop,HOV3+,Everett,1355.0
+Shop,HOV3+,Federal Way,733.0
+Shop,HOV3+,Frederickson,154.0
+Shop,HOV3+,Greater Downtown Kirkland,676.0
+Shop,HOV3+,Issaquah,1561.0
+Shop,HOV3+,Kent,1173.0
+Shop,HOV3+,Kent MIC,1886.0
+Shop,HOV3+,Kirkland Totem Lake,1275.0
+Shop,HOV3+,Lakewood,1847.0
+Shop,HOV3+,Lynnwood,3106.0
+Shop,HOV3+,North Tukwila,404.0
+Shop,HOV3+,Not in RGC,114363.0
+Shop,HOV3+,Paine Field / Boeing Everett,170.0
+Shop,HOV3+,Port of Tacoma,100.0
+Shop,HOV3+,Puget Sound Industrial Center- Bremerton,6.0
+Shop,HOV3+,Puyallup Downtown,338.0
+Shop,HOV3+,Puyallup South Hill,2133.0
+Shop,HOV3+,Redmond Downtown,1242.0
+Shop,HOV3+,Redmond-Overlake,433.0
+Shop,HOV3+,Renton,873.0
+Shop,HOV3+,SeaTac,258.0
+Shop,HOV3+,Seattle Downtown,4823.0
+Shop,HOV3+,Seattle First Hill/Capitol Hill,1291.0
+Shop,HOV3+,Seattle Northgate,1033.0
+Shop,HOV3+,Seattle South Lake Union,1472.0
+Shop,HOV3+,Seattle University Community,1538.0
+Shop,HOV3+,Seattle Uptown,263.0
+Shop,HOV3+,Silverdale,1658.0
+Shop,HOV3+,Sumner Pacific,200.0
+Shop,HOV3+,Tacoma Downtown,384.0
+Shop,HOV3+,Tacoma Mall,2182.0
+Shop,HOV3+,Tukwila,2123.0
+Shop,HOV3+,University Place,676.0
+Shop,Transit,Auburn,39.0
+Shop,Transit,Ballard-Interbay,203.0
+Shop,Transit,Bellevue,431.0
+Shop,Transit,Bremerton,1.0
+Shop,Transit,Burien,122.0
+Shop,Transit,Cascade,1.0
+Shop,Transit,Duwamish,813.0
+Shop,Transit,Everett,17.0
+Shop,Transit,Federal Way,46.0
+Shop,Transit,Greater Downtown Kirkland,42.0
+Shop,Transit,Issaquah,33.0
+Shop,Transit,Kent,90.0
+Shop,Transit,Kent MIC,120.0
+Shop,Transit,Kirkland Totem Lake,99.0
+Shop,Transit,Lakewood,2.0
+Shop,Transit,Lynnwood,29.0
+Shop,Transit,North Tukwila,33.0
+Shop,Transit,Not in RGC,5006.0
+Shop,Transit,Paine Field / Boeing Everett,2.0
+Shop,Transit,Port of Tacoma,1.0
+Shop,Transit,Puyallup Downtown,3.0
+Shop,Transit,Puyallup South Hill,6.0
+Shop,Transit,Redmond Downtown,81.0
+Shop,Transit,Redmond-Overlake,29.0
+Shop,Transit,Renton,67.0
+Shop,Transit,SeaTac,44.0
+Shop,Transit,Seattle Downtown,7003.0
+Shop,Transit,Seattle First Hill/Capitol Hill,860.0
+Shop,Transit,Seattle Northgate,229.0
+Shop,Transit,Seattle South Lake Union,1335.0
+Shop,Transit,Seattle University Community,444.0
+Shop,Transit,Seattle Uptown,159.0
+Shop,Transit,Tacoma Downtown,32.0
+Shop,Transit,Tacoma Mall,16.0
+Shop,Transit,Tukwila,214.0
+Shop,Transit,University Place,3.0
+Shop,TNC,Auburn,12.0
+Shop,TNC,Ballard-Interbay,37.0
+Shop,TNC,Bellevue,152.0
+Shop,TNC,Bothell Canyon Park,12.0
+Shop,TNC,Bremerton,19.0
+Shop,TNC,Burien,11.0
+Shop,TNC,Cascade,9.0
+Shop,TNC,Duwamish,98.0
+Shop,TNC,Everett,56.0
+Shop,TNC,Federal Way,7.0
+Shop,TNC,Greater Downtown Kirkland,20.0
+Shop,TNC,Issaquah,11.0
+Shop,TNC,Kent,21.0
+Shop,TNC,Kent MIC,50.0
+Shop,TNC,Kirkland Totem Lake,38.0
+Shop,TNC,Lakewood,24.0
+Shop,TNC,Lynnwood,37.0
+Shop,TNC,North Tukwila,5.0
+Shop,TNC,Not in RGC,1816.0
+Shop,TNC,Paine Field / Boeing Everett,4.0
+Shop,TNC,Port of Tacoma,2.0
+Shop,TNC,Puyallup Downtown,4.0
+Shop,TNC,Puyallup South Hill,19.0
+Shop,TNC,Redmond Downtown,23.0
+Shop,TNC,Redmond-Overlake,28.0
+Shop,TNC,Renton,17.0
+Shop,TNC,SeaTac,16.0
+Shop,TNC,Seattle Downtown,849.0
+Shop,TNC,Seattle First Hill/Capitol Hill,147.0
+Shop,TNC,Seattle Northgate,30.0
+Shop,TNC,Seattle South Lake Union,203.0
+Shop,TNC,Seattle University Community,137.0
+Shop,TNC,Seattle Uptown,34.0
+Shop,TNC,Silverdale,18.0
+Shop,TNC,Sumner Pacific,4.0
+Shop,TNC,Tacoma Downtown,42.0
+Shop,TNC,Tacoma Mall,36.0
+Shop,TNC,Tukwila,53.0
+Shop,TNC,University Place,10.0
+Meal,Walk,Auburn,162.0
+Meal,Walk,Ballard-Interbay,353.0
+Meal,Walk,Bellevue,5553.0
+Meal,Walk,Bothell Canyon Park,184.0
+Meal,Walk,Bremerton,730.0
+Meal,Walk,Burien,106.0
+Meal,Walk,Cascade,67.0
+Meal,Walk,Duwamish,1075.0
+Meal,Walk,Everett,1323.0
+Meal,Walk,Federal Way,108.0
+Meal,Walk,Frederickson,12.0
+Meal,Walk,Greater Downtown Kirkland,497.0
+Meal,Walk,Issaquah,177.0
+Meal,Walk,Kent,393.0
+Meal,Walk,Kent MIC,353.0
+Meal,Walk,Kirkland Totem Lake,276.0
+Meal,Walk,Lakewood,323.0
+Meal,Walk,Lynnwood,566.0
+Meal,Walk,North Tukwila,23.0
+Meal,Walk,Not in RGC,21818.0
+Meal,Walk,Paine Field / Boeing Everett,419.0
+Meal,Walk,Port of Tacoma,48.0
+Meal,Walk,Puyallup Downtown,190.0
+Meal,Walk,Puyallup South Hill,237.0
+Meal,Walk,Redmond Downtown,606.0
+Meal,Walk,Redmond-Overlake,1537.0
+Meal,Walk,Renton,347.0
+Meal,Walk,SeaTac,696.0
+Meal,Walk,Seattle Downtown,27868.0
+Meal,Walk,Seattle First Hill/Capitol Hill,5324.0
+Meal,Walk,Seattle Northgate,331.0
+Meal,Walk,Seattle South Lake Union,5695.0
+Meal,Walk,Seattle University Community,1223.0
+Meal,Walk,Seattle Uptown,1787.0
+Meal,Walk,Silverdale,391.0
+Meal,Walk,Sumner Pacific,33.0
+Meal,Walk,Tacoma Downtown,3205.0
+Meal,Walk,Tacoma Mall,375.0
+Meal,Walk,Tukwila,587.0
+Meal,Walk,University Place,147.0
+Meal,Bike,Auburn,3.0
+Meal,Bike,Ballard-Interbay,8.0
+Meal,Bike,Bellevue,97.0
+Meal,Bike,Bothell Canyon Park,7.0
+Meal,Bike,Bremerton,12.0
+Meal,Bike,Burien,4.0
+Meal,Bike,Duwamish,31.0
+Meal,Bike,Everett,34.0
+Meal,Bike,Federal Way,2.0
+Meal,Bike,Greater Downtown Kirkland,10.0
+Meal,Bike,Issaquah,3.0
+Meal,Bike,Kent,6.0
+Meal,Bike,Kent MIC,17.0
+Meal,Bike,Kirkland Totem Lake,8.0
+Meal,Bike,Lakewood,5.0
+Meal,Bike,Lynnwood,11.0
+Meal,Bike,Not in RGC,480.0
+Meal,Bike,Paine Field / Boeing Everett,6.0
+Meal,Bike,Port of Tacoma,1.0
+Meal,Bike,Puyallup Downtown,5.0
+Meal,Bike,Puyallup South Hill,4.0
+Meal,Bike,Redmond Downtown,12.0
+Meal,Bike,Redmond-Overlake,29.0
+Meal,Bike,Renton,3.0
+Meal,Bike,SeaTac,18.0
+Meal,Bike,Seattle Downtown,585.0
+Meal,Bike,Seattle First Hill/Capitol Hill,98.0
+Meal,Bike,Seattle Northgate,7.0
+Meal,Bike,Seattle South Lake Union,112.0
+Meal,Bike,Seattle University Community,43.0
+Meal,Bike,Seattle Uptown,43.0
+Meal,Bike,Silverdale,8.0
+Meal,Bike,Tacoma Downtown,100.0
+Meal,Bike,Tacoma Mall,12.0
+Meal,Bike,Tukwila,14.0
+Meal,Bike,University Place,4.0
+Meal,SOV,Auburn,809.0
+Meal,SOV,Ballard-Interbay,1019.0
+Meal,SOV,Bellevue,2511.0
+Meal,SOV,Bothell Canyon Park,944.0
+Meal,SOV,Bremerton,833.0
+Meal,SOV,Burien,628.0
+Meal,SOV,Cascade,254.0
+Meal,SOV,Duwamish,4309.0
+Meal,SOV,Everett,2071.0
+Meal,SOV,Federal Way,535.0
+Meal,SOV,Frederickson,52.0
+Meal,SOV,Greater Downtown Kirkland,1737.0
+Meal,SOV,Issaquah,676.0
+Meal,SOV,Kent,2019.0
+Meal,SOV,Kent MIC,2184.0
+Meal,SOV,Kirkland Totem Lake,1093.0
+Meal,SOV,Lakewood,1281.0
+Meal,SOV,Lynnwood,2480.0
+Meal,SOV,North Tukwila,112.0
+Meal,SOV,Not in RGC,85749.0
+Meal,SOV,Paine Field / Boeing Everett,682.0
+Meal,SOV,Port of Tacoma,323.0
+Meal,SOV,Puget Sound Industrial Center- Bremerton,7.0
+Meal,SOV,Puyallup Downtown,1107.0
+Meal,SOV,Puyallup South Hill,1047.0
+Meal,SOV,Redmond Downtown,2493.0
+Meal,SOV,Redmond-Overlake,3726.0
+Meal,SOV,Renton,1852.0
+Meal,SOV,SeaTac,2045.0
+Meal,SOV,Seattle Downtown,6940.0
+Meal,SOV,Seattle First Hill/Capitol Hill,3442.0
+Meal,SOV,Seattle Northgate,915.0
+Meal,SOV,Seattle South Lake Union,1506.0
+Meal,SOV,Seattle University Community,953.0
+Meal,SOV,Seattle Uptown,1042.0
+Meal,SOV,Silverdale,1581.0
+Meal,SOV,Sumner Pacific,142.0
+Meal,SOV,Tacoma Downtown,3335.0
+Meal,SOV,Tacoma Mall,1464.0
+Meal,SOV,Tukwila,3670.0
+Meal,SOV,University Place,581.0
+Meal,HOV2,Auburn,470.0
+Meal,HOV2,Ballard-Interbay,584.0
+Meal,HOV2,Bellevue,3508.0
+Meal,HOV2,Bothell Canyon Park,456.0
+Meal,HOV2,Bremerton,568.0
+Meal,HOV2,Burien,361.0
+Meal,HOV2,Cascade,106.0
+Meal,HOV2,Duwamish,2305.0
+Meal,HOV2,Everett,1862.0
+Meal,HOV2,Federal Way,312.0
+Meal,HOV2,Frederickson,36.0
+Meal,HOV2,Greater Downtown Kirkland,923.0
+Meal,HOV2,Issaquah,345.0
+Meal,HOV2,Kent,1001.0
+Meal,HOV2,Kent MIC,893.0
+Meal,HOV2,Kirkland Totem Lake,541.0
+Meal,HOV2,Lakewood,936.0
+Meal,HOV2,Lynnwood,1395.0
+Meal,HOV2,North Tukwila,33.0
+Meal,HOV2,Not in RGC,50351.0
+Meal,HOV2,Paine Field / Boeing Everett,227.0
+Meal,HOV2,Port of Tacoma,223.0
+Meal,HOV2,Puget Sound Industrial Center- Bremerton,1.0
+Meal,HOV2,Puyallup Downtown,775.0
+Meal,HOV2,Puyallup South Hill,745.0
+Meal,HOV2,Redmond Downtown,1328.0
+Meal,HOV2,Redmond-Overlake,1562.0
+Meal,HOV2,Renton,912.0
+Meal,HOV2,SeaTac,921.0
+Meal,HOV2,Seattle Downtown,11107.0
+Meal,HOV2,Seattle First Hill/Capitol Hill,3382.0
+Meal,HOV2,Seattle Northgate,432.0
+Meal,HOV2,Seattle South Lake Union,1868.0
+Meal,HOV2,Seattle University Community,920.0
+Meal,HOV2,Seattle Uptown,1238.0
+Meal,HOV2,Silverdale,1178.0
+Meal,HOV2,Sumner Pacific,94.0
+Meal,HOV2,Tacoma Downtown,3121.0
+Meal,HOV2,Tacoma Mall,945.0
+Meal,HOV2,Tukwila,1515.0
+Meal,HOV2,University Place,423.0
+Meal,HOV3+,Auburn,307.0
+Meal,HOV3+,Ballard-Interbay,373.0
+Meal,HOV3+,Bellevue,2922.0
+Meal,HOV3+,Bothell Canyon Park,311.0
+Meal,HOV3+,Bremerton,341.0
+Meal,HOV3+,Burien,240.0
+Meal,HOV3+,Cascade,83.0
+Meal,HOV3+,Duwamish,1578.0
+Meal,HOV3+,Everett,1460.0
+Meal,HOV3+,Federal Way,209.0
+Meal,HOV3+,Frederickson,37.0
+Meal,HOV3+,Greater Downtown Kirkland,654.0
+Meal,HOV3+,Issaquah,237.0
+Meal,HOV3+,Kent,715.0
+Meal,HOV3+,Kent MIC,585.0
+Meal,HOV3+,Kirkland Totem Lake,357.0
+Meal,HOV3+,Lakewood,680.0
+Meal,HOV3+,Lynnwood,932.0
+Meal,HOV3+,North Tukwila,27.0
+Meal,HOV3+,Not in RGC,33498.0
+Meal,HOV3+,Paine Field / Boeing Everett,146.0
+Meal,HOV3+,Port of Tacoma,136.0
+Meal,HOV3+,Puget Sound Industrial Center- Bremerton,3.0
+Meal,HOV3+,Puyallup Downtown,507.0
+Meal,HOV3+,Puyallup South Hill,569.0
+Meal,HOV3+,Redmond Downtown,832.0
+Meal,HOV3+,Redmond-Overlake,973.0
+Meal,HOV3+,Renton,618.0
+Meal,HOV3+,SeaTac,596.0
+Meal,HOV3+,Seattle Downtown,9281.0
+Meal,HOV3+,Seattle First Hill/Capitol Hill,2632.0
+Meal,HOV3+,Seattle Northgate,283.0
+Meal,HOV3+,Seattle South Lake Union,1407.0
+Meal,HOV3+,Seattle University Community,619.0
+Meal,HOV3+,Seattle Uptown,873.0
+Meal,HOV3+,Silverdale,734.0
+Meal,HOV3+,Sumner Pacific,56.0
+Meal,HOV3+,Tacoma Downtown,2297.0
+Meal,HOV3+,Tacoma Mall,664.0
+Meal,HOV3+,Tukwila,979.0
+Meal,HOV3+,University Place,298.0
+Meal,Transit,Auburn,11.0
+Meal,Transit,Ballard-Interbay,80.0
+Meal,Transit,Bellevue,555.0
+Meal,Transit,Bothell Canyon Park,6.0
+Meal,Transit,Bremerton,20.0
+Meal,Transit,Burien,27.0
+Meal,Transit,Duwamish,442.0
+Meal,Transit,Everett,77.0
+Meal,Transit,Federal Way,13.0
+Meal,Transit,Greater Downtown Kirkland,39.0
+Meal,Transit,Issaquah,10.0
+Meal,Transit,Kent,54.0
+Meal,Transit,Kent MIC,29.0
+Meal,Transit,Kirkland Totem Lake,17.0
+Meal,Transit,Lakewood,20.0
+Meal,Transit,Lynnwood,38.0
+Meal,Transit,North Tukwila,3.0
+Meal,Transit,Not in RGC,2148.0
+Meal,Transit,Paine Field / Boeing Everett,3.0
+Meal,Transit,Port of Tacoma,5.0
+Meal,Transit,Puyallup Downtown,10.0
+Meal,Transit,Puyallup South Hill,3.0
+Meal,Transit,Redmond Downtown,66.0
+Meal,Transit,Redmond-Overlake,74.0
+Meal,Transit,Renton,52.0
+Meal,Transit,SeaTac,89.0
+Meal,Transit,Seattle Downtown,8824.0
+Meal,Transit,Seattle First Hill/Capitol Hill,1482.0
+Meal,Transit,Seattle Northgate,30.0
+Meal,Transit,Seattle South Lake Union,835.0
+Meal,Transit,Seattle University Community,200.0
+Meal,Transit,Seattle Uptown,367.0
+Meal,Transit,Silverdale,4.0
+Meal,Transit,Tacoma Downtown,318.0
+Meal,Transit,Tacoma Mall,18.0
+Meal,Transit,Tukwila,80.0
+Meal,Transit,University Place,7.0
+Meal,TNC,Auburn,100.0
+Meal,TNC,Ballard-Interbay,185.0
+Meal,TNC,Bellevue,2833.0
+Meal,TNC,Bothell Canyon Park,172.0
+Meal,TNC,Bremerton,384.0
+Meal,TNC,Burien,48.0
+Meal,TNC,Cascade,36.0
+Meal,TNC,Duwamish,749.0
+Meal,TNC,Everett,646.0
+Meal,TNC,Federal Way,59.0
+Meal,TNC,Frederickson,5.0
+Meal,TNC,Greater Downtown Kirkland,217.0
+Meal,TNC,Issaquah,130.0
+Meal,TNC,Kent,226.0
+Meal,TNC,Kent MIC,323.0
+Meal,TNC,Kirkland Totem Lake,186.0
+Meal,TNC,Lakewood,133.0
+Meal,TNC,Lynnwood,333.0
+Meal,TNC,North Tukwila,13.0
+Meal,TNC,Not in RGC,11772.0
+Meal,TNC,Paine Field / Boeing Everett,163.0
+Meal,TNC,Port of Tacoma,37.0
+Meal,TNC,Puyallup Downtown,115.0
+Meal,TNC,Puyallup South Hill,100.0
+Meal,TNC,Redmond Downtown,386.0
+Meal,TNC,Redmond-Overlake,959.0
+Meal,TNC,Renton,278.0
+Meal,TNC,SeaTac,303.0
+Meal,TNC,Seattle Downtown,11369.0
+Meal,TNC,Seattle First Hill/Capitol Hill,2384.0
+Meal,TNC,Seattle Northgate,141.0
+Meal,TNC,Seattle South Lake Union,1684.0
+Meal,TNC,Seattle University Community,714.0
+Meal,TNC,Seattle Uptown,730.0
+Meal,TNC,Silverdale,132.0
+Meal,TNC,Sumner Pacific,33.0
+Meal,TNC,Tacoma Downtown,1177.0
+Meal,TNC,Tacoma Mall,153.0
+Meal,TNC,Tukwila,561.0
+Meal,TNC,University Place,61.0
+Social,Walk,Auburn,235.0
+Social,Walk,Ballard-Interbay,724.0
+Social,Walk,Bellevue,2678.0
+Social,Walk,Bothell Canyon Park,384.0
+Social,Walk,Bremerton,953.0
+Social,Walk,Burien,426.0
+Social,Walk,Cascade,301.0
+Social,Walk,Duwamish,1340.0
+Social,Walk,Everett,1728.0
+Social,Walk,Federal Way,164.0
+Social,Walk,Frederickson,66.0
+Social,Walk,Greater Downtown Kirkland,758.0
+Social,Walk,Issaquah,306.0
+Social,Walk,Kent,469.0
+Social,Walk,Kent MIC,799.0
+Social,Walk,Kirkland Totem Lake,783.0
+Social,Walk,Lakewood,310.0
+Social,Walk,Lynnwood,809.0
+Social,Walk,North Tukwila,87.0
+Social,Walk,Not in RGC,270406.0
+Social,Walk,Paine Field / Boeing Everett,629.0
+Social,Walk,Port of Tacoma,154.0
+Social,Walk,Puget Sound Industrial Center- Bremerton,1.0
+Social,Walk,Puyallup Downtown,315.0
+Social,Walk,Puyallup South Hill,359.0
+Social,Walk,Redmond Downtown,794.0
+Social,Walk,Redmond-Overlake,1114.0
+Social,Walk,Renton,812.0
+Social,Walk,SeaTac,886.0
+Social,Walk,Seattle Downtown,13608.0
+Social,Walk,Seattle First Hill/Capitol Hill,7859.0
+Social,Walk,Seattle Northgate,692.0
+Social,Walk,Seattle South Lake Union,3031.0
+Social,Walk,Seattle University Community,2583.0
+Social,Walk,Seattle Uptown,2530.0
+Social,Walk,Silverdale,482.0
+Social,Walk,Sumner Pacific,162.0
+Social,Walk,Tacoma Downtown,2948.0
+Social,Walk,Tacoma Mall,548.0
+Social,Walk,Tukwila,283.0
+Social,Walk,University Place,524.0
+Social,Bike,Auburn,11.0
+Social,Bike,Ballard-Interbay,25.0
+Social,Bike,Bellevue,65.0
+Social,Bike,Bothell Canyon Park,28.0
+Social,Bike,Bremerton,42.0
+Social,Bike,Burien,3.0
+Social,Bike,Cascade,9.0
+Social,Bike,Duwamish,150.0
+Social,Bike,Everett,57.0
+Social,Bike,Federal Way,7.0
+Social,Bike,Frederickson,9.0
+Social,Bike,Greater Downtown Kirkland,22.0
+Social,Bike,Issaquah,31.0
+Social,Bike,Kent,17.0
+Social,Bike,Kent MIC,115.0
+Social,Bike,Kirkland Totem Lake,31.0
+Social,Bike,Lakewood,11.0
+Social,Bike,Lynnwood,43.0
+Social,Bike,North Tukwila,18.0
+Social,Bike,Not in RGC,9803.0
+Social,Bike,Paine Field / Boeing Everett,62.0
+Social,Bike,Port of Tacoma,33.0
+Social,Bike,Puget Sound Industrial Center- Bremerton,2.0
+Social,Bike,Puyallup Downtown,12.0
+Social,Bike,Puyallup South Hill,16.0
+Social,Bike,Redmond Downtown,15.0
+Social,Bike,Redmond-Overlake,41.0
+Social,Bike,Renton,37.0
+Social,Bike,SeaTac,45.0
+Social,Bike,Seattle Downtown,741.0
+Social,Bike,Seattle First Hill/Capitol Hill,349.0
+Social,Bike,Seattle Northgate,16.0
+Social,Bike,Seattle South Lake Union,147.0
+Social,Bike,Seattle University Community,105.0
+Social,Bike,Seattle Uptown,106.0
+Social,Bike,Silverdale,15.0
+Social,Bike,Sumner Pacific,17.0
+Social,Bike,Tacoma Downtown,143.0
+Social,Bike,Tacoma Mall,22.0
+Social,Bike,Tukwila,37.0
+Social,Bike,University Place,15.0
+Social,SOV,Auburn,485.0
+Social,SOV,Ballard-Interbay,852.0
+Social,SOV,Bellevue,893.0
+Social,SOV,Bothell Canyon Park,1410.0
+Social,SOV,Bremerton,983.0
+Social,SOV,Burien,396.0
+Social,SOV,Cascade,916.0
+Social,SOV,Duwamish,6140.0
+Social,SOV,Everett,1735.0
+Social,SOV,Federal Way,280.0
+Social,SOV,Frederickson,176.0
+Social,SOV,Greater Downtown Kirkland,911.0
+Social,SOV,Issaquah,1415.0
+Social,SOV,Kent,915.0
+Social,SOV,Kent MIC,6468.0
+Social,SOV,Kirkland Totem Lake,1147.0
+Social,SOV,Lakewood,530.0
+Social,SOV,Lynnwood,1989.0
+Social,SOV,North Tukwila,598.0
+Social,SOV,Not in RGC,289807.0
+Social,SOV,Paine Field / Boeing Everett,1359.0
+Social,SOV,Port of Tacoma,1143.0
+Social,SOV,Puget Sound Industrial Center- Bremerton,26.0
+Social,SOV,Puyallup Downtown,778.0
+Social,SOV,Puyallup South Hill,935.0
+Social,SOV,Redmond Downtown,842.0
+Social,SOV,Redmond-Overlake,934.0
+Social,SOV,Renton,1602.0
+Social,SOV,SeaTac,2186.0
+Social,SOV,Seattle Downtown,3416.0
+Social,SOV,Seattle First Hill/Capitol Hill,2548.0
+Social,SOV,Seattle Northgate,542.0
+Social,SOV,Seattle South Lake Union,978.0
+Social,SOV,Seattle University Community,925.0
+Social,SOV,Seattle Uptown,857.0
+Social,SOV,Silverdale,1234.0
+Social,SOV,Sumner Pacific,1062.0
+Social,SOV,Tacoma Downtown,2419.0
+Social,SOV,Tacoma Mall,787.0
+Social,SOV,Tukwila,3575.0
+Social,SOV,University Place,558.0
+Social,HOV2,Auburn,419.0
+Social,HOV2,Ballard-Interbay,582.0
+Social,HOV2,Bellevue,906.0
+Social,HOV2,Bothell Canyon Park,1337.0
+Social,HOV2,Bremerton,914.0
+Social,HOV2,Burien,329.0
+Social,HOV2,Cascade,823.0
+Social,HOV2,Duwamish,5469.0
+Social,HOV2,Everett,1792.0
+Social,HOV2,Federal Way,251.0
+Social,HOV2,Frederickson,173.0
+Social,HOV2,Greater Downtown Kirkland,689.0
+Social,HOV2,Issaquah,1284.0
+Social,HOV2,Kent,829.0
+Social,HOV2,Kent MIC,6290.0
+Social,HOV2,Kirkland Totem Lake,919.0
+Social,HOV2,Lakewood,533.0
+Social,HOV2,Lynnwood,1769.0
+Social,HOV2,North Tukwila,603.0
+Social,HOV2,Not in RGC,258282.0
+Social,HOV2,Paine Field / Boeing Everett,1250.0
+Social,HOV2,Port of Tacoma,1262.0
+Social,HOV2,Puget Sound Industrial Center- Bremerton,26.0
+Social,HOV2,Puyallup Downtown,741.0
+Social,HOV2,Puyallup South Hill,1004.0
+Social,HOV2,Redmond Downtown,657.0
+Social,HOV2,Redmond-Overlake,660.0
+Social,HOV2,Renton,1383.0
+Social,HOV2,SeaTac,2092.0
+Social,HOV2,Seattle Downtown,3762.0
+Social,HOV2,Seattle First Hill/Capitol Hill,2086.0
+Social,HOV2,Seattle Northgate,373.0
+Social,HOV2,Seattle South Lake Union,768.0
+Social,HOV2,Seattle University Community,878.0
+Social,HOV2,Seattle Uptown,754.0
+Social,HOV2,Silverdale,1026.0
+Social,HOV2,Sumner Pacific,1037.0
+Social,HOV2,Tacoma Downtown,2572.0
+Social,HOV2,Tacoma Mall,718.0
+Social,HOV2,Tukwila,3485.0
+Social,HOV2,University Place,466.0
+Social,HOV3+,Auburn,430.0
+Social,HOV3+,Ballard-Interbay,431.0
+Social,HOV3+,Bellevue,872.0
+Social,HOV3+,Bothell Canyon Park,1073.0
+Social,HOV3+,Bremerton,771.0
+Social,HOV3+,Burien,292.0
+Social,HOV3+,Cascade,802.0
+Social,HOV3+,Duwamish,4273.0
+Social,HOV3+,Everett,1605.0
+Social,HOV3+,Federal Way,231.0
+Social,HOV3+,Frederickson,170.0
+Social,HOV3+,Greater Downtown Kirkland,569.0
+Social,HOV3+,Issaquah,1065.0
+Social,HOV3+,Kent,750.0
+Social,HOV3+,Kent MIC,5599.0
+Social,HOV3+,Kirkland Totem Lake,830.0
+Social,HOV3+,Lakewood,392.0
+Social,HOV3+,Lynnwood,1442.0
+Social,HOV3+,North Tukwila,462.0
+Social,HOV3+,Not in RGC,220025.0
+Social,HOV3+,Paine Field / Boeing Everett,1111.0
+Social,HOV3+,Port of Tacoma,1072.0
+Social,HOV3+,Puget Sound Industrial Center- Bremerton,22.0
+Social,HOV3+,Puyallup Downtown,642.0
+Social,HOV3+,Puyallup South Hill,846.0
+Social,HOV3+,Redmond Downtown,556.0
+Social,HOV3+,Redmond-Overlake,637.0
+Social,HOV3+,Renton,1177.0
+Social,HOV3+,SeaTac,1855.0
+Social,HOV3+,Seattle Downtown,2920.0
+Social,HOV3+,Seattle First Hill/Capitol Hill,1604.0
+Social,HOV3+,Seattle Northgate,282.0
+Social,HOV3+,Seattle South Lake Union,497.0
+Social,HOV3+,Seattle University Community,762.0
+Social,HOV3+,Seattle Uptown,524.0
+Social,HOV3+,Silverdale,824.0
+Social,HOV3+,Sumner Pacific,936.0
+Social,HOV3+,Tacoma Downtown,2303.0
+Social,HOV3+,Tacoma Mall,657.0
+Social,HOV3+,Tukwila,2965.0
+Social,HOV3+,University Place,371.0
+Social,Transit,Auburn,12.0
+Social,Transit,Ballard-Interbay,53.0
+Social,Transit,Bellevue,127.0
+Social,Transit,Bothell Canyon Park,7.0
+Social,Transit,Bremerton,1.0
+Social,Transit,Burien,21.0
+Social,Transit,Duwamish,887.0
+Social,Transit,Everett,4.0
+Social,Transit,Federal Way,12.0
+Social,Transit,Greater Downtown Kirkland,32.0
+Social,Transit,Issaquah,32.0
+Social,Transit,Kent,32.0
+Social,Transit,Kent MIC,221.0
+Social,Transit,Kirkland Totem Lake,16.0
+Social,Transit,Lakewood,1.0
+Social,Transit,Lynnwood,21.0
+Social,Transit,North Tukwila,32.0
+Social,Transit,Not in RGC,5786.0
+Social,Transit,Paine Field / Boeing Everett,3.0
+Social,Transit,Port of Tacoma,6.0
+Social,Transit,Puyallup Downtown,2.0
+Social,Transit,Puyallup South Hill,3.0
+Social,Transit,Redmond Downtown,26.0
+Social,Transit,Redmond-Overlake,30.0
+Social,Transit,Renton,61.0
+Social,Transit,SeaTac,215.0
+Social,Transit,Seattle Downtown,3111.0
+Social,Transit,Seattle First Hill/Capitol Hill,757.0
+Social,Transit,Seattle Northgate,37.0
+Social,Transit,Seattle South Lake Union,328.0
+Social,Transit,Seattle University Community,149.0
+Social,Transit,Seattle Uptown,188.0
+Social,Transit,Tacoma Downtown,86.0
+Social,Transit,Tacoma Mall,2.0
+Social,Transit,Tukwila,187.0
+Social,TNC,Auburn,10.0
+Social,TNC,Ballard-Interbay,20.0
+Social,TNC,Bellevue,132.0
+Social,TNC,Bothell Canyon Park,20.0
+Social,TNC,Bremerton,32.0
+Social,TNC,Burien,4.0
+Social,TNC,Cascade,11.0
+Social,TNC,Duwamish,123.0
+Social,TNC,Everett,70.0
+Social,TNC,Federal Way,5.0
+Social,TNC,Frederickson,3.0
+Social,TNC,Greater Downtown Kirkland,17.0
+Social,TNC,Issaquah,17.0
+Social,TNC,Kent,10.0
+Social,TNC,Kent MIC,96.0
+Social,TNC,Kirkland Totem Lake,28.0
+Social,TNC,Lakewood,5.0
+Social,TNC,Lynnwood,35.0
+Social,TNC,North Tukwila,6.0
+Social,TNC,Not in RGC,3789.0
+Social,TNC,Paine Field / Boeing Everett,35.0
+Social,TNC,Port of Tacoma,11.0
+Social,TNC,Puyallup Downtown,10.0
+Social,TNC,Puyallup South Hill,9.0
+Social,TNC,Redmond Downtown,23.0
+Social,TNC,Redmond-Overlake,49.0
+Social,TNC,Renton,33.0
+Social,TNC,SeaTac,33.0
+Social,TNC,Seattle Downtown,1170.0
+Social,TNC,Seattle First Hill/Capitol Hill,416.0
+Social,TNC,Seattle Northgate,11.0
+Social,TNC,Seattle South Lake Union,159.0
+Social,TNC,Seattle University Community,97.0
+Social,TNC,Seattle Uptown,115.0
+Social,TNC,Silverdale,18.0
+Social,TNC,Sumner Pacific,15.0
+Social,TNC,Tacoma Downtown,126.0
+Social,TNC,Tacoma Mall,13.0
+Social,TNC,Tukwila,34.0
+Social,TNC,University Place,9.0

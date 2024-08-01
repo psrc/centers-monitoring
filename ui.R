@@ -16,7 +16,7 @@ shinyUI(
                            .navbar {min-height:25px !important;}'))
              ),
     
-             windowTitle = "PSRC Centers Monitoring", 
+             windowTitle = "PSRC Centers Dashboard", 
              theme = "styles.css",
              position = "fixed-top",
              

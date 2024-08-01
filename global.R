@@ -142,14 +142,7 @@ mode_data <- readRDS("data/mode_to_work.rds") |>
 
 destination_mode_data <- readRDS("data/destination_mode_share.rds") |>
   mutate(data_year = factor(year, levels=year_ord)) |>
-  mutate(geography = gsub("Greater Downtown Kirkland", "Kirkland Greater Downtown", geography)) |>
-  mutate(geography = case_when(
-    geography == "All Centers" & geography_type == rgc_title ~ "All RGCs",
-    geography == "All Centers" & geography_type == mic_title ~ "All MICs",
-    geography != "All Centers" ~ geography)) |>
-  filter(concept == "Work") |>
-  filter(!(geography %in% c("Puget Sound Industrial Center - Bremerton", "North Tukwila", "Port of Tacoma", "Sumner-Pacific"))) |>
-  mutate(estimate = round(estimate, -1))
+  filter(concept == "Work")
 
 transit_stop_data <- readRDS("data/stops_layer.rds") |>
   mutate(rgc = gsub("Greater Downtown Kirkland", "Kirkland Greater Downtown", rgc))
