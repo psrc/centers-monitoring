@@ -70,7 +70,7 @@ form_server <- function(id, center_name, center_type) {
           
           strong(tags$div(class="chart_title","Land Use Map")),
           fluidRow(column(7, imageOutput(ns("lu_map"))),
-                   column(5, br(), br(), br(), br(), div(img(src="legend.png", width = "45%", style = "padding-left: 0px;")))),
+                   column(5, br(), br(), div(img(src="legend.png", width = "45%", style = "padding-left: 0px;")))),
           tags$div(class="chart_source","Source: PSRC UrbanSim Base Year Dataset"),
           br(),
           fluidRow(column(12,dataTableOutput(ns("urban_form_table")))),

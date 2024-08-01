@@ -56,7 +56,9 @@ unit_data <- readRDS("data/pop_hsg_data.rds") |>
   group_by(geography) |>
   mutate(delta = estimate-lag(estimate), data_year = paste0(lag(data_year),"-",data_year)) |>
   as_tibble() |>
-  drop_na()
+  mutate(estimate = delta, concept = "New Net Housing Units") |>
+  drop_na() |>
+  select(-delta)
 
 age_data <- readRDS("data/population_by_age.rds") |>
   mutate(data_year = factor(year, levels=year_ord)) |>
