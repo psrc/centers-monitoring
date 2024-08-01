@@ -27,7 +27,6 @@ overview_server <- function(id, center_name, center_type) {
       
     }
     
-    
     output$center_description <- renderText(pull_center_information(center_name=center_name(), center_type = center_type, center_info = "information"))
     output$center_employment_caveat <- renderText(pull_center_information(center_name=center_name(), center_type = center_type, center_info = "employment_caveat"))
     output$center_population_caveat <- renderText(pull_center_information(center_name=center_name(), center_type = center_type, center_info = "gq_caveat"))
