@@ -33,9 +33,10 @@ current_census_yr <- 2022
 current_employment_yr <- 2022
 census_years <- c(current_census_yr-10, current_census_yr-5, current_census_yr)
 ofm_years <- c(2011, 2016, 2021, 2022)
-pop_hsg_yrs <- c(2010, 2020, 2022)
+pop_hsg_yrs <- c(2010, 2020, 2022, 2023)
+hu_yrs <- c(2011, 2016, 2021, 2022, 2023)
 industrial_years <- c(2010, 2015, 2020, 2022) 
-year_ord <- c("2022","2021", "2020", "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010")
+year_ord <- c("2023","2022","2021", "2020", "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010")
 
 # Run Modules files -------------------------------------------------------
 module_files <- list.files('modules', full.names = TRUE)
@@ -47,14 +48,15 @@ rgc_title <- "Regional Growth Center (12/12/2023)"
 mic_title <- "MIC (1/5/2024)"
 
 # Demographic Metrics
-pop_hh_hu_data <- read_csv("data/pop_hsg_data.csv", show_col_types = FALSE) |>
+pop_hh_hu_data <- readRDS("data/pop_hsg_data.rds") |> mutate(data_year = factor(year, levels=year_ord))
+
+unit_data <- readRDS("data/pop_hsg_data.rds") |> 
   mutate(data_year = factor(year, levels=year_ord)) |>
-  mutate(geography = gsub("Greater Downtown Kirkland", "Kirkland Greater Downtown", geography)) |>
-  mutate(geography = case_when(
-    geography == "All Centers" & geography_type == rgc_title ~ "All RGCs",
-    geography == "All Centers" & geography_type == mic_title ~ "All MICs",
-    geography != "All Centers" ~ geography)) |>
-  mutate(estimate = round(estimate, -1))
+  filter(grouping == "Housing Units" & year %in% hu_yrs) |>
+  group_by(geography) |>
+  mutate(delta = estimate-lag(estimate), data_year = paste0(lag(data_year),"-",data_year)) |>
+  as_tibble() |>
+  drop_na()
 
 age_data <- readRDS("data/population_by_age.rds") |>
   mutate(data_year = factor(year, levels=year_ord)) |>
@@ -114,15 +116,6 @@ type_data <- readRDS("data/housing_units_by_type.rds") |>
   mutate(estimate = round(estimate, -1))
 
 burden_data <- readRDS("data/cost_burden.rds") |>
-  mutate(data_year = factor(year, levels=year_ord)) |>
-  mutate(geography = gsub("Greater Downtown Kirkland", "Kirkland Greater Downtown", geography)) |>
-  mutate(geography = case_when(
-    geography == "All Centers" & geography_type == rgc_title ~ "All RGCs",
-    geography == "All Centers" & geography_type == mic_title ~ "All MICs",
-    geography != "All Centers" ~ geography)) |>
-  mutate(estimate = round(estimate, -1))
-
-unit_data <- readRDS("data/center_hu.rds") |>
   mutate(data_year = factor(year, levels=year_ord)) |>
   mutate(geography = gsub("Greater Downtown Kirkland", "Kirkland Greater Downtown", geography)) |>
   mutate(geography = case_when(

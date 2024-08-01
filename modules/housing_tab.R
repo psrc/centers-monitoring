@@ -28,19 +28,15 @@ housing_server <- function(id, center_name, center_type) {
     output$hu_change_chart <- renderEcharts4r({
       
       echart_column_chart(df = unit_data |>
-                            filter(geography_type %in% c(center_type) & geography %in% c(center_name()) & year %in% ofm_years) |>
-                            mutate(concept="New Net Housing Units") |> 
-                            mutate(delta = estimate-lag(estimate), data_year = paste0(lag(data_year),"-",data_year)) |>
-                            drop_na(),
+                            filter(geography_type %in% c(center_type) & geography %in% c(center_name()) & year %in% hu_yrs) |>
+                            mutate(concept="New Net Housing Units"),
                           x = "data_year", y = "delta", tog = "concept", title = "New Net Housing Units",
                           dec = 0, esttype = "number", color = "purples")
       
     })
     
     output$hu_change_table <- DT::renderDataTable({create_change_table(df = unit_data |>
-                                                                         filter(geography_type %in% c(center_type) & geography %in% c(center_name()) & year %in% ofm_years) |>
-                                                                         mutate(delta = estimate-lag(estimate), data_year = paste0(lag(data_year),"-",data_year)) |>
-                                                                         drop_na(), 
+                                                                         filter(geography_type %in% c(center_type) & geography %in% c(center_name()) & year %in% hu_yrs), 
                                                                        yr = "data_year",val="delta", nm="New Net Housing Units")})
     
     output$tenure_chart <- renderEcharts4r({
