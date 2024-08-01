@@ -102,11 +102,32 @@ shinyServer(function(input, output, session) {
                                                 ), place_name = input$RGC)
   })
   
-  output$downloadData <- downloadHandler(
+  
+  mic_summary_data <- reactive({
+    
+    create_public_spreadsheet(table_list = list("Jobs" = employment_data|> select(-"year") |> filter(geography %in% c(input$MIC) & geography_type %in% c(mic_title)),
+                                                "Industrial Jobs" = industrial_jobs |> filter(geography %in% c(input$MIC) & geography_type %in% c(mic_title) & data_year %in% pop_hsg_yrs),
+                                                "Population" = pop_hh_hu_data |> select(-"year") |> filter(geography %in% c(input$MIC) & geography_type %in% c(mic_title) & grouping == "Population"), 
+                                                "Housing Units" = pop_hh_hu_data |> select(-"year") |> filter(geography %in% c(input$MIC) & geography_type %in% c(mic_title) & grouping == "Housing Units"),
+                                                "Transit Stops" = transit_stop_data |> st_drop_geometry() |> filter(mic %in% c(input$MIC)) |> select(-"rgc"),
+                                                "Destination Mode Share" = destination_mode_data |> select(-"year") |> filter(geography %in% c(input$MIC) & geography_type %in% c(mic_title)),
+                                                "Industrial Land" = industrial_land |> filter(geography %in% c(input$MIC) & !(grouping %in% c("Vacant", "Re-developable", "Available")))
+    ), place_name = input$MIC)
+  })
+  
+  output$downloadrgcData <- downloadHandler(
     filename = function() {
       paste0(input$RGC,"_summary_data.xlsx")},
     content <- function(file) {
       saveWorkbook(rgc_summary_data(), file = file)},
+    contentType = "application/Excel"
+  )
+  
+  output$downloadmicData <- downloadHandler(
+    filename = function() {
+      paste0(input$MIC,"_summary_data.xlsx")},
+    content <- function(file) {
+      saveWorkbook(mic_summary_data(), file = file)},
     contentType = "application/Excel"
   )
 

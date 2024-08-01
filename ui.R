@@ -36,7 +36,7 @@ shinyUI(
                         fluidRow(
                         column(6, selectInput("RGC","Select Center:",rgc_names, selected = random_rgc),
                                bsPopover(id="RGC", title="Center Selection", content="Pick from the selection of Centers", placement = "left")),
-                        column(6, br(), downloadLink('downloadData', label = "Download Center Data in Excel Format"))
+                        column(6, br(), downloadLink('downloadrgcData', label = "Download Center Data in Excel Format"))
                         )), 
                       
                       # Center Summary Data
