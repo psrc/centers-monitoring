@@ -639,64 +639,10 @@ create_rgc_urban_form_table <- function(center_name) {
 # RGC Transit Functions ---------------------------------------------------
 create_transit_stop_table <- function(center_name, center_type) {
   
-  data <- transit_stop_data |> st_drop_geometry() |> rename(name = all_of(center_type)) |> filter(name == center_name)
-  
-  # All Stops
-  r1 <- data |>
-    select(mode="name", "stop_id") |>
-    mutate(estimate=1) |>
-    distinct() |>
-    group_by(mode) |>
-    summarise(estimate = sum(estimate)) |>
-    as_tibble() |>
-    mutate(mode  = "All Transit Stops")
-  
-  # Light Rail Stops
-  r2 <- data |>
-    select("name", mode="lrt", "stop_id") |>
-    drop_na() |>
-    mutate(estimate=1) |>
-    group_by(mode) |>
-    summarise(estimate = sum(estimate)) |>
-    as_tibble()
-  
-  # Commuter Rail Stops
-  r3 <- data |>
-    select("name", mode="crt", "stop_id") |>
-    drop_na() |>
-    mutate(estimate=1) |>
-    group_by(mode) |>
-    summarise(estimate = sum(estimate)) |>
-    as_tibble()
-  
-  # Ferry Stops
-  r4 <- data |>
-    select("name", mode="ferry", "stop_id") |>
-    drop_na() |>
-    mutate(estimate=1) |>
-    group_by(mode) |>
-    summarise(estimate = sum(estimate)) |>
-    as_tibble()
-  
-  # BRT Stops
-  r5 <- data |>
-    select("name", mode="brt", "stop_id") |>
-    drop_na() |>
-    mutate(estimate=1) |>
-    group_by(mode) |>
-    summarise(estimate = sum(estimate)) |>
-    as_tibble()
-  
-  # Bus Stops
-  r6 <- data |>
-    select("name", mode="bus", "stop_id") |>
-    drop_na() |>
-    mutate(estimate=1) |>
-    group_by(mode) |>
-    summarise(estimate = sum(estimate)) |>
-    as_tibble()
-  
-  t <- bind_rows(r1, r2, r3, r4, r5, r6) %>% select("mode", "estimate")
+  t <- transit_stop_data |> 
+    filter(geography == center_name & geography_type == center_type) |>
+    select("mode", "stops") |>
+    mutate(stops = format(stops, big.mark = ","))
   
   headerCallbackRemoveHeaderFooter <- c(
     "function(thead, data, start, end, display){",
@@ -725,7 +671,7 @@ create_transit_stop_table <- function(center_name, center_type) {
   # Add Section Breaks
   summary_tbl <- summary_tbl %>%
     formatStyle(0:ncol(t), valueColumns = "mode",
-                `border-bottom` = styleEqual(c("Bus"), "solid 2px"))
+                `border-bottom` = styleEqual(c("Light Rail or Streetcar"), "solid 2px"))
   
   summary_tbl <- summary_tbl %>%
     formatStyle(0:ncol(t), valueColumns = "mode",
@@ -735,7 +681,7 @@ create_transit_stop_table <- function(center_name, center_type) {
   
 }
 
-create_transit_map <- function(center_name, center_type, center_desc) {
+create_transit_map <- function(center_name, center_type) {
   
   transit_pal <- colorFactor(
     palette = c("#BCBEC0", "#8CC63E", "#91268F", "#00A7A0", "#F05A28"),
@@ -751,27 +697,78 @@ create_transit_map <- function(center_name, center_type, center_desc) {
     
   }
   
-  data <- transit_stop_data |> rename(name = all_of(center_desc)) |> filter(name == center_name)
+  stops <- st_intersection(transit_stop_lyr, center_shp) |> select("stop_id", "type_name")
   
-  lrt_stops <- data |>
-    select(Stop="stop_id", Mode="lrt") |>
+  lrt_stops <- stops |>
+    filter(type_name == "Light Rail or Streetcar") |>
+    select(Stop="stop_id", Mode="type_name") |>
     drop_na()
   
-  brt_stops <- data |>
-    select(Stop="stop_id", Mode="brt") |>
+  brt_stops <- stops |>
+    filter(type_name == "Bus Rapid Transit") |>
+    select(Stop="stop_id", Mode="type_name") |>
     drop_na()
   
-  crt_stops <- data |>
-    select(Stop="stop_id", Mode="crt") |>
+  crt_stops <- stops |>
+    filter(type_name == "Commuter Rail") |>
+    select(Stop="stop_id", Mode="type_name") |>
     drop_na()
   
-  ferry_stops <- data |>
-    select(Stop="stop_id", Mode="ferry") |>
+  ferry_stops <- stops |>
+    filter(type_name == "Ferry") |>
+    select(Stop="stop_id", Mode="type_name") |>
     drop_na()
   
-  bus_stops <- data |>
-    select(Stop="stop_id", Mode="bus") |>
+  bus_stops <- stops |>
+    filter(type_name == "Bus") |>
+    select(Stop="stop_id", Mode="type_name") |>
     drop_na()
+  
+  route_list <- st_intersection(transit_route_lyr, center_shp) |> st_drop_geometry() |> select("route_name") |> distinct() |> pull()
+  routes <- transit_route_lyr |> filter(route_name %in% route_list) |> select(Route = "route_name", Mode = "type_name", Agency = "agency_name")
+  
+  lrt_routes <- routes |>
+    filter(Mode == "Light Rail or Streetcar") |>
+    drop_na()
+  
+  brt_routes <- routes |>
+    filter(Mode == "Bus Rapid Transit") |>
+    drop_na()
+  
+  crt_routes <- routes |>
+    filter(Mode == "Commuter Rail") |>
+    drop_na()
+  
+  ferry_routes <- routes |>
+    filter(Mode == "Ferry") |>
+    drop_na()
+  
+  bus_routes <- routes |>
+    filter(Mode == "Bus") |>
+    drop_na()
+  
+  lrt_labels <- paste0("<b>","Route Name: ", "</b>", lrt_routes$Route, "<b> <br>", paste0("Agency: "), "</b>", lrt_routes$Agency, "<b> <br>", paste0("Mode: "), "</b>", lrt_routes$Mode) |> lapply(htmltools::HTML)
+  brt_labels <- paste0("<b>","Route Name: ", "</b>", brt_routes$Route, "<b> <br>", paste0("Agency: "), "</b>", brt_routes$Agency, "<b> <br>", paste0("Mode: "), "</b>", brt_routes$Mode) |> lapply(htmltools::HTML)
+  crt_labels <- paste0("<b>","Route Name: ", "</b>", crt_routes$Route, "<b> <br>", paste0("Agency: "), "</b>", crt_routes$Agency, "<b> <br>", paste0("Mode: "), "</b>", crt_routes$Mode) |> lapply(htmltools::HTML)
+  ferry_labels <- paste0("<b>","Route Name: ", "</b>", ferry_routes$Route, "<b> <br>", paste0("Agency: "), "</b>", ferry_routes$Agency, "<b> <br>", paste0("Mode: "), "</b>", ferry_routes$Mode) |> lapply(htmltools::HTML)
+  bus_labels <- paste0("<b>","Route Name: ", "</b>", bus_routes$Route, "<b> <br>", paste0("Agency: "), "</b>", bus_routes$Agency, "<b> <br>", paste0("Mode: "), "</b>", bus_routes$Mode) |> lapply(htmltools::HTML)
+  
+  c <- leaflet() |>
+    
+    addPolygons(data = center_shp,
+                fillColor = "76787A",
+                weight = 4,
+                opacity = 1.0,
+                color = "#EB4584",
+                dashArray = "4",
+                fillOpacity = 0.0,
+                group="Center")
+  
+  center_limits <- c$x["limits"]
+  lat1 <- center_limits$limits$lat[1]
+  lat2 <- center_limits$limits$lat[2]
+  lng1 <- center_limits$limits$lng[1]
+  lng2 <- center_limits$limits$lng[2]
   
   m <- leaflet() |>
     
@@ -786,6 +783,36 @@ create_transit_map <- function(center_name, center_type, center_desc) {
                                        "Center"),
                      options = layersControlOptions(collapsed = TRUE)) |>
     
+    addPolylines(data=bus_routes, 
+                 group="Bus",
+                 weight = 4, 
+                 label = bus_labels, 
+                 color = "#BCBEC0") |>
+    
+    addPolylines(data=brt_routes, 
+                 group="BRT",
+                 weight = 4, 
+                 label = brt_labels, 
+                 color = "#8CC63E") |>
+    
+    addPolylines(data=crt_routes, 
+                 group="Commuter Rail",
+                 weight = 4, 
+                 label = crt_labels, 
+                 color = "#91268F") |>
+    
+    addPolylines(data=ferry_routes, 
+                 group="Ferry",
+                 weight = 4, 
+                 label = ferry_labels, 
+                 color = "#00A7A0") |>
+    
+    addPolylines(data=lrt_routes, 
+                 group="Light Rail or Streetcar",
+                 weight = 4, 
+                 label = lrt_labels, 
+                 color = "#F05A28") |>
+    
     addPolygons(data = center_shp,
                 fillColor = "76787A",
                 weight = 4,
@@ -797,33 +824,35 @@ create_transit_map <- function(center_name, center_type, center_desc) {
     
     addCircles(data=bus_stops, 
                group="Bus",
-               color = "#BCBEC0",
+               color = "#76787A",
                opacity = 1.0,
                fillOpacity = 1.0) |>
     
     addCircles(data=brt_stops, 
                group="BRT",
-               color = "#8CC63E",
+               color = "#3f6618",
                opacity = 1.0,
                fillOpacity = 1.0) |>
     
     addCircles(data=crt_stops, 
                group="Commuter Rail",
-               color = "#91268F",
+               color = "#4a0048",
                opacity = 1.0,
                fillOpacity = 1.0) |>
     
     addCircles(data=ferry_stops, 
                group="Ferry",
-               color = "#00A7A0",
+               color = "#005753",
                opacity = 1.0,
                fillOpacity = 1.0) |>
     
     addCircles(data=lrt_stops, 
                group="Light Rail or Streetcar",
-               color = "#F05A28",
+               color = "#7a2700",
                opacity = 1.0,
-               fillOpacity = 1.0)
+               fillOpacity = 1.0) |>
+    
+    fitBounds(lng1 = lng1, lat1 = lat1, lng2 = lng2, lat2 = lat2)
   
   return(m)
   

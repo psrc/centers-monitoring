@@ -39,9 +39,9 @@ transportation_server <- function(id, center_name, center_type, center_desc) {
     
     output$destination_mode_table <- DT::renderDataTable({create_multi_year_table(df = destination_mode_data, rgc_name = center_name(), data_yrs = c("2018"), dec = 1, center_type = center_type)})
     
-    output$stop_table <- DT::renderDataTable({create_transit_stop_table(center_name = center_name(), center_type = center_desc)})
+    output$stop_table <- DT::renderDataTable({create_transit_stop_table(center_name = center_name(), center_type = center_type)})
     
-    output$stop_map <- renderLeaflet({create_transit_map(center_name = center_name(), center_type = center_type, center_desc = center_desc)})
+    output$stop_map <- renderLeaflet({create_transit_map(center_name = center_name(), center_type = center_type)})
     
     # Tab layout
     output$atransportationtab <- renderUI({
@@ -58,7 +58,7 @@ transportation_server <- function(id, center_name, center_type, center_desc) {
                           br(),
                           dataTableOutput(ns("stop_table")),
                           br(),
-                          tags$div(class="chart_source","Source: Spring GTFS Service")
+                          tags$div(class="chart_source", paste0("Source: ", gtfs_service, " ", gtfs_year, " GTFS Service"))
                   )),
           fluidRow(column(12, div(img(src="transit-legend.png", width = "75%", style = "padding-left: 0px;")))),
           tags$div(class="chart_source", "Note: Many stations show stops for each direction of travel."),

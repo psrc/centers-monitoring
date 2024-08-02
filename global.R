@@ -38,6 +38,9 @@ hu_yrs <- c(2011, 2016, 2021, 2022, 2023)
 industrial_years <- c(2010, 2015, 2020, 2022) 
 year_ord <- c("2023","2022","2021", "2020", "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010")
 
+gtfs_year <- "2024"
+gtfs_service <- "Spring"
+
 # Run Modules files -------------------------------------------------------
 module_files <- list.files('modules', full.names = TRUE)
 sapply(module_files, source)
@@ -144,8 +147,10 @@ destination_mode_data <- readRDS("data/destination_mode_share.rds") |>
   mutate(data_year = factor(year, levels=year_ord)) |>
   filter(concept == "Work")
 
-transit_stop_data <- readRDS("data/stops_layer.rds") |>
-  mutate(rgc = gsub("Greater Downtown Kirkland", "Kirkland Greater Downtown", rgc))
+# Transit Data
+transit_stop_data <- readRDS("data/transit_stop_data.rds")
+transit_stop_lyr <- readRDS("data/transit_stop_lyr.rds")
+transit_route_lyr <- readRDS("data/transit_route_lyr.rds")
 
 # Centers Information
 centers_info <- read_csv("data/centers_information.csv", show_col_types = FALSE)
@@ -155,11 +160,11 @@ intersection_density <- read_csv("data/center_intersection_density.csv", show_co
 source_info <- read_csv("data/source_information.csv", show_col_types = FALSE)
 
 # Shapefiles --------------------------------------------------------------
-rgc_shape <- readRDS("data/rgc_shape.rds")
+rgc_shape <- readRDS("data/rgc_shape.rds") |> st_make_valid() |> st_transform(wgs84) |> rename(geometry="Shape")
 rgc_names <- rgc_shape |> st_drop_geometry() |> select("name") |> arrange(name) |> distinct() |> pull()
 random_rgc <- rgc_names[[sample(1:length(rgc_names), 1)]]
 
-mic_shape <- readRDS("data/mic_shape.rds")
+mic_shape <- readRDS("data/mic_shape.rds") |> st_make_valid() |> st_transform(wgs84) |> rename(geometry="Shape")
 mic_names <- mic_shape %>% st_drop_geometry() %>% select("name") %>% arrange(name) %>% distinct() %>% pull()
 random_mic <- mic_names[[sample(1:length(mic_names), 1)]]
 
