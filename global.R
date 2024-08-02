@@ -30,7 +30,7 @@ wgs84 <- 4326
 spn <- 32148
 
 current_census_yr <- 2022
-current_employment_yr <- 2022
+current_employment_yr <- 2023
 census_years <- c(current_census_yr-10, current_census_yr-5, current_census_yr)
 ofm_years <- c(2011, 2016, 2021, 2022)
 pop_hsg_yrs <- c(2010, 2020, 2022, 2023)
