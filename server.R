@@ -3,17 +3,17 @@ shinyServer(function(input, output, session) {
   footer_server('psrcfooter')
   
   leftpanel_server('rgcleftpanel',
-                   contact_name = "Maggie Moore",
-                   contact_phone = "206-464-6171",
-                   contact_email = "mmoore@psrc.org",
-                   contact_title = "Senior Planner",
+                   contact_name = "Liz Underwood-Bultmann, AICP",
+                   contact_phone = "206-464-6174",
+                   contact_email = "lunderwood-bultmann@psrc.org",
+                   contact_title = "Principal Planner",
                    photo_filename = "redmondconnector.jpeg")
 
   leftpanel_server('micleftpanel',
-                   contact_name = "Maggie Moore",
-                   contact_phone = "206-464-6171",
-                   contact_email = "mmoore@psrc.org",
-                   contact_title = "Senior Planner",
+                   contact_name = "Liz Underwood-Bultmann, AICP",
+                   contact_phone = "206-464-6174",
+                   contact_email = "lunderwood-bultmann@psrc.org",
+                   contact_title = "Principal Planner",
                    photo_filename = "portoftacomaindustrialland.jpg")
     
   banner_server('rgcBanner', 
