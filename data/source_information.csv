@@ -2,26 +2,26 @@
 Total Acres,Summary Statistics,Regional Growth Center,PSRC GIS,Current
 Designation Year,Summary Statistics,Regional Growth Center,PSRC,Current
 Center Type,Summary Statistics,Regional Growth Center,PSRC,Current
-Population,Summary Statistics,Regional Growth Center,Office of Financial Management SAEP Program & PSRC Parcelization,2023
-Housing Units,Summary Statistics,Regional Growth Center,Office of Financial Management SAEP Program & PSRC Parcelization,2023
+Population,Summary Statistics,Regional Growth Center,Office of Financial Management SAEP Program & PSRC Parcelization,2024
+Housing Units,Summary Statistics,Regional Growth Center,Office of Financial Management SAEP Program & PSRC Parcelization,2024
 Total Employment,Summary Statistics,Regional Growth Center,PSRC Covered Employment Estimates,2023
-Activity Units per Acre,Summary Statistics,Regional Growth Center,Office of Financial Management SAEP Program and PSRC Covered Employment Estimates,2023
+Activity Units per Acre,Summary Statistics,Regional Growth Center,Office of Financial Management SAEP Program and PSRC Covered Employment Estimates,2023/2024
 Jobs per Resident,Summary Statistics,Regional Growth Center,Office of Financial Management SAEP Program and PSRC Covered Employment Estimates,2023
-Population,Demographics,Regional Growth Center,Office of Financial Management SAEP Program & PSRC Parcelization,"2023, 2022,2020, 2010"
-Total Population by Age Group,Demographics,Regional Growth Center,US Census Bureau American Community Survey (ACS) 5yr Data Table B01001,"2022, 2017, 2012"
-Total Population by Race/Ethnicity,Demographics,Regional Growth Center,US Census Bureau American Community Survey (ACS) 5yr Data Table B03002,"2022, 2017, 2012"
-Total Household Income,Demographics,Regional Growth Center,US Census Bureau American Community Survey (ACS) 5yr Data Table B19001,"2022, 2017, 2012"
-Educational Attainment,Demographics,Regional Growth Center,US Census Bureau American Community Survey (ACS) 5yr Data Table B15002,"2022, 2017, 2012"
+Population,Demographics,Regional Growth Center,Office of Financial Management SAEP Program & PSRC Parcelization,"2024,2023, 2022,2020, 2010"
+Total Population by Age Group,Demographics,Regional Growth Center,US Census Bureau American Community Survey (ACS) 5yr Data Table B01001,"2023, 2018, 2013"
+Total Population by Race/Ethnicity,Demographics,Regional Growth Center,US Census Bureau American Community Survey (ACS) 5yr Data Table B03002,"2023, 2018, 2013"
+Total Household Income,Demographics,Regional Growth Center,US Census Bureau American Community Survey (ACS) 5yr Data Table B19001,"2023, 2018, 2013"
+Educational Attainment,Demographics,Regional Growth Center,US Census Bureau American Community Survey (ACS) 5yr Data Table B15002,"2023, 2018, 2013"
 Employment,Jobs,Regional Growth Center,PSRC Covered Employment Estimates,"2023, 2022, 2020, 2010"
 Jobs by Sector,Jobs,Regional Growth Center,PSRC Covered Employment Estimates,2023
-Housing Units,Housing,Regional Growth Center,Office of Financial Management SAEP Program & PSRC Parcelization,"2023, 2022, 2020, 2010"
-New Net Housing Units,Housing,Regional Growth Center,Office of Financial Management SAEP Program & PSRC Parcelization,"2011-2016, 2016-2021, 2021-2022, 2022-2023"
-Housing Tenure,Housing,Regional Growth Center,US Census Bureau American Community Survey (ACS) 5yr Data Table B25003,"2022, 2017, 2012"
-Housing Unit Type,Housing,Regional Growth Center,US Census Bureau American Community Survey (ACS) 5yr Data Table B25024,"2022, 2017, 2012"
-Cost Burden: Renters,Housing,Regional Growth Center,US Census Bureau American Community Survey (ACS) 5yr Data Table B25070,"2022, 2017, 2012"
-Cost Burden: Owners,Housing,Regional Growth Center,US Census Bureau American Community Survey (ACS) 5yr Data Table B25091,"2022, 2017, 2012"
-Transit Service (Map & Table),Transportation,Regional Growth Center,Spring GTFS Service,Spring 2024
-Mode to Work for Residents,Transportation,Regional Growth Center,US Census Bureau American Community Survey (ACS) 5yr Data Table B08301,"2022, 2017, 2012"
+Housing Units,Housing,Regional Growth Center,Office of Financial Management SAEP Program & PSRC Parcelization,"2024,2023, 2022, 2020, 2010"
+New Net Housing Units,Housing,Regional Growth Center,Office of Financial Management SAEP Program & PSRC Parcelization,"2011-2016, 2016-2021, 2021-2022, 2022-2023, 2023-2024"
+Housing Tenure,Housing,Regional Growth Center,US Census Bureau American Community Survey (ACS) 5yr Data Table B25003,"2023, 2018, 2013"
+Housing Unit Type,Housing,Regional Growth Center,US Census Bureau American Community Survey (ACS) 5yr Data Table B25024,"2023, 2018, 2013"
+Cost Burden: Renters,Housing,Regional Growth Center,US Census Bureau American Community Survey (ACS) 5yr Data Table B25070,"2023, 2018, 2013"
+Cost Burden: Owners,Housing,Regional Growth Center,US Census Bureau American Community Survey (ACS) 5yr Data Table B25091,"2023, 2018, 2013"
+Transit Service (Map & Table),Transportation,Regional Growth Center,Spring GTFS Service,Spring 2025
+Mode to Work for Residents,Transportation,Regional Growth Center,US Census Bureau American Community Survey (ACS) 5yr Data Table B08301,"2023, 2018, 2013"
 Commute Mode for Workers,Transportation,Regional Growth Center,2018 PSRC SoundCast Activity Based Model,2018
 Land Use Map,Urban Form,Regional Growth Center,PSRC UrbanSim Base Year Dataset,2018
 # of Intersections,Urban Form,Regional Growth Center,2018 PSRC SoundCast Activity Based Model,2018
@@ -31,14 +31,14 @@ Designation Year,Summary Statistics,Manufacturing Industrial Center,PSRC,Current
 Center Type,Summary Statistics,Manufacturing Industrial Center,PSRC,Current Year
 Total Employment,Summary Statistics,Manufacturing Industrial Center,PSRC Covered Employment Estimates,2023
 % Industrial Jobs,Summary Statistics,Manufacturing Industrial Center,PSRC Covered Employment Estimates,2022
-Population,Summary Statistics,Manufacturing Industrial Center,Office of Financial Management SAEP Program & PSRC Parcelization,2023
-Housing,Summary Statistics,Manufacturing Industrial Center,Office of Financial Management SAEP Program & PSRC Parcelization,2023
+Population,Summary Statistics,Manufacturing Industrial Center,Office of Financial Management SAEP Program & PSRC Parcelization,2024
+Housing,Summary Statistics,Manufacturing Industrial Center,Office of Financial Management SAEP Program & PSRC Parcelization,2024
 Jobs,Jobs,Manufacturing Industrial Center,PSRC Covered Employment Estimates,"2023, 2022, 2020, 2010"
 Jobs by Sector,Jobs,Manufacturing Industrial Center,PSRC Covered Employment Estimates,2023
 Share of Industrial Jobs,Jobs,Manufacturing Industrial Center,PSRC Covered Employment Estimates,"2022, 2020, 2015, 2010"
-Total Population,Population and Housing,Manufacturing Industrial Center,Office of Financial Management SAEP Program & PSRC Parcelization,"2023, 2022, 2020, 2010"
-Total Housing Units,Population and Housing,Manufacturing Industrial Center,Office of Financial Management SAEP Program & PSRC Parcelization,"2023, 2022, 2020, 2010"
-Transit Service (Map and Table),Transportation,Manufacturing Industrial Center,Spring GTFS Service,Spring 2024
+Total Population,Population and Housing,Manufacturing Industrial Center,Office of Financial Management SAEP Program & PSRC Parcelization,"2024,2023, 2022, 2020, 2010"
+Total Housing Units,Population and Housing,Manufacturing Industrial Center,Office of Financial Management SAEP Program & PSRC Parcelization,"2024,2023, 2022, 2020, 2010"
+Transit Service (Map and Table),Transportation,Manufacturing Industrial Center,Spring GTFS Service,Spring 2025
 Commute Mode of Workers,Transportation,Manufacturing Industrial Center,2018 PSRC SoundCast Activity Based Model,2018
 Industrial Land Types Map,Urban Form,Manufacturing Industrial Center,PSRC Industrial Lands Inventory (Draft Nov 2023),2023
 Gross Land Acreage by Category (table),Urban Form,Manufacturing Industrial Center,PSRC Industrial Lands Inventory (Draft Nov 2023),2023

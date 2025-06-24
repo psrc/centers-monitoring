@@ -17,8 +17,8 @@ housing_server <- function(id, center_name, center_type) {
     # Tables and Charts
     output$hu_chart <- renderEcharts4r({
       
-      echart_column_chart(df = pop_hh_hu_data |> filter(geography_type == center_type, geography == center_name() & grouping == "Housing Units" & data_year %in% pop_hsg_yrs),
-                          x = "data_year", y = "estimate", tog = "grouping", title = "Total Housing Units",
+      echart_column_chart(df = pop_hh_hu_data |> filter(geography_type == center_type, geography == center_name() & grouping == "Housing Units" & year %in% pop_hsg_yrs),
+                          x = "year", y = "estimate", tog = "grouping", title = "Total Housing Units",
                           dec = 0, esttype = "number", color = "blues")
       
     })
@@ -40,8 +40,8 @@ housing_server <- function(id, center_name, center_type) {
     
     output$tenure_chart <- renderEcharts4r({
       
-      echart_multi_column_chart(df = tenure_data |> filter(geography_type %in% c(center_type, "County") & geography %in% c(center_name(), "Region", "All Centers", "All RGCs", "All MICs") & grouping != "Total" & data_year %in% census_years),
-                                x = "grouping", y = "share", fill="geography", tog = "data_year", 
+      echart_multi_column_chart(df = tenure_data |> filter(geography_type %in% c(center_type, "County") & geography %in% c(center_name(), "Region", "All Centers", "All RGCs", "All MICs") & grouping != "Total" & year %in% census_years),
+                                x = "grouping", y = "share", fill="geography", tog = "year", 
                                 dec = 0, esttype = "percent", color = "jewel")
     })
     
@@ -50,9 +50,9 @@ housing_server <- function(id, center_name, center_type) {
     output$type_chart <- renderEcharts4r({
       
       echart_multi_bar_chart(df = type_data |>
-                               filter(geography_type %in% c(center_type, "County") & geography %in% c(center_name(), "Region", "All Centers", "All RGCs", "All MICs") & grouping != "Total" & data_year %in% census_years) |>
+                               filter(geography_type %in% c(center_type, "County") & geography %in% c(center_name(), "Region", "All Centers", "All RGCs", "All MICs") & grouping != "Total" & year %in% census_years) |>
                                arrange(desc(grouping)),
-                             x = "grouping", y = "share", fill="geography", tog = "data_year", 
+                             x = "grouping", y = "share", fill="geography", tog = "year", 
                              dec = 0, esttype = "percent", color = "jewel")
     })
     
@@ -62,9 +62,9 @@ housing_server <- function(id, center_name, center_type) {
     
       output$renter_burden_chart <- renderEcharts4r({
       
-       echart_multi_column_chart(df = burden_data |>
-                                    filter(geography_type %in% c(center_type, "County") & geography %in% c(center_name(), "Region", "All Centers", "All RGCs", "All MICs") & grouping != "Total" & concept == "Renter Cost Burden" & data_year %in% census_years),
-                                  x = "grouping", y = "share", fill="geography", tog = "data_year", 
+       echart_multi_column_chart(df = renter_burden_data |>
+                                    filter(geography_type %in% c(center_type, "County") & geography %in% c(center_name(), "Region", "All Centers", "All RGCs", "All MICs") & grouping != "Total" & year %in% census_years),
+                                  x = "grouping", y = "share", fill="geography", tog = "year", 
                                   dec = 0, esttype = "percent", color = "jewel")
       })
     
@@ -72,9 +72,9 @@ housing_server <- function(id, center_name, center_type) {
     
       output$owner_burden_chart <- renderEcharts4r({
       
-        echart_multi_column_chart(df = burden_data |>
-                                    filter(geography_type %in% c(center_type, "County") & geography %in% c(center_name(), "Region", "All Centers", "All RGCs", "All MICs") & grouping != "Total" & concept == "Owner Cost Burden" & data_year %in% census_years),
-                                  x = "grouping", y = "share", fill="geography", tog = "data_year", 
+        echart_multi_column_chart(df = owner_burden_data |>
+                                    filter(geography_type %in% c(center_type, "County") & geography %in% c(center_name(), "Region", "All Centers", "All RGCs", "All MICs") & grouping != "Total" & year %in% census_years),
+                                  x = "grouping", y = "share", fill="geography", tog = "year", 
                                   dec = 0, esttype = "percent", color = "jewel")
       
       })

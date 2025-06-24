@@ -685,7 +685,7 @@ create_transit_map <- function(center_name, center_type) {
   
   transit_pal <- colorFactor(
     palette = c("#BCBEC0", "#8CC63E", "#91268F", "#00A7A0", "#F05A28"),
-    levels = c("Bus", "BRT", "Commuter Rail", "Ferry", "Light Rail or Streetcar"))
+    levels = c("Bus", "BRT", "Commuter Rail", "Ferry", "Light Rail, Monorail or Streetcar"))
   
   if(center_type == rgc_title) {
     
@@ -700,7 +700,7 @@ create_transit_map <- function(center_name, center_type) {
   stops <- st_intersection(transit_stop_lyr, center_shp) |> select("stop_id", "type_name")
   
   lrt_stops <- stops |>
-    filter(type_name == "Light Rail or Streetcar") |>
+    filter(type_name == "Light Rail, Monorail or Streetcar") |>
     select(Stop="stop_id", Mode="type_name") |>
     drop_na()
   
@@ -728,7 +728,7 @@ create_transit_map <- function(center_name, center_type) {
   routes <- transit_route_lyr |> filter(route_name %in% route_list) |> select(Route = "route_name", Mode = "type_name", Agency = "agency_name")
   
   lrt_routes <- routes |>
-    filter(Mode == "Light Rail or Streetcar") |>
+    filter(Mode == "Light Rail, Monorail or Streetcar") |>
     drop_na()
   
   brt_routes <- routes |>
@@ -779,7 +779,7 @@ create_transit_map <- function(center_name, center_type) {
                                        "BRT", 
                                        "Commuter Rail",
                                        "Ferry",
-                                       "Light Rail or Streetcar", 
+                                       "Light Rail, Monorail or Streetcar", 
                                        "Center"),
                      options = layersControlOptions(collapsed = TRUE)) |>
     
@@ -808,7 +808,7 @@ create_transit_map <- function(center_name, center_type) {
                  color = "#00A7A0") |>
     
     addPolylines(data=lrt_routes, 
-                 group="Light Rail or Streetcar",
+                 group="Light Rail, Monorail or Streetcar",
                  weight = 4, 
                  label = lrt_labels, 
                  color = "#F05A28") |>
@@ -847,7 +847,7 @@ create_transit_map <- function(center_name, center_type) {
                fillOpacity = 1.0) |>
     
     addCircles(data=lrt_stops, 
-               group="Light Rail or Streetcar",
+               group="Light Rail, Monorail or Streetcar",
                color = "#7a2700",
                opacity = 1.0,
                fillOpacity = 1.0) |>
@@ -1298,7 +1298,7 @@ create_multi_year_table_all <- function(df, rgc_name, data_yrs, dec=0, center_ty
 create_rgc_jobs_by_sector_table <- function(center_name, center_type="Regional Growth Center (6/22/2023)") {
   
   sectors <- employment_data |> select("grouping") |> distinct() |> pull()
-  data <- employment_data |> filter(geography == center_name & geography_type == center_type) |> mutate(year = as.integer(as.character(data_year)))
+  data <- employment_data |> filter(geography == center_name & geography_type == center_type) |> mutate(year = as.integer(as.character(year)))
   max_year <- max(data$year)
   
   # Jobs by Sector

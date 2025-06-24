@@ -23,9 +23,9 @@ form_server <- function(id, center_name, center_type) {
       } else {
           
         if(center_name() == "Cascade Industrial Center - Arlington/Marysville") {imgfn <- "Cascade Industrial Center - Arlington-Marysville.jpg"}
-        if(center_name() == "Kent") {imgfn <- "Kent-MIC.jpg"}
+        if(center_name() == "Kent MIC") {imgfn <- "Kent-MIC.jpg"}
         if(center_name() == "Paine Field/Boeing Everett") {imgfn <- "Paine Field-Boeing Everett.jpg"}
-        if(!(center_name() %in% c("Cascade Industrial Center - Arlington/Marysville", "Kent", "Paine Field/Boeing Everett"))) {imgfn <- paste0(center_name(), '.jpg')}
+        if(!(center_name() %in% c("Cascade Industrial Center - Arlington/Marysville", "Kent MIC", "Paine Field/Boeing Everett"))) {imgfn <- paste0(center_name(), '.jpg')}
         
       }
        

@@ -3,71 +3,73 @@ library(tidyverse)
 library(tidytransit)
 library(psrcelmer)
 library(sf)
+library(units)
 
 # Inputs ------------------------------------------------------------------
 wgs84 <- 4326
 spn <- 2285
 
-rgc_title <- "Regional Growth Center (12/12/2023)"
+rgc_title <- "Regional Growth Center (4/23/2024)"
 mic_title <- "MIC (1/5/2024)"
 
-gtfs_years <- c(2024)
+gtfs_years <- c(2025)
 gtfs_service <- "spring"
 
-transit_ord <- c("All Transit Stops", "Bus", "Bus Rapid Transit", "Commuter Rail", "Ferry", "Light Rail or Streetcar")
+transit_ord <- c("All Transit Stops", "Bus", "Bus Rapid Transit", "Commuter Rail", "Ferry", "Light Rail, Monorail or Streetcar")
 county_order <- c("Region", "King County", "Kitsap County", "Pierce County", "Snohomish County")
+
+un <- Sys.getenv("USERNAME")
+data_dir <- file.path("C:/Users",str_to_lower(un),"Puget Sound Regional Council", "RTP Data & Analysis - Data", "transit")
 
 # Center Shapefiles -------------------------------------------------------
 rgc_shape <- st_read_elmergeo(layer_name = "urban_centers") |>
-  mutate(name = gsub("Bellevue", "Bellevue Downtown", name)) |>
-  mutate(name = gsub("Redmond-Overlake", "Redmond Overlake", name)) |>
-  mutate(name = gsub("Greater Downtown Kirkland", "Kirkland Greater Downtown", name)) |>
+  mutate(name = str_replace_all(name, "Greater Downtown Kirkland", "Kirkland Greater Downtown")) |>
+  mutate(name = str_replace_all(name, "Redmond-Overlake", "Redmond Overlake")) |>
+  mutate(name = str_replace_all(name, "Bellevue", "Bellevue Downtown")) |>
   select("name", "acres") |>
   st_transform(spn)
 
 mic_shape <- st_read_elmergeo(layer_name = "micen") |>
-  mutate(mic = gsub("Kent MIC", "Kent", mic)) |>
-  mutate(mic = gsub("Paine Field / Boeing Everett", "Paine Field/Boeing Everett", mic)) |>
-  mutate(mic = gsub("Sumner Pacific", "Sumner-Pacific", mic)) %>%
-  mutate(mic = gsub("Puget Sound Industrial Center- Bremerton", "Puget Sound Industrial Center - Bremerton", mic)) |>
-  mutate(mic = gsub("Cascade", "Cascade Industrial Center - Arlington/Marysville", mic)) |>
+  mutate(mic = str_replace_all(mic, "Paine Field / Boeing Everett", "Paine Field/Boeing Everett")) |>
+  mutate(mic = str_replace_all(mic, "Sumner Pacific", "Sumner-Pacific")) |>
+  mutate(mic = str_replace_all(mic, "Puget Sound Industrial Center- Bremerton", "Puget Sound Industrial Center - Bremerton")) |>
+  mutate(mic = str_replace_all(mic, "Cascade", "Cascade Industrial Center - Arlington/Marysville")) |>
   select(name="mic", "acres") |>
   st_transform(spn)
 
 rgc_names <- st_read_elmergeo(layer_name = "urban_centers") |> 
   select("name") |> 
   st_drop_geometry() |> 
-  mutate(name = gsub("Redmond-Overlake", "Redmond Overlake", name)) |>
-  mutate(name = gsub("Bellevue", "Bellevue Downtown", name)) |>
-  mutate(name = gsub("Greater Downtown Kirkland", "Kirkland Greater Downtown", name)) |>
+  mutate(name = str_replace_all(name, "Greater Downtown Kirkland", "Kirkland Greater Downtown")) |>
+  mutate(name = str_replace_all(name, "Redmond-Overlake", "Redmond Overlake")) |>
+  mutate(name = str_replace_all(name, "Bellevue", "Bellevue Downtown")) |>
   pull() |>
   unique()
 
 mic_names <- st_read_elmergeo(layer_name = "micen") |> 
-  select("mic") |>
+  select(name="mic") |>
   st_drop_geometry() |>
-  mutate(mic = gsub("Kent MIC", "Kent", mic)) |>
-  mutate(mic = gsub("Paine Field / Boeing Everett", "Paine Field/Boeing Everett", mic)) |>
-  mutate(mic = gsub("Sumner Pacific", "Sumner-Pacific", mic)) |>
-  mutate(mic = gsub("Puget Sound Industrial Center- Bremerton", "Puget Sound Industrial Center - Bremerton", mic)) |>
-  mutate(mic = gsub("Cascade", "Cascade Industrial Center - Arlington/Marysville", mic)) |>
+  mutate(name = str_replace_all(name, "Paine Field / Boeing Everett", "Paine Field/Boeing Everett")) |>
+  mutate(name = str_replace_all(name, "Sumner Pacific", "Sumner-Pacific")) |>
+  mutate(name = str_replace_all(name, "Puget Sound Industrial Center- Bremerton", "Puget Sound Industrial Center - Bremerton")) |>
+  mutate(name = str_replace_all(name, "Cascade", "Cascade Industrial Center - Arlington/Marysville")) |>
   pull() |>
   unique()
 
 # Functions ---------------------------------------------------------------
 transit_stops_by_mode <- function(year, service_change) {
   
-  hct_file <- "data/hct_ids.csv"
+  hct_file <- file.path(data_dir,"hct_ids.csv")
   hct <- read_csv(hct_file, show_col_types = FALSE) 
   
   if (tolower(service_change)=="spring") {data_month = "05"} else (data_month = "10")
   
   options(dplyr.summarise.inform = FALSE)
-  gtfs_file <- paste0("X:/DSA/GTFS/",tolower(service_change),"/",as.character(year),".zip")
+  gtfs_file <- file.path(data_dir,"gtfs",tolower(service_change),paste0(as.character(year),".zip"))
   
   # Open Regional GTFS File and load into memory
   print(str_glue("Opening the {service_change} {year} GTFS archive."))
-  gtfs <- read_gtfs(path=gtfs_file, files = c("trips","stops","stop_times", "routes", "shapes"))
+  gtfs <- read_gtfs(path=gtfs_file, files = c("trips","stops","stop_times", "routes"))
   
   # Load Stops
   print(str_glue("Getting the {service_change} {year} stops into a tibble." ))
@@ -94,12 +96,18 @@ transit_stops_by_mode <- function(year, service_change) {
       !(is.na(type_name)) ~ type_name)) |>
     mutate(agency_name = case_when(
       !(is.na(agency_name)) ~ agency_name,
-      is.na(agency_name) & str_detect(route_id, "ct") ~ "Community Transit",
-      is.na(agency_name) & str_detect(route_id, "et") ~ "Everett Transit",
-      is.na(agency_name) & str_detect(route_id, "kc") ~ "King County Metro",
-      is.na(agency_name) & str_detect(route_id, "kt") ~ "Kitsap Transit",
-      is.na(agency_name) & str_detect(route_id, "pt") ~ "Pierce Transit",
-      is.na(agency_name) & str_detect(route_id, "st") ~ "Sound Transit")) |>
+      is.na(agency_name) & agency_id == "29" ~ "Community Transit",
+      is.na(agency_name) & str_detect(route_id, "communitytransit") ~ "Community Transit",
+      is.na(agency_name) & agency_id %in% c("97", "7") ~ "Everett Transit",
+      is.na(agency_name) & agency_id == "1" ~ "King County Metro",
+      is.na(agency_name) & agency_id %in% c("4","20") ~ "Kitsap Transit",
+      is.na(agency_name) & agency_id == "23" ~ "City of Seattle",
+      is.na(agency_name) & agency_id %in% c("2", "3") ~ "Pierce Transit",
+      is.na(agency_name) & agency_id == "51" ~ "Amtrak",
+      is.na(agency_name) & agency_id == "95" ~ "Washington State Ferries",
+      is.na(agency_name) & agency_id == "96" ~ "Seattle Center Monorail",
+      is.na(agency_name) & agency_id == "19" ~ "Intercity Transit",
+      is.na(agency_name) & agency_id %in% c("6","40") ~ "Sound Transit")) |>
     select("route_id", "route_name", "type_name", "type_code", "agency_name")
   
   # Trips are used to get route id onto stop times
@@ -123,7 +131,7 @@ transit_stops_by_mode <- function(year, service_change) {
     distinct()
   
   stops_by_mode <- left_join(stops_by_mode, stops, by=c("stop_id")) |>
-    mutate(date=mdy(paste0(data_month,"-01-",year)))
+    mutate(date=year)
   
   print(str_glue("All Done."))
   
@@ -133,17 +141,18 @@ transit_stops_by_mode <- function(year, service_change) {
 
 transit_routes_by_mode <- function(year, service_change) {
   
-  hct_file <- "data/hct_ids.csv"
+  hct_file <- file.path(data_dir,"hct_ids.csv")
   hct <- read_csv(hct_file, show_col_types = FALSE) 
   
   if (tolower(service_change)=="spring") {data_month = "05"} else (data_month = "10")
+  service_date <- ymd(paste0(year,"-",data_month,"-15"))
   
   options(dplyr.summarise.inform = FALSE)
-  gtfs_file <- paste0("X:/DSA/GTFS/",tolower(service_change),"/",as.character(year),".zip")
+  gtfs_file <- file.path(data_dir,"gtfs",tolower(service_change),paste0(as.character(year),".zip"))
   
   # Open Regional GTFS File and load into memory
   print(str_glue("Opening the {service_change} {year} GTFS archive."))
-  gtfs <- read_gtfs(path=gtfs_file, files = c("trips","stops","stop_times", "routes", "shapes"))
+  gtfs <- read_gtfs(path=gtfs_file, files = c("trips","stops","stop_times", "routes", "shapes", "calendar"))
   
   # Load Routes, add HCT modes and update names and agencies
   print(str_glue("Getting the {service_change} {year} routes into a tibble." ))
@@ -164,12 +173,18 @@ transit_routes_by_mode <- function(year, service_change) {
       !(is.na(type_name)) ~ type_name)) |>
     mutate(agency_name = case_when(
       !(is.na(agency_name)) ~ agency_name,
-      is.na(agency_name) & str_detect(route_id, "ct") ~ "Community Transit",
-      is.na(agency_name) & str_detect(route_id, "et") ~ "Everett Transit",
-      is.na(agency_name) & str_detect(route_id, "kc") ~ "King County Metro",
-      is.na(agency_name) & str_detect(route_id, "kt") ~ "Kitsap Transit",
-      is.na(agency_name) & str_detect(route_id, "pt") ~ "Pierce Transit",
-      is.na(agency_name) & str_detect(route_id, "st") ~ "Sound Transit")) |>
+      is.na(agency_name) & agency_id == "29" ~ "Community Transit",
+      is.na(agency_name) & str_detect(route_id, "communitytransit") ~ "Community Transit",
+      is.na(agency_name) & agency_id %in% c("97", "7") ~ "Everett Transit",
+      is.na(agency_name) & agency_id == "1" ~ "King County Metro",
+      is.na(agency_name) & agency_id %in% c("4","20") ~ "Kitsap Transit",
+      is.na(agency_name) & agency_id == "23" ~ "City of Seattle",
+      is.na(agency_name) & agency_id %in% c("2", "3") ~ "Pierce Transit",
+      is.na(agency_name) & agency_id == "51" ~ "Amtrak",
+      is.na(agency_name) & agency_id == "95" ~ "Washington State Ferries",
+      is.na(agency_name) & agency_id == "96" ~ "Seattle Center Monorail",
+      is.na(agency_name) & agency_id == "19" ~ "Intercity Transit",
+      is.na(agency_name) & agency_id %in% c("6","40") ~ "Sound Transit")) |>
     select("route_id", "route_name", "type_name", "type_code", "agency_name")
   
   # Load Route Shapes to get Mode information on layers
@@ -178,11 +193,29 @@ transit_routes_by_mode <- function(year, service_change) {
   # Trips are used to get route id onto shapes
   print(str_glue("Getting the {service_change} {year} trips into a tibble to add route ID to stop times." ))
   trips <- as_tibble(gtfs$trips) |> 
+    #filter(service_id %in% calendar_ids) |>
     mutate(route_id = str_to_lower(route_id)) |>
-    select("route_id", "shape_id") |>
+    select("route_id", "shape_id", "direction_id") |>
     distinct()
   
-  route_lyr <- left_join(route_lyr, trips, by=c("shape_id"))
+  route_lyr <- left_join(route_lyr, trips, by=c("shape_id")) |> drop_na()
+  
+  # Trim to only include the longest route length if there are trip variations
+  route_lyr <- route_lyr |>
+    mutate(route_length = as.numeric(set_units(st_length(route_lyr), "miles")))
+  
+  longest_routes <- route_lyr |>
+    st_drop_geometry() |>
+    group_by(route_id, direction_id) |>
+    summarise(route_length = max(route_length)) |>
+    as_tibble()
+  
+  longest_routes <- left_join(longest_routes, route_lyr, by=c("route_id", "direction_id", "route_length")) |>
+    select("shape_id") |>
+    pull()
+  
+  route_lyr <- route_lyr |>
+    filter(shape_id %in% longest_routes)
   
   # Get Mode and agency from routes to shapes
   print(str_glue("Getting route details onto shapes for the {service_change} {year}." ))
@@ -208,7 +241,7 @@ transit_stop_lyr <- transit_stops |>
   mutate(type_name = case_when(
     type_name == "ST Express" ~ "Bus",
     type_name == "BRT" ~ "Bus Rapid Transit",
-    type_name %in% c("Streetcar", "Light Rail") ~ "Light Rail or Streetcar",
+    type_name %in% c("Streetcar", "Light Rail", "Monorail") ~ "Light Rail, Monorail or Streetcar",
     type_name %in% c("Passenger Ferry", "Auto Ferry") ~ "Ferry",
     type_name == "Commuter Rail" ~ "Commuter Rail",
     type_name == "Bus" ~ "Bus"))
@@ -227,7 +260,7 @@ transit_route_lyr <- transit_route |>
   mutate(type_name = case_when(
     type_name == "ST Express" ~ "Bus",
     type_name == "BRT" ~ "Bus Rapid Transit",
-    type_name %in% c("Streetcar", "Light Rail") ~ "Light Rail or Streetcar",
+    type_name %in% c("Streetcar", "Light Rail", "Monorail") ~ "Light Rail, Monorail or Streetcar",
     type_name %in% c("Passenger Ferry", "Auto Ferry") ~ "Ferry",
     type_name == "Commuter Rail" ~ "Commuter Rail",
     type_name == "Bus" ~ "Bus"))

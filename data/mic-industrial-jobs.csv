@@ -31,14 +31,14 @@
 2005,Industrial,Frederickson,MIC (1/5/2024),2245,0.933083957
 2005,Non-industrial,Frederickson,MIC (1/5/2024),161,0.066916043
 2005,Total,Frederickson,MIC (1/5/2024),2406,1
-2005,Construction,Kent,MIC (1/5/2024),2561,0.067041885
-2005,Manufacturing,Kent,MIC (1/5/2024),13208,0.345759162
-2005,"Transportation, Distribution & Logistics (TDL)",Kent,MIC (1/5/2024),3489,0.091335079
-2005,Warehousing & Wholesale,Kent,MIC (1/5/2024),9883,0.258717277
-2005,Other Industrial,Kent,MIC (1/5/2024),1503,0.03934555
-2005,Industrial,Kent,MIC (1/5/2024),30644,0.802198953
-2005,Non-industrial,Kent,MIC (1/5/2024),7556,0.197801047
-2005,Total,Kent,MIC (1/5/2024),38200,1
+2005,Construction,Kent MIC,MIC (1/5/2024),2561,0.067041885
+2005,Manufacturing,Kent MIC,MIC (1/5/2024),13208,0.345759162
+2005,"Transportation, Distribution & Logistics (TDL)",Kent MIC,MIC (1/5/2024),3489,0.091335079
+2005,Warehousing & Wholesale,Kent MIC,MIC (1/5/2024),9883,0.258717277
+2005,Other Industrial,Kent MIC,MIC (1/5/2024),1503,0.03934555
+2005,Industrial,Kent MIC,MIC (1/5/2024),30644,0.802198953
+2005,Non-industrial,Kent MIC,MIC (1/5/2024),7556,0.197801047
+2005,Total,Kent MIC,MIC (1/5/2024),38200,1
 2005,Construction,North Tukwila,MIC (1/5/2024),142,0.011212887
 2005,Manufacturing,North Tukwila,MIC (1/5/2024),,0
 2005,"Transportation, Distribution & Logistics (TDL)",North Tukwila,MIC (1/5/2024),3551,0.280401137
@@ -119,14 +119,14 @@
 2010,Industrial,Frederickson,MIC (1/5/2024),2969,0.890254873
 2010,Non-industrial,Frederickson,MIC (1/5/2024),366,0.109745127
 2010,Total,Frederickson,MIC (1/5/2024),3335,1
-2010,Construction,Kent,MIC (1/5/2024),2508,0.066516377
-2010,Manufacturing,Kent,MIC (1/5/2024),12608,0.33438536
-2010,"Transportation, Distribution & Logistics (TDL)",Kent,MIC (1/5/2024),4592,0.121787561
-2010,Warehousing & Wholesale,Kent,MIC (1/5/2024),9286,0.246280334
-2010,Other Industrial,Kent,MIC (1/5/2024),1415,0.037528179
-2010,Industrial,Kent,MIC (1/5/2024),30410,0.806524334
-2010,Non-industrial,Kent,MIC (1/5/2024),7295,0.193475666
-2010,Total,Kent,MIC (1/5/2024),37705,1
+2010,Construction,Kent MIC,MIC (1/5/2024),2508,0.066516377
+2010,Manufacturing,Kent MIC,MIC (1/5/2024),12608,0.33438536
+2010,"Transportation, Distribution & Logistics (TDL)",Kent MIC,MIC (1/5/2024),4592,0.121787561
+2010,Warehousing & Wholesale,Kent MIC,MIC (1/5/2024),9286,0.246280334
+2010,Other Industrial,Kent MIC,MIC (1/5/2024),1415,0.037528179
+2010,Industrial,Kent MIC,MIC (1/5/2024),30410,0.806524334
+2010,Non-industrial,Kent MIC,MIC (1/5/2024),7295,0.193475666
+2010,Total,Kent MIC,MIC (1/5/2024),37705,1
 2010,Construction,North Tukwila,MIC (1/5/2024),255,0.018912705
 2010,Manufacturing,North Tukwila,MIC (1/5/2024),,0
 2010,"Transportation, Distribution & Logistics (TDL)",North Tukwila,MIC (1/5/2024),2390,0.177260254
@@ -207,14 +207,14 @@
 2015,Industrial,Frederickson,MIC (1/5/2024),3992,0.873140857
 2015,Non-industrial,Frederickson,MIC (1/5/2024),580,0.126859143
 2015,Total,Frederickson,MIC (1/5/2024),4572,1
-2015,Construction,Kent,MIC (1/5/2024),3857,0.092015173
-2015,Manufacturing,Kent,MIC (1/5/2024),14160,0.337810435
-2015,"Transportation, Distribution & Logistics (TDL)",Kent,MIC (1/5/2024),4296,0.102488251
-2015,Warehousing & Wholesale,Kent,MIC (1/5/2024),9775,0.233198941
-2015,Other Industrial,Kent,MIC (1/5/2024),2220,0.052961805
-2015,Industrial,Kent,MIC (1/5/2024),34309,0.818498461
-2015,Non-industrial,Kent,MIC (1/5/2024),7608,0.181501539
-2015,Total,Kent,MIC (1/5/2024),41917,1
+2015,Construction,Kent MIC,MIC (1/5/2024),3857,0.092015173
+2015,Manufacturing,Kent MIC,MIC (1/5/2024),14160,0.337810435
+2015,"Transportation, Distribution & Logistics (TDL)",Kent MIC,MIC (1/5/2024),4296,0.102488251
+2015,Warehousing & Wholesale,Kent MIC,MIC (1/5/2024),9775,0.233198941
+2015,Other Industrial,Kent MIC,MIC (1/5/2024),2220,0.052961805
+2015,Industrial,Kent MIC,MIC (1/5/2024),34309,0.818498461
+2015,Non-industrial,Kent MIC,MIC (1/5/2024),7608,0.181501539
+2015,Total,Kent MIC,MIC (1/5/2024),41917,1
 2015,Construction,North Tukwila,MIC (1/5/2024),612,0.044334975
 2015,Manufacturing,North Tukwila,MIC (1/5/2024),,0
 2015,"Transportation, Distribution & Logistics (TDL)",North Tukwila,MIC (1/5/2024),1874,0.135757751
@@ -295,14 +295,14 @@
 2020,Industrial,Frederickson,MIC (1/5/2024),4370,0.814994405
 2020,Non-industrial,Frederickson,MIC (1/5/2024),992,0.185005595
 2020,Total,Frederickson,MIC (1/5/2024),5362,1
-2020,Construction,Kent,MIC (1/5/2024),5627,0.115375941
-2020,Manufacturing,Kent,MIC (1/5/2024),14314,0.293494085
-2020,"Transportation, Distribution & Logistics (TDL)",Kent,MIC (1/5/2024),4077,0.083594759
-2020,Warehousing & Wholesale,Kent,MIC (1/5/2024),12433,0.254926083
-2020,Other Industrial,Kent,MIC (1/5/2024),2955,0.060589285
-2020,Industrial,Kent,MIC (1/5/2024),39405,0.807959648
-2020,Non-industrial,Kent,MIC (1/5/2024),9366,0.192040352
-2020,Total,Kent,MIC (1/5/2024),48771,1
+2020,Construction,Kent MIC,MIC (1/5/2024),5627,0.115375941
+2020,Manufacturing,Kent MIC,MIC (1/5/2024),14314,0.293494085
+2020,"Transportation, Distribution & Logistics (TDL)",Kent MIC,MIC (1/5/2024),4077,0.083594759
+2020,Warehousing & Wholesale,Kent MIC,MIC (1/5/2024),12433,0.254926083
+2020,Other Industrial,Kent MIC,MIC (1/5/2024),2955,0.060589285
+2020,Industrial,Kent MIC,MIC (1/5/2024),39405,0.807959648
+2020,Non-industrial,Kent MIC,MIC (1/5/2024),9366,0.192040352
+2020,Total,Kent MIC,MIC (1/5/2024),48771,1
 2020,Construction,North Tukwila,MIC (1/5/2024),630,0.055575159
 2020,Manufacturing,North Tukwila,MIC (1/5/2024),,0
 2020,"Transportation, Distribution & Logistics (TDL)",North Tukwila,MIC (1/5/2024),1982,0.174841214
@@ -383,14 +383,14 @@
 2022,Industrial,Frederickson,MIC (1/5/2024),4145,0.758324186
 2022,Non-industrial,Frederickson,MIC (1/5/2024),1321,0.241675814
 2022,Total,Frederickson,MIC (1/5/2024),5466,1
-2022,Construction,Kent,MIC (1/5/2024),5593,0.120580373
-2022,Manufacturing,Kent,MIC (1/5/2024),14573,0.314181614
-2022,"Transportation, Distribution & Logistics (TDL)",Kent,MIC (1/5/2024),3247,0.070002587
-2022,Warehousing & Wholesale,Kent,MIC (1/5/2024),13260,0.285874439
-2022,Other Industrial,Kent,MIC (1/5/2024),2729,0.058834943
-2022,Industrial,Kent,MIC (1/5/2024),39401,0.849452397
-2022,Non-industrial,Kent,MIC (1/5/2024),6983,0.150547603
-2022,Total,Kent,MIC (1/5/2024),46384,1
+2022,Construction,Kent MIC,MIC (1/5/2024),5593,0.120580373
+2022,Manufacturing,Kent MIC,MIC (1/5/2024),14573,0.314181614
+2022,"Transportation, Distribution & Logistics (TDL)",Kent MIC,MIC (1/5/2024),3247,0.070002587
+2022,Warehousing & Wholesale,Kent MIC,MIC (1/5/2024),13260,0.285874439
+2022,Other Industrial,Kent MIC,MIC (1/5/2024),2729,0.058834943
+2022,Industrial,Kent MIC,MIC (1/5/2024),39401,0.849452397
+2022,Non-industrial,Kent MIC,MIC (1/5/2024),6983,0.150547603
+2022,Total,Kent MIC,MIC (1/5/2024),46384,1
 2022,Construction,North Tukwila,MIC (1/5/2024),453,0.040141781
 2022,Manufacturing,North Tukwila,MIC (1/5/2024),,0
 2022,"Transportation, Distribution & Logistics (TDL)",North Tukwila,MIC (1/5/2024),1947,0.172529907
