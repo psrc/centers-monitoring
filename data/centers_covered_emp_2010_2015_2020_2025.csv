@@ -1,0 +1,169 @@
+﻿year,place_id,place_name,place_type,place_category,Const/Res,FIRE,Manufacturing,Retail,Services,WTU,Government,Public Education,Total
+2010,Auburn-RegionalGrowthCenter(3/26/2026),Auburn,Regional Growth Center (3/26/2026),Urban,34,108,109,286,1919,32,202,208,2896
+2010,BellevueDowntown-RegionalGrowthCenter(3/26/2026),Bellevue Downtown,Regional Growth Center (3/26/2026),Metro,504,5050,253,5372,24553,1558,1321,0,38611
+2010,BothellCanyonPark-RegionalGrowthCenter(3/26/2026),Bothell Canyon Park,Regional Growth Center (3/26/2026),Urban,152,697,2189,579,4310,573,189,0,8688
+2010,Bremerton-RegionalGrowthCenter(3/26/2026),Bremerton,Regional Growth Center (3/26/2026),Metro,S,390,S,37,1760,12,10946,0,13166
+2010,Burien-RegionalGrowthCenter(3/26/2026),Burien,Regional Growth Center (3/26/2026),Urban,80,224,106,1178,2317,179,475,0,4559
+2010,Everett-RegionalGrowthCenter(3/26/2026),Everett,Regional Growth Center (3/26/2026),Metro,298,867,357,571,6431,622,3784,231,13160
+2010,FederalWay-RegionalGrowthCenter(3/26/2026),Federal Way,Regional Growth Center (3/26/2026),Urban,0,165,S,1014,1852,S,0,0,3180
+2010,Issaquah-RegionalGrowthCenter(3/26/2026),Issaquah,Regional Growth Center (3/26/2026),Urban,74,317,202,2006,5169,694,105,0,8566
+2010,Kent-RegionalGrowthCenter(3/26/2026),Kent,Regional Growth Center (3/26/2026),Urban,120,244,80,337,1838,15,1456,129,4220
+2010,KirklandGreaterDowntown-RegionalGrowthCenter(3/26/2026),Kirkland Greater Downtown,Regional Growth Center (3/26/2026),Urban,632,651,123,1193,3386,229,156,81,6452
+2010,KirklandTotemLake-RegionalGrowthCenter(3/26/2026),Kirkland Totem Lake,Regional Growth Center (3/26/2026),Urban,263,478,205,1682,4578,735,3260,521,11721
+2010,Lakewood-RegionalGrowthCenter(3/26/2026),Lakewood,Regional Growth Center (3/26/2026),Urban,24,529,8,1164,2369,21,276,0,4391
+2010,Lynnwood-RegionalGrowthCenter(3/26/2026),Lynnwood,Regional Growth Center (3/26/2026),Urban,S,1085,S,4496,4275,250,137,0,10528
+2010,PuyallupDowntown-RegionalGrowthCenter(3/26/2026),Puyallup Downtown,Regional Growth Center (3/26/2026),Urban,111,144,34,135,1244,12,460,68,2207
+2010,PuyallupSouthHill-RegionalGrowthCenter(3/26/2026),Puyallup South Hill,Regional Growth Center (3/26/2026),Urban,S,253,S,2514,2580,22,121,266,5778
+2010,RedmondDowntown-RegionalGrowthCenter(3/26/2026),Redmond Downtown,Regional Growth Center (3/26/2026),Urban,100,457,39,1521,6363,116,760,78,9434
+2010,RedmondOverlake-RegionalGrowthCenter(3/26/2026),Redmond Overlake,Regional Growth Center (3/26/2026),Metro,87,477,S,596,S,265,0,0,24016
+2010,Renton-RegionalGrowthCenter(3/26/2026),Renton,Regional Growth Center (3/26/2026),Urban,288,274,S,914,S,113,376,147,13375
+2010,SeaTac-RegionalGrowthCenter(3/26/2026),SeaTac,Regional Growth Center (3/26/2026),Urban,109,499,S,99,3885,7313,977,0,12907
+2010,SeattleDowntown-RegionalGrowthCenter(3/26/2026),Seattle Downtown,Regional Growth Center (3/26/2026),Metro,1375,18890,2493,6961,78179,4978,22571,82,135529
+2010,SeattleFirstHill-CapitolHill-RegionalGrowthCenter(3/26/2026),Seattle First Hill - Capitol Hill,Regional Growth Center (3/26/2026),Metro,62,1135,322,1801,30737,204,6251,1156,41668
+2010,SeattleNorthgate-RegionalGrowthCenter(3/26/2026),Seattle Northgate,Regional Growth Center (3/26/2026),Urban,S,889,S,2224,7715,141,106,29,11413
+2010,SeattleSouthLakeUnion-RegionalGrowthCenter(3/26/2026),Seattle South Lake Union,Regional Growth Center (3/26/2026),Metro,1490,1229,464,723,14916,904,180,0,19907
+2010,SeattleUniversityDistrict-RegionalGrowthCenter(3/26/2026),Seattle University District,Regional Growth Center (3/26/2026),Metro,28,615,78,2810,4296,55,136,25394,33412
+2010,SeattleUptown-RegionalGrowthCenter(3/26/2026),Seattle Uptown,Regional Growth Center (3/26/2026),Metro,377,1148,186,546,7484,2779,1324,38,13883
+2010,Silverdale-RegionalGrowthCenter(3/26/2026),Silverdale,Regional Growth Center (3/26/2026),Urban,65,531,S,2909,4236,S,303,299,8372
+2010,TacomaDowntown-RegionalGrowthCenter(3/26/2026),Tacoma Downtown,Regional Growth Center (3/26/2026),Metro,466,3275,606,530,21835,418,3268,1119,31517
+2010,TacomaMall-RegionalGrowthCenter(3/26/2026),Tacoma Mall,Regional Growth Center (3/26/2026),Urban,189,296,100,3325,2058,374,1884,35,8261
+2010,Tukwila-RegionalGrowthCenter(3/26/2026),Tukwila,Regional Growth Center (3/26/2026),Urban,386,970,1844,5073,6982,1846,225,0,17327
+2010,UniversityPlace-RegionalGrowthCenter(3/26/2026),University Place,Regional Growth Center (3/26/2026),Urban,105,339,67,485,1762,79,258,0,3097
+2010,AllRGCs-RegionalGrowthCenter(3/26/2026),All RGCs,Regional Growth Center (3/26/2026),All RGCs,7876,42226,19890,53078,283212,24571,61509,29881,522243
+2015,Auburn-RegionalGrowthCenter(3/26/2026),Auburn,Regional Growth Center (3/26/2026),Urban,37,113,154,275,2157,70,441,39,3286
+2015,BellevueDowntown-RegionalGrowthCenter(3/26/2026),Bellevue Downtown,Regional Growth Center (3/26/2026),Metro,1543,6103,287,5519,29143,2600,1105,0,46300
+2015,BothellCanyonPark-RegionalGrowthCenter(3/26/2026),Bothell Canyon Park,Regional Growth Center (3/26/2026),Urban,136,1123,2660,729,5041,617,263,32,10602
+2015,Bremerton-RegionalGrowthCenter(3/26/2026),Bremerton,Regional Growth Center (3/26/2026),Metro,S,249,129,S,1513,S,13376,0,15333
+2015,Burien-RegionalGrowthCenter(3/26/2026),Burien,Regional Growth Center (3/26/2026),Urban,183,200,55,1326,2569,222,458,0,5014
+2015,Everett-RegionalGrowthCenter(3/26/2026),Everett,Regional Growth Center (3/26/2026),Metro,251,986,602,655,5155,607,3565,295,12117
+2015,FederalWay-RegionalGrowthCenter(3/26/2026),Federal Way,Regional Growth Center (3/26/2026),Urban,0,S,0,1157,2166,S,0,0,3531
+2015,Issaquah-RegionalGrowthCenter(3/26/2026),Issaquah,Regional Growth Center (3/26/2026),Urban,82,202,159,2148,6771,638,97,0,10097
+2015,Kent-RegionalGrowthCenter(3/26/2026),Kent,Regional Growth Center (3/26/2026),Urban,102,207,66,297,2060,23,1344,125,4223
+2015,KirklandGreaterDowntown-RegionalGrowthCenter(3/26/2026),Kirkland Greater Downtown,Regional Growth Center (3/26/2026),Urban,909,372,206,1278,5504,179,132,79,8660
+2015,KirklandTotemLake-RegionalGrowthCenter(3/26/2026),Kirkland Totem Lake,Regional Growth Center (3/26/2026),Urban,510,271,201,1696,4749,751,3927,468,12574
+2015,Lakewood-RegionalGrowthCenter(3/26/2026),Lakewood,Regional Growth Center (3/26/2026),Urban,67,465,29,1280,2697,19,246,0,4803
+2015,Lynnwood-RegionalGrowthCenter(3/26/2026),Lynnwood,Regional Growth Center (3/26/2026),Urban,S,918,S,4352,6706,282,128,222,12795
+2015,PuyallupDowntown-RegionalGrowthCenter(3/26/2026),Puyallup Downtown,Regional Growth Center (3/26/2026),Urban,52,101,35,178,1577,18,363,202,2526
+2015,PuyallupSouthHill-RegionalGrowthCenter(3/26/2026),Puyallup South Hill,Regional Growth Center (3/26/2026),Urban,11,285,5,2491,2743,142,109,293,6079
+2015,RedmondDowntown-RegionalGrowthCenter(3/26/2026),Redmond Downtown,Regional Growth Center (3/26/2026),Urban,108,628,150,1360,7251,144,756,66,10464
+2015,RedmondOverlake-RegionalGrowthCenter(3/26/2026),Redmond Overlake,Regional Growth Center (3/26/2026),Metro,119,378,46,485,23522,211,0,0,24762
+2015,Renton-RegionalGrowthCenter(3/26/2026),Renton,Regional Growth Center (3/26/2026),Urban,342,S,S,812,2130,87,499,169,15791
+2015,SeaTac-RegionalGrowthCenter(3/26/2026),SeaTac,Regional Growth Center (3/26/2026),Urban,64,549,40,110,4535,8334,228,0,13861
+2015,SeattleDowntown-RegionalGrowthCenter(3/26/2026),Seattle Downtown,Regional Growth Center (3/26/2026),Metro,1671,19954,2740,10239,97381,4245,21904,94,158227
+2015,SeattleFirstHill-CapitolHill-RegionalGrowthCenter(3/26/2026),Seattle First Hill - Capitol Hill,Regional Growth Center (3/26/2026),Metro,305,897,265,1956,27378,262,6361,1214,38638
+2015,SeattleNorthgate-RegionalGrowthCenter(3/26/2026),Seattle Northgate,Regional Growth Center (3/26/2026),Urban,46,652,98,2245,9108,165,149,31,12495
+2015,SeattleSouthLakeUnion-RegionalGrowthCenter(3/26/2026),Seattle South Lake Union,Regional Growth Center (3/26/2026),Metro,1421,1196,S,S,15435,626,467,0,39602
+2015,SeattleUniversityDistrict-RegionalGrowthCenter(3/26/2026),Seattle University District,Regional Growth Center (3/26/2026),Metro,51,576,64,3006,5429,209,126,28443,37903
+2015,SeattleUptown-RegionalGrowthCenter(3/26/2026),Seattle Uptown,Regional Growth Center (3/26/2026),Metro,149,1001,492,766,8906,1633,1747,44,14740
+2015,Silverdale-RegionalGrowthCenter(3/26/2026),Silverdale,Regional Growth Center (3/26/2026),Urban,42,607,17,2687,4625,24,315,323,8640
+2015,TacomaDowntown-RegionalGrowthCenter(3/26/2026),Tacoma Downtown,Regional Growth Center (3/26/2026),Metro,488,3827,794,490,23411,699,3315,1341,34365
+2015,TacomaMall-RegionalGrowthCenter(3/26/2026),Tacoma Mall,Regional Growth Center (3/26/2026),Urban,157,349,112,3139,3533,433,1772,57,9552
+2015,Tukwila-RegionalGrowthCenter(3/26/2026),Tukwila,Regional Growth Center (3/26/2026),Urban,678,392,1731,6082,7736,1933,324,0,18877
+2015,UniversityPlace-RegionalGrowthCenter(3/26/2026),University Place,Regional Growth Center (3/26/2026),Urban,262,308,56,571,1850,92,297,0,3434
+2015,AllRGCs-RegionalGrowthCenter(3/26/2026),All RGCs,Regional Growth Center (3/26/2026),All RGCs,9945,43512,22700,77637,322782,25363,63814,33537,599290
+2020,Auburn-RegionalGrowthCenter(3/26/2026),Auburn,Regional Growth Center (3/26/2026),Urban,13,114,150,248,2034,177,415,40,3190
+2020,BellevueDowntown-RegionalGrowthCenter(3/26/2026),Bellevue Downtown,Regional Growth Center (3/26/2026),Metro,1255,6838,183,4820,34906,2575,1137,0,51714
+2020,BothellCanyonPark-RegionalGrowthCenter(3/26/2026),Bothell Canyon Park,Regional Growth Center (3/26/2026),Urban,197,1293,2974,820,5118,552,242,29,11225
+2020,Bremerton-RegionalGrowthCenter(3/26/2026),Bremerton,Regional Growth Center (3/26/2026),Metro,50,324,112,52,1841,34,15332,0,17745
+2020,Burien-RegionalGrowthCenter(3/26/2026),Burien,Regional Growth Center (3/26/2026),Urban,290,203,55,1326,3137,116,328,183,5638
+2020,Everett-RegionalGrowthCenter(3/26/2026),Everett,Regional Growth Center (3/26/2026),Metro,564,1089,381,634,5119,1252,3814,287,13140
+2020,FederalWay-RegionalGrowthCenter(3/26/2026),Federal Way,Regional Growth Center (3/26/2026),Urban,0,81,0,971,1612,0,0,0,2663
+2020,Issaquah-RegionalGrowthCenter(3/26/2026),Issaquah,Regional Growth Center (3/26/2026),Urban,110,186,58,2084,8604,588,100,0,11730
+2020,Kent-RegionalGrowthCenter(3/26/2026),Kent,Regional Growth Center (3/26/2026),Urban,63,171,193,321,2069,29,1318,119,4282
+2020,KirklandGreaterDowntown-RegionalGrowthCenter(3/26/2026),Kirkland Greater Downtown,Regional Growth Center (3/26/2026),Urban,529,349,198,1135,8060,348,133,69,10821
+2020,KirklandTotemLake-RegionalGrowthCenter(3/26/2026),Kirkland Totem Lake,Regional Growth Center (3/26/2026),Urban,698,354,130,3659,5485,630,4935,491,16383
+2020,Lakewood-RegionalGrowthCenter(3/26/2026),Lakewood,Regional Growth Center (3/26/2026),Urban,S,526,S,1223,2985,19,277,0,5072
+2020,Lynnwood-RegionalGrowthCenter(3/26/2026),Lynnwood,Regional Growth Center (3/26/2026),Urban,208,1183,80,4516,6537,287,178,0,12988
+2020,PuyallupDowntown-RegionalGrowthCenter(3/26/2026),Puyallup Downtown,Regional Growth Center (3/26/2026),Urban,136,127,25,S,S,S,296,414,S
+2020,PuyallupSouthHill-RegionalGrowthCenter(3/26/2026),Puyallup South Hill,Regional Growth Center (3/26/2026),Urban,S,272,S,2313,3373,188,96,304,6617
+2020,RedmondDowntown-RegionalGrowthCenter(3/26/2026),Redmond Downtown,Regional Growth Center (3/26/2026),Urban,164,464,102,914,8166,165,728,324,11027
+2020,RedmondOverlake-RegionalGrowthCenter(3/26/2026),Redmond Overlake,Regional Growth Center (3/26/2026),Metro,S,582,78,413,S,106,0,0,S
+2020,Renton-RegionalGrowthCenter(3/26/2026),Renton,Regional Growth Center (3/26/2026),Urban,526,645,S,674,2730,S,651,165,17342
+2020,SeaTac-RegionalGrowthCenter(3/26/2026),SeaTac,Regional Growth Center (3/26/2026),Urban,90,753,19,88,6349,10545,189,0,18033
+2020,SeattleDowntown-RegionalGrowthCenter(3/26/2026),Seattle Downtown,Regional Growth Center (3/26/2026),Metro,3007,18943,2367,9834,132083,6726,23428,134,196524
+2020,SeattleFirstHill-CapitolHill-RegionalGrowthCenter(3/26/2026),Seattle First Hill - Capitol Hill,Regional Growth Center (3/26/2026),Metro,91,1238,341,1994,34827,400,7194,1264,47350
+2020,SeattleNorthgate-RegionalGrowthCenter(3/26/2026),Seattle Northgate,Regional Growth Center (3/26/2026),Urban,140,693,44,1196,6137,84,2171,25,10491
+2020,SeattleSouthLakeUnion-RegionalGrowthCenter(3/26/2026),Seattle South Lake Union,Regional Growth Center (3/26/2026),Metro,1576,1551,S,S,17208,571,521,1,77260
+2020,SeattleUniversityDistrict-RegionalGrowthCenter(3/26/2026),Seattle University District,Regional Growth Center (3/26/2026),Metro,87,557,89,2848,6119,150,128,26088,36066
+2020,SeattleUptown-RegionalGrowthCenter(3/26/2026),Seattle Uptown,Regional Growth Center (3/26/2026),Metro,83,960,98,813,9598,1746,1353,38,14689
+2020,Silverdale-RegionalGrowthCenter(3/26/2026),Silverdale,Regional Growth Center (3/26/2026),Urban,83,670,19,2627,4945,67,154,449,9014
+2020,TacomaDowntown-RegionalGrowthCenter(3/26/2026),Tacoma Downtown,Regional Growth Center (3/26/2026),Metro,387,3006,915,573,28492,514,3294,1494,38677
+2020,TacomaMall-RegionalGrowthCenter(3/26/2026),Tacoma Mall,Regional Growth Center (3/26/2026),Urban,221,521,105,2804,3273,469,1663,19,9075
+2020,Tukwila-RegionalGrowthCenter(3/26/2026),Tukwila,Regional Growth Center (3/26/2026),Urban,842,397,2169,5363,7779,1616,424,0,18591
+2020,UniversityPlace-RegionalGrowthCenter(3/26/2026),University Place,Regional Growth Center (3/26/2026),Urban,135,262,40,774,2067,128,316,0,3723
+2020,AllRGCs-RegionalGrowthCenter(3/26/2026),All RGCs,Regional Growth Center (3/26/2026),All RGCs,11688,44353,23182,110667,390234,30226,70817,31938,713105
+2025,Auburn-RegionalGrowthCenter(3/26/2026),Auburn,Regional Growth Center (3/26/2026),Urban,109,132,540,633,2584,104,548,0,4649
+2025,BellevueDowntown-RegionalGrowthCenter(3/26/2026),Bellevue Downtown,Regional Growth Center (3/26/2026),Metro,1017,5919,191,4892,42174,4089,1377,0,59661
+2025,BothellCanyonPark-RegionalGrowthCenter(3/26/2026),Bothell Canyon Park,Regional Growth Center (3/26/2026),Urban,262,1111,2450,643,4788,606,252,85,10197
+2025,Bremerton-RegionalGrowthCenter(3/26/2026),Bremerton,Regional Growth Center (3/26/2026),Metro,S,293,198,91,S,59,14652,0,16870
+2025,Burien-RegionalGrowthCenter(3/26/2026),Burien,Regional Growth Center (3/26/2026),Urban,238,174,55,1511,3005,105,375,268,5732
+2025,Everett-RegionalGrowthCenter(3/26/2026),Everett,Regional Growth Center (3/26/2026),Metro,773,993,424,568,5801,804,4036,352,13752
+2025,FederalWay-RegionalGrowthCenter(3/26/2026),Federal Way,Regional Growth Center (3/26/2026),Urban,0,56,0,979,1678,25,1,0,2739
+2025,Issaquah-RegionalGrowthCenter(3/26/2026),Issaquah,Regional Growth Center (3/26/2026),Urban,51,168,71,2256,9938,643,20,0,13147
+2025,Kent-RegionalGrowthCenter(3/26/2026),Kent,Regional Growth Center (3/26/2026),Urban,66,153,36,264,2015,24,1311,147,4017
+2025,KirklandGreaterDowntown-RegionalGrowthCenter(3/26/2026),Kirkland Greater Downtown,Regional Growth Center (3/26/2026),Urban,345,336,215,1112,10195,319,121,85,12727
+2025,KirklandTotemLake-RegionalGrowthCenter(3/26/2026),Kirkland Totem Lake,Regional Growth Center (3/26/2026),Urban,568,374,226,1688,5352,506,5578,483,14775
+2025,Lakewood-RegionalGrowthCenter(3/26/2026),Lakewood,Regional Growth Center (3/26/2026),Urban,S,569,S,1179,3437,17,284,0,5595
+2025,Lynnwood-RegionalGrowthCenter(3/26/2026),Lynnwood,Regional Growth Center (3/26/2026),Urban,622,947,107,4846,7935,360,308,0,15126
+2025,PuyallupDowntown-RegionalGrowthCenter(3/26/2026),Puyallup Downtown,Regional Growth Center (3/26/2026),Urban,152,82,S,178,2234,S,317,262,3312
+2025,PuyallupSouthHill-RegionalGrowthCenter(3/26/2026),Puyallup South Hill,Regional Growth Center (3/26/2026),Urban,43,439,12,2292,3454,202,68,166,6676
+2025,RedmondDowntown-RegionalGrowthCenter(3/26/2026),Redmond Downtown,Regional Growth Center (3/26/2026),Urban,102,575,127,1045,7344,84,763,439,10478
+2025,RedmondOverlake-RegionalGrowthCenter(3/26/2026),Redmond Overlake,Regional Growth Center (3/26/2026),Metro,S,921,1939,486,S,385,0,0,53606
+2025,Renton-RegionalGrowthCenter(3/26/2026),Renton,Regional Growth Center (3/26/2026),Urban,539,941,S,764,3018,S,511,187,18827
+2025,SeaTac-RegionalGrowthCenter(3/26/2026),SeaTac,Regional Growth Center (3/26/2026),Urban,S,755,S,72,7016,11877,135,0,21069
+2025,SeattleDowntown-RegionalGrowthCenter(3/26/2026),Seattle Downtown,Regional Growth Center (3/26/2026),Metro,2684,17712,1410,6292,111085,5881,26008,93,171165
+2025,SeattleFirstHill-CapitolHill-RegionalGrowthCenter(3/26/2026),Seattle First Hill - Capitol Hill,Regional Growth Center (3/26/2026),Metro,72,1176,316,1918,33967,311,7390,972,46121
+2025,SeattleNorthgate-RegionalGrowthCenter(3/26/2026),Seattle Northgate,Regional Growth Center (3/26/2026),Urban,113,528,63,1071,5749,77,2299,0,9900
+2025,SeattleSouthLakeUnion-RegionalGrowthCenter(3/26/2026),Seattle South Lake Union,Regional Growth Center (3/26/2026),Metro,1003,1612,767,485,73075,803,287,0,78033
+2025,SeattleUniversityDistrict-RegionalGrowthCenter(3/26/2026),Seattle University District,Regional Growth Center (3/26/2026),Metro,89,545,124,2913,5987,292,451,26087,36487
+2025,SeattleUptown-RegionalGrowthCenter(3/26/2026),Seattle Uptown,Regional Growth Center (3/26/2026),Metro,40,1006,388,509,10676,1298,1381,0,15298
+2025,Silverdale-RegionalGrowthCenter(3/26/2026),Silverdale,Regional Growth Center (3/26/2026),Urban,23,609,23,2525,5208,82,167,133,8770
+2025,TacomaDowntown-RegionalGrowthCenter(3/26/2026),Tacoma Downtown,Regional Growth Center (3/26/2026),Metro,351,3131,825,535,28296,585,3878,1398,39001
+2025,TacomaMall-RegionalGrowthCenter(3/26/2026),Tacoma Mall,Regional Growth Center (3/26/2026),Urban,433,486,94,3109,5392,433,1545,0,11491
+2025,Tukwila-RegionalGrowthCenter(3/26/2026),Tukwila,Regional Growth Center (3/26/2026),Urban,570,542,1133,4823,8683,1544,603,0,17898
+2025,UniversityPlace-RegionalGrowthCenter(3/26/2026),University Place,Regional Growth Center (3/26/2026),Urban,120,303,63,868,2495,114,332,0,4296
+2025,AllRGCs-RegionalGrowthCenter(3/26/2026),All RGCs,Regional Growth Center (3/26/2026),All RGCs,11964,42586,24691,50547,463673,31796,75000,31157,731413
+2010,CascadeIndustrialCenter-MIC(7/10/2026),Cascade Industrial Center,MIC (7/10/2026),Growth,624,4,2743,239,615,833,524,20,5602
+2010,Frederickson-MIC(7/10/2026),Frederickson,MIC (7/10/2026),Growth,321,8,2284,S,S,358,111,0,3335
+2010,KentMIC-MIC(7/10/2026),Kent MIC,MIC (7/10/2026),Employment,2528,525,12465,1887,5865,13911,523,0,37705
+2010,NorthTukwila-MIC(7/10/2026),North Tukwila,MIC (7/10/2026),Employment,255,S,S,297,2344,862,2334,0,13483
+2010,PaineField/BoeingEverett-MIC(7/10/2026),Paine Field/Boeing Everett,MIC (7/10/2026),Employment,1000,S,S,427,2521,2385,1530,197,42388
+2010,PugetSoundIndustrialCenter-Bremerton-MIC(7/10/2026),Puget Sound Industrial Center - Bremerton,MIC (7/10/2026),Growth,71,0,388,S,S,98,112,0,870
+2010,SeattleBallard-Interbay-MIC(7/10/2026),Seattle Ballard-Interbay,MIC (7/10/2026),Employment,1174,239,3153,1194,6165,2031,334,0,14289
+2010,SeattleDuwamish-MIC(7/10/2026),Seattle Duwamish,MIC (7/10/2026),Employment,5898,1228,13310,2499,15069,13417,6875,90,58385
+2010,Sumner-Pacific-MIC(7/10/2026),Sumner-Pacific,MIC (7/10/2026),Employment,2235,140,1362,68,358,2430,83,0,6677
+2010,TacomaTideflats-MIC(7/10/2026),Tacoma Tideflats,MIC (7/10/2026),Growth,377,48,3328,152,1190,3484,679,0,9258
+2010,AllMICs-MIC(7/10/2026),All MICs,MIC (7/10/2026),All MICs,14484,2289,80653,6897,34449,39810,13104,307,191993
+2015,CascadeIndustrialCenter-MIC(7/10/2026),Cascade Industrial Center,MIC (7/10/2026),Growth,799,13,3906,359,657,1188,465,28,7414
+2015,Frederickson-MIC(7/10/2026),Frederickson,MIC (7/10/2026),Growth,384,11,2986,155,446,439,152,0,4572
+2015,KentMIC-MIC(7/10/2026),Kent MIC,MIC (7/10/2026),Employment,3860,641,14049,1746,7001,14096,525,0,41917
+2015,NorthTukwila-MIC(7/10/2026),North Tukwila,MIC (7/10/2026),Employment,603,S,S,238,2346,788,1816,0,13804
+2015,PaineField/BoeingEverett-MIC(7/10/2026),Paine Field/Boeing Everett,MIC (7/10/2026),Employment,1093,S,S,257,2978,2273,1283,209,51187
+2015,PugetSoundIndustrialCenter-Bremerton-MIC(7/10/2026),Puget Sound Industrial Center - Bremerton,MIC (7/10/2026),Growth,67,S,396,S,150,63,124,0,800
+2015,SeattleBallard-Interbay-MIC(7/10/2026),Seattle Ballard-Interbay,MIC (7/10/2026),Employment,1399,678,4296,1122,7224,2699,289,0,17707
+2015,SeattleDuwamish-MIC(7/10/2026),Seattle Duwamish,MIC (7/10/2026),Employment,6955,1168,13390,3017,18330,15928,5402,109,64299
+2015,Sumner-Pacific-MIC(7/10/2026),Sumner-Pacific,MIC (7/10/2026),Employment,2356,150,2101,1807,392,4609,80,0,11496
+2015,TacomaTideflats-MIC(7/10/2026),Tacoma Tideflats,MIC (7/10/2026),Growth,415,82,3450,78,1394,3895,667,0,9980
+2015,AllMICs-MIC(7/10/2026),All MICs,MIC (7/10/2026),All MICs,17930,2955,95467,8779,40918,45978,10804,346,223176
+2020,CascadeIndustrialCenter-MIC(7/10/2026),Cascade Industrial Center,MIC (7/10/2026),Growth,1507,23,3640,580,869,1135,526,31,8312
+2020,Frederickson-MIC(7/10/2026),Frederickson,MIC (7/10/2026),Growth,392,44,3177,187,647,534,363,17,5362
+2020,KentMIC-MIC(7/10/2026),Kent MIC,MIC (7/10/2026),Employment,5638,881,14251,2024,8605,16645,726,0,48771
+2020,NorthTukwila-MIC(7/10/2026),North Tukwila,MIC (7/10/2026),Employment,630,S,S,345,2746,622,1944,41,11336
+2020,PaineField/BoeingEverett-MIC(7/10/2026),Paine Field/Boeing Everett,MIC (7/10/2026),Employment,1143,S,S,S,3256,2706,1485,264,51163
+2020,PugetSoundIndustrialCenter-Bremerton-MIC(7/10/2026),Puget Sound Industrial Center - Bremerton,MIC (7/10/2026),Growth,104,S,444,S,148,93,177,0,980
+2020,SeattleBallard-Interbay-MIC(7/10/2026),Seattle Ballard-Interbay,MIC (7/10/2026),Employment,1612,262,2585,1483,10023,1840,267,0,18071
+2020,SeattleDuwamish-MIC(7/10/2026),Seattle Duwamish,MIC (7/10/2026),Employment,10194,2291,13626,3041,20071,14472,6376,728,70798
+2020,Sumner-Pacific-MIC(7/10/2026),Sumner-Pacific,MIC (7/10/2026),Employment,3065,257,3172,504,872,6670,25,0,14566
+2020,TacomaTideflats-MIC(7/10/2026),Tacoma Tideflats,MIC (7/10/2026),Growth,532,121,2487,346,1469,4327,575,0,9857
+2020,AllMICs-MIC(7/10/2026),All MICs,MIC (7/10/2026),All MICs,24815,4179,90243,8681,48707,49043,12465,1082,239215
+2025,CascadeIndustrialCenter-MIC(7/10/2026),Cascade Industrial Center,MIC (7/10/2026),Growth,1305,S,3329,S,1141,2823,224,0,9817
+2025,Frederickson-MIC(7/10/2026),Frederickson,MIC (7/10/2026),Growth,459,59,3015,400,1011,1112,448,0,6506
+2025,KentMIC-MIC(7/10/2026),Kent MIC,MIC (7/10/2026),Employment,5050,843,16252,1816,6007,16892,1025,0,47887
+2025,NorthTukwila-MIC(7/10/2026),North Tukwila,MIC (7/10/2026),Employment,560,S,S,242,1116,841,1861,50,9647
+2025,PaineField/BoeingEverett-MIC(7/10/2026),Paine Field/Boeing Everett,MIC (7/10/2026),Employment,990,S,S,218,3848,3441,1915,96,49025
+2025,PugetSoundIndustrialCenter-Bremerton-MIC(7/10/2026),Puget Sound Industrial Center - Bremerton,MIC (7/10/2026),Growth,58,S,651,S,174,343,232,0,1469
+2025,SeattleBallard-Interbay-MIC(7/10/2026),Seattle Ballard-Interbay,MIC (7/10/2026),Employment,1434,279,2249,1689,8672,1742,496,0,16561
+2025,SeattleDuwamish-MIC(7/10/2026),Seattle Duwamish,MIC (7/10/2026),Employment,8417,2315,11485,2844,21432,13097,5997,873,66460
+2025,Sumner-Pacific-MIC(7/10/2026),Sumner-Pacific,MIC (7/10/2026),Employment,2915,307,2421,506,1039,7987,24,0,15197
+2025,TacomaTideflats-MIC(7/10/2026),Tacoma Tideflats,MIC (7/10/2026),Growth,310,191,2076,553,2093,4584,859,0,10665
+2025,AllMICs-MIC(7/10/2026),All MICs,MIC (7/10/2026),All MICs,21498,4421,84744,9077,46533,52862,13081,1018,233234

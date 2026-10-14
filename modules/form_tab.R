@@ -18,15 +18,12 @@ form_server <- function(id, center_name, center_type) {
       
       if(center_type == rgc_title) {
            
-         ifelse(center_name() == "Seattle First Hill/Capitol Hill", imgfn <- "Seattle First Hill Capitol Hill.jpg", imgfn <- paste0(center_name(), '.jpg'))
+         ifelse(center_name() == "Seattle First Hill/Capitol Hill", imgfn <- "Seattle First Hill_Capitol Hill.jpg", imgfn <- paste0(center_name(), '.jpg'))
          
       } else {
-          
-        if(center_name() == "Cascade Industrial Center - Arlington/Marysville") {imgfn <- "Cascade Industrial Center - Arlington-Marysville.jpg"}
-        if(center_name() == "Kent MIC") {imgfn <- "Kent-MIC.jpg"}
-        if(center_name() == "Paine Field/Boeing Everett") {imgfn <- "Paine Field-Boeing Everett.jpg"}
-        if(!(center_name() %in% c("Cascade Industrial Center - Arlington/Marysville", "Kent MIC", "Paine Field/Boeing Everett"))) {imgfn <- paste0(center_name(), '.jpg')}
         
+        ifelse(center_name() == "Paine Field/Boeing Everett", imgfn <- "Paine Field_Boeing Everett.jpg", imgfn <- paste0(center_name(), '.jpg'))
+          
       }
        
       normalizePath(file.path('./www', imgfn))
@@ -52,10 +49,10 @@ form_server <- function(id, center_name, center_type) {
     
     if (center_type == mic_title) {
       
-      output$industrial_land_table <- DT::renderDataTable({create_multi_year_table(df = industrial_land |> filter(!(grouping %in% c("Vacant", "Re-developable", "Available"))), 
-                                                                                   rgc_name = center_name(), data_yrs = c("2018"), dec = 0, center_type = center_type)})
+      output$industrial_land_table <- DT::renderDataTable({create_multi_year_table(df = industrial_land |> filter(place_name==center_name() & !(grouping %in% c("Vacant", "Re-developable", "Available"))), 
+                                                                                   rgc_name = center_name(), data_yrs = model_base_yr, dec = 0, center_type = center_type)})
       
-      output$net_industial_land_chart <- renderEcharts4r(echart_pie_chart(df = industrial_land_shares |> filter(geography==center_name()), value="estimate", fill="grouping", color="jewel", esttype="number", dec=0))
+      output$net_industial_land_chart <- renderEcharts4r(echart_pie_chart(df = industrial_land_shares |> filter(place_name==center_name()), value="estimate", fill="grouping", color="jewel", esttype="number", dec=0))
       
     }
 

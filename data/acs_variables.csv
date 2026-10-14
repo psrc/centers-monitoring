@@ -1,0 +1,160 @@
+﻿table,variable,grouping,concept,order,available_geography,split_type
+B01001,B01001_003,Under 17,Population by Age Group,1,blockgroup,percent_of_total_pop
+B01001,B01001_004,Under 17,Population by Age Group,1,blockgroup,percent_of_total_pop
+B01001,B01001_005,Under 17,Population by Age Group,1,blockgroup,percent_of_total_pop
+B01001,B01001_006,Under 17,Population by Age Group,1,blockgroup,percent_of_total_pop
+B01001,B01001_007,18 to 34,Population by Age Group,2,blockgroup,percent_of_total_pop
+B01001,B01001_008,18 to 34,Population by Age Group,2,blockgroup,percent_of_total_pop
+B01001,B01001_009,18 to 34,Population by Age Group,2,blockgroup,percent_of_total_pop
+B01001,B01001_010,18 to 34,Population by Age Group,2,blockgroup,percent_of_total_pop
+B01001,B01001_011,18 to 34,Population by Age Group,2,blockgroup,percent_of_total_pop
+B01001,B01001_012,18 to 34,Population by Age Group,2,blockgroup,percent_of_total_pop
+B01001,B01001_013,35 to 49,Population by Age Group,3,blockgroup,percent_of_total_pop
+B01001,B01001_014,35 to 49,Population by Age Group,3,blockgroup,percent_of_total_pop
+B01001,B01001_015,35 to 49,Population by Age Group,3,blockgroup,percent_of_total_pop
+B01001,B01001_016,50 to 64,Population by Age Group,4,blockgroup,percent_of_total_pop
+B01001,B01001_017,50 to 64,Population by Age Group,4,blockgroup,percent_of_total_pop
+B01001,B01001_018,50 to 64,Population by Age Group,4,blockgroup,percent_of_total_pop
+B01001,B01001_019,50 to 64,Population by Age Group,4,blockgroup,percent_of_total_pop
+B01001,B01001_020,65+,Population by Age Group,5,blockgroup,percent_of_total_pop
+B01001,B01001_021,65+,Population by Age Group,5,blockgroup,percent_of_total_pop
+B01001,B01001_022,65+,Population by Age Group,5,blockgroup,percent_of_total_pop
+B01001,B01001_023,65+,Population by Age Group,5,blockgroup,percent_of_total_pop
+B01001,B01001_024,65+,Population by Age Group,5,blockgroup,percent_of_total_pop
+B01001,B01001_025,65+,Population by Age Group,5,blockgroup,percent_of_total_pop
+B01001,B01001_027,Under 17,Population by Age Group,1,blockgroup,percent_of_total_pop
+B01001,B01001_028,Under 17,Population by Age Group,1,blockgroup,percent_of_total_pop
+B01001,B01001_029,Under 17,Population by Age Group,1,blockgroup,percent_of_total_pop
+B01001,B01001_030,Under 17,Population by Age Group,1,blockgroup,percent_of_total_pop
+B01001,B01001_031,18 to 34,Population by Age Group,2,blockgroup,percent_of_total_pop
+B01001,B01001_032,18 to 34,Population by Age Group,2,blockgroup,percent_of_total_pop
+B01001,B01001_033,18 to 34,Population by Age Group,2,blockgroup,percent_of_total_pop
+B01001,B01001_034,18 to 34,Population by Age Group,2,blockgroup,percent_of_total_pop
+B01001,B01001_035,18 to 34,Population by Age Group,2,blockgroup,percent_of_total_pop
+B01001,B01001_036,18 to 34,Population by Age Group,2,blockgroup,percent_of_total_pop
+B01001,B01001_037,35 to 49,Population by Age Group,3,blockgroup,percent_of_total_pop
+B01001,B01001_038,35 to 49,Population by Age Group,3,blockgroup,percent_of_total_pop
+B01001,B01001_039,35 to 49,Population by Age Group,3,blockgroup,percent_of_total_pop
+B01001,B01001_040,50 to 64,Population by Age Group,4,blockgroup,percent_of_total_pop
+B01001,B01001_041,50 to 64,Population by Age Group,4,blockgroup,percent_of_total_pop
+B01001,B01001_042,50 to 64,Population by Age Group,4,blockgroup,percent_of_total_pop
+B01001,B01001_043,50 to 64,Population by Age Group,4,blockgroup,percent_of_total_pop
+B01001,B01001_044,65+,Population by Age Group,5,blockgroup,percent_of_total_pop
+B01001,B01001_045,65+,Population by Age Group,5,blockgroup,percent_of_total_pop
+B01001,B01001_046,65+,Population by Age Group,5,blockgroup,percent_of_total_pop
+B01001,B01001_047,65+,Population by Age Group,5,blockgroup,percent_of_total_pop
+B01001,B01001_048,65+,Population by Age Group,5,blockgroup,percent_of_total_pop
+B01001,B01001_049,65+,Population by Age Group,5,blockgroup,percent_of_total_pop
+B01001,B01001_002,Total Age,Population by Age Group,6,blockgroup,percent_of_total_pop
+B01001,B01001_026,Total Age,Population by Age Group,6,blockgroup,percent_of_total_pop
+B03002,B03002_004,Black or African American,Population by Race & Ethnicity,7,blockgroup,percent_of_total_pop
+B03002,B03002_005,American Indian and Alaska Native,Population by Race & Ethnicity,8,blockgroup,percent_of_total_pop
+B03002,B03002_006,Asian,Population by Race & Ethnicity,9,blockgroup,percent_of_total_pop
+B03002,B03002_012,Hispanic or Latino,Population by Race & Ethnicity,10,blockgroup,percent_of_total_pop
+B03002,B03002_007,Native Hawaiian and Other Pacific Islander,Population by Race & Ethnicity,11,blockgroup,percent_of_total_pop
+B03002,B03002_008,Some Other Race,Population by Race & Ethnicity,12,blockgroup,percent_of_total_pop
+B03002,B03002_009,Some Other Race,Population by Race & Ethnicity,12,blockgroup,percent_of_total_pop
+B03002,B03002_003,Non-hispanic White,Population by Race & Ethnicity,13,blockgroup,percent_of_total_pop
+B03002,B03002_001,Total Race,Population by Race & Ethnicity,14,blockgroup,percent_of_total_pop
+B19001,B19001_002,"Less than $20,000",Households by Income,15,blockgroup,percent_of_occupied_housing_units
+B19001,B19001_003,"Less than $20,000",Households by Income,15,blockgroup,percent_of_occupied_housing_units
+B19001,B19001_004,"Less than $20,000",Households by Income,15,blockgroup,percent_of_occupied_housing_units
+B19001,B19001_005,"$20,000 to $35,000",Households by Income,16,blockgroup,percent_of_occupied_housing_units
+B19001,B19001_006,"$20,000 to $35,000",Households by Income,16,blockgroup,percent_of_occupied_housing_units
+B19001,B19001_007,"$20,000 to $35,000",Households by Income,16,blockgroup,percent_of_occupied_housing_units
+B19001,B19001_008,"$35,000 to $50,000",Households by Income,17,blockgroup,percent_of_occupied_housing_units
+B19001,B19001_009,"$35,000 to $50,000",Households by Income,17,blockgroup,percent_of_occupied_housing_units
+B19001,B19001_010,"$35,000 to $50,000",Households by Income,17,blockgroup,percent_of_occupied_housing_units
+B19001,B19001_011,"$50,000 to $75,000",Households by Income,18,blockgroup,percent_of_occupied_housing_units
+B19001,B19001_012,"$50,000 to $75,000",Households by Income,18,blockgroup,percent_of_occupied_housing_units
+B19001,B19001_013,"$75,000 to $100,000",Households by Income,19,blockgroup,percent_of_occupied_housing_units
+B19001,B19001_014,"$100,000 to $150,000",Households by Income,20,blockgroup,percent_of_occupied_housing_units
+B19001,B19001_015,"$100,000 to $150,000",Households by Income,20,blockgroup,percent_of_occupied_housing_units
+B19001,B19001_016,"$150,000 to $200,000",Households by Income,21,blockgroup,percent_of_occupied_housing_units
+B19001,B19001_017,"$200,000 or more",Households by Income,22,blockgroup,percent_of_occupied_housing_units
+B19001,B19001_001,Total Income,Households by Income,23,blockgroup,percent_of_occupied_housing_units
+B25003,B25003_002,Owner,Household Tenure,24,blockgroup,percent_of_occupied_housing_units
+B25003,B25003_003,Renter,Household Tenure,25,blockgroup,percent_of_occupied_housing_units
+B25003,B25003_001,Total Tenure,Household Tenure,26,blockgroup,percent_of_occupied_housing_units
+B25024,B25024_002,SF detached,Housing Unit Type,27,blockgroup,percent_of_housing_units
+B25024,B25024_003,Moderate-low density,Housing Unit Type,28,blockgroup,percent_of_housing_units
+B25024,B25024_004,Moderate-low density,Housing Unit Type,28,blockgroup,percent_of_housing_units
+B25024,B25024_005,Moderate-low density,Housing Unit Type,28,blockgroup,percent_of_housing_units
+B25024,B25024_006,Moderate-low density,Housing Unit Type,28,blockgroup,percent_of_housing_units
+B25024,B25024_007,Moderate-high density,Housing Unit Type,29,blockgroup,percent_of_housing_units
+B25024,B25024_008,High density,Housing Unit Type,30,blockgroup,percent_of_housing_units
+B25024,B25024_009,High density,Housing Unit Type,30,blockgroup,percent_of_housing_units
+B25024,B25024_010,Some Other Type,Housing Unit Type,31,blockgroup,percent_of_housing_units
+B25024,B25024_011,Some Other Type,Housing Unit Type,31,blockgroup,percent_of_housing_units
+B25024,B25024_001,Total Type,Housing Unit Type,32,blockgroup,percent_of_housing_units
+B25070,B25070_002,Not cost burdened (<30%),Renter Cost Burden,33,blockgroup,percent_of_occupied_housing_units
+B25070,B25070_003,Not cost burdened (<30%),Renter Cost Burden,33,blockgroup,percent_of_occupied_housing_units
+B25070,B25070_004,Not cost burdened (<30%),Renter Cost Burden,33,blockgroup,percent_of_occupied_housing_units
+B25070,B25070_005,Not cost burdened (<30%),Renter Cost Burden,33,blockgroup,percent_of_occupied_housing_units
+B25070,B25070_006,Not cost burdened (<30%),Renter Cost Burden,33,blockgroup,percent_of_occupied_housing_units
+B25070,B25070_007,Cost burdened (30-49.9%),Renter Cost Burden,34,blockgroup,percent_of_occupied_housing_units
+B25070,B25070_008,Cost burdened (30-49.9%),Renter Cost Burden,34,blockgroup,percent_of_occupied_housing_units
+B25070,B25070_009,Cost burdened (30-49.9%),Renter Cost Burden,34,blockgroup,percent_of_occupied_housing_units
+B25070,B25070_010,Severely cost burdened (50+%),Renter Cost Burden,35,blockgroup,percent_of_occupied_housing_units
+B25070,B25070_011,Not computed,Renter Cost Burden,36,blockgroup,percent_of_occupied_housing_units
+B25070,B25070_001,Total Burden,Renter Cost Burden,37,blockgroup,percent_of_occupied_housing_units
+B25091,B25091_003,Not cost burdened (<30%),Owner Cost Burden,33,blockgroup,percent_of_occupied_housing_units
+B25091,B25091_004,Not cost burdened (<30%),Owner Cost Burden,33,blockgroup,percent_of_occupied_housing_units
+B25091,B25091_005,Not cost burdened (<30%),Owner Cost Burden,33,blockgroup,percent_of_occupied_housing_units
+B25091,B25091_006,Not cost burdened (<30%),Owner Cost Burden,33,blockgroup,percent_of_occupied_housing_units
+B25091,B25091_007,Not cost burdened (<30%),Owner Cost Burden,33,blockgroup,percent_of_occupied_housing_units
+B25091,B25091_008,Cost burdened (30-49.9%),Owner Cost Burden,34,blockgroup,percent_of_occupied_housing_units
+B25091,B25091_009,Cost burdened (30-49.9%),Owner Cost Burden,34,blockgroup,percent_of_occupied_housing_units
+B25091,B25091_010,Cost burdened (30-49.9%),Owner Cost Burden,34,blockgroup,percent_of_occupied_housing_units
+B25091,B25091_011,Severely cost burdened (50+%),Owner Cost Burden,35,blockgroup,percent_of_occupied_housing_units
+B25091,B25091_012,Not computed,Owner Cost Burden,36,blockgroup,percent_of_occupied_housing_units
+B25091,B25091_002,Total Burden,Owner Cost Burden,37,blockgroup,percent_of_occupied_housing_units
+B15002,B15002_003,No high school diploma,Educational Attainment,38,blockgroup,percent_of_occupied_housing_units
+B15002,B15002_004,No high school diploma,Educational Attainment,38,blockgroup,percent_of_occupied_housing_units
+B15002,B15002_005,No high school diploma,Educational Attainment,38,blockgroup,percent_of_occupied_housing_units
+B15002,B15002_006,No high school diploma,Educational Attainment,38,blockgroup,percent_of_occupied_housing_units
+B15002,B15002_007,No high school diploma,Educational Attainment,38,blockgroup,percent_of_occupied_housing_units
+B15002,B15002_008,No high school diploma,Educational Attainment,38,blockgroup,percent_of_occupied_housing_units
+B15002,B15002_009,No high school diploma,Educational Attainment,38,blockgroup,percent_of_occupied_housing_units
+B15002,B15002_010,No high school diploma,Educational Attainment,38,blockgroup,percent_of_occupied_housing_units
+B15002,B15002_011,High school,Educational Attainment,39,blockgroup,percent_of_occupied_housing_units
+B15002,B15002_012,Some college,Educational Attainment,40,blockgroup,percent_of_occupied_housing_units
+B15002,B15002_013,Some college,Educational Attainment,40,blockgroup,percent_of_occupied_housing_units
+B15002,B15002_014,Some college,Educational Attainment,40,blockgroup,percent_of_occupied_housing_units
+B15002,B15002_015,Bachelor degree,Educational Attainment,41,blockgroup,percent_of_occupied_housing_units
+B15002,B15002_016,Graduate degree,Educational Attainment,42,blockgroup,percent_of_occupied_housing_units
+B15002,B15002_017,Graduate degree,Educational Attainment,42,blockgroup,percent_of_occupied_housing_units
+B15002,B15002_018,Graduate degree,Educational Attainment,42,blockgroup,percent_of_occupied_housing_units
+B15002,B15002_020,No high school diploma,Educational Attainment,38,blockgroup,percent_of_occupied_housing_units
+B15002,B15002_021,No high school diploma,Educational Attainment,38,blockgroup,percent_of_occupied_housing_units
+B15002,B15002_022,No high school diploma,Educational Attainment,38,blockgroup,percent_of_occupied_housing_units
+B15002,B15002_023,No high school diploma,Educational Attainment,38,blockgroup,percent_of_occupied_housing_units
+B15002,B15002_024,No high school diploma,Educational Attainment,38,blockgroup,percent_of_occupied_housing_units
+B15002,B15002_025,No high school diploma,Educational Attainment,38,blockgroup,percent_of_occupied_housing_units
+B15002,B15002_026,No high school diploma,Educational Attainment,38,blockgroup,percent_of_occupied_housing_units
+B15002,B15002_027,No high school diploma,Educational Attainment,38,blockgroup,percent_of_occupied_housing_units
+B15002,B15002_028,High school,Educational Attainment,39,blockgroup,percent_of_occupied_housing_units
+B15002,B15002_029,Some college,Educational Attainment,40,blockgroup,percent_of_occupied_housing_units
+B15002,B15002_030,Some college,Educational Attainment,40,blockgroup,percent_of_occupied_housing_units
+B15002,B15002_031,Some college,Educational Attainment,40,blockgroup,percent_of_occupied_housing_units
+B15002,B15002_032,Bachelor degree,Educational Attainment,41,blockgroup,percent_of_occupied_housing_units
+B15002,B15002_033,Graduate degree,Educational Attainment,42,blockgroup,percent_of_occupied_housing_units
+B15002,B15002_034,Graduate degree,Educational Attainment,42,blockgroup,percent_of_occupied_housing_units
+B15002,B15002_035,Graduate degree,Educational Attainment,42,blockgroup,percent_of_occupied_housing_units
+B15002,B15002_001,Total Education,Educational Attainment,43,blockgroup,percent_of_occupied_housing_units
+B08301,B08301_003,Drove Alone,Mode to Work,44,blockgroup,percent_of_occupied_housing_units
+B08301,B08301_004,Carpooled,Mode to Work,45,blockgroup,percent_of_occupied_housing_units
+B08301,B08301_010,Transit,Mode to Work,46,blockgroup,percent_of_occupied_housing_units
+B08301,B08301_016,Some Other Mode,Mode to Work,47,blockgroup,percent_of_occupied_housing_units
+B08301,B08301_017,Some Other Mode,Mode to Work,47,blockgroup,percent_of_occupied_housing_units
+B08301,B08301_020,Some Other Mode,Mode to Work,47,blockgroup,percent_of_occupied_housing_units
+B08301,B08301_018,Bike,Mode to Work,48,blockgroup,percent_of_occupied_housing_units
+B08301,B08301_019,Walk,Mode to Work,49,blockgroup,percent_of_occupied_housing_units
+B08301,B08301_021,Work from Home,Mode to Work,50,blockgroup,percent_of_occupied_housing_units
+B08301,B08301_001,Total Mode,Mode to Work,51,blockgroup,percent_of_occupied_housing_units
+B08201,B08201_002,No vehicles,Households by Vehicle Availability,52,tract,percent_of_occupied_housing_units
+B08201,B08201_003,1 vehicle,Households by Vehicle Availability,53,tract,percent_of_occupied_housing_units
+B08201,B08201_004,2 vehicles,Households by Vehicle Availability,54,tract,percent_of_occupied_housing_units
+B08201,B08201_005,3 vehicles,Households by Vehicle Availability,55,tract,percent_of_occupied_housing_units
+B08201,B08201_006,4 or more vehicles,Households by Vehicle Availability,56,tract,percent_of_occupied_housing_units
+B08201,B08201_001,Total Vehicles,Households by Vehicle Availability,57,tract,percent_of_occupied_housing_units

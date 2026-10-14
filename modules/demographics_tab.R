@@ -17,29 +17,29 @@ demographics_server <- function(id, center_name, center_type) {
     # Tables and Charts
     output$pop_chart <- renderEcharts4r({
       
-      echart_column_chart(df = pop_hh_hu_data %>% filter(geography_type == center_type, geography == center_name() & grouping == "Population" & year %in% pop_hsg_yrs),
+      echart_column_chart(df = pop_hh_hu_data %>% filter(place_type == center_type, place_name == center_name() & grouping == "Population" & year %in% pop_hsg_yrs),
                           x = "year", y = "estimate", tog = "grouping", title = "Total Population",
-                          dec = 0, esttype = "number", color = "oranges")
+                          dec = -1, esttype = "number", color = "oranges")
       
     })
     
     output$pop_hsg_chart <- renderEcharts4r({
       
-      echart_column_chart(df = pop_hh_hu_data %>% filter(geography_type == center_type, geography == center_name() & grouping %in% c("Population", "Housing Units") & year %in% pop_hsg_yrs),
+      echart_column_chart(df = pop_hh_hu_data %>% filter(place_type == center_type, place_name == center_name() & grouping %in% c("Population", "Housing Units") & year %in% pop_hsg_yrs),
                           x = "year", y = "estimate", tog = "grouping", title = "Total",
-                          dec = 0, esttype = "number", color = "jewel")
+                          dec = -1, esttype = "number", color = "jewel")
       
     })
     
-    output$pop_table <- DT::renderDataTable({create_single_group_table(df = pop_hh_hu_data, rgc_name = center_name(), data_yrs = pop_hsg_yrs, dec = 0, group = "Population", center_type = center_type)})
+    output$pop_table <- DT::renderDataTable({create_single_group_table(df = pop_hh_hu_data, rgc_name = center_name(), data_yrs = pop_hsg_yrs, dec = -1, group = "Population", center_type = center_type)})
     
-    output$pop_hsg_table <- DT::renderDataTable({create_multi_year_table_all(df = pop_hh_hu_data %>% filter(geography_type == center_type, geography == center_name() & grouping %in% c("Population", "Housing Units")), 
+    output$pop_hsg_table <- DT::renderDataTable({create_multi_year_table_all(df = pop_hh_hu_data %>% filter(place_type == center_type, place_name == center_name() & grouping %in% c("Population", "Housing Units")), 
                                                                          data_yrs = pop_hsg_yrs, dec = 0, rgc_name = center_name(), center_type = center_type)})
     
     output$age_chart <- renderEcharts4r({
       
-      echart_multi_column_chart(df = age_data %>% filter(year %in% census_years & geography_type %in% c(center_type, "County") & geography %in% c(center_name(), "Region", "All Centers", "All RGCs", "All MICs") & grouping != "Total"),
-                                x = "grouping", y = "share", fill="geography", tog = "year", 
+      echart_multi_column_chart(df = age_data %>% filter(year %in% census_years & place_type %in% c(center_type, "Region") & place_name %in% c(center_name(), "Region", "All Centers", "All RGCs", "All MICs") & grouping != "Total"),
+                                x = "grouping", y = "share", fill="place_name", tog = "year", 
                                 dec = 0, esttype = "percent", color = "jewel")
       
     })
@@ -49,9 +49,9 @@ demographics_server <- function(id, center_name, center_type) {
     output$race_chart <- renderEcharts4r({
       
       echart_multi_bar_chart(df = race_data %>% 
-                               filter(year %in% census_years & geography_type %in% c(center_type, "County") & geography %in% c(center_name(), "Region", "All Centers", "All RGCs", "All MICs") & grouping != "Total") %>%
+                               filter(year %in% census_years & place_type %in% c(center_type, "Region") & place_name %in% c(center_name(), "Region", "All Centers", "All RGCs", "All MICs") & grouping != "Total") %>%
                                arrange(desc(grouping)),
-                             x = "grouping", y = "share", fill="geography", tog = "year",
+                             x = "grouping", y = "share", fill="place_name", tog = "year",
                              dec = 0, esttype = "percent", color = "jewel")
       
       
@@ -61,8 +61,8 @@ demographics_server <- function(id, center_name, center_type) {
     
     output$income_chart <- renderEcharts4r({
       
-      echart_multi_column_chart(df = income_data %>% filter(year %in% census_years & geography_type %in% c(center_type, "County") & geography %in% c(center_name(), "Region", "All Centers", "All RGCs", "All MICs") & grouping != "Total"),
-                                x = "grouping", y = "share", fill="geography", tog = "year", 
+      echart_multi_column_chart(df = income_data %>% filter(year %in% census_years & place_type %in% c(center_type, "Region") & place_name %in% c(center_name(), "Region", "All Centers", "All RGCs", "All MICs") & grouping != "Total"),
+                                x = "grouping", y = "share", fill="place_name", tog = "year", 
                                 dec = 0, esttype = "percent", color = "jewel")
     })
     
@@ -70,8 +70,8 @@ demographics_server <- function(id, center_name, center_type) {
     
     output$education_chart <- renderEcharts4r({
       
-      echart_multi_bar_chart(df = education_data %>% filter(year %in% census_years & geography_type %in% c(center_type, "County") & geography %in% c(center_name(), "Region", "All Centers", "All RGCs", "All MICs") & grouping != "Total"),
-                             x = "grouping", y = "share", fill="geography", tog = "year", 
+      echart_multi_bar_chart(df = education_data %>% filter(year %in% census_years & place_type %in% c(center_type, "Region") & place_name %in% c(center_name(), "Region", "All Centers", "All RGCs", "All MICs") & grouping != "Total"),
+                             x = "grouping", y = "share", fill="place_name", tog = "year", 
                              dec = 0, esttype = "percent", color = "jewel")
       
     })

@@ -1,32 +1,32 @@
-name,intersection_count,acreage,intersection_density
-Auburn,92,234,3.93
-Bellevue Downtown,126,410,3.07
-Bothell Canyon Park,39,563,0.69
-Bremerton,114,578,1.97
-Burien,88,421,2.09
-Everett,166,661,2.51
-Federal Way,23,200,1.15
-Kirkland Greater Downtown,157,564,2.78
-Issaquah,63,464,1.36
-Kent,95,292,3.25
-Kirkland Totem Lake,124,842,1.47
-Lakewood,74,333,2.22
-Lynnwood,67,764,0.88
-Puyallup Downtown,79,215,3.67
-Puyallup South Hill,60,845,0.71
-Redmond Downtown,96,433,2.22
-Redmond Overlake,85,519,1.64
-Renton,130,599,2.17
-SeaTac,99,885,1.12
-Seattle Downtown,372,932,3.99
-Seattle First Hill/Capitol Hill,484,915,5.29
-Seattle Northgate,84,409,2.05
-Seattle South Lake Union,91,339,2.68
-Seattle University Community,204,766,2.66
-Seattle Uptown,111,335,3.31
-Silverdale,70,848,0.83
-Tacoma Downtown,442,"1,297",3.41
-Tacoma Mall,101,575,1.76
-Tukwila,42,847,0.50
-University Place,107,481,2.22
-All Centers,3885,17566,2.21
+place_id,place_name,place_type,place_category,intersection_count,acreage,intersection_density
+Auburn-RegionalGrowthCenter(3/26/2026),Auburn,Regional Growth Center (3/26/2026),Urban,116,354.798381,3.3
+BellevueDowntown-RegionalGrowthCenter(3/26/2026),Bellevue Downtown,Regional Growth Center (3/26/2026),Metro,126,410.182058,3.1
+BothellCanyonPark-RegionalGrowthCenter(3/26/2026),Bothell Canyon Park,Regional Growth Center (3/26/2026),Urban,39,563.147324,0.7
+Bremerton-RegionalGrowthCenter(3/26/2026),Bremerton,Regional Growth Center (3/26/2026),Metro,114,591.79571,1.9
+Burien-RegionalGrowthCenter(3/26/2026),Burien,Regional Growth Center (3/26/2026),Urban,86,418.958276,2.1
+Everett-RegionalGrowthCenter(3/26/2026),Everett,Regional Growth Center (3/26/2026),Metro,166,660.997063,2.5
+FederalWay-RegionalGrowthCenter(3/26/2026),Federal Way,Regional Growth Center (3/26/2026),Urban,17,219.073287,0.8
+Issaquah-RegionalGrowthCenter(3/26/2026),Issaquah,Regional Growth Center (3/26/2026),Urban,66,466.161938,1.4
+Kent-RegionalGrowthCenter(3/26/2026),Kent,Regional Growth Center (3/26/2026),Urban,95,292.357588,3.2
+KirklandGreaterDowntown-RegionalGrowthCenter(3/26/2026),Kirkland Greater Downtown,Regional Growth Center (3/26/2026),Urban,157,563.553093,2.8
+KirklandTotemLake-RegionalGrowthCenter(3/26/2026),Kirkland Totem Lake,Regional Growth Center (3/26/2026),Urban,124,841.904117,1.5
+Lakewood-RegionalGrowthCenter(3/26/2026),Lakewood,Regional Growth Center (3/26/2026),Urban,74,336.771514,2.2
+Lynnwood-RegionalGrowthCenter(3/26/2026),Lynnwood,Regional Growth Center (3/26/2026),Urban,71,775.583808,0.9
+PuyallupDowntown-RegionalGrowthCenter(3/26/2026),Puyallup Downtown,Regional Growth Center (3/26/2026),Urban,79,215.310376,3.7
+PuyallupSouthHill-RegionalGrowthCenter(3/26/2026),Puyallup South Hill,Regional Growth Center (3/26/2026),Urban,60,845.033689,0.7
+RedmondDowntown-RegionalGrowthCenter(3/26/2026),Redmond Downtown,Regional Growth Center (3/26/2026),Urban,93,508.761699,1.8
+RedmondOverlake-RegionalGrowthCenter(3/26/2026),Redmond Overlake,Regional Growth Center (3/26/2026),Metro,111,863.370556,1.3
+Renton-RegionalGrowthCenter(3/26/2026),Renton,Regional Growth Center (3/26/2026),Urban,130,605.662871,2.1
+SeaTac-RegionalGrowthCenter(3/26/2026),SeaTac,Regional Growth Center (3/26/2026),Urban,99,884.700414,1.1
+SeattleDowntown-RegionalGrowthCenter(3/26/2026),Seattle Downtown,Regional Growth Center (3/26/2026),Metro,382,952.085415,4
+SeattleFirstHill-CapitolHill-RegionalGrowthCenter(3/26/2026),Seattle First Hill - Capitol Hill,Regional Growth Center (3/26/2026),Metro,489,917.786679,5.3
+SeattleNorthgate-RegionalGrowthCenter(3/26/2026),Seattle Northgate,Regional Growth Center (3/26/2026),Urban,84,412.01989,2
+SeattleSouthLakeUnion-RegionalGrowthCenter(3/26/2026),Seattle South Lake Union,Regional Growth Center (3/26/2026),Metro,94,360.44307,2.6
+SeattleUniversityDistrict-RegionalGrowthCenter(3/26/2026),Seattle University District,Regional Growth Center (3/26/2026),Metro,199,753.471398,2.6
+SeattleUptown-RegionalGrowthCenter(3/26/2026),Seattle Uptown,Regional Growth Center (3/26/2026),Metro,112,333.352004,3.4
+Silverdale-RegionalGrowthCenter(3/26/2026),Silverdale,Regional Growth Center (3/26/2026),Urban,77,717.664193,1.1
+TacomaDowntown-RegionalGrowthCenter(3/26/2026),Tacoma Downtown,Regional Growth Center (3/26/2026),Metro,447,"1,385",3.2
+TacomaMall-RegionalGrowthCenter(3/26/2026),Tacoma Mall,Regional Growth Center (3/26/2026),Urban,101,574.784129,1.8
+Tukwila-RegionalGrowthCenter(3/26/2026),Tukwila,Regional Growth Center (3/26/2026),Urban,39,881.774633,0.4
+UniversityPlace-RegionalGrowthCenter(3/26/2026),University Place,Regional Growth Center (3/26/2026),Urban,107,480.90448,2.2
+AllRGCs-AllRGCs,All RGCs,All RGCs,,3954,18187.31102,2.2

@@ -1,0 +1,97 @@
+﻿year,place_id,place_name,place_type,grouping,estimate,share
+2010,CascadeIndustrialCenter-MIC(7/10/2026),Cascade Industrial Center,MIC (7/10/2026),Industrial,4388,0.8364
+2010,Frederickson-MIC(7/10/2026),Frederickson,MIC (7/10/2026),Industrial,2969,0.8903
+2010,KentMIC-MIC(7/10/2026),Kent MIC,MIC (7/10/2026),Industrial,30410,0.8065
+2010,NorthTukwila-MIC(7/10/2026),North Tukwila,MIC (7/10/2026),Industrial,,0.8
+2010,PaineField/BoeingEverett-MIC(7/10/2026),Paine Field/Boeing Everett,MIC (7/10/2026),Industrial,39893,0.9411
+2010,PugetSoundIndustrialCenter-Bremerton-MIC(7/10/2026),Puget Sound Industrial Center - Bremerton,MIC (7/10/2026),Industrial,,0.907
+2010,SeattleBallard-Interbay-MIC(7/10/2026),Seattle Ballard-Interbay,MIC (7/10/2026),Industrial,7381,0.4937
+2010,SeattleDuwamish-MIC(7/10/2026),Seattle Duwamish,MIC (7/10/2026),Industrial,40204,0.6837
+2010,Sumner-Pacific-MIC(7/10/2026),Sumner-Pacific,MIC (7/10/2026),Industrial,6137,0.9191
+2010,TacomaTideflats-MIC(7/10/2026),Tacoma Tideflats,MIC (7/10/2026),Industrial,8203,0.8625
+2010,AllMICs-AllMICs,All MICs,All MICs,Industrial,150877,0.7799
+2010,Region-Region,Region,Region,Industrial,,0.288
+2015,CascadeIndustrialCenter-MIC(7/10/2026),Cascade Industrial Center,MIC (7/10/2026),Industrial,6029,0.8528
+2015,Frederickson-MIC(7/10/2026),Frederickson,MIC (7/10/2026),Industrial,3992,0.8731
+2015,KentMIC-MIC(7/10/2026),Kent MIC,MIC (7/10/2026),Industrial,34309,0.8185
+2015,NorthTukwila-MIC(7/10/2026),North Tukwila,MIC (7/10/2026),Industrial,10939,0.791
+2015,PaineField/BoeingEverett-MIC(7/10/2026),Paine Field/Boeing Everett,MIC (7/10/2026),Industrial,48322,0.944
+2015,PugetSoundIndustrialCenter-Bremerton-MIC(7/10/2026),Puget Sound Industrial Center - Bremerton,MIC (7/10/2026),Industrial,718,0.8975
+2015,SeattleBallard-Interbay-MIC(7/10/2026),Seattle Ballard-Interbay,MIC (7/10/2026),Industrial,9576,0.5197
+2015,SeattleDuwamish-MIC(7/10/2026),Seattle Duwamish,MIC (7/10/2026),Industrial,43682,0.6851
+2015,Sumner-Pacific-MIC(7/10/2026),Sumner-Pacific,MIC (7/10/2026),Industrial,9261,0.8013
+2015,TacomaTideflats-MIC(7/10/2026),Tacoma Tideflats,MIC (7/10/2026),Industrial,8869,0.8665
+2015,AllMICs-AllMICs,All MICs,All MICs,Industrial,175696,0.7866
+2015,Region-Region,Region,Region,Industrial,,0.291
+2020,CascadeIndustrialCenter-MIC(7/10/2026),Cascade Industrial Center,MIC (7/10/2026),Industrial,6312,0.7874
+2020,Frederickson-MIC(7/10/2026),Frederickson,MIC (7/10/2026),Industrial,4370,0.815
+2020,KentMIC-MIC(7/10/2026),Kent MIC,MIC (7/10/2026),Industrial,39405,0.808
+2020,NorthTukwila-MIC(7/10/2026),North Tukwila,MIC (7/10/2026),Industrial,7951,0.701
+2020,PaineField/BoeingEverett-MIC(7/10/2026),Paine Field/Boeing Everett,MIC (7/10/2026),Industrial,48455,0.9471
+2020,PugetSoundIndustrialCenter-Bremerton-MIC(7/10/2026),Puget Sound Industrial Center - Bremerton,MIC (7/10/2026),Industrial,907,0.9255
+2020,SeattleBallard-Interbay-MIC(7/10/2026),Seattle Ballard-Interbay,MIC (7/10/2026),Industrial,7402,0.391
+2020,SeattleDuwamish-MIC(7/10/2026),Seattle Duwamish,MIC (7/10/2026),Industrial,46330,0.662
+2020,Sumner-Pacific-MIC(7/10/2026),Sumner-Pacific,MIC (7/10/2026),Industrial,13300,0.9028
+2020,TacomaTideflats-MIC(7/10/2026),Tacoma Tideflats,MIC (7/10/2026),Industrial,8416,0.8322
+2020,AllMICs-AllMICs,All MICs,All MICs,Industrial,182849,0.7638
+2020,Region-Region,Region,Region,Industrial,,0.282
+2025,CascadeIndustrialCenter-MIC(7/10/2026),Cascade Industrial Center,MIC (7/10/2026),Industrial,7664,0.7807
+2025,Frederickson-MIC(7/10/2026),Frederickson,MIC (7/10/2026),Industrial,4999,0.7684
+2025,KentMIC-MIC(7/10/2026),Kent MIC,MIC (7/10/2026),Industrial,41171,0.8598
+2025,NorthTukwila-MIC(7/10/2026),North Tukwila,MIC (7/10/2026),Industrial,8105,0.8401
+2025,PaineField/BoeingEverett-MIC(7/10/2026),Paine Field/Boeing Everett,MIC (7/10/2026),Industrial,45826,0.9347
+2025,PugetSoundIndustrialCenter-Bremerton-MIC(7/10/2026),Puget Sound Industrial Center - Bremerton,MIC (7/10/2026),Industrial,1389,0.9455
+2025,SeattleBallard-Interbay-MIC(7/10/2026),Seattle Ballard-Interbay,MIC (7/10/2026),Industrial,6400,0.3865
+2025,SeattleDuwamish-MIC(7/10/2026),Seattle Duwamish,MIC (7/10/2026),Industrial,41725,0.6278
+2025,Sumner-Pacific-MIC(7/10/2026),Sumner-Pacific,MIC (7/10/2026),Industrial,13731,0.9035
+2025,TacomaTideflats-MIC(7/10/2026),Tacoma Tideflats,MIC (7/10/2026),Industrial,8172,0.7662
+2025,AllMICs-AllMICs,All MICs,All MICs,Industrial,179183,0.7683
+2025,Region-Region,Region,Region,Industrial,,0.282
+2010,CascadeIndustrialCenter-MIC(7/10/2026),Cascade Industrial Center,MIC (7/10/2026),Non-Industrial,858,0.1636
+2010,Frederickson-MIC(7/10/2026),Frederickson,MIC (7/10/2026),Non-Industrial,366,0.1097
+2010,KentMIC-MIC(7/10/2026),Kent MIC,MIC (7/10/2026),Non-Industrial,7295,0.1935
+2010,NorthTukwila-MIC(7/10/2026),North Tukwila,MIC (7/10/2026),Non-Industrial,,0.2
+2010,PaineField/BoeingEverett-MIC(7/10/2026),Paine Field/Boeing Everett,MIC (7/10/2026),Non-Industrial,2495,0.0589
+2010,PugetSoundIndustrialCenter-Bremerton-MIC(7/10/2026),Puget Sound Industrial Center - Bremerton,MIC (7/10/2026),Non-Industrial,,0.093
+2010,SeattleBallard-Interbay-MIC(7/10/2026),Seattle Ballard-Interbay,MIC (7/10/2026),Non-Industrial,7569,0.5063
+2010,SeattleDuwamish-MIC(7/10/2026),Seattle Duwamish,MIC (7/10/2026),Non-Industrial,18598,0.3163
+2010,Sumner-Pacific-MIC(7/10/2026),Sumner-Pacific,MIC (7/10/2026),Non-Industrial,540,0.0809
+2010,TacomaTideflats-MIC(7/10/2026),Tacoma Tideflats,MIC (7/10/2026),Non-Industrial,1308,0.1375
+2010,AllMICs-AllMICs,All MICs,All MICs,Non-Industrial,42588,0.2201
+2010,Region-Region,Region,Region,Non-Industrial,,0.712
+2015,CascadeIndustrialCenter-MIC(7/10/2026),Cascade Industrial Center,MIC (7/10/2026),Non-Industrial,1041,0.1472
+2015,Frederickson-MIC(7/10/2026),Frederickson,MIC (7/10/2026),Non-Industrial,580,0.1269
+2015,KentMIC-MIC(7/10/2026),Kent MIC,MIC (7/10/2026),Non-Industrial,7608,0.1815
+2015,NorthTukwila-MIC(7/10/2026),North Tukwila,MIC (7/10/2026),Non-Industrial,2891,0.209
+2015,PaineField/BoeingEverett-MIC(7/10/2026),Paine Field/Boeing Everett,MIC (7/10/2026),Non-Industrial,2865,0.056
+2015,PugetSoundIndustrialCenter-Bremerton-MIC(7/10/2026),Puget Sound Industrial Center - Bremerton,MIC (7/10/2026),Non-Industrial,82,0.1025
+2015,SeattleBallard-Interbay-MIC(7/10/2026),Seattle Ballard-Interbay,MIC (7/10/2026),Non-Industrial,8851,0.4803
+2015,SeattleDuwamish-MIC(7/10/2026),Seattle Duwamish,MIC (7/10/2026),Non-Industrial,20074,0.3149
+2015,Sumner-Pacific-MIC(7/10/2026),Sumner-Pacific,MIC (7/10/2026),Non-Industrial,2296,0.1987
+2015,TacomaTideflats-MIC(7/10/2026),Tacoma Tideflats,MIC (7/10/2026),Non-Industrial,1367,0.1335
+2015,AllMICs-AllMICs,All MICs,All MICs,Non-Industrial,47654,0.2134
+2015,Region-Region,Region,Region,Non-Industrial,,0.709
+2020,CascadeIndustrialCenter-MIC(7/10/2026),Cascade Industrial Center,MIC (7/10/2026),Non-Industrial,1704,0.2126
+2020,Frederickson-MIC(7/10/2026),Frederickson,MIC (7/10/2026),Non-Industrial,992,0.185
+2020,KentMIC-MIC(7/10/2026),Kent MIC,MIC (7/10/2026),Non-Industrial,9366,0.192
+2020,NorthTukwila-MIC(7/10/2026),North Tukwila,MIC (7/10/2026),Non-Industrial,3392,0.299
+2020,PaineField/BoeingEverett-MIC(7/10/2026),Paine Field/Boeing Everett,MIC (7/10/2026),Non-Industrial,2708,0.0529
+2020,PugetSoundIndustrialCenter-Bremerton-MIC(7/10/2026),Puget Sound Industrial Center - Bremerton,MIC (7/10/2026),Non-Industrial,73,0.0745
+2020,SeattleBallard-Interbay-MIC(7/10/2026),Seattle Ballard-Interbay,MIC (7/10/2026),Non-Industrial,11527,0.609
+2020,SeattleDuwamish-MIC(7/10/2026),Seattle Duwamish,MIC (7/10/2026),Non-Industrial,23658,0.338
+2020,Sumner-Pacific-MIC(7/10/2026),Sumner-Pacific,MIC (7/10/2026),Non-Industrial,1432,0.0972
+2020,TacomaTideflats-MIC(7/10/2026),Tacoma Tideflats,MIC (7/10/2026),Non-Industrial,1697,0.1678
+2020,AllMICs-AllMICs,All MICs,All MICs,Non-Industrial,56548,0.2362
+2020,Region-Region,Region,Region,Non-Industrial,,0.718
+2025,CascadeIndustrialCenter-MIC(7/10/2026),Cascade Industrial Center,MIC (7/10/2026),Non-Industrial,2153,0.2193
+2025,Frederickson-MIC(7/10/2026),Frederickson,MIC (7/10/2026),Non-Industrial,1507,0.2316
+2025,KentMIC-MIC(7/10/2026),Kent MIC,MIC (7/10/2026),Non-Industrial,6715,0.1402
+2025,NorthTukwila-MIC(7/10/2026),North Tukwila,MIC (7/10/2026),Non-Industrial,1543,0.1599
+2025,PaineField/BoeingEverett-MIC(7/10/2026),Paine Field/Boeing Everett,MIC (7/10/2026),Non-Industrial,3199,0.0653
+2025,PugetSoundIndustrialCenter-Bremerton-MIC(7/10/2026),Puget Sound Industrial Center - Bremerton,MIC (7/10/2026),Non-Industrial,80,0.0545
+2025,SeattleBallard-Interbay-MIC(7/10/2026),Seattle Ballard-Interbay,MIC (7/10/2026),Non-Industrial,10161,0.6135
+2025,SeattleDuwamish-MIC(7/10/2026),Seattle Duwamish,MIC (7/10/2026),Non-Industrial,24735,0.3722
+2025,Sumner-Pacific-MIC(7/10/2026),Sumner-Pacific,MIC (7/10/2026),Non-Industrial,1467,0.0965
+2025,TacomaTideflats-MIC(7/10/2026),Tacoma Tideflats,MIC (7/10/2026),Non-Industrial,2493,0.2338
+2025,AllMICs-AllMICs,All MICs,All MICs,Non-Industrial,54051,0.2317
+2025,Region-Region,Region,Region,Non-Industrial,,0.718

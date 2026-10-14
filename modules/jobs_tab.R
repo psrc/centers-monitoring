@@ -18,7 +18,7 @@ jobs_server <- function(id, center_name, center_type) {
     output$jobs_chart <- renderEcharts4r({
       
       echart_column_chart(df = employment_data |> 
-                            filter(geography_type == center_type, geography == center_name() & grouping == "Total") |>
+                            filter(place_type == center_type, place_name == center_name() & grouping == "Total") |>
                             mutate(estimate = as.integer(estimate)) |>
                             filter(year %in% pop_hsg_yrs),
                           x = "year", y = "estimate", tog = "grouping", title = "Total Employment",
@@ -32,8 +32,8 @@ jobs_server <- function(id, center_name, center_type) {
       
       output$industrial_jobs_chart <- renderEcharts4r({
         
-        echart_multi_column_chart(df = industrial_jobs |> filter(geography %in% c(center_name(), "Region", "All Centers", "All RGCs", "All MICs") & year %in% industrial_years),
-                                  x = "grouping", y = "share", tog = "year", fill="geography",
+        echart_multi_column_chart(df = industrial_jobs |> filter(place_name %in% c(center_name(), "Region", "All Centers", "All RGCs", "All MICs") & year %in% industrial_years),
+                                  x = "grouping", y = "share", tog = "year", fill="place_name",
                                   dec = 0, esttype = "percent", color = "jewel")
         })
       

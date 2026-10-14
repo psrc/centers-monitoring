@@ -17,31 +17,31 @@ housing_server <- function(id, center_name, center_type) {
     # Tables and Charts
     output$hu_chart <- renderEcharts4r({
       
-      echart_column_chart(df = pop_hh_hu_data |> filter(geography_type == center_type, geography == center_name() & grouping == "Housing Units" & year %in% pop_hsg_yrs),
+      echart_column_chart(df = pop_hh_hu_data |> filter(place_type == center_type, place_name == center_name() & grouping == "Housing Units" & year %in% pop_hsg_yrs),
                           x = "year", y = "estimate", tog = "grouping", title = "Total Housing Units",
-                          dec = 0, esttype = "number", color = "blues")
+                          dec = -1, esttype = "number", color = "blues")
       
     })
     
-    output$hu_table <- DT::renderDataTable(create_single_group_table(df = pop_hh_hu_data, rgc_name = center_name(), data_yrs = pop_hsg_yrs, dec = 0, group = "Housing Units", center_type = center_type))
+    output$hu_table <- DT::renderDataTable(create_single_group_table(df = pop_hh_hu_data, rgc_name = center_name(), data_yrs = pop_hsg_yrs, dec = -1, group = "Housing Units", center_type = center_type))
     
     output$hu_change_chart <- renderEcharts4r({
       
       echart_column_chart(df = unit_data |>
-                            filter(geography_type %in% c(center_type) & geography %in% c(center_name()) & year %in% hu_yrs),
-                          x = "data_year", y = "estimate", tog = "concept", title = "New Net Housing Units",
+                            filter(place_type %in% c(center_type) & place_name %in% c(center_name()) & year %in% hu_yrs),
+                          x = "year", y = "estimate", tog = "concept", title = "New Net Housing Units",
                           dec = 0, esttype = "number", color = "purples")
       
     })
     
     output$hu_change_table <- DT::renderDataTable({create_change_table(df = unit_data |>
-                                                                         filter(geography_type %in% c(center_type) & geography %in% c(center_name()) & year %in% hu_yrs), 
-                                                                       yr = "data_year",val="estimate", nm="New Net Housing Units")})
+                                                                         filter(place_type %in% c(center_type) & place_name %in% c(center_name()) & year %in% hu_yrs), 
+                                                                       yr = "year",val="estimate", nm="New Net Housing Units")})
     
     output$tenure_chart <- renderEcharts4r({
       
-      echart_multi_column_chart(df = tenure_data |> filter(geography_type %in% c(center_type, "County") & geography %in% c(center_name(), "Region", "All Centers", "All RGCs", "All MICs") & grouping != "Total" & year %in% census_years),
-                                x = "grouping", y = "share", fill="geography", tog = "year", 
+      echart_multi_column_chart(df = tenure_data |> filter(place_type %in% c(center_type, "Region") & place_name %in% c(center_name(), "Region", "All Centers", "All RGCs", "All MICs") & grouping != "Total" & year %in% census_years),
+                                x = "grouping", y = "share", fill="place_name", tog = "year", 
                                 dec = 0, esttype = "percent", color = "jewel")
     })
     
@@ -50,9 +50,9 @@ housing_server <- function(id, center_name, center_type) {
     output$type_chart <- renderEcharts4r({
       
       echart_multi_bar_chart(df = type_data |>
-                               filter(geography_type %in% c(center_type, "County") & geography %in% c(center_name(), "Region", "All Centers", "All RGCs", "All MICs") & grouping != "Total" & year %in% census_years) |>
+                               filter(place_type %in% c(center_type, "Region") & place_name %in% c(center_name(), "Region", "All Centers", "All RGCs", "All MICs") & grouping != "Total" & year %in% census_years) |>
                                arrange(desc(grouping)),
-                             x = "grouping", y = "share", fill="geography", tog = "year", 
+                             x = "grouping", y = "share", fill="place_name", tog = "year", 
                              dec = 0, esttype = "percent", color = "jewel")
     })
     
@@ -63,8 +63,8 @@ housing_server <- function(id, center_name, center_type) {
       output$renter_burden_chart <- renderEcharts4r({
       
        echart_multi_column_chart(df = renter_burden_data |>
-                                    filter(geography_type %in% c(center_type, "County") & geography %in% c(center_name(), "Region", "All Centers", "All RGCs", "All MICs") & grouping != "Total" & year %in% census_years),
-                                  x = "grouping", y = "share", fill="geography", tog = "year", 
+                                    filter(place_type %in% c(center_type, "Region") & place_name %in% c(center_name(), "Region", "All Centers", "All RGCs", "All MICs") & grouping != "Total" & year %in% census_years),
+                                  x = "grouping", y = "share", fill="place_name", tog = "year", 
                                   dec = 0, esttype = "percent", color = "jewel")
       })
     
@@ -73,8 +73,8 @@ housing_server <- function(id, center_name, center_type) {
       output$owner_burden_chart <- renderEcharts4r({
       
         echart_multi_column_chart(df = owner_burden_data |>
-                                    filter(geography_type %in% c(center_type, "County") & geography %in% c(center_name(), "Region", "All Centers", "All RGCs", "All MICs") & grouping != "Total" & year %in% census_years),
-                                  x = "grouping", y = "share", fill="geography", tog = "year", 
+                                    filter(place_type %in% c(center_type, "Region") & place_name %in% c(center_name(), "Region", "All Centers", "All RGCs", "All MICs") & grouping != "Total" & year %in% census_years),
+                                  x = "grouping", y = "share", fill="place_name", tog = "year", 
                                   dec = 0, esttype = "percent", color = "jewel")
       
       })

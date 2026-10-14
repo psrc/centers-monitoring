@@ -20,8 +20,8 @@ transportation_server <- function(id, center_name, center_type, center_desc) {
       
       output$resident_mode_chart <- renderEcharts4r({
         echart_multi_column_chart(df = mode_data %>% 
-                                    filter(geography_type %in% c(center_type, "County") & geography %in% c(center_name(), "Region", "All Centers", "All RGCs", "All MICs") & grouping != "Total" & year %in% census_years),
-                                  x = "grouping", y = "share", fill="geography", tog = "year", 
+                                    filter(place_type %in% c(center_type, "Region") & place_name %in% c(center_name(), "Region", "All Centers", "All RGCs", "All MICs") & grouping != "Total" & year %in% census_years),
+                                  x = "grouping", y = "share", fill="place_name", tog = "year", 
                                   dec = 0, esttype = "percent", color = "jewel")
         })
     
@@ -32,12 +32,12 @@ transportation_server <- function(id, center_name, center_type, center_desc) {
     output$destination_mode_chart <- renderEcharts4r({
       
       echart_multi_column_chart(df = destination_mode_data %>% 
-                                  filter(geography_type %in% c(center_type, "Region") & geography %in% c(center_name(), "Region", "All Centers", "All RGCs", "All MICs") & grouping != "Total"),
-                                x = "grouping", y = "share", fill="geography", tog = "concept", 
+                                  filter(place_type %in% c(center_type, "Region") & place_name %in% c(center_name(), "Region", "All Centers", "All RGCs", "All MICs") & grouping != "Total"),
+                                x = "grouping", y = "share", fill="place_name", tog = "concept", 
                                 dec = 0, esttype = "percent", color = "jewel")
     })
     
-    output$destination_mode_table <- DT::renderDataTable({create_multi_year_table(df = destination_mode_data, rgc_name = center_name(), data_yrs = c("2018"), dec = 1, center_type = center_type)})
+    output$destination_mode_table <- DT::renderDataTable({create_multi_year_table(df = destination_mode_data, rgc_name = center_name(), data_yrs = c("2023"), dec = 1, center_type = center_type)})
     
     output$stop_table <- DT::renderDataTable({create_transit_stop_table(center_name = center_name(), center_type = center_type)})
     
@@ -80,9 +80,9 @@ transportation_server <- function(id, center_name, center_type, center_desc) {
           br(),
           fluidRow(column(12, dataTableOutput(ns("destination_mode_table")))),
           br(),
-          tags$div(class="chart_source","Source: 2018 PSRC SoundCast Activity Based Model"),
+          tags$div(class="chart_source","Source: 2023 PSRC SoundCast Activity Based Model"),
           br(),
-          tags$div(class="chart_source", "Note: Results are from the Regional Activity Based Model. If a zero value is shown, there is not reliable model data for this geography and the data is suppressed."),
+          tags$div(class="chart_source", "Note: Results are from the Regional Activity Based Model. If a zero value is shown, there is not reliable model data for this place_name and the data is suppressed."),
           hr(style = "border-top: 1px solid #000000;")
         )
         
@@ -110,9 +110,9 @@ transportation_server <- function(id, center_name, center_type, center_desc) {
           br(),
           fluidRow(column(12, dataTableOutput(ns("destination_mode_table")))),
           br(),
-          tags$div(class="chart_source","Source: 2018 PSRC SoundCast Activity Based Model"),
+          tags$div(class="chart_source","Source: 2023 PSRC SoundCast Activity Based Model"),
           br(),
-          tags$div(class="chart_source", "Note: Results are from the Regional Activity Based Model. If a zero value is shown, there is not reliable model data for this geography and the data is suppressed."),
+          tags$div(class="chart_source", "Note: Results are from the Regional Activity Based Model. If a zero value is shown, there is not reliable model data for this place_name and the data is suppressed."),
           hr(style = "border-top: 1px solid #000000;")
         )
         

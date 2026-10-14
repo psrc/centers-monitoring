@@ -367,7 +367,7 @@ echart_multi_column_chart <- function(df, x, y, fill, tog, dec, esttype, color) 
                                top = 15,
                                right = 200,
                                left = 200,
-                               #currentIndex = 2,
+                               #currentIndex = 4,
                                controlStyle=FALSE,
                                lineStyle=FALSE,
                                label = list(show=TRUE,
@@ -582,19 +582,19 @@ create_rgc_urban_form_table <- function(center_name) {
   
   # Intersections
   r1 <- intersection_density %>% 
-    filter(name == center_name) %>% 
-    select("name", estimate="intersection_count") %>% 
+    filter(place_name == center_name) %>% 
+    select("place_name", estimate="intersection_count") %>% 
     mutate(grouping="# of Intersections")
   
   # Intersection Density
   r2 <- intersection_density %>% 
-    filter(name == center_name) %>% 
-    select("name", estimate="intersection_density") %>% 
+    filter(place_name == center_name) %>% 
+    select("place_name", estimate="intersection_density") %>% 
     mutate(grouping="Intersection Density (per 10 acres)")
   
   r3 <- intersection_density %>% 
-    filter(name == "All Centers") %>% 
-    select("name", estimate="intersection_density") %>% 
+    filter(place_name == "All Centers") %>% 
+    select("place_name", estimate="intersection_density") %>% 
     mutate(grouping="Intersection Density (per 10 acres) - All Centers")
   
   t <- bind_rows(r1, r2, r3) %>% select("grouping", "estimate")
@@ -640,9 +640,9 @@ create_rgc_urban_form_table <- function(center_name) {
 create_transit_stop_table <- function(center_name, center_type) {
   
   t <- transit_stop_data |> 
-    filter(geography == center_name & geography_type == center_type) |>
-    select("mode", "stops") |>
-    mutate(stops = format(stops, big.mark = ","))
+    filter(place_name == center_name & place_type == center_type) |>
+    select("grouping", "estimate") |>
+    mutate(estimate = format(estimate, big.mark = ","))
   
   headerCallbackRemoveHeaderFooter <- c(
     "function(thead, data, start, end, display){",
@@ -670,11 +670,11 @@ create_transit_stop_table <- function(center_name, center_type) {
   
   # Add Section Breaks
   summary_tbl <- summary_tbl %>%
-    formatStyle(0:ncol(t), valueColumns = "mode",
-                `border-bottom` = styleEqual(c("Light Rail or Streetcar"), "solid 2px"))
+    formatStyle(0:ncol(t), valueColumns = "grouping",
+                `border-bottom` = styleEqual(c("Light Rail, Monorail or Streetcar"), "solid 2px"))
   
   summary_tbl <- summary_tbl %>%
-    formatStyle(0:ncol(t), valueColumns = "mode",
+    formatStyle(0:ncol(t), valueColumns = "grouping",
                 `border-top` = styleEqual(c("All Transit Stops"), "solid 2px"))
   
   return(summary_tbl)
@@ -689,16 +689,23 @@ create_transit_map <- function(center_name, center_type) {
   
   if(center_type == rgc_title) {
     
-    center_shp <- rgc_shape |> filter(name %in% center_name)
+    center_shp <- rgc_shape |> filter(place_name %in% center_name)
     
   } else {
     
-    center_shp <- mic_shape |> filter(name %in% center_name)
+    center_shp <- mic_shape |> filter(place_name %in% center_name)
     
   }
   
   stops <- st_intersection(transit_stop_lyr, center_shp) |> select("stop_id", "type_name")
   
+  num_stops <- stops |>
+    st_drop_geometry() |>
+    select("stop_id") |>
+    pull() |>
+    unique() |>
+    length()
+
   lrt_stops <- stops |>
     filter(type_name == "Light Rail, Monorail or Streetcar") |>
     select(Stop="stop_id", Mode="type_name") |>
@@ -770,99 +777,135 @@ create_transit_map <- function(center_name, center_type) {
   lng1 <- center_limits$limits$lng[1]
   lng2 <- center_limits$limits$lng[2]
   
-  m <- leaflet() |>
+  if (num_stops >0) {
     
-    addProviderTiles(providers$CartoDB.Positron) |>
-    
-    addLayersControl(baseGroups = c("Base Map"),
-                     overlayGroups = c("Bus",
-                                       "BRT", 
-                                       "Commuter Rail",
-                                       "Ferry",
-                                       "Light Rail, Monorail or Streetcar", 
-                                       "Center"),
-                     options = layersControlOptions(collapsed = TRUE)) |>
-    
-    addPolylines(data=bus_routes, 
+    m <- leaflet() |>
+      
+      addProviderTiles(providers$Esri.WorldGrayCanvas) |>
+      
+      addLayersControl(baseGroups = c("Base Map"),
+                       overlayGroups = c("Bus",
+                                         "BRT", 
+                                         "Commuter Rail",
+                                         "Ferry",
+                                         "Light Rail, Monorail or Streetcar", 
+                                         "Center"),
+                       options = layersControlOptions(collapsed = TRUE)) |>
+      
+      addPolylines(data=bus_routes, 
+                   group="Bus",
+                   weight = 4, 
+                   label = bus_labels, 
+                   color = "#BCBEC0") |>
+      
+      addPolylines(data=brt_routes, 
+                   group="BRT",
+                   weight = 4, 
+                   label = brt_labels, 
+                   color = "#8CC63E") |>
+      
+      addPolylines(data=crt_routes, 
+                   group="Commuter Rail",
+                   weight = 4, 
+                   label = crt_labels, 
+                   color = "#91268F") |>
+      
+      addPolylines(data=ferry_routes, 
+                   group="Ferry",
+                   weight = 4, 
+                   label = ferry_labels, 
+                   color = "#00A7A0") |>
+      
+      addPolylines(data=lrt_routes, 
+                   group="Light Rail, Monorail or Streetcar",
+                   weight = 4, 
+                   label = lrt_labels, 
+                   color = "#F05A28") |>
+      
+      addPolygons(data = center_shp,
+                  fillColor = "76787A",
+                  weight = 4,
+                  opacity = 1.0,
+                  color = "#EB4584",
+                  dashArray = "4",
+                  fillOpacity = 0.0,
+                  group="Center") |>
+      
+      addCircles(data=bus_stops, 
                  group="Bus",
-                 weight = 4, 
-                 label = bus_labels, 
-                 color = "#BCBEC0") |>
-    
-    addPolylines(data=brt_routes, 
+                 color = "#76787A",
+                 opacity = 1.0,
+                 fillOpacity = 1.0) |>
+      
+      addCircles(data=brt_stops, 
                  group="BRT",
-                 weight = 4, 
-                 label = brt_labels, 
-                 color = "#8CC63E") |>
-    
-    addPolylines(data=crt_routes, 
+                 color = "#3f6618",
+                 opacity = 1.0,
+                 fillOpacity = 1.0) |>
+      
+      addCircles(data=crt_stops, 
                  group="Commuter Rail",
-                 weight = 4, 
-                 label = crt_labels, 
-                 color = "#91268F") |>
-    
-    addPolylines(data=ferry_routes, 
+                 color = "#4a0048",
+                 opacity = 1.0,
+                 fillOpacity = 1.0) |>
+      
+      addCircles(data=ferry_stops, 
                  group="Ferry",
-                 weight = 4, 
-                 label = ferry_labels, 
-                 color = "#00A7A0") |>
-    
-    addPolylines(data=lrt_routes, 
+                 color = "#005753",
+                 opacity = 1.0,
+                 fillOpacity = 1.0) |>
+      
+      addCircles(data=lrt_stops, 
                  group="Light Rail, Monorail or Streetcar",
-                 weight = 4, 
-                 label = lrt_labels, 
-                 color = "#F05A28") |>
+                 color = "#7a2700",
+                 opacity = 1.0,
+                 fillOpacity = 1.0) |>
+      
+      fitBounds(lng1 = lng1, lat1 = lat1, lng2 = lng2, lat2 = lat2)
     
-    addPolygons(data = center_shp,
-                fillColor = "76787A",
-                weight = 4,
-                opacity = 1.0,
-                color = "#EB4584",
-                dashArray = "4",
-                fillOpacity = 0.0,
-                group="Center") |>
     
-    addCircles(data=bus_stops, 
-               group="Bus",
-               color = "#76787A",
-               opacity = 1.0,
-               fillOpacity = 1.0) |>
+  } else {
     
-    addCircles(data=brt_stops, 
-               group="BRT",
-               color = "#3f6618",
-               opacity = 1.0,
-               fillOpacity = 1.0) |>
+    m <- leaflet() |>
+      
+      addProviderTiles(providers$Esri.WorldGrayCanvas) |>
+      
+      addLayersControl(baseGroups = c("Base Map"),
+                       overlayGroups = c("Bus",
+                                         "BRT", 
+                                         "Commuter Rail",
+                                         "Ferry",
+                                         "Light Rail, Monorail or Streetcar", 
+                                         "Center"),
+                       options = layersControlOptions(collapsed = TRUE)) |>
+      
+      addPolygons(data = center_shp,
+                  fillColor = "76787A",
+                  weight = 4,
+                  opacity = 1.0,
+                  color = "#EB4584",
+                  dashArray = "4",
+                  fillOpacity = 0.0,
+                  group="Center") |>
+      
+      fitBounds(lng1 = lng1, lat1 = lat1, lng2 = lng2, lat2 = lat2) |>
+      
+      addControl(HTML("There are no transit stops within this center"), position = "topleft")
     
-    addCircles(data=crt_stops, 
-               group="Commuter Rail",
-               color = "#4a0048",
-               opacity = 1.0,
-               fillOpacity = 1.0) |>
-    
-    addCircles(data=ferry_stops, 
-               group="Ferry",
-               color = "#005753",
-               opacity = 1.0,
-               fillOpacity = 1.0) |>
-    
-    addCircles(data=lrt_stops, 
-               group="Light Rail, Monorail or Streetcar",
-               color = "#7a2700",
-               opacity = 1.0,
-               fillOpacity = 1.0) |>
-    
-    fitBounds(lng1 = lng1, lat1 = lat1, lng2 = lng2, lat2 = lat2)
+  }
   
+
   return(m)
-  
   
 }
 
 # General Tables ----------------------------------------------------------
 create_single_group_table <- function(df, rgc_name, data_yrs, group, dec=0, center_type=rgc_title) {
   
-  df <- df %>% filter(geography_type == center_type, geography == rgc_name & grouping == group & year %in% data_yrs)
+  df <- df |>
+    filter(place_type == center_type, 
+           place_name == rgc_name & grouping == group & year %in% data_yrs) |>
+    mutate(estimate = round(estimate, dec))
   
   # Get All possible categories
   tbl_full <- NULL
@@ -1009,7 +1052,7 @@ create_multi_group_table <- function(df, rgc_name, grp, dec=0, center_type=rgc_t
   
   # Filter Data
   tbl <- df %>% 
-    filter(geography_type %in% c(center_type) & geography %in% c(rgc_name)) %>%
+    filter(place_type %in% c(center_type) & place_name %in% c(rgc_name)) %>%
     select("grouping", "estimate", "share", "concept") 
   
   tbl_full <- left_join(tbl_full, tbl, by=c("grouping", "concept")) %>%
@@ -1132,7 +1175,7 @@ create_multi_year_table <- function(df, rgc_name, data_yrs, dec=0, center_type=r
   
   # Filter Data
   tbl <- df %>% 
-    filter(geography_type %in% c(center_type) & geography %in% c(rgc_name)) %>%
+    filter(place_type %in% c(center_type) & place_name %in% c(rgc_name)) %>%
     select("grouping", "share", "year") 
   
   tbl_full <- left_join(tbl_full, tbl, by=c("grouping", "year")) %>%
@@ -1269,7 +1312,7 @@ create_multi_year_table_all <- function(df, rgc_name, data_yrs, dec=0, center_ty
   
   # Filter Data
   tbl <- df %>% 
-    filter(geography_type %in% c(center_type) & geography %in% c(rgc_name)) %>%
+    filter(place_type %in% c(center_type) & place_name %in% c(rgc_name)) %>%
     select("grouping", "estimate", "share", "year") 
   
   tbl_full <- left_join(tbl_full, tbl, by=c("grouping", "year")) %>%
@@ -1298,7 +1341,7 @@ create_multi_year_table_all <- function(df, rgc_name, data_yrs, dec=0, center_ty
 create_rgc_jobs_by_sector_table <- function(center_name, center_type="Regional Growth Center (6/22/2023)") {
   
   sectors <- employment_data |> select("grouping") |> distinct() |> pull()
-  data <- employment_data |> filter(geography == center_name & geography_type == center_type) |> mutate(year = as.integer(as.character(year)))
+  data <- employment_data |> filter(place_name == center_name & place_type == center_type) |> mutate(year = as.integer(as.character(year)))
   max_year <- max(data$year)
   
   # Jobs by Sector
@@ -1351,77 +1394,16 @@ create_rgc_jobs_by_sector_table <- function(center_name, center_type="Regional G
   
 }
 
-create_public_spreadsheet <- function(table_list, place_name) {
-  
-  hs <- createStyle(
-    fontColour = "black",
-    border = "bottom",
-    fgFill = "#00a7a0",
-    halign = "center",
-    valign = "center",
-    textDecoration = "bold"
-  )
-  
-  ns <- createStyle(
-    fontName = "Poppins",
-    fontColour = "black",
-    fontSize = 11,
-    halign = "left",
-    valign = "center",
-  )
-  
-  table_idx <- 1
-  sheet_idx <- 2
-  
-  wb <- loadWorkbook("data/metadata.xlsx")
-  
-  # Set Font Style
-  addStyle(wb = wb, sheet = "Data Notes", style = ns, rows = 1:2, cols = 2)
-  
-  writeData(
-    wb = wb,
-    sheet = "Data Notes",
-    x = place_name,
-    xy = c(2,1))
-  
-  writeData(
-    wb = wb,
-    sheet = "Data Notes",
-    x = Sys.Date(),
-    xy = c(2,2))
-  
-  for (i in table_list) {
-    for (j in names(table_list)) {
-      if (names(table_list)[table_idx] == j) {
-        
-        addWorksheet(wb, sheetName = j)
-        writeDataTable(wb, sheet = sheet_idx, x = i, tableStyle = "none", headerStyle = hs, withFilter = FALSE)
-        setColWidths(wb, sheet = sheet_idx, cols = 1:length(i), widths = "auto")
-        freezePane(wb, sheet = sheet_idx, firstRow = TRUE)
-        
-      } else {next}
-    }
-    if (table_idx < length(table_list)) {
-      
-      table_idx <- table_idx + 1
-      sheet_idx <- sheet_idx + 1
-      
-    } else {break}
-  }
-  
-  return(wb)
-}
-
 # General Centers Information -------------------------------------------------------------
 create_center_map <- function(center_name, center_type) {
   
   if(center_type == rgc_title) {
     
-    center_shp <- rgc_shape |> filter(name %in% center_name)
+    center_shp <- rgc_shape |> filter(place_name %in% center_name)
     
   } else {
     
-    center_shp <- mic_shape |> filter(name %in% center_name)
+    center_shp <- mic_shape |> filter(place_name %in% center_name)
     
   }
   
@@ -1441,18 +1423,8 @@ create_center_map <- function(center_name, center_type) {
 
 pull_center_information <- function(center_name, center_type, center_info) {
   
-  if(center_type == rgc_title) {
-    
-    center_desc <- "Regional Growth Center"
-    
-  } else {
-    
-    center_desc <- "Manufacturing Industrial Center"
-    
-  }
-  
   t <- centers_info |>
-    filter(rgc_mic==center_desc & name == center_name) |>
+    filter(place_type==center_type & place_name == center_name) |>
     select(all_of(center_info)) |>
     pull()
   
@@ -1465,29 +1437,27 @@ pull_center_information <- function(center_name, center_type, center_info) {
 create_summary_table <- function(center_name, center_type, yr) {
   
   if(center_type == rgc_title) {
-    
-    d <- rgc_shape |> st_drop_geometry() |> filter(name %in% center_name)
-    center_desc <- "Regional Growth Center"
-    
+
+    d <- rgc_shape |> st_drop_geometry() |> filter(place_name %in% center_name)
+
   } else {
-    
-    d <- mic_shape |> st_drop_geometry() |> filter(name %in% center_name)
-    center_desc <- "Manufacturing Industrial Center"
-    
+
+    d <- mic_shape |> st_drop_geometry() |> filter(place_name %in% center_name)
+
   }
   
   # Area
   r1 <- d |>
-    select("name", "acres") |> 
-    mutate(grouping="Land Area (acres)") |> 
+    select(name = "place_name", "acres") |> 
+    mutate(grouping="Total Gross Acreage") |> 
     mutate(estimate=as.character(round(acres,0))) |>
     mutate(pic = as.character(icon("layer-group", lib = "font-awesome"))) |>
     select(-"acres")
   
   # Designation Year
   r2 <- centers_info |> 
-    filter(name == center_name & rgc_mic == center_desc) |>
-    select("name", "designation_year") |> 
+    filter(place_name == center_name & place_type == center_type) |>
+    select(name = "place_name", "designation_year") |> 
     mutate(grouping="Designation Year") |> 
     mutate(estimate=as.character(designation_year)) |>
     mutate(pic = as.character(icon("calendar-check", lib = "font-awesome"))) |>
@@ -1495,32 +1465,32 @@ create_summary_table <- function(center_name, center_type, yr) {
   
   # Center Type
   r3 <- centers_info |> 
-    filter(name == center_name & rgc_mic == center_desc) |> 
-    select("name", "center_type")|> 
+    filter(place_name == center_name & place_type == center_type) |> 
+    select(name = "place_name", "place_category")|> 
     mutate(grouping="Center Type") |> 
-    mutate(estimate=as.character(center_type)) |>
+    mutate(estimate=as.character(place_category)) |>
     mutate(pic = as.character(icon("city", lib = "font-awesome"))) |>
-    select(-"center_type")
+    select(-"place_category")
   
   # Population
   r4 <- pop_hh_hu_data |> 
-    filter(year == yr & geography == center_name & geography_type == center_type & grouping == "Population") |> 
-    select(name="geography", "grouping", "estimate") |>
+    filter(year == yr & place_name == center_name & place_type == center_type & grouping == "Population") |> 
+    select(name="place_name", "grouping", "estimate") |>
     mutate(estimate = format(round(estimate, -1), big.mark = ",")) |>
     mutate(pic = as.character(icon("users", lib = "font-awesome")))
   
   # Housing Units
   r5 <- pop_hh_hu_data |> 
-    filter(year == yr & geography == center_name & geography_type == center_type & grouping == "Housing Units") |>
-    select(name="geography", "grouping", "estimate") |>
+    filter(year == yr & place_name == center_name & place_type == center_type & grouping == "Housing Units") |>
+    select(name="place_name", "grouping", "estimate") |>
     mutate(estimate = format(round(estimate, -1), big.mark = ",")) |>
     mutate(pic = as.character(icon("building", lib = "font-awesome")))
   
   # Jobs
   j <- employment_data |> 
-    filter(year == yr & geography == center_name & geography_type == center_type & grouping == "Total") |> 
+    filter(year == yr & place_name == center_name & place_type == center_type & grouping == "Total") |> 
     mutate(grouping="Total Employment") |> 
-    select(name="geography", "grouping", "estimate") |> 
+    select(name="place_name", "grouping", "estimate") |> 
     select("estimate") |> 
     pull()
   
@@ -1531,9 +1501,9 @@ create_summary_table <- function(center_name, center_type, yr) {
   } else {
     
     r6 <- employment_data |> 
-      filter(year == yr & geography == center_name & geography_type == center_type & grouping == "Total") |> 
+      filter(year == yr & place_name == center_name & place_type == center_type & grouping == "Total") |> 
       mutate(grouping="Total Employment") |> 
-      select(name="geography", "grouping", "estimate") |>
+      select(name="place_name", "grouping", "estimate") |>
       mutate(estimate = format(round(as.integer(estimate), -1), big.mark = ",")) |>
       mutate(pic = as.character(icon("briefcase", lib = "font-awesome")))
     
@@ -1543,17 +1513,17 @@ create_summary_table <- function(center_name, center_type, yr) {
   acres <- r1 |> select("estimate") |> pull() |> as.integer()
   
   pop <- pop_hh_hu_data |> 
-    filter(year == yr & geography == center_name & geography_type == center_type) |> 
-    select(name="geography", "grouping", "estimate") |>
+    filter(year == yr & place_name == center_name & place_type == center_type) |> 
+    select(name="place_name", "grouping", "estimate") |>
     filter(grouping %in% c("Population")) |> 
     select("estimate") |> 
     pull() |>
     as.integer()
   
   j <- employment_data |> 
-    filter(year == yr & geography == center_name & geography_type == center_type & grouping == "Total") |> 
+    filter(year == yr & place_name == center_name & place_type == center_type & grouping == "Total") |> 
     mutate(grouping="Total Employment") |> 
-    select(name="geography", "grouping", "estimate") |> 
+    select(name="place_name", "grouping", "estimate") |> 
     select("estimate") |> 
     pull()
   
@@ -1591,15 +1561,21 @@ create_summary_table <- function(center_name, center_type, yr) {
     
   }
   
-  if (is.na(j)) {
+  if (is.na(j)) { 
     
     jpr <- "*"
     
   } else {
     
-    jpr <- round((jobs)/pop,1)
+      jpr <- round((jobs)/pop,1)
+      
+      }
+  
+  if(pop == 0) {
     
-  }
+    jpr <- "-"
+    
+  }  
   
   r8 <- r7 |> mutate(estimate = as.character(jpr), grouping = "Jobs per Resident", pic = as.character(icon("person-shelter", lib = "font-awesome")))
   
@@ -1693,22 +1669,24 @@ echart_pie_chart <- function(df, value, fill, dec, esttype, color) {
 
 create_mic_summary_table <- function(center_name, yr) {
   
-  d <- mic_shape |> st_drop_geometry() |> filter(name %in% center_name)
-  center_desc <- "Manufacturing Industrial Center"
+  d <- mic_shape |> 
+    st_drop_geometry() |> 
+    filter(place_name %in% center_name)
+  
   center_type <- mic_title
   
   # Area
   r1 <- d |>
-    select("name", "acres") |> 
-    mutate(grouping="Total Acres") |> 
+    select(name = "place_name", "acres") |> 
+    mutate(grouping="Total Gross Acreage") |> 
     mutate(estimate=as.character(round(acres,0))) |>
     mutate(pic = as.character(icon("layer-group", lib = "font-awesome"))) |>
     select(-"acres")
   
   # Designation Year
   r2 <- centers_info |> 
-    filter(name == center_name & rgc_mic == center_desc) |>
-    select("name", "designation_year") |> 
+    filter(place_name == center_name & place_type == center_type) |>
+    select(name = "place_name", "designation_year") |> 
     mutate(grouping="Designation Year") |> 
     mutate(estimate=as.character(designation_year)) |>
     mutate(pic = as.character(icon("calendar-check", lib = "font-awesome"))) |>
@@ -1716,32 +1694,32 @@ create_mic_summary_table <- function(center_name, yr) {
   
   # Center Type
   r3 <- centers_info |> 
-    filter(name == center_name & rgc_mic == center_desc) |> 
-    select("name", "center_type")|> 
+    filter(place_name == center_name & place_type == center_type) |> 
+    select(name = "place_name", "place_category")|> 
     mutate(grouping="Center Type") |> 
-    mutate(estimate=as.character(center_type)) |>
+    mutate(estimate=as.character(place_category)) |>
     mutate(pic = as.character(icon("city", lib = "font-awesome"))) |>
-    select(-"center_type")
+    select(-"place_category")
   
   # Population
   r4 <- pop_hh_hu_data |> 
-    filter(year == yr & geography == center_name & geography_type == center_type & grouping == "Population") |> 
-    select(name="geography", "grouping", "estimate") |>
+    filter(year == yr & place_name == center_name & place_type == center_type & grouping == "Population") |> 
+    select(name="place_name", "grouping", "estimate") |>
     mutate(estimate = format(round(estimate, -1), big.mark = ",")) |>
     mutate(pic = as.character(icon("users", lib = "font-awesome")))
   
   # Housing Units
   r5 <- pop_hh_hu_data |> 
-    filter(year == yr & geography == center_name & geography_type == center_type & grouping == "Housing Units") |>
-    select(name="geography", "grouping", "estimate") |>
+    filter(year == yr & place_name == center_name & place_type == center_type & grouping == "Housing Units") |>
+    select(name="place_name", "grouping", "estimate") |>
     mutate(estimate = format(round(estimate, -1), big.mark = ",")) |>
     mutate(pic = as.character(icon("building", lib = "font-awesome")))
   
   # Jobs
   j <- employment_data |> 
-    filter(year == yr & geography == center_name & geography_type == center_type & grouping == "Total") |> 
+    filter(year == yr & place_name == center_name & place_type == center_type & grouping == "Total") |> 
     mutate(grouping="Total Employment") |> 
-    select(name="geography", "grouping", "estimate") |> 
+    select(name="place_name", "grouping", "estimate") |> 
     select("estimate") |> 
     pull()
   
@@ -1752,9 +1730,9 @@ create_mic_summary_table <- function(center_name, yr) {
   } else {
     
     r6 <- employment_data |> 
-      filter(year == yr & geography == center_name & geography_type == center_type & grouping == "Total") |> 
+      filter(year == yr & place_name == center_name & place_type == center_type & grouping == "Total") |> 
       mutate(grouping="Total Employment") |> 
-      select(name="geography", "grouping", "estimate") |>
+      select(name="place_name", "grouping", "estimate") |>
       mutate(estimate = format(round(as.integer(estimate), -1), big.mark = ",")) |>
       mutate(pic = as.character(icon("briefcase", lib = "font-awesome")))
     
@@ -1764,9 +1742,9 @@ create_mic_summary_table <- function(center_name, yr) {
   acres <- r1 |> select("estimate") |> pull() |> as.integer()
   
   j <- employment_data |> 
-    filter(year == yr & geography == center_name & geography_type == center_type & grouping == "Total") |> 
+    filter(year == yr & place_name == center_name & place_type == center_type & grouping == "Total") |> 
     mutate(grouping="Total Employment") |> 
-    select(name="geography", "grouping", "estimate") |> 
+    select(name="place_name", "grouping", "estimate") |> 
     select("estimate") |> 
     pull()
   
@@ -1795,8 +1773,8 @@ create_mic_summary_table <- function(center_name, yr) {
   # Jobs / Pop Balance
   
   pop <- pop_hh_hu_data |> 
-    filter(year == yr & geography == center_name & geography_type == center_type) |> 
-    select(name="geography", "grouping", "estimate") |>
+    filter(year == yr & place_name == center_name & place_type == center_type) |> 
+    select(name="place_name", "grouping", "estimate") |>
     filter(grouping %in% c("Population")) |> 
     select("estimate") |> 
     pull() |>
@@ -1825,8 +1803,8 @@ create_mic_summary_table <- function(center_name, yr) {
   r8 <- r7 |> mutate(estimate = as.character(jpr), grouping = "Jobs per Resident", pic = as.character(icon("person-shelter", lib = "font-awesome")))
   
   r9 <- industrial_jobs |> 
-    filter(year == max(industrial_years) & geography == center_name & geography_type == center_type & grouping == "Industrial") |> 
-    select(name="geography", "grouping", estimate="share") |>
+    filter(year == max(industrial_years) & place_name == center_name & place_type == center_type & grouping == "Industrial") |> 
+    select(name="place_name", "grouping", estimate="share") |>
     mutate(estimate = label_percent(accuracy=1)(estimate), grouping = "% Industrial Jobs") |>
     mutate(pic = as.character(icon("industry", lib = "font-awesome")))
   
