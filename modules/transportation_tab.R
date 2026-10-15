@@ -27,6 +27,16 @@ transportation_server <- function(id, center_name, center_type, center_desc) {
     
       output$resident_mode_table <- DT::renderDataTable({create_multi_year_table(df = mode_data, rgc_name = center_name(), data_yrs = as.character(census_years), dec = 1, center_type = center_type)})
       
+      output$vehicles_chart <- renderEcharts4r({
+        echart_multi_column_chart(df = vehicle_availability_data %>% 
+                                    filter(place_type %in% c(center_type, "Region") & place_name %in% c(center_name(), "Region", "All Centers", "All RGCs", "All MICs") & grouping != "Total" & year %in% census_years),
+                                  x = "grouping", y = "share", fill="place_name", tog = "year", 
+                                  dec = 0, esttype = "percent", color = "jewel")
+      })
+      
+      output$vehicles_table <- DT::renderDataTable({create_multi_year_table(df = vehicle_availability_data, rgc_name = center_name(), data_yrs = as.character(census_years), dec = 1, center_type = center_type)})
+      
+      
     }
     
     output$destination_mode_chart <- renderEcharts4r({
@@ -73,7 +83,6 @@ transportation_server <- function(id, center_name, center_type, center_desc) {
           tags$div(class="chart_source","Source: US Census Bureau American Community Survey (ACS) 5yr Data Table B08301"),
           hr(style = "border-top: 1px solid #000000;"),
           
-        
           # Destination Mode Share
           strong(tags$div(class="chart_title","Commute Mode of Workers ")),
           fluidRow(column(12,echarts4rOutput(ns("destination_mode_chart")))),
@@ -83,7 +92,17 @@ transportation_server <- function(id, center_name, center_type, center_desc) {
           tags$div(class="chart_source","Source: 2023 PSRC SoundCast Activity Based Model"),
           br(),
           tags$div(class="chart_source", "Note: Results are from the Regional Activity Based Model. If a zero value is shown, there is not reliable model data for this place_name and the data is suppressed."),
+          hr(style = "border-top: 1px solid #000000;"),
+         
+          # Vehicle Availability
+          strong(tags$div(class="chart_title","# of Vehicles Available by Households")),
+          fluidRow(column(12,echarts4rOutput(ns("vehicles_chart")))),
+          br(),
+          fluidRow(column(12, dataTableOutput(ns("vehicles_table")))),
+          br(),
+          tags$div(class="chart_source","Source: US Census Bureau American Community Survey (ACS) 5yr Data Table B08201"),
           hr(style = "border-top: 1px solid #000000;")
+         
         )
         
       } else {

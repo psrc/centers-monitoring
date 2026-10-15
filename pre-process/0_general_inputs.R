@@ -276,11 +276,17 @@ geography_estimate_from_splits <- function(split_df, estimate_df, geography_name
   
   c <- left_join(t, estimate_df, by=c("year", "geoid")) |>
     mutate(place_estimate = case_when(
-      split_type == "percent_of_total_pop" ~ round(estimate * percent_of_total_pop,0),
-      split_type == "percent_of_occupied_housing_units" ~ round(estimate * percent_of_occupied_housing_units,0),
-      split_type == "percent_of_household_pop" ~ round(estimate * percent_of_household_pop,0),
-      split_type == "percent_of_housing_units" ~ round(estimate * percent_of_housing_units,0))) |>
-    group_by(year, place_id, place_name, place_category, place_type, grouping, concept) |>
+      split_type == "percent_of_total_pop" ~ 
+        round(estimate * percent_of_total_pop,0),
+      split_type == "percent_of_occupied_housing_units" ~ 
+        round(estimate * percent_of_occupied_housing_units,0),
+      split_type == "percent_of_household_pop" ~ 
+        round(estimate * percent_of_household_pop,0),
+      split_type == "percent_of_housing_units" ~ 
+        round(estimate * percent_of_housing_units,0))) |>
+    group_by(year, place_id, 
+             place_name, place_category, 
+             place_type, grouping, concept) |>
     summarise(estimate = sum(place_estimate)) |>
     as_tibble() |>
     mutate(grouping = factor(grouping, levels = grouping_order)) |>
