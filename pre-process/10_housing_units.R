@@ -20,14 +20,15 @@ hu = pop_hh_hu_data  |>
   group_by(place_id) |>
   mutate(delta = round(estimate - lag(estimate), -1)) |>
   ungroup() |>
-  mutate(grouping = "New Net Housing Units") |>
+  mutate(grouping = "Housing Unit Change") |>
   drop_na() |>
   mutate(year = case_when(
     year == 2015 ~ "2010 to 2015",
     year == 2020 ~ "2015 to 2020",
     year == 2025 ~ "2020 to 2025")) |>
   mutate(estimate = delta, share = 1) |>
-  select(-"delta")
+  select(-"delta") |>
+  mutate(concept = "Housing Unit Change")
 
 saveRDS(hu , 
         file.path(process_dir, 

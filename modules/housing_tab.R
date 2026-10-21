@@ -29,14 +29,14 @@ housing_server <- function(id, center_name, center_type) {
       
       echart_column_chart(df = unit_data |>
                             filter(place_type %in% c(center_type) & place_name %in% c(center_name()) & year %in% hu_yrs),
-                          x = "year", y = "estimate", tog = "concept", title = "New Net Housing Units",
+                          x = "year", y = "estimate", tog = "concept", title = "Housing Unit Change",
                           dec = 0, esttype = "number", color = "purples")
       
     })
     
     output$hu_change_table <- DT::renderDataTable({create_change_table(df = unit_data |>
                                                                          filter(place_type %in% c(center_type) & place_name %in% c(center_name()) & year %in% hu_yrs), 
-                                                                       yr = "year",val="estimate", nm="New Net Housing Units")})
+                                                                       yr = "year",val="estimate", nm="Housing Unit Change")})
     
     output$tenure_chart <- renderEcharts4r({
       
@@ -99,7 +99,7 @@ housing_server <- function(id, center_name, center_type) {
           hr(style = "border-top: 1px solid #000000;"),
         
           # Net Housing Unit Change
-          strong(tags$div(class="chart_title","New Net Housing Units")),
+          strong(tags$div(class="chart_title","Housing Unit Change")),
           fluidRow(column(6,br(), br(), br(), br(), dataTableOutput(ns("hu_change_table"))),
                   column(6,echarts4rOutput(ns("hu_change_chart")))),
           tags$div(class="chart_source","Source: WA OFM Small Area Estimates Program & PSRC Parcel Estimates Program"),
@@ -156,7 +156,7 @@ housing_server <- function(id, center_name, center_type) {
           hr(style = "border-top: 1px solid #000000;"),
           
           # Net Housing Unit Change
-          strong(tags$div(class="chart_title","New Net Housing Units")),
+          strong(tags$div(class="chart_title","Housing Unit Change")),
           fluidRow(column(6,br(), br(), br(), br(), dataTableOutput(ns("hu_change_table"))),
                    column(6,echarts4rOutput(ns("hu_change_chart")))),
           tags$div(class="chart_source","Source: WA OFM Small Area Estimates Program & PSRC Parcel Estimates Program"),
