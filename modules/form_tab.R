@@ -71,6 +71,7 @@ form_server <- function(id, center_name, center_type) {
           tags$div(class="chart_source","Source: PSRC UrbanSim Base Year Dataset"),
           br(),
           fluidRow(column(12,dataTableOutput(ns("urban_form_table")))),
+          tags$div(class="chart_source","Source: 2023 PSRC SoundCast Activity Based Model"),
           hr(style = "border-top: 1px solid #000000;")
         
       )
@@ -84,12 +85,13 @@ form_server <- function(id, center_name, center_type) {
           strong(tags$div(class="chart_title","Industrial Land Types")),
           fluidRow(column(7, imageOutput(ns("lu_map"))),
                    column(5, br(), br(), br(), br(), div(img(src="IL_lu_legend.png", width = "50%", style = "padding-left: 0px;")))),
+          tags$div(class="chart_source","Source: PSRC 2024 Industrial Lands Inventory (Data vintage Year 2023)"),
           hr(style = "border-top: 1px solid #000000;"),
           
           strong(tags$div(class="chart_title","Industrial Land by Type (acres)")),
           fluidRow(column(6, dataTableOutput(ns("industrial_land_table"))),
                    column(6, echarts4rOutput(ns("net_industial_land_chart")))),
-          tags$div(class="chart_source","Source: PSRC UrbanSim Base Year Dataset"),
+          tags$div(class="chart_source","Source: PSRC 2024 Industrial Lands Inventory (Data vintage Year 2023)"),
           hr(style = "border-top: 1px solid #000000;")
           
           
