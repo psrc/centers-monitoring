@@ -90,7 +90,7 @@ demographics_server <- function(id, center_name, center_type) {
           strong(tags$div(class="chart_title","Total Population")),
           fluidRow(column(6,br(), br(), br(), br(), dataTableOutput(ns("pop_table"))),
                   column(6,echarts4rOutput(ns("pop_chart")))),
-          tags$div(class="chart_source","Source: Office of Financial Managment SAEP Program & PSRC Parcelization"),
+          tags$div(class="chart_source","Source: WA OFM Small Area Estimates Program & PSRC Parcel Estimates Program"),
           hr(style = "border-top: 1px solid #000000;"),    
         
           # Age Group
@@ -140,7 +140,7 @@ demographics_server <- function(id, center_name, center_type) {
           strong(tags$div(class="chart_title","Total Population")),
           fluidRow(column(12,echarts4rOutput(ns("pop_hsg_chart")))),
           fluidRow(column(12,dataTableOutput(ns("pop_hsg_table")))),
-          tags$div(class="chart_source","Source: Office of Financial Managment SAEP Program & PSRC Parcelization"),
+          tags$div(class="chart_source","Source: WA OFM Small Area Estimates Program & PSRC Parcel Estimates Program"),
           hr(style = "border-top: 1px solid #000000;")
           
         )
