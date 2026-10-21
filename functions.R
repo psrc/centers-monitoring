@@ -1488,7 +1488,7 @@ create_summary_table <- function(center_name, center_type, yr) {
   
   # Jobs
   j <- employment_data |> 
-    filter(year == yr & place_name == center_name & place_type == center_type & grouping == "Total") |> 
+    filter(year == yr & place_name == center_name & place_type == center_type & grouping == "Total Jobs") |> 
     mutate(grouping="Total Employment") |> 
     select(name="place_name", "grouping", "estimate") |> 
     select("estimate") |> 
@@ -1501,7 +1501,7 @@ create_summary_table <- function(center_name, center_type, yr) {
   } else {
     
     r6 <- employment_data |> 
-      filter(year == yr & place_name == center_name & place_type == center_type & grouping == "Total") |> 
+      filter(year == yr & place_name == center_name & place_type == center_type & grouping == "Total Jobs") |> 
       mutate(grouping="Total Employment") |> 
       select(name="place_name", "grouping", "estimate") |>
       mutate(estimate = format(round(as.integer(estimate), -1), big.mark = ",")) |>
@@ -1521,7 +1521,7 @@ create_summary_table <- function(center_name, center_type, yr) {
     as.integer()
   
   j <- employment_data |> 
-    filter(year == yr & place_name == center_name & place_type == center_type & grouping == "Total") |> 
+    filter(year == yr & place_name == center_name & place_type == center_type & grouping == "Total Jobs") |> 
     mutate(grouping="Total Employment") |> 
     select(name="place_name", "grouping", "estimate") |> 
     select("estimate") |> 
@@ -1717,7 +1717,7 @@ create_mic_summary_table <- function(center_name, yr) {
   
   # Jobs
   j <- employment_data |> 
-    filter(year == yr & place_name == center_name & place_type == center_type & grouping == "Total") |> 
+    filter(year == yr & place_name == center_name & place_type == center_type & grouping == "Total Jobs") |> 
     mutate(grouping="Total Employment") |> 
     select(name="place_name", "grouping", "estimate") |> 
     select("estimate") |> 
@@ -1730,7 +1730,7 @@ create_mic_summary_table <- function(center_name, yr) {
   } else {
     
     r6 <- employment_data |> 
-      filter(year == yr & place_name == center_name & place_type == center_type & grouping == "Total") |> 
+      filter(year == yr & place_name == center_name & place_type == center_type & grouping == "Total Jobs") |> 
       mutate(grouping="Total Employment") |> 
       select(name="place_name", "grouping", "estimate") |>
       mutate(estimate = format(round(as.integer(estimate), -1), big.mark = ",")) |>
@@ -1742,7 +1742,7 @@ create_mic_summary_table <- function(center_name, yr) {
   acres <- r1 |> select("estimate") |> pull() |> as.integer()
   
   j <- employment_data |> 
-    filter(year == yr & place_name == center_name & place_type == center_type & grouping == "Total") |> 
+    filter(year == yr & place_name == center_name & place_type == center_type & grouping == "Total Jobs") |> 
     mutate(grouping="Total Employment") |> 
     select(name="place_name", "grouping", "estimate") |> 
     select("estimate") |> 

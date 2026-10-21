@@ -18,7 +18,7 @@ jobs_server <- function(id, center_name, center_type) {
     output$jobs_chart <- renderEcharts4r({
       
       echart_column_chart(df = employment_data |> 
-                            filter(place_type == center_type, place_name == center_name() & grouping == "Total") |>
+                            filter(place_type == center_type, place_name == center_name() & grouping == "Total Jobs") |>
                             mutate(estimate = as.integer(estimate)) |>
                             filter(year %in% pop_hsg_yrs),
                           x = "year", y = "estimate", tog = "grouping", title = "Total Employment",
@@ -58,7 +58,8 @@ jobs_server <- function(id, center_name, center_type) {
                           br(),
                           tags$div(class="chart_source","* Employment data is suppressed")
                           )),
-          
+          br(),
+          tags$div(class="chart_source","Source: PSRC Covered Employment Estimates"),
           hr(style = "border-top: 1px solid #000000;")
         )
       } else {
@@ -75,7 +76,9 @@ jobs_server <- function(id, center_name, center_type) {
                           br(),
                           tags$div(class="chart_source","* Employment data is suppressed")
                           )),
-                  hr(style = "border-top: 1px solid #000000;"),
+          br(),
+          tags$div(class="chart_source","Source: PSRC Covered Employment Estimates"),
+          hr(style = "border-top: 1px solid #000000;"),
           
           # Industrial Jobs
           strong(tags$div(class="chart_title","Share of Industrial Jobs")),

@@ -38,8 +38,8 @@ place_order <- c(county_order, "AllRGCs-AllRGCs",
 
 land_order <- c("Core Industrial", "Industrial-Commercial", 
                 "Aviation Operations", "Military", 
-                "Total Industrial", "Limited Industrial", 
-                "Non-Industrial*", "Industrial Waterways",
+                "Industrial Waterways", "Total Industrial", 
+                "Limited Industrial", "Non-Industrial", 
                 "Total Gross Acreage")
 
 # Industrial Jobs ---------------------------------------------------------

@@ -39,7 +39,7 @@ place_jobs <- read_csv(place_emp_file) |>
 
 # Get Totals for Shares
 totals <- place_jobs |> 
-  filter(grouping == "Total") |> 
+  filter(grouping == "Total Jobs") |> 
   select("year", "place_id", total="estimate")
 
 place_jobs <- left_join(place_jobs, totals, by=c("year", "place_id")) |> 
