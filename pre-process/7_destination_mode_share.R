@@ -162,12 +162,16 @@ destination_mode_share <- bind_rows(centers, region, all_rgcs, all_mics)
 
 destination_mode_share <- destination_mode_share |> 
   mutate(place_id = factor(place_id, levels = place_order)) |> 
-  arrange(year, place_id, grouping)
+  arrange(year, place_id, grouping) |>
+  mutate(concept = case_when(
+    concept == "Work" ~ "Work Trips",
+    concept == "Non-Work" ~ "Non-Work Trips"
+  ))
 
 rm(dest_mode_order, centers, 
    region, all_rgcs, all_mics, 
    place_modes, place_shape)
 
 saveRDS(destination_mode_share |> 
-          filter(concept == "Work"), 
+          filter(concept == "Work Trips"), 
         "data/destination_mode_share.rds")
