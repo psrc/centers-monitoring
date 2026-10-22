@@ -22,10 +22,10 @@ Cost Burden: Renters,Housing,Regional Growth Center,US Census Bureau American Co
 Cost Burden: Owners,Housing,Regional Growth Center,US Census Bureau American Community Survey (ACS) 5yr Data Table B25091,"2024, 2020, 2015, 2010"
 Transit Service (Map & Table),Transportation,Regional Growth Center,Fall GTFS Service,Fall 2026
 Mode to Work for Residents,Transportation,Regional Growth Center,US Census Bureau American Community Survey (ACS) 5yr Data Table B08301,"2024, 2020, 2015, 2010"
-Commute Mode for Workers,Transportation,Regional Growth Center,2023 PSRC SoundCast Activity Based Model,2023
+Commute Mode for Workers,Transportation,Regional Growth Center,PSRC SoundCast Activity Based Model,2023
 Land Use Map,Urban Form,Regional Growth Center,PSRC UrbanSim Base Year Dataset,2023
-# of Intersections,Urban Form,Regional Growth Center,2023 PSRC SoundCast Activity Based Model,2023
-Intersection Density (per acre),Urban Form,Regional Growth Center,2023 PSRC SoundCast Activity Based Model,2023
+# of Intersections,Urban Form,Regional Growth Center,PSRC SoundCast Activity Based Model,2023
+Intersection Density (per acre),Urban Form,Regional Growth Center,PSRC SoundCast Activity Based Model,2023
 Total Acres,Summary Statistics,Manufacturing Industrial Center,PSRC GIS,Current Year
 Designation Year,Summary Statistics,Manufacturing Industrial Center,PSRC,Current Year
 Center Type,Summary Statistics,Manufacturing Industrial Center,PSRC,Current Year
@@ -39,7 +39,7 @@ Share of Industrial Jobs,Jobs,Manufacturing Industrial Center,PSRC Covered Emplo
 Total Population,Population and Housing,Manufacturing Industrial Center,WA OFM Small Area Estimates Program & PSRC Parcel Estimates Program,"2025, 2020, 2015, 2010"
 Total Housing Units,Population and Housing,Manufacturing Industrial Center,WA OFM Small Area Estimates Program & PSRC Parcel Estimates Program,"2025, 2020, 2015, 2010"
 Transit Service (Map and Table),Transportation,Manufacturing Industrial Center,Fall GTFS Service,Fall 2026
-Commute Mode of Workers,Transportation,Manufacturing Industrial Center,2023 PSRC SoundCast Activity Based Model,2023
-Industrial Land Types Map,Urban Form,Manufacturing Industrial Center,PSRC Industrial Lands Inventory (Draft Nov 2023),2025
-Gross Land Acreage by Category (table),Urban Form,Manufacturing Industrial Center,PSRC Industrial Lands Inventory (Draft Nov 2023),2025
-Gross Land Acreage by Category (Chart),Urban Form,Manufacturing Industrial Center,PSRC Industrial Lands Inventory (Draft Nov 2023),2025
+Commute Mode of Workers,Transportation,Manufacturing Industrial Center,PSRC SoundCast Activity Based Model,2023
+Industrial Land Types Map,Urban Form,Manufacturing Industrial Center,PSRC 2024 Industrial Lands Inventory,2023
+Gross Land Acreage by Category (table),Urban Form,Manufacturing Industrial Center,PSRC 2024 Industrial Lands Inventory,2023
+Gross Land Acreage by Category (Chart),Urban Form,Manufacturing Industrial Center,PSRC 2024 Industrial Lands Inventory,2023

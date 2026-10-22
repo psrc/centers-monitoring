@@ -85,13 +85,13 @@ form_server <- function(id, center_name, center_type) {
           strong(tags$div(class="chart_title","Industrial Land Types")),
           fluidRow(column(7, imageOutput(ns("lu_map"))),
                    column(5, br(), br(), br(), br(), div(img(src="IL_lu_legend.png", width = "50%", style = "padding-left: 0px;")))),
-          tags$div(class="chart_source","Source: PSRC 2024 Industrial Lands Inventory (Data vintage Year 2023)"),
+          tags$div(class="chart_source","Source: PSRC 2024 Industrial Lands Inventory"),
           hr(style = "border-top: 1px solid #000000;"),
           
           strong(tags$div(class="chart_title","Industrial Land by Type (acres)")),
           fluidRow(column(6, dataTableOutput(ns("industrial_land_table"))),
                    column(6, echarts4rOutput(ns("net_industial_land_chart")))),
-          tags$div(class="chart_source","Source: PSRC 2024 Industrial Lands Inventory (Data vintage Year 2023)"),
+          tags$div(class="chart_source","Source: PSRC 2024 Industrial Lands Inventory"),
           hr(style = "border-top: 1px solid #000000;")
           
           
